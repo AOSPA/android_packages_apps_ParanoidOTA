@@ -76,8 +76,10 @@
     <string name="settings_expertmode_title">Expert mode</string>
     <string name="settings_expertmode_summary">Show all options</string>
     <string name="settings_update">Updates</string>
-    <string name="settings_checktime_title">Update check frequency</string>
-    <string name="settings_checktime_summary">Specify the time between each update check</string>
+    <string name="settings_checktimerom_title">ROM update check frequency</string>
+    <string name="settings_checktimerom_summary">Specify the time between each ROM update check</string>
+    <string name="settings_checktimegapps_title">Gogle apps update check frequency</string>
+    <string name="settings_checktimegapps_summary">Specify the time between each google apps update check</string>
     <string name="time_notifications_never">Don\'t check</string>
     <string name="time_notifications_half_an_hour">Half an hour</string>
     <string name="time_notifications_an_hour">1 hour</string>

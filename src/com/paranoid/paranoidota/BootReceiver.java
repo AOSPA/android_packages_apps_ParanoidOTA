@@ -25,7 +25,8 @@ public class BootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Utils.setAlarm(context, true);
+        Utils.setAlarm(context, true, true);
+        Utils.setAlarm(context, true, false);
     }
 
 }

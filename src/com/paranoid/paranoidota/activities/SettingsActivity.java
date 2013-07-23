@@ -43,7 +43,8 @@ public class SettingsActivity extends PreferenceActivity implements
     private SettingsHelper mSettingsHelper;
     private RecoveryHelper mRecoveryHelper;
     private CheckBoxPreference mExpertMode;
-    private ListPreference mCheckTime;
+    private ListPreference mCheckTimeRom;
+    private ListPreference mCheckTimeGapps;
     private Preference mDownloadPath;
     private CheckBoxPreference mDownloadFinished;
     private PreferenceCategory mRecoveryCategory;
@@ -66,7 +67,8 @@ public class SettingsActivity extends PreferenceActivity implements
         addPreferencesFromResource(R.layout.activity_settings);
 
         mExpertMode = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_EXPERT);
-        mCheckTime = (ListPreference) findPreference(SettingsHelper.PROPERTY_CHECK_TIME);
+        mCheckTimeRom = (ListPreference) findPreference(SettingsHelper.PROPERTY_CHECK_TIME_ROM);
+        mCheckTimeGapps = (ListPreference) findPreference(SettingsHelper.PROPERTY_CHECK_TIME_GAPPS);
         mDownloadPath = findPreference(SettingsHelper.PROPERTY_DOWNLOAD_PATH);
         mDownloadFinished = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_DOWNLOAD_FINISHED);
         mRecovery = findPreference(SettingsHelper.PROPERTY_RECOVERY);
@@ -80,7 +82,8 @@ public class SettingsActivity extends PreferenceActivity implements
         }
 
         mExpertMode.setDefaultValue(mSettingsHelper.getExpertMode());
-        mCheckTime.setValue(String.valueOf(mSettingsHelper.getCheckTime()));
+        mCheckTimeRom.setValue(String.valueOf(mSettingsHelper.getCheckTimeRom()));
+        mCheckTimeGapps.setValue(String.valueOf(mSettingsHelper.getCheckTimeGapps()));
         mDownloadFinished.setChecked(mSettingsHelper.getDownloadFinished());
         mOptions.setDefaultValue(mSettingsHelper.getShowOptions());
 
@@ -122,8 +125,10 @@ public class SettingsActivity extends PreferenceActivity implements
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (SettingsHelper.PROPERTY_EXPERT.equals(key)) {
             addOrRemovePreferences();
-        } else if (SettingsHelper.PROPERTY_CHECK_TIME.equals(key)) {
-            Utils.setAlarm(this, mSettingsHelper.getCheckTime(), false);
+        } else if (SettingsHelper.PROPERTY_CHECK_TIME_ROM.equals(key)) {
+            Utils.setAlarm(this, mSettingsHelper.getCheckTimeRom(), false, true);
+        } else if (SettingsHelper.PROPERTY_CHECK_TIME_GAPPS.equals(key)) {
+            Utils.setAlarm(this, mSettingsHelper.getCheckTimeGapps(), false, false);
         }
 
         updateSummaries();

@@ -48,7 +48,8 @@ public class Utils {
     public static final String FILES_INFO = "com.paranoid.paranoidota.RomUtils.FILES_INFO";
     public static final String CHECK_DOWNLOADS_FINISHED = "com.paranoid.paranoidota.RomUtils.CHECK_DOWNLOADS_FINISHED";
     public static final String MOD_VERSION = "ro.modversion";
-    public static final int ALARM_ID = 122303221;
+    public static final int ROM_ALARM_ID = 122303221;
+    public static final int GAPPS_ALARM_ID = 122303222;
 
     public static class NotificationInfo implements Serializable {
 
@@ -118,19 +119,20 @@ public class Utils {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public static void setAlarm(Context context, boolean trigger) {
+    public static void setAlarm(Context context, boolean trigger, boolean isRom) {
 
         SettingsHelper helper = new SettingsHelper(context);
-        long time = helper.getCheckTime();
-        setAlarm(context, time, trigger);
+        long time = isRom ? helper.getCheckTimeRom() : helper.getCheckTimeGapps();
+        setAlarm(context, time, trigger, isRom);
     }
 
-    public static void setAlarm(Context context, long time, boolean trigger) {
+    public static void setAlarm(Context context, long time, boolean trigger, boolean isRom) {
 
         Intent i = new Intent(context, NotificationAlarm.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        PendingIntent pi = PendingIntent.getBroadcast(context, ALARM_ID, i,
+        PendingIntent pi = PendingIntent.getBroadcast(context,
+                isRom ? ROM_ALARM_ID : GAPPS_ALARM_ID, i,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -140,9 +142,10 @@ public class Utils {
         }
     }
 
-    public static boolean alarmExists(Context context) {
-        return (PendingIntent.getBroadcast(context, ALARM_ID, new Intent(context,
-                NotificationAlarm.class), PendingIntent.FLAG_NO_CREATE) != null);
+    public static boolean alarmExists(Context context, boolean isRom) {
+        return (PendingIntent.getBroadcast(context, isRom ? ROM_ALARM_ID
+                : GAPPS_ALARM_ID, new Intent(context, NotificationAlarm.class),
+                PendingIntent.FLAG_NO_CREATE) != null);
     }
 
     public static void showToastOnUiThread(final Context context, final int resourceId) {

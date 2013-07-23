@@ -181,8 +181,12 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
             selectItem(savedInstanceState.getInt(SELECTED_ITEM));
         }
 
-        if (!Utils.alarmExists(this)) {
-            Utils.setAlarm(this, true);
+        if (!Utils.alarmExists(this, true)) {
+            Utils.setAlarm(this, true, true);
+        }
+
+        if (!Utils.alarmExists(this, false)) {
+            Utils.setAlarm(this, true, false);
         }
     }
 
