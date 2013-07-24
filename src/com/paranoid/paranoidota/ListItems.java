@@ -23,8 +23,9 @@ public class ListItems {
     public ArrayList<PreferenceItem> ITEMS = new ArrayList<PreferenceItem>();
 
     public ListItems() {
-        addItem(new PreferenceItem(R.string.slider_updates, R.drawable.slider_check));
-        addItem(new PreferenceItem(R.string.slider_files, R.drawable.slider_rom));
+        addItem(new PreferenceItem(R.string.slider_overview, R.drawable.slider_check));
+        addItem(new PreferenceItem(R.string.slider_updates, R.drawable.slider_rom));
+        addItem(new PreferenceItem(R.string.slider_install, R.drawable.slider_download));
         addItem(new PreferenceItem(R.string.slider_changelog, R.drawable.slider_changelog));
     }
 

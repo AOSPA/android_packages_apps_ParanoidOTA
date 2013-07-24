@@ -53,8 +53,9 @@ import com.paranoid.paranoidota.ListItems.PreferenceItem;
 import com.paranoid.paranoidota.Utils.NotificationInfo;
 import com.paranoid.paranoidota.activities.SettingsActivity;
 import com.paranoid.paranoidota.fragments.ChangelogFragment;
-import com.paranoid.paranoidota.fragments.FilesFragment;
+import com.paranoid.paranoidota.fragments.DownloadFragment;
 import com.paranoid.paranoidota.fragments.UpdateFragment;
+import com.paranoid.paranoidota.fragments.InstallFragment;
 import com.paranoid.paranoidota.helpers.DownloadHelper;
 import com.paranoid.paranoidota.helpers.DownloadHelper.DownloadCallback;
 import com.paranoid.paranoidota.helpers.NotificationHelper;
@@ -73,11 +74,13 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
     private static final String SELECTED_ITEM = "SelectedItem";
 
     private static final int CHECK_UPDATES = 0;
-    private static final int FILES = 1;
-    private static final int CHANGELOG = 2;
+    private static final int DOWNLOAD = 1;
+    private static final int INSTALL = 2;
+    private static final int CHANGELOG = 3;
 
     private UpdateFragment mUpdateFragment;
-    private FilesFragment mFilesFragment;
+    private InstallFragment mInstallFragment;
+    private DownloadFragment mDownloadFragment;
     private ChangelogFragment mChangelogFragment;
 
     private RomUpdater mRomUpdater;
@@ -228,7 +231,7 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                 ImageView icon = (ImageView) v.findViewById(R.id.icon);
                 TextView text = (TextView) v.findViewById(R.id.text);
                 RelativeLayout countLayout = (RelativeLayout) v.findViewById(R.id.count_layout);
-                if (position == FILES) {
+                if (position == DOWNLOAD) {
                     if (mDrawerLayout.isDrawerVisible(mDrawerList)) {
                         AlphaAnimation fadeIn = new AlphaAnimation(0, 1);
                         fadeIn.setDuration(500);
@@ -414,12 +417,18 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                 mUpdateFragment.setUpdaters(mRomUpdater, mGappsUpdater);
                 fragment = mUpdateFragment;
                 break;
-            case FILES:
-                if (mFilesFragment == null) {
-                    mFilesFragment = new FilesFragment();
+            case DOWNLOAD:
+                if (mDownloadFragment == null) {
+                    mDownloadFragment = new DownloadFragment();
                 }
-                mFilesFragment.setUpdaters(mRomUpdater, mGappsUpdater);
-                fragment = mFilesFragment;
+                mDownloadFragment.setUpdaters(mRomUpdater, mGappsUpdater);
+                fragment = mDownloadFragment;
+                break;
+            case INSTALL:
+                if (mInstallFragment == null) {
+                    mInstallFragment = new InstallFragment();
+                }
+                fragment = mInstallFragment;
                 break;
             case CHANGELOG:
                 if (mChangelogFragment == null) {

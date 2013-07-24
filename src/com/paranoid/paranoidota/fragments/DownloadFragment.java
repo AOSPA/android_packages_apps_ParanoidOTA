@@ -37,7 +37,7 @@ import com.paranoid.paranoidota.updater.RomUpdater;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 import com.paranoid.paranoidota.updater.Updater.UpdaterListener;
 
-public class FilesFragment extends android.preference.PreferenceFragment implements UpdaterListener {
+public class DownloadFragment extends android.preference.PreferenceFragment implements UpdaterListener {
 
     private Context mContext;
     private PreferenceCategory mRomRoot;

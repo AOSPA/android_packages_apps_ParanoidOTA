@@ -18,8 +18,9 @@
 
     <!-- SLIDERS -->
     <string-array name="slider_array">
+        <item>@string/slider_overview</item>
         <item>@string/slider_updates</item>
-        <item>@string/slider_files</item>
+        <item>@string/slider_install</item>
         <item>@string/slider_changelog</item>
     </string-array>
 
