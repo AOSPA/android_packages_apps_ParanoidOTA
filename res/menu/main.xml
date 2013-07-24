@@ -20,6 +20,16 @@
           android:title="@string/check_for_updates"
           android:showAsAction="ifRoom|withText" />
 
+    <item android:id="@+id/action_install"
+          android:icon="@drawable/ic_flash"
+          android:title="@string/install"
+          android:showAsAction="ifRoom|withText" />
+
+    <item android:id="@+id/action_add"
+          android:icon="@drawable/ic_add"
+          android:title="@string/install_add_file"
+          android:showAsAction="ifRoom|withText" />
+
     <item android:id="@+id/action_settings"
           android:icon="@drawable/action_settings"
           android:title="@string/action_settings"

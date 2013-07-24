@@ -131,10 +131,13 @@
     <string name="alert_reboot_only_install_title">Install update</string>
     <string name="alert_reboot_one_message">Your device will reboot into recovery and install the file %1$s.</string>
     <string name="alert_reboot_more_message">Your device will reboot into recovery and install %1$s files.</string>
-    <string name="alert_reboot_add_zip">Add zip</string>
     <string name="alert_reboot_now">Install now</string>
     <string name="alert_wipe_system_title">System wipe</string>
     <string name="alert_wipe_system_message">You are about to perform a system wipe. Are you sure you want to do that?</string>
     <string name="invalid_zip_file">Invalid ZIP file.</string>
     <string name="install_file_manager_error">No application found to pick the zip file. Please install a file manager.</string>
+    <string name="remove_file_title">Remove file</string>
+    <string name="remove_file_summary">Do you want to remove the file from the list?</string>
+    <string name="install">Install</string>
+    <string name="install_add_file">Add</string>
 </resources>

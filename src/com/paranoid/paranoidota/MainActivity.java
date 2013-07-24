@@ -51,6 +51,7 @@ import android.widget.Toast;
 
 import com.paranoid.paranoidota.ListItems.PreferenceItem;
 import com.paranoid.paranoidota.Utils.NotificationInfo;
+import com.paranoid.paranoidota.activities.RequestFileActivity;
 import com.paranoid.paranoidota.activities.SettingsActivity;
 import com.paranoid.paranoidota.fragments.ChangelogFragment;
 import com.paranoid.paranoidota.fragments.DownloadFragment;
@@ -263,6 +264,8 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.getItem(0).setVisible(mPosition == CHECK_UPDATES);
+        menu.getItem(1).setVisible(mPosition == INSTALL);
+        menu.getItem(2).setVisible(mPosition == INSTALL);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -288,6 +291,19 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
             case R.id.action_check:
                 mRomUpdater.check();
                 mGappsUpdater.check();
+                return true;
+            case R.id.action_install:
+                String[] files = InstallFragment.getFiles();
+                if (files.length > 0) {
+                    for (int i=0;i<files.length;i++) {
+                        files[i] = mRecoveryHelper.getRecoveryFilePath(files[i]);
+                    }
+                    mRebootHelper.showRebootDialog(this, files);
+                }
+                return true;
+            case R.id.action_add:
+                intent = new Intent(this, RequestFileActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -356,6 +372,9 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                 Toast.makeText(this, R.string.invalid_zip_file, Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            final File file = new File(filePath);
+
             if (md5 != null && !"".equals(md5)) {
 
                 final ProgressDialog pDialog = new ProgressDialog(this);
@@ -364,8 +383,6 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                 pDialog.setCancelable(false);
                 pDialog.setCanceledOnTouchOutside(false);
                 pDialog.show();
-
-                final File file = new File(filePath);
 
                 (new Thread() {
 
@@ -378,13 +395,10 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                         runOnUiThread(new Runnable() {
 
                             public void run() {
-                                String filePath = mRecoveryHelper.getRecoveryFilePath(file
-                                        .getAbsolutePath());
                                 if (md5.equals(calculatedMd5)) {
-                                    mRebootHelper.showRebootDialog(MainActivity.this,
-                                            new String[] { filePath });
+                                    addFile(file);
                                 } else {
-                                    showMd5Mismatch(md5, calculatedMd5, filePath);
+                                    showMd5Mismatch(md5, calculatedMd5, file);
                                 }
                             }
                         });
@@ -392,10 +406,14 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                 }).start();
                 
             } else {
-                filePath = mRecoveryHelper.getRecoveryFilePath(filePath);
-                mRebootHelper.showRebootDialog(this, new String[] { filePath });
+                addFile(file);
             }
         }
+    }
+
+    public void addFile(File file) {
+        InstallFragment.addFile(file);
+        selectItem(INSTALL);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -478,7 +496,7 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
         outState.putInt(SELECTED_ITEM, mPosition);
     }
 
-    private void showMd5Mismatch(String md5, String calculated, final String filePath) {
+    private void showMd5Mismatch(String md5, String calculated, final File file) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(R.string.md5_mismatch);
         alert.setMessage(getResources().getString(
@@ -494,7 +512,7 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.dismiss();
 
-                mRebootHelper.showRebootDialog(MainActivity.this, new String[] { filePath });
+                addFile(file);
             }
         });
         alert.show();

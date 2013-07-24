@@ -22,7 +22,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.PowerManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,14 +34,11 @@ import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.InstallOptionsCursor;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
-import com.paranoid.paranoidota.activities.RequestFileActivity;
-import com.paranoid.paranoidota.activities.RequestFileActivity.RequestFileCallback;
 
-public class RebootHelper implements RequestFileCallback {
+public class RebootHelper {
 
     private Context mContext;
     private RecoveryHelper mRecoveryHelper;
-    private String[] mItems;
 
     public RebootHelper(Context context, RecoveryHelper recoveryHelper) {
         mContext = context;
@@ -177,18 +173,6 @@ public class RebootHelper implements RequestFileCallback {
         alert.show();
     }
 
-    @Override
-    public void fileRequested(String filePath) {
-        filePath = mRecoveryHelper.getRecoveryFilePath(filePath);
-        String[] items = new String[mItems.length + 1];
-        for (int i = 0; i < mItems.length; i++) {
-            items[i] = mItems[i];
-        }
-        items[items.length - 1] = filePath;
-        mItems = null;
-        showRebootDialog(mContext, items);
-    }
-
     public void showRebootDialog(final Context context, final String[] items) {
 
         if (items == null || items.length == 0) {
@@ -242,16 +226,6 @@ public class RebootHelper implements RequestFileCallback {
                 }
                 installCursor.close();
 
-            }
-        });
-
-        alert.setNeutralButton(R.string.alert_reboot_add_zip, new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                mItems = items;
-                RequestFileActivity.setRequestFileCallback(RebootHelper.this);
-                Intent intent = new Intent(context, RequestFileActivity.class);
-                context.startActivity(intent);
             }
         });
 

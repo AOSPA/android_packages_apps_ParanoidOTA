@@ -19,7 +19,6 @@ package com.paranoid.paranoidota.fragments;
 import java.io.File;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
@@ -75,7 +74,7 @@ public class DownloadFragment extends android.preference.PreferenceFragment impl
             int index = Integer.parseInt(preference.getKey());
             PackageInfo info = isRom ? mRomPackages[index] : mGappsPackages[index];
             File file = new File(new SettingsHelper(mContext).getDownloadPath(), info.getFilename());
-            ((MainActivity) getActivity()).onDownloadFinished(Uri.fromFile(file), null, isRom);
+            ((MainActivity) getActivity()).addFile(file);
             return false;
         }
     };

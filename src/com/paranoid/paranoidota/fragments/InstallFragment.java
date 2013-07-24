@@ -17,29 +17,50 @@
 package com.paranoid.paranoidota.fragments;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.net.Uri;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.widget.Toast;
 
 import com.paranoid.paranoidota.IOUtils;
-import com.paranoid.paranoidota.MainActivity;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
-import com.paranoid.paranoidota.helpers.DownloadHelper;
-import com.paranoid.paranoidota.helpers.SettingsHelper;
-import com.paranoid.paranoidota.updater.GappsUpdater;
-import com.paranoid.paranoidota.updater.RomUpdater;
-import com.paranoid.paranoidota.updater.Updater.PackageInfo;
-import com.paranoid.paranoidota.updater.Updater.UpdaterListener;
+import com.paranoid.paranoidota.activities.RequestFileActivity;
+import com.paranoid.paranoidota.activities.RequestFileActivity.RequestFileCallback;
 
-public class InstallFragment extends android.preference.PreferenceFragment {
+public class InstallFragment extends android.preference.PreferenceFragment
+        implements RequestFileCallback {
+
+    private static List<File> sFiles = new ArrayList<File>();
+
+    public static void clearFiles() {
+        sFiles.clear();
+    }
+
+    public static void addFile(File file) {
+        if (sFiles.indexOf(file) >= 0) {
+            sFiles.remove(file);
+        }
+        sFiles.add(file);
+    }
+
+    public static String[] getFiles() {
+        List<String> files = new ArrayList<String>();
+        for (File file : sFiles) {
+            files.add(file.getAbsolutePath());
+        }
+        return files.toArray(new String[files.size()]);
+    }
 
     private Context mContext;
+    private OnPreferenceClickListener mListener;
     private PreferenceCategory mLocalRoot;
     private PreferenceCategory mExtrasRoot;
 
@@ -48,6 +69,17 @@ public class InstallFragment extends android.preference.PreferenceFragment {
         super.onCreate(savedInstanceState);
 
         mContext = getActivity();
+
+        mListener = new OnPreferenceClickListener() {
+
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                showRemoveDialog(preference);
+                return false;
+            }
+        };
+
+        RequestFileActivity.setRequestFileCallback(this);
 
         PreferenceScreen root = getPreferenceManager().createPreferenceScreen(mContext);
 
@@ -61,32 +93,64 @@ public class InstallFragment extends android.preference.PreferenceFragment {
 
         setPreferenceScreen(root);
 
-        Preference info1 = new Preference(mContext);
-        info1.setTitle("pa_3.69_20130724.zip");
-        info1.setSummary("Rom, 3.69 - July 22, 2013");
-        info1.setIcon(R.drawable.ic_download);
-        info1.setSelectable(false);
-        mLocalRoot.addPreference(info1);
+        update();
+    }
 
-        Preference info2 = new Preference(mContext);
-        info2.setTitle("pa_gapps_20130724_offical.zip");
-        info2.setSummary("Google Apps, July 22, 2013");
-        info2.setIcon(R.drawable.ic_download);
-        info2.setSelectable(false);
-        mLocalRoot.addPreference(info2);
+    @Override
+    public void fileRequested(String filePath) {
+        addFile(new File(filePath));
+        update();
+    }
 
-        Preference info3 = new Preference(mContext);
-        info3.setTitle("open_pdroid_whatever.zip");
-        info3.setSummary("Addition file, MD5: 87438HJGHJF76");
-        info3.setIcon(R.drawable.ic_download);
-        info3.setSelectable(false);
-        mExtrasRoot.addPreference(info3);
+    private void update() {
+        mLocalRoot.removeAll();
+        mExtrasRoot.removeAll();
+        for (File file : sFiles) {
+            Preference pref = new Preference(mContext);
+            pref.setTitle(file.getName());
+            pref.setSummary(getSummary(file, true));
+            pref.setIcon(R.drawable.ic_download);
+            pref.getExtras().putString("filePath", file.getAbsolutePath());
+            pref.setOnPreferenceClickListener(mListener);
+            if (IOUtils.isOnDownloadList(mContext, file.getName())) {
+                mLocalRoot.addPreference(pref);
+            } else {
+                mExtrasRoot.addPreference(pref);
+            }
+        }
+    }
 
-        // to do: needs an install button in the action bar plus a + button to add
-        // extra-files. a way to remove those aswell, maybe long-press.
+    private String getSummary(File file, boolean isDownloaded) {
+        if (isDownloaded) {
+            String name = file.getName();
+            name = name.replace("-full", "").replace("-signed", "");
+            return Utils.getReadableVersion(name);
+        } else {
+            String path = file.getAbsolutePath();
+            return path.substring(0, path.lastIndexOf("/"));
+        }
+    }
 
-        // in the updates fragement, when a file has been updatedhe shows a pin, a
-        // click opens the flash-dialog. it would be enough to just jump into the
-        // install fragment if you click it, no dialog needed at all.
+    private void showRemoveDialog(final Preference preference) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+        alert.setTitle(R.string.remove_file_title);
+        alert.setMessage(R.string.remove_file_summary);
+        alert.setPositiveButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+            }
+        });
+        alert.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+
+                File file = new File(preference.getExtras().getString("filePath"));
+                sFiles.remove(file);
+                update();
+            }
+        });
+        alert.show();
     }
 }
