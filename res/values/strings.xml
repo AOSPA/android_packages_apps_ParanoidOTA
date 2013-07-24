@@ -60,7 +60,7 @@
     <string name="already_downloading_gapps">You are alredy downloading a google apps update.</string>
     <string name="calculating_md5">Calculating MD5 sum...</string>
     <string name="md5_mismatch">MD5 mismatch</string>
-    <string name="md5_mismatch_summary">Received:\n%1$s\nCalculated:\n%2$s</string>
+    <string name="md5_mismatch_summary">Received:\n%1$s\n\nCalculated:\n%2$s</string>
     <string name="md5_install_anyway">Install anyway</string>
 
     <!-- RECOVERY -->
@@ -79,7 +79,7 @@
     <string name="settings_update">Updates</string>
     <string name="settings_checktimerom_title">ROM update check frequency</string>
     <string name="settings_checktimerom_summary">Specify the time between each ROM update check</string>
-    <string name="settings_checktimegapps_title">Gogle apps update check frequency</string>
+    <string name="settings_checktimegapps_title">Google apps update check frequency</string>
     <string name="settings_checktimegapps_summary">Specify the time between each google apps update check</string>
     <string name="time_notifications_never">Don\'t check</string>
     <string name="time_notifications_half_an_hour">Half an hour</string>
