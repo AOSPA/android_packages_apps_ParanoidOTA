@@ -379,12 +379,13 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                         runOnUiThread(new Runnable() {
 
                             public void run() {
+                                String filePath = mRecoveryHelper.getRecoveryFilePath(file
+                                        .getAbsolutePath());
                                 if (md5.equals(calculatedMd5)) {
                                     mRebootHelper.showRebootDialog(MainActivity.this,
-                                            new String[] { mRecoveryHelper.getRecoveryFilePath(file
-                                                    .getAbsolutePath()) });
+                                            new String[] { filePath });
                                 } else {
-                                    showMd5Mismatch(md5, calculatedMd5);
+                                    showMd5Mismatch(md5, calculatedMd5, filePath);
                                 }
                             }
                         });
@@ -479,15 +480,23 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
         outState.putInt(SELECTED_ITEM, mPosition);
     }
 
-    private void showMd5Mismatch(String md5, String calculated) {
+    private void showMd5Mismatch(String md5, String calculated, final String filePath) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(R.string.md5_mismatch);
         alert.setMessage(getResources().getString(
                 R.string.md5_mismatch_summary, new Object[] {md5, calculated}));
-        alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.dismiss();
+            }
+        });
+        alert.setNegativeButton(R.string.md5_install_anyway, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+
+                mRebootHelper.showRebootDialog(MainActivity.this, new String[] { filePath });
             }
         });
         alert.show();

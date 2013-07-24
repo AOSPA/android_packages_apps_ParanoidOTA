@@ -61,6 +61,7 @@
     <string name="calculating_md5">Calculating MD5 sum...</string>
     <string name="md5_mismatch">MD5 mismatch</string>
     <string name="md5_mismatch_summary">Received:\n%1$s\nCalculated:\n%2$s</string>
+    <string name="md5_install_anyway">Install anyway</string>
 
     <!-- RECOVERY -->
     <string name="recovery_cwm">ClockworkMod (CWM)</string>
