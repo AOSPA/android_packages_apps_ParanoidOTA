@@ -24,8 +24,7 @@ public class ListItems {
 
     public ListItems() {
         addItem(new PreferenceItem(R.string.slider_updates, R.drawable.slider_check));
-        addItem(new PreferenceItem(R.string.slider_rom, R.drawable.slider_rom));
-        addItem(new PreferenceItem(R.string.slider_google_apps, R.drawable.slider_gapps));
+        addItem(new PreferenceItem(R.string.slider_files, R.drawable.slider_rom));
         addItem(new PreferenceItem(R.string.slider_changelog, R.drawable.slider_changelog));
     }
 

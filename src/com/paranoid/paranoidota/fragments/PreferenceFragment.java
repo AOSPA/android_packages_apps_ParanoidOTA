@@ -96,12 +96,12 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
     }
 
     @Override
-    public void versionFound(PackageInfo[] roms) {
+    public void versionFound(PackageInfo[] roms, boolean isRom) {
         updateScreen(roms);
     }
 
     @Override
-    public void startChecking() {
+    public void startChecking(boolean isRom) {
         updateScreen(null);
     }
 

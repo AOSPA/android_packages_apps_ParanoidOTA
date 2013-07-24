@@ -63,6 +63,11 @@ public class RomUpdater extends Updater {
         return mScanning;
     }
 
+    @Override
+    public boolean isRom() {
+        return true;
+    }
+
     private String getDevice() {
         return Utils.getProp(PROPERTY_DEVICE);
     }
@@ -80,7 +85,7 @@ public class RomUpdater extends Updater {
                 error = updateInfo.optString("error");
                 if (error == null || error.isEmpty()) {
                     JSONArray updates = updateInfo.getJSONArray("updates");
-                    for (int i = 0; i < updates.length(); i++) {
+                    for (int i = updates.length() - 1; i >= 0; i--) {
                         JSONObject update = updates.getJSONObject(i);
                         list.add(new UpdatePackage(getDevice(), update.getString("name"), update
                                 .getLong("version"), update.getString("size"), update

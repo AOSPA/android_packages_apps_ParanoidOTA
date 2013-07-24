@@ -76,21 +76,21 @@ public class SystemActivity extends Activity implements UpdaterListener {
     }
 
     @Override
-    public void startChecking() {
-        setMessages(null);
+    public void startChecking(boolean isRom) {
+        setMessages(null, isRom);
     }
 
     @Override
-    public void versionFound(PackageInfo[] info) {
-        setMessages(info);
+    public void versionFound(PackageInfo[] info, boolean isRom) {
+        setMessages(info, isRom);
     }
 
-    private void setMessages(PackageInfo[] info) {
+    private void setMessages(PackageInfo[] info, boolean isRom) {
         if (info != null && info.length > 0) {
-            if (!info[info.length - 1].isGapps()) {
-                mRom = info != null && info.length > 0 ? info[info.length - 1] : null;
+            if (isRom) {
+                mRom = info != null && info.length > 0 ? info[0] : null;
             } else {
-                mGapps = info != null && info.length > 0 ? info[info.length - 1] : null;
+                mGapps = info != null && info.length > 0 ? info[0] : null;
             }
         }
         Resources res = getResources();

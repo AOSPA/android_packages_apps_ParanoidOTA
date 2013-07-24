@@ -25,7 +25,7 @@ public class NotificationHelper {
     private int mGappsNotifications;
 
     public interface NotificationCallback {
-        public abstract void updateNotifications(int[] notifications);
+        public abstract void updateNotifications(int notifications);
     }
 
     public NotificationHelper(NotificationCallback callback) {
@@ -41,6 +41,6 @@ public class NotificationHelper {
         }
         mRomNotifications = rom;
         mGappsNotifications = gapps;
-        mCallback.updateNotifications(new int[]{rom, gapps});
+        mCallback.updateNotifications(rom + gapps);
     }
 }

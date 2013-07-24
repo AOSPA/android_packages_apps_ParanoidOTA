@@ -53,8 +53,7 @@ import com.paranoid.paranoidota.ListItems.PreferenceItem;
 import com.paranoid.paranoidota.Utils.NotificationInfo;
 import com.paranoid.paranoidota.activities.SettingsActivity;
 import com.paranoid.paranoidota.fragments.ChangelogFragment;
-import com.paranoid.paranoidota.fragments.GappsFragment;
-import com.paranoid.paranoidota.fragments.RomFragment;
+import com.paranoid.paranoidota.fragments.FilesFragment;
 import com.paranoid.paranoidota.fragments.UpdateFragment;
 import com.paranoid.paranoidota.helpers.DownloadHelper;
 import com.paranoid.paranoidota.helpers.DownloadHelper.DownloadCallback;
@@ -74,13 +73,11 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
     private static final String SELECTED_ITEM = "SelectedItem";
 
     private static final int CHECK_UPDATES = 0;
-    private static final int ROM = 1;
-    private static final int GOOGLE_APPS = 2;
-    private static final int CHANGELOG = 3;
+    private static final int FILES = 1;
+    private static final int CHANGELOG = 2;
 
     private UpdateFragment mUpdateFragment;
-    private RomFragment mRomFragment;
-    private GappsFragment mGappsFragment;
+    private FilesFragment mFilesFragment;
     private ChangelogFragment mChangelogFragment;
 
     private RomUpdater mRomUpdater;
@@ -95,7 +92,7 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mSliderTitles;
-    private int[] mNotifications = new int[] {0, 0};
+    private int mNotifications = 0;
     private int mPosition;
 
     private NotificationHelper mNotificationHelper;
@@ -231,12 +228,11 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                 ImageView icon = (ImageView) v.findViewById(R.id.icon);
                 TextView text = (TextView) v.findViewById(R.id.text);
                 RelativeLayout countLayout = (RelativeLayout) v.findViewById(R.id.count_layout);
-                if ((position == ROM || position == GOOGLE_APPS)) {
-                    int index = position - 1;
+                if (position == FILES) {
                     if (mDrawerLayout.isDrawerVisible(mDrawerList)) {
                         AlphaAnimation fadeIn = new AlphaAnimation(0, 1);
                         fadeIn.setDuration(500);
-                        countLayout.setVisibility(mNotifications[index] > 0 ? View.VISIBLE
+                        countLayout.setVisibility(mNotifications > 0 ? View.VISIBLE
                                 : View.GONE);
                         countLayout.startAnimation(fadeIn);
                     } else {
@@ -244,8 +240,8 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                         countLayout.setVisibility(View.GONE);
                     }
                     TextView count = (TextView) countLayout.findViewById(R.id.notification_count);
-                    count.setText(mNotifications[index] > 99 ? "∞" : String
-                            .valueOf(mNotifications[index]));
+                    count.setText(mNotifications > 10 ? "10+" : String
+                            .valueOf(mNotifications));
                 }
 
                 if (icon != null) {
@@ -297,13 +293,13 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
 
     // RomUpdaterListener methods
     @Override
-    public void versionFound(PackageInfo[] info) {
+    public void versionFound(PackageInfo[] info, boolean isRom) {
         boolean checking = mRomUpdater.isScanning() || mGappsUpdater.isScanning();
         if (!checking) {
             setProgressBarVisibility(false);
         }
         if (info != null && info.length > 0) {
-            if (!info[info.length - 1].isGapps()) {
+            if (isRom) {
                 mNotificationHelper.setNotifications(info.length, NotificationHelper.NO_UPDATE);
             } else {
                 mNotificationHelper.setNotifications(NotificationHelper.NO_UPDATE, info.length);
@@ -315,14 +311,14 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
     }
 
     @Override
-    public void startChecking() {
+    public void startChecking(boolean isRom) {
         setProgressBarIndeterminate(true);
         setProgressBarVisibility(true);
     }
 
     // NotificationCallback methods
     @Override
-    public void updateNotifications(int[] notifications) {
+    public void updateNotifications(int notifications) {
         mNotifications = notifications;
         mAdapter.notifyDataSetChanged();
     }
@@ -418,19 +414,12 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                 mUpdateFragment.setUpdaters(mRomUpdater, mGappsUpdater);
                 fragment = mUpdateFragment;
                 break;
-            case ROM:
-                if (mRomFragment == null) {
-                    mRomFragment = new RomFragment();
+            case FILES:
+                if (mFilesFragment == null) {
+                    mFilesFragment = new FilesFragment();
                 }
-                mRomFragment.setUpdater(mRomUpdater);
-                fragment = mRomFragment;
-                break;
-            case GOOGLE_APPS:
-                if (mGappsFragment == null) {
-                    mGappsFragment = new GappsFragment();
-                }
-                mGappsFragment.setUpdater(mGappsUpdater);
-                fragment = mGappsFragment;
+                mFilesFragment.setUpdaters(mRomUpdater, mGappsUpdater);
+                fragment = mFilesFragment;
                 break;
             case CHANGELOG:
                 if (mChangelogFragment == null) {

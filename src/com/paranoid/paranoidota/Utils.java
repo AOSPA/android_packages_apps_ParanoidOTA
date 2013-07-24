@@ -184,7 +184,7 @@ public class Utils {
 
         if (infos.length == 1) {
             builder.setContentText(resources.getString(R.string.new_package_name,
-                    new Object[] { infos[infos.length - 1].getFilename() }));
+                    new Object[] { infos[0].getFilename() }));
         } else {
             builder.setContentText(resources.getString(R.string.new_packages,
                     new Object[] { infos.length }));

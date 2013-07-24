@@ -49,9 +49,9 @@ public abstract class Updater implements URLStringReaderListener, HttpStringRead
 
     public static interface UpdaterListener {
 
-        public void startChecking();
+        public void startChecking(boolean isRom);
 
-        public void versionFound(PackageInfo[] info);
+        public void versionFound(PackageInfo[] info, boolean isRom);
     }
 
     private Context mContext;
@@ -67,6 +67,8 @@ public abstract class Updater implements URLStringReaderListener, HttpStringRead
     public abstract void check();
 
     public abstract boolean isScanning();
+
+    public abstract boolean isRom();
 
     protected Context getContext() {
         return mContext;
@@ -94,7 +96,7 @@ public abstract class Updater implements URLStringReaderListener, HttpStringRead
     
                 public void run() {
                     for (UpdaterListener listener : mListeners) {
-                        listener.startChecking();
+                        listener.startChecking(isRom());
                     }
                 }
             });
@@ -107,7 +109,7 @@ public abstract class Updater implements URLStringReaderListener, HttpStringRead
     
                 public void run() {
                     for (UpdaterListener listener : mListeners) {
-                        listener.versionFound(info);
+                        listener.versionFound(info, isRom());
                     }
                 }
             });

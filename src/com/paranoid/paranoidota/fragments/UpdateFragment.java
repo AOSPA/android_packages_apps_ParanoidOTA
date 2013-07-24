@@ -67,10 +67,10 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
     }
 
     @Override
-    public void versionFound(PackageInfo[] info) {
+    public void versionFound(PackageInfo[] info, boolean isRom) {
         if (info == null || info.length == 0) {
             updateText(mRomUpdater.getLastUpdates(), mGappsUpdater.getLastUpdates());
-        } else if (info[info.length - 1].isGapps()) {
+        } else if (info[0].isGapps()) {
             updateText(mRomUpdater.getLastUpdates(), info);
         } else {
             updateText(info, mGappsUpdater.getLastUpdates());
@@ -78,7 +78,7 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
     }
 
     @Override
-    public void startChecking() {
+    public void startChecking(boolean isRom) {
         updateText(null, null);
     }
 
@@ -96,8 +96,8 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
                             mGappsUpdater.getVersion()
                     }));
         } else {
-            PackageInfo rom = roms != null && roms.length > 0 ? roms[roms.length - 1] : null;
-            PackageInfo gapp = gapps != null && gapps.length > 0 ? gapps[gapps.length - 1] : null;
+            PackageInfo rom = roms != null && roms.length > 0 ? roms[0] : null;
+            PackageInfo gapp = gapps != null && gapps.length > 0 ? gapps[0] : null;
             mStatusView
                     .setText(rom != null && gapp != null ? R.string.rom_gapps_new_version
                             : (rom != null ? R.string.rom_new_version

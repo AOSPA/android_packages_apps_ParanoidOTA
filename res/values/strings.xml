@@ -18,14 +18,15 @@
 <resources>
     <string name="app_name">Paranoid OTA</string>
     <string name="slider_updates">Updates</string>
-    <string name="slider_rom">ROM</string>
-    <string name="slider_google_apps">Google apps</string>
+    <string name="slider_files">ROM &amp; Google apps</string>
     <string name="slider_changelog">Changelog</string>
     <string name="action_settings">Settings</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="check_for_updates">Check</string>
     <string name="changelog_error">Could not load changelog!</string>
+    <string name="rom">ROM</string>
+    <string name="gapps">Google apps</string>
 
     <!-- UPDATES -->
     <string name="all_up_to_date">You\'re up to date!</string>
