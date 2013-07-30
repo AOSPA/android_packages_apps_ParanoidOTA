@@ -26,6 +26,7 @@ import android.content.Context;
 
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
+import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.http.URLStringReader;
 
 public class RomUpdater extends Updater {
@@ -34,6 +35,7 @@ public class RomUpdater extends Updater {
 
     private static final String URL = "http://api.paranoidandroid.co/updates/%s?v=%s";
 
+    private SettingsHelper mSettingsHelper;
     private boolean mScanning = false;
     private boolean mFromAlarm;
 
@@ -44,6 +46,14 @@ public class RomUpdater extends Updater {
 
     @Override
     public void check() {
+        if (mFromAlarm) {
+            if (mSettingsHelper == null) {
+                mSettingsHelper = new SettingsHelper(getContext());
+            }
+            if (mSettingsHelper.getCheckTimeRom() < 0) {
+                return;
+            }
+        }
         mScanning = true;
         fireStartChecking();
         new URLStringReader(this).execute(String.format(URL, new Object[] {

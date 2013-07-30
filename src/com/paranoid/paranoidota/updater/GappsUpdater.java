@@ -29,12 +29,14 @@ import android.content.Context;
 
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
+import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.http.URLStringReader;
 
 public class GappsUpdater extends Updater {
 
     private static final String URL_GAPPS = "http://api.paranoidandroid.co/updates/gapps?v=%s";
 
+    private SettingsHelper mSettingsHelper;
     private String mPlatform;
     private long mVersion = -1L;
     private boolean mCanUpdate;
@@ -162,6 +164,14 @@ public class GappsUpdater extends Updater {
 
     @Override
     public void check() {
+        if (mFromAlarm) {
+            if (mSettingsHelper == null) {
+                mSettingsHelper = new SettingsHelper(getContext());
+            }
+            if (mSettingsHelper.getCheckTimeGapps() < 0) {
+                return;
+            }
+        }
         mScanning = true;
         fireStartChecking();
         new URLStringReader(this).execute(String.format(URL_GAPPS, new Object[] {
