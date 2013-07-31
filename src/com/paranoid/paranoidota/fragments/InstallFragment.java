@@ -118,6 +118,24 @@ public class InstallFragment extends android.preference.PreferenceFragment
                 mExtrasRoot.addPreference(pref);
             }
         }
+
+        if (mLocalRoot.getPreferenceCount() == 0) {
+            Preference empty = new Preference(mContext);
+            empty.setTitle(R.string.update_no_local_files);
+            empty.setSummary(R.string.update_no_local_files_summary);
+            empty.setIcon(R.drawable.ic_info);
+            empty.setSelectable(false);
+            mLocalRoot.addPreference(empty);
+        }
+
+        if (mExtrasRoot.getPreferenceCount() == 0) {
+            Preference empty = new Preference(mContext);
+            empty.setTitle(R.string.update_no_extra_files);
+            empty.setSummary(R.string.update_no_extra_files_summary);
+            empty.setIcon(R.drawable.ic_info);
+            empty.setSelectable(false);
+            mExtrasRoot.addPreference(empty);
+        }
     }
 
     private String getSummary(File file, boolean isDownloaded) {

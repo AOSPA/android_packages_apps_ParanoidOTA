@@ -67,6 +67,10 @@
     <string name="md5_mismatch">MD5 mismatch</string>
     <string name="md5_mismatch_summary">Received:\n%1$s\n\nCalculated:\n%2$s</string>
     <string name="md5_install_anyway">Install anyway</string>
+    <string name="update_no_local_files">No downloads found</string>
+    <string name="update_no_local_files_summary">Check the overview tab for updates</string>
+    <string name="update_no_extra_files">No additional files specified</string>
+    <string name="update_no_extra_files_summary">Press the + button above to add flashable ZIP files</string>
 
     <!-- RECOVERY -->
     <string name="recovery_cwm">ClockworkMod (CWM)</string>
