@@ -42,6 +42,7 @@
     <string name="gapps_outdated">Your google apps are outdated!</string>
     <string name="no_rom_updates">No ROM updates found</string>
     <string name="no_gapps_updates">No google apps updates found</string>
+    <string name="no_gapps_installed">Google apps not installed</string>
     <string name="check_rom_updates_no_new">No ROM updates found</string>
     <string name="check_rom_updates_error">Error checking for ROM updates</string>
     <string name="check_gapps_updates_no_new">No google apps updates found</string>

@@ -91,10 +91,14 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
         if (mRomUpdater.isScanning() || mGappsUpdater.isScanning()) {
             mStatusView.setText(R.string.rom_scanning);
             mRomView.setText(Utils.getProp(Utils.MOD_VERSION));
-            mGappsView.setText(resources.getString(R.string.gapps_version,
-                    new Object[] {
-                            mGappsUpdater.getVersion()
-                    }));
+            if (mGappsUpdater.getVersion() == -1) {
+                mGappsView.setText(resources.getString(R.string.no_gapps_installed));
+            } else {
+                mGappsView.setText(resources.getString(R.string.gapps_version,
+                        new Object[] {
+                                mGappsUpdater.getVersion()
+                        }));
+            }
         } else {
             PackageInfo rom = roms != null && roms.length > 0 ? roms[0] : null;
             PackageInfo gapp = gapps != null && gapps.length > 0 ? gapps[0] : null;
@@ -111,10 +115,14 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
             if (gapp != null) {
                 mGappsView.setText(gapp.getFilename());
             } else {
-                mGappsView.setText(resources.getString(R.string.gapps_version,
-                        new Object[] {
-                                mGappsUpdater.getVersion()
-                        }));
+                if (mGappsUpdater.getVersion() == -1) {
+                    mGappsView.setText(resources.getString(R.string.no_gapps_installed));
+                } else {
+                    mGappsView.setText(resources.getString(R.string.gapps_version,
+                            new Object[] {
+                                    mGappsUpdater.getVersion()
+                            }));
+                }
             }
         }
     }
