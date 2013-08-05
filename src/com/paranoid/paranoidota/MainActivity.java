@@ -132,7 +132,7 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
         mRebootHelper = new RebootHelper(this, mRecoveryHelper);
 
         // No need to instantiate Download Helper, as it's static
-        DownloadHelper.registerCallback(this, this);
+        DownloadHelper.init(this, this);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer,
                 R.string.drawer_open, R.string.drawer_close) {
@@ -203,8 +203,14 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onResume() {
+        super.onResume();
+        DownloadHelper.registerCallback(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         DownloadHelper.unregisterCallback();
     }
 
@@ -360,6 +366,7 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
             setProgressBarIndeterminate(false);
             setProgress(progress * 100);
         }
+        System.out.println(progress);
         setProgressBarVisibility(progress < 100);
     }
 

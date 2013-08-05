@@ -101,15 +101,19 @@ public class DownloadHelper {
         }
     };
 
-    public static void registerCallback(Context context, DownloadCallback callback) {
+    public static void init(Context context, DownloadCallback callback) {
         sContext = context;
-        sCallback = callback;
         if (sDownloadManager == null) {
             sDownloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         }
         sSettingsHelper = new SettingsHelper(sContext);
         sDownloadingRom = sSettingsHelper.getDownloadRomId() >= 0;
         sDownloadingGapps = sSettingsHelper.getDownloadGappsId() >= 0;
+        registerCallback(callback);
+    }
+
+    public static void registerCallback(DownloadCallback callback) {
+        sCallback = callback;
         sUpdateHandler.post(sUpdateProgress);
     }
 
