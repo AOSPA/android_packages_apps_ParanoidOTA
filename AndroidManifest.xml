@@ -16,12 +16,12 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.paranoid.paranoidota"
-    android:versionCode="13"
-    android:versionName="1.3">
+    android:versionCode="14"
+    android:versionName="1.4">
 
     <original-package android:name="com.paranoid.paranoidota" />
 
-    <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="18" />
+    <uses-sdk android:minSdkVersion="13" android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />

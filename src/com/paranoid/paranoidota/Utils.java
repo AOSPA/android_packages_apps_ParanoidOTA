@@ -48,8 +48,11 @@ public class Utils {
     public static final String FILES_INFO = "com.paranoid.paranoidota.RomUtils.FILES_INFO";
     public static final String CHECK_DOWNLOADS_FINISHED = "com.paranoid.paranoidota.RomUtils.CHECK_DOWNLOADS_FINISHED";
     public static final String MOD_VERSION = "ro.modversion";
+    public static final String RO_PA = "ro.pa";
     public static final int ROM_ALARM_ID = 122303221;
     public static final int GAPPS_ALARM_ID = 122303222;
+
+    private static int sWeAreInAospa = -1;
 
     public static class NotificationInfo implements Serializable {
 
@@ -208,5 +211,13 @@ public class Utils {
         String path = aInfo.sourceDir.substring(0, aInfo.sourceDir.lastIndexOf("/"));
         boolean isSystemApp = path.contains("system/app");
         return isSystemApp;
+    }
+
+    public static boolean weAreInAospa() {
+        if (sWeAreInAospa == -1) {
+            String prop = getProp(RO_PA);
+            sWeAreInAospa = "true".equals(prop) ? 1 : 0;
+        }
+        return sWeAreInAospa == 1;
     }
 }

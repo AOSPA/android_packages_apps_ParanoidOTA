@@ -34,12 +34,15 @@
     <!-- OVERVIEW -->
     <string name="all_up_to_date">You\'re up to date!</string>
     <string name="rom_gapps_new_version">New versions found!</string>
+    <string name="update_to_aospa">Update to ParanoidAndroid!</string>
     <string name="rom_new_version">New rom version found!</string>
     <string name="gapps_new_version">New google apps version found!</string>
     <string name="rom_scanning">Checking for new versions...</string>
     <string name="gapps_version">Google apps %1$s</string>
     <string name="rom_outdated">Your ROM is outdated!</string>
+    <string name="update_rom_to_aospa">Update ROM to ParanoidAndroid!</string>
     <string name="gapps_outdated">Your google apps are outdated!</string>
+    <string name="update_gapps_to_aospa">Update google apps to ParanoidAndroid!</string>
     <string name="no_rom_updates">No ROM updates found</string>
     <string name="no_gapps_updates">No google apps updates found</string>
     <string name="no_gapps_installed">Google apps not installed</string>

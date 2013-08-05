@@ -163,7 +163,7 @@ public class DownloadFragment extends android.preference.PreferenceFragment impl
         root.addPreference(info);
 
         if(packages != null && packages.length > 0) {
-            for(int i = 0; i<packages.length; i++) {
+            for(int i = 0; i<packages.length && i<10; i++) {
                 final Preference pref = new Preference(mContext);
                 pref.setTitle(getPackageTitle(packages[i], isRom));
                 pref.setSummary(packages[i].getSize());
@@ -204,6 +204,9 @@ public class DownloadFragment extends android.preference.PreferenceFragment impl
     }
 
     private int getOutdatedIconResourceId(boolean isRom) {
+        if (!Utils.weAreInAospa()) {
+            return isRom ? R.string.update_rom_to_aospa : R.string.update_gapps_to_aospa;
+        }
         return isRom ? R.string.rom_outdated : R.string.gapps_outdated;
     }
 

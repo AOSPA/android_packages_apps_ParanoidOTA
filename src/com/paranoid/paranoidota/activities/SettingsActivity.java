@@ -85,7 +85,7 @@ public class SettingsActivity extends PreferenceActivity implements
         mCheckTimeRom.setValue(String.valueOf(mSettingsHelper.getCheckTimeRom()));
         mCheckTimeGapps.setValue(String.valueOf(mSettingsHelper.getCheckTimeGapps()));
         mDownloadFinished.setChecked(mSettingsHelper.getDownloadFinished());
-        mOptions.setDefaultValue(mSettingsHelper.getShowOptions());
+        mOptions.setValues(mSettingsHelper.getShowOptions());
 
         updateSummaries();
         addOrRemovePreferences();

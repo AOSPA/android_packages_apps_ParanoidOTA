@@ -109,8 +109,9 @@ public class GappsUpdater extends Updater {
             lastGapps = packagesList.toArray(new PackageInfo[packagesList.size()]);
             if (lastGapps.length > 0) {
                 if (mFromAlarm) {
-                    Utils.showNotification(getContext(), lastGapps, GAPPS_NOTIFICATION_ID,
-                            R.string.new_gapps_found_title);
+                    Utils.showNotification(getContext(), lastGapps, GAPPS_NOTIFICATION_ID, !Utils
+                            .weAreInAospa() ? R.string.update_gapps_to_aospa
+                            : R.string.new_gapps_found_title);
                 }
             } else {
                 if (error != null && !error.isEmpty()) {
@@ -174,8 +175,9 @@ public class GappsUpdater extends Updater {
         }
         mScanning = true;
         fireStartChecking();
+        long version = !Utils.weAreInAospa() ? 0L : getVersion();
         new URLStringReader(this).execute(String.format(URL_GAPPS, new Object[] {
-                getPlatform() + getVersion() }));
+                getPlatform() + version }));
     }
 
     @Override

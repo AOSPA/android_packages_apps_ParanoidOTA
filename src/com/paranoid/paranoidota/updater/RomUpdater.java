@@ -31,8 +31,6 @@ import com.paranoid.paranoidota.http.URLStringReader;
 
 public class RomUpdater extends Updater {
 
-    public static final String PROPERTY_VERSION = "ro.modversion";
-
     private static final String URL = "http://api.paranoidandroid.co/updates/%s?v=%s";
 
     private SettingsHelper mSettingsHelper;
@@ -56,14 +54,14 @@ public class RomUpdater extends Updater {
         }
         mScanning = true;
         fireStartChecking();
-        new URLStringReader(this).execute(String.format(URL, new Object[] {
-                getDevice(),
-                getVersion() }));
+        long version = !Utils.weAreInAospa() ? 0L : getVersion();
+        new URLStringReader(this)
+                .execute(String.format(URL, new Object[] { getDevice(), version }));
     }
 
     @Override
     public long getVersion() {
-        String version = Utils.getProp(PROPERTY_VERSION);
+        String version = Utils.getProp(Utils.MOD_VERSION);
         String stripped = version.replaceAll("\\D+", "");
         return Long.parseLong(stripped);
     }
@@ -106,8 +104,9 @@ public class RomUpdater extends Updater {
             lastRoms = list.toArray(new PackageInfo[list.size()]);
             if (list.size() > 0) {
                 if (mFromAlarm) {
-                    Utils.showNotification(getContext(), lastRoms, ROM_NOTIFICATION_ID,
-                            R.string.new_rom_found_title);
+                    Utils.showNotification(getContext(), lastRoms, ROM_NOTIFICATION_ID, !Utils
+                            .weAreInAospa() ? R.string.update_rom_to_aospa
+                            : R.string.new_rom_found_title);
                 }
             } else {
                 if (error != null && !error.isEmpty()) {

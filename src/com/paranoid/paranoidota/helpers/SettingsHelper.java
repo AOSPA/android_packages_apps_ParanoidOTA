@@ -20,6 +20,8 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.paranoid.paranoidota.Utils;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
@@ -68,6 +70,12 @@ public class SettingsHelper {
         mContext = context;
 
         settings = PreferenceManager.getDefaultSharedPreferences(context);
+
+        if (!Utils.weAreInAospa()) {
+            DEFAULT_SHOW_OPTIONS.add(INSTALL_BACKUP);
+            DEFAULT_SHOW_OPTIONS.add(INSTALL_WIPEDATA);
+            DEFAULT_SHOW_OPTIONS.add(INSTALL_WIPECACHES);
+        }
     }
 
     public boolean getExpertMode() {
