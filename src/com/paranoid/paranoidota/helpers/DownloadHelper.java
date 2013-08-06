@@ -121,24 +121,24 @@ public class DownloadHelper {
         sUpdateHandler.removeCallbacks(sUpdateProgress);
     }
 
-    public static void checkDownloadFinished(Context context) {
+    public static void checkDownloadFinished(Context context, long downloadId) {
         sContext = context;
         if (sDownloadManager == null) {
             sDownloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         }
         sSettingsHelper = new SettingsHelper(sContext);
-        checkDownloadFinished(true, true);
-        checkDownloadFinished(false, true);
+        checkDownloadFinished(downloadId, true, true);
+        checkDownloadFinished(downloadId, false, true);
     }
 
-    public static void clearDownload() {
-        checkDownloadFinished(true, false);
-        checkDownloadFinished(false, false);
+    public static void clearDownload(long downloadId) {
+        checkDownloadFinished(downloadId, true, false);
+        checkDownloadFinished(downloadId, false, false);
     }
 
-    private static void checkDownloadFinished(boolean isRom, boolean installIfFinished) {
+    private static void checkDownloadFinished(long downloadId, boolean isRom, boolean installIfFinished) {
         long id = isRom ? sSettingsHelper.getDownloadRomId() : sSettingsHelper.getDownloadGappsId();
-        if (id == -1L) {
+        if (id == -1L || (downloadId != 0 && downloadId != id)) {
             return;
         }
         String md5 = isRom ? sSettingsHelper.getDownloadRomMd5() : sSettingsHelper.getDownloadGappsMd5();
@@ -148,7 +148,6 @@ public class DownloadHelper {
         if (cursor.moveToFirst()) {
             int columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
             int status = cursor.getInt(columnIndex);
-
             switch (status) {
                 case DownloadManager.STATUS_FAILED:
                     sCallback.onDownloadError();
@@ -222,7 +221,9 @@ public class DownloadHelper {
     private static void cancelDownload(final long id, final boolean isRom) {
         new AlertDialog.Builder(sContext)
                 .setTitle(R.string.cancel_download_alert_title)
-                .setMessage(R.string.cancel_download_alert_summary)
+                .setMessage(
+                        isRom ? R.string.cancel_rom_download_alert_summary
+                                : R.string.cancel_gapps_download_alert_summary)
                 .setPositiveButton(R.string.cancel_download_alert_yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {

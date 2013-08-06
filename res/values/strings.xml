@@ -61,7 +61,8 @@
     <string name="new_package_name">%1$s</string>
     <string name="new_packages">%1$s updates available for download</string>
     <string name="cancel_download_alert_title">Cancel download</string>
-    <string name="cancel_download_alert_summary">Do you want to cancel the current download?</string>
+    <string name="cancel_rom_download_alert_summary">Do you want to cancel the current ROM download?</string>
+    <string name="cancel_gapps_download_alert_summary">Do you want to cancel the current google apps download?</string>
     <string name="cancel_download_alert_yes">Yes</string>
     <string name="cancel_download_alert_no">No</string>
     <string name="already_downloading_rom">You are alredy downloading a ROM update.</string>

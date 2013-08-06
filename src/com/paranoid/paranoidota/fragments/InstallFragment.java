@@ -102,7 +102,10 @@ public class InstallFragment extends android.preference.PreferenceFragment
         update();
     }
 
-    private void update() {
+    public void update() {
+        if (mLocalRoot == null) {
+            return;
+        }
         mLocalRoot.removeAll();
         mExtrasRoot.removeAll();
         for (File file : sFiles) {

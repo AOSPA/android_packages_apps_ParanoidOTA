@@ -45,8 +45,9 @@ import java.util.Date;
 
 public class Utils {
 
-    public static final String FILES_INFO = "com.paranoid.paranoidota.RomUtils.FILES_INFO";
-    public static final String CHECK_DOWNLOADS_FINISHED = "com.paranoid.paranoidota.RomUtils.CHECK_DOWNLOADS_FINISHED";
+    public static final String FILES_INFO = "com.paranoid.paranoidota.Utils.FILES_INFO";
+    public static final String CHECK_DOWNLOADS_FINISHED = "com.paranoid.paranoidota.Utils.CHECK_DOWNLOADS_FINISHED";
+    public static final String CHECK_DOWNLOADS_ID = "com.paranoid.paranoidota.Utils.CHECK_DOWNLOADS_ID";
     public static final String MOD_VERSION = "ro.modversion";
     public static final String RO_PA = "ro.pa";
     public static final int ROM_ALARM_ID = 122303221;

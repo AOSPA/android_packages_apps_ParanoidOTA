@@ -197,7 +197,8 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
         if (intent != null && intent.getExtras() != null) {
             mNotificationInfo = (NotificationInfo) intent.getSerializableExtra(Utils.FILES_INFO);
             if (intent.getBooleanExtra(Utils.CHECK_DOWNLOADS_FINISHED, false)) {
-                DownloadHelper.checkDownloadFinished(this);
+                DownloadHelper.checkDownloadFinished(this,
+                        intent.getLongExtra(Utils.CHECK_DOWNLOADS_ID, -1L));
             }
         }
     }
@@ -366,7 +367,6 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
             setProgressBarIndeterminate(false);
             setProgress(progress * 100);
         }
-        System.out.println(progress);
         setProgressBarVisibility(progress < 100);
     }
 
@@ -454,6 +454,7 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                     mInstallFragment = new InstallFragment();
                 }
                 fragment = mInstallFragment;
+                mInstallFragment.update();
                 break;
             case CHANGELOG:
                 if (mChangelogFragment == null) {

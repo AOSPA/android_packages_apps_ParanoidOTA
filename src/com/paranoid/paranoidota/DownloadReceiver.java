@@ -30,10 +30,11 @@ public class DownloadReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
+        long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
         if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
             SettingsHelper helper = new SettingsHelper(context);
             if (!helper.getDownloadFinished()) {
-                DownloadHelper.clearDownload();
+                DownloadHelper.clearDownload(id);
                 return;
             }
         }
@@ -41,6 +42,7 @@ public class DownloadReceiver extends BroadcastReceiver {
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP
                 | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.putExtra(Utils.CHECK_DOWNLOADS_FINISHED, true);
+        i.putExtra(Utils.CHECK_DOWNLOADS_ID, id);
         context.startActivity(i);
     }
 
