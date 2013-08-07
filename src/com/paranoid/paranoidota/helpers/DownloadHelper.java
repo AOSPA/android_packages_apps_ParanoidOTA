@@ -64,11 +64,13 @@ public class DownloadHelper {
             long[] statusRom = sDownloadingRom ? getDownloadProgress(idRom, true) : new long[] {
                     DownloadManager.STATUS_SUCCESSFUL,
                     0,
-                    0 };
+                    0,
+                    -1 };
             long[] statusGapps = sDownloadingGapps ? getDownloadProgress(idGapps, false) : new long[] {
                     DownloadManager.STATUS_SUCCESSFUL,
                     0,
-                    0 };
+                    0,
+                    -1 };
 
             int status = DownloadManager.STATUS_SUCCESSFUL;
             if (statusRom[0] == DownloadManager.STATUS_FAILED && statusGapps[0] == DownloadManager.STATUS_FAILED) {
