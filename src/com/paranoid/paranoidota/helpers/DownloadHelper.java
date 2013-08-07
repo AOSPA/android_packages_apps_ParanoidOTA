@@ -287,6 +287,9 @@ public class DownloadHelper {
         if (cursor != null) {
             cursor.close();
         }
+        if (romId >= 0L && !sDownloadingRom) {
+            removeDownload(romId, true, false);
+        }
 
         long gappsId = sSettingsHelper.getDownloadGappsId();
         query = new DownloadManager.Query();
@@ -295,6 +298,9 @@ public class DownloadHelper {
         sDownloadingGapps = cursor.moveToFirst();
         if (cursor != null) {
             cursor.close();
+        }
+        if (gappsId >= 0L && !sDownloadingGapps) {
+            removeDownload(romId, false, false);
         }
     }
 }
