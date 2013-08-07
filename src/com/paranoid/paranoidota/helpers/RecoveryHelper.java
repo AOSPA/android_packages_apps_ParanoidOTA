@@ -299,23 +299,27 @@ public class RecoveryHelper {
         String primarySdcard = IOUtils.getPrimarySdCard();
         String secondarySdcard = IOUtils.getSecondarySdCard();
 
-        String[] internalNames = new String[] { primarySdcard, "/mnt/sdcard", "/sdcard" };
+        String[] internalNames = new String[] {
+                primarySdcard,
+                "/mnt/sdcard",
+                "/sdcard",
+                "/storage/sdcard0",
+                "/storage/emulated/0" };
         String[] externalNames = new String[] {
                 secondarySdcard == null ? " " : secondarySdcard,
                 "/mnt/extSdCard",
-                "/extSdCard" };
+                "/extSdCard",
+                "/storage/sdcard1",
+                "/storage/emulated/1" };
         for (int i = 0; i < internalNames.length; i++) {
             String internalName = internalNames[i];
             String externalName = externalNames[i];
-            boolean external = IOUtils.isInSecondaryStorage(filePath);
-            if (external) {
-                if (filePath.startsWith(externalName)) {
-                    filePath = filePath.replace(externalName, "/" + externalStorage);
-                }
-            } else {
-                if (filePath.startsWith(internalName)) {
-                    filePath = filePath.replace(internalName, "/" + internalStorage);
-                }
+            if (filePath.startsWith(externalName)) {
+                filePath = filePath.replace(externalName, "/" + externalStorage);
+                break;
+            } else if (filePath.startsWith(internalName)) {
+                filePath = filePath.replace(internalName, "/" + internalStorage);
+                break;
             }
         }
 

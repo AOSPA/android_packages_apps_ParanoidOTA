@@ -16,6 +16,7 @@
 
 package com.paranoid.paranoidota;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -122,25 +123,43 @@ public class IOUtils {
         if (mounts.size() == 0 && isExternalStorageAvailable()) {
             mounts.add("/mnt/sdcard");
         }
-        try {
-            Scanner scanner = new Scanner(new File("/system/etc/vold.fstab"));
-            while (scanner.hasNext()) {
-                String line = scanner.nextLine();
-                if (line.startsWith("dev_mount")) {
-                    String[] lineElements = line.split(" ");
-                    String element = lineElements[2];
+        File fstab = findFstab();
+        if (fstab != null) {
+            try {
+                copyOrRemoveCache(fstab, true);
 
-                    if (element.contains(":")) {
-                        element = element.substring(0, element.indexOf(":"));
-                    }
-
-                    if (element.toLowerCase().indexOf("usb") < 0) {
-                        vold.add(element);
+                Scanner scanner = new Scanner(new File("/cache/" + fstab.getName()));
+                while (scanner.hasNext()) {
+                    String line = scanner.nextLine();
+                    if (line.startsWith("dev_mount")) {
+                        String[] lineElements = line.split(" ");
+                        String element = lineElements[2];
+    
+                        if (element.contains(":")) {
+                            element = element.substring(0, element.indexOf(":"));
+                        }
+    
+                        if (element.toLowerCase().indexOf("usb") < 0) {
+                            vold.add(element);
+                        }
+                    } else if (line.startsWith("/devices/platform")) {
+                        String[] lineElements = line.split(" ");
+                        String element = lineElements[1];
+    
+                        if (element.contains(":")) {
+                            element = element.substring(0, element.indexOf(":"));
+                        }
+    
+                        if (element.toLowerCase().indexOf("usb") < 0) {
+                            vold.add(element);
+                        }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                copyOrRemoveCache(fstab, false);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         if (vold.size() == 0 && isExternalStorageAvailable()) {
             vold.add("/mnt/sdcard");
@@ -170,6 +189,30 @@ public class IOUtils {
         }
 
         sSdcardsChecked = true;
+    }
+
+    private static File findFstab() {
+        File file = null;
+
+        file = new File("/system/etc/vold.fstab");
+        if (file.exists()) {
+            return file;
+        }
+
+        file = new File("/fstab." + Utils.getProp("ro.product.device"));
+        if (file.exists()) {
+            return file;
+        }
+
+        File[] files = (new File("/")).listFiles();
+        for (int i = 0; files != null && i < files.length ;i++) {
+            file = files[i];
+            if (file.getName().startsWith("fstab.") && !file.getName().equals("fstab.goldfish")) {
+                return file;
+            }
+        }
+
+        return null;
     }
 
     public static double getSpaceLeft() {
@@ -221,5 +264,24 @@ public class IOUtils {
         File downloads = new File(sSettingsHelper.getDownloadPath());
         downloads.mkdirs();
         return downloads;
+    }
+
+    private static void copyOrRemoveCache(File file, boolean copy) {
+        try {
+            Process p = Runtime.getRuntime().exec("su");
+            DataOutputStream os = new DataOutputStream(p.getOutputStream());
+            if (copy) {
+                os.writeBytes("cp " + file.getAbsolutePath() + " /cache/" + file.getName() + "\n");
+                os.writeBytes("chmod 644 /cache/" + file.getName() + "\n");
+            } else {
+                os.writeBytes("rm -f /cache/" + file.getName() + "\n");
+            }
+            os.writeBytes("sync\n");
+            os.writeBytes("exit\n");
+            os.flush();
+            p.waitFor();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
