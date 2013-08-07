@@ -355,8 +355,9 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
     }
 
     @Override
-    public void onDownloadError() {
+    public void onDownloadError(String reason) {
         setProgressBarVisibility(false);
+        Toast.makeText(this, reason, Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -76,6 +76,17 @@
     <string name="update_no_extra_files">No additional files specified</string>
     <string name="update_no_extra_files_summary">Press the + button above to add flashable ZIP files</string>
 
+    <!-- DOWNLOAD ERRORS -->
+    <string name="error_cannot_resume">Error: The download couldn\'t be resumed</string>
+    <string name="error_device_not_found">Error: Sdcard not mounted</string>
+    <string name="error_file_already_exists">Error: File already exists</string>
+    <string name="error_file_error">Error: Storage error</string>
+    <string name="error_http_data_error">Error: Http error</string>
+    <string name="error_insufficient_space">Error: No space left</string>
+    <string name="error_too_many_redirects">Error: Too many redirects</string>
+    <string name="error_unhandled_http_code">Error: Unhandled http code</string>
+    <string name="error_unknown">Error: Unknown</string>
+
     <!-- RECOVERY -->
     <string name="recovery_cwm">ClockworkMod (CWM)</string>
     <string name="recovery_twrp">TeamWin (TWRP)</string>

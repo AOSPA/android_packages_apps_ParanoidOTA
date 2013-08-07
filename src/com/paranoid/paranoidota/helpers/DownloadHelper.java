@@ -49,7 +49,7 @@ public class DownloadHelper {
 
         public abstract void onDownloadFinished(Uri uri, String md5, boolean isRom);
 
-        public abstract void onDownloadError();
+        public abstract void onDownloadError(String reason);
     }
 
     private static Runnable sUpdateProgress = new Runnable() {
@@ -82,7 +82,11 @@ public class DownloadHelper {
                     sCallback.onDownloadProgress(-1);
                     break;
                 case DownloadManager.STATUS_FAILED:
-                    sCallback.onDownloadError();
+                    int error = (int)statusRom[3];
+                    if (error == -1) {
+                        error = (int)statusGapps[3];
+                    }
+                    sCallback.onDownloadError(error == -1 ? null : sContext.getResources().getString(error));
                     break;
                 default:
                     long totalBytes = statusRom[1] + statusGapps[1];
@@ -149,8 +153,9 @@ public class DownloadHelper {
             int status = cursor.getInt(columnIndex);
             switch (status) {
                 case DownloadManager.STATUS_FAILED:
-                    sCallback.onDownloadError();
                     removeDownload(id, isRom, true);
+                    int reasonText = getDownloadError(cursor);
+                    sCallback.onDownloadError(sContext.getResources().getString(reasonText));
                     break;
                 case DownloadManager.STATUS_SUCCESSFUL:
                     if (installIfFinished) {
@@ -250,6 +255,7 @@ public class DownloadHelper {
             status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
         }
 
+        long error = -1;
         long totalBytes = -1;
         long downloadedBytes = -1;
 
@@ -267,6 +273,7 @@ public class DownloadHelper {
                 } else {
                     sDownloadingGapps = false;
                 }
+                error = getDownloadError(cursor);
                 break;
         }
 
@@ -274,7 +281,7 @@ public class DownloadHelper {
             cursor.close();
         }
 
-        return new long[] {status, totalBytes, downloadedBytes};
+        return new long[] {status, totalBytes, downloadedBytes, error};
     }
 
     private static void checkIfDownloading() {
@@ -302,5 +309,42 @@ public class DownloadHelper {
         if (gappsId >= 0L && !sDownloadingGapps) {
             removeDownload(romId, false, false);
         }
+    }
+
+    private static int getDownloadError(Cursor cursor) {
+        int columnReason = cursor.getColumnIndex(DownloadManager.COLUMN_REASON);
+        int reason = cursor.getInt(columnReason);
+        int reasonText = -1;
+        switch (reason) {
+            case DownloadManager.ERROR_CANNOT_RESUME:
+                reasonText = R.string.error_cannot_resume;
+                break;
+            case DownloadManager.ERROR_DEVICE_NOT_FOUND:
+                reasonText = R.string.error_device_not_found;
+                break;
+            case DownloadManager.ERROR_FILE_ALREADY_EXISTS:
+                reasonText = R.string.error_file_already_exists;
+                break;
+            case DownloadManager.ERROR_FILE_ERROR:
+                reasonText = R.string.error_file_error;
+                break;
+            case DownloadManager.ERROR_HTTP_DATA_ERROR:
+                reasonText = R.string.error_http_data_error;
+                break;
+            case DownloadManager.ERROR_INSUFFICIENT_SPACE:
+                reasonText = R.string.error_insufficient_space;
+                break;
+            case DownloadManager.ERROR_TOO_MANY_REDIRECTS:
+                reasonText = R.string.error_too_many_redirects;
+                break;
+            case DownloadManager.ERROR_UNHANDLED_HTTP_CODE:
+                reasonText = R.string.error_unhandled_http_code;
+                break;
+            case DownloadManager.ERROR_UNKNOWN:
+            default:
+                reasonText = R.string.error_unknown;
+                break;
+        }
+        return reasonText;
     }
 }
