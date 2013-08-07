@@ -107,8 +107,7 @@ public class DownloadHelper {
             sDownloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         }
         sSettingsHelper = new SettingsHelper(sContext);
-        sDownloadingRom = sSettingsHelper.getDownloadRomId() >= 0;
-        sDownloadingGapps = sSettingsHelper.getDownloadGappsId() >= 0;
+        checkIfDownloading();
         registerCallback(callback);
     }
 
@@ -168,14 +167,13 @@ public class DownloadHelper {
         } else {
             removeDownload(id, isRom, true);
         }
+        if (cursor != null) {
+            cursor.close();
+        }
     }
 
     public static boolean isDownloading(boolean rom) {
-        if (rom) {
-            return sDownloadingRom;
-        } else {
-            return sDownloadingGapps;
-        }
+        return rom ? sDownloadingRom : sDownloadingGapps;
     }
 
     public static void downloadFile(String url, String fileName, String md5, boolean isRom) {
@@ -277,5 +275,26 @@ public class DownloadHelper {
         }
 
         return new long[] {status, totalBytes, downloadedBytes};
+    }
+
+    private static void checkIfDownloading() {
+
+        long romId = sSettingsHelper.getDownloadRomId();
+        DownloadManager.Query query = new DownloadManager.Query();
+        query.setFilterById(romId);
+        Cursor cursor = sDownloadManager.query(query);
+        sDownloadingRom = cursor.moveToFirst();
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        long gappsId = sSettingsHelper.getDownloadGappsId();
+        query = new DownloadManager.Query();
+        query.setFilterById(gappsId);
+        cursor = sDownloadManager.query(query);
+        sDownloadingGapps = cursor.moveToFirst();
+        if (cursor != null) {
+            cursor.close();
+        }
     }
 }
