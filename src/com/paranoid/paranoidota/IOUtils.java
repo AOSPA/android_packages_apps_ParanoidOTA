@@ -16,6 +16,7 @@
 
 package com.paranoid.paranoidota;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -199,16 +200,14 @@ public class IOUtils {
             return file;
         }
 
-        file = new File("/fstab." + Utils.getProp("ro.product.device"));
-        if (file.exists()) {
-            return file;
-        }
-
-        File[] files = (new File("/")).listFiles();
-        for (int i = 0; files != null && i < files.length ;i++) {
-            file = files[i];
-            if (file.getName().startsWith("fstab.") && !file.getName().equals("fstab.goldfish")) {
-                return file;
+        String fstab = searchFstab();
+        if (fstab != null) {
+            String[] files = fstab.split("\n");
+            for (int i = 0; i < files.length; i++) {
+                file = new File(files[i]);
+                if (file.exists()) {
+                    return file;
+                }
             }
         }
 
@@ -283,5 +282,43 @@ public class IOUtils {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    private static String searchFstab() {
+        try {
+            Process p = Runtime.getRuntime().exec("su");
+            DataOutputStream os = new DataOutputStream(p.getOutputStream());
+            os.writeBytes("grep -ls \"/dev/block/\" * --include=fstab.* --exclude=fstab.goldfish");
+            os.writeBytes("sync\n");
+            os.writeBytes("exit\n");
+            os.flush();
+            p.waitFor();
+            return getStreamLines(p.getInputStream());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    private static String getStreamLines(final InputStream is) {
+        String out = null;
+        StringBuffer buffer = null;
+        final DataInputStream dis = new DataInputStream(is);
+
+        try {
+            if (dis.available() > 0) {
+                buffer = new StringBuffer(dis.readLine());
+                while (dis.available() > 0) {
+                    buffer.append("\n").append(dis.readLine());
+                }
+            }
+            dis.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        if (buffer != null) {
+            out = buffer.toString();
+        }
+        return out;
     }
 }
