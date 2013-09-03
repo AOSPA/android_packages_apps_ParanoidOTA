@@ -16,8 +16,6 @@
 
 package com.paranoid.paranoidota;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -26,11 +24,11 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.paranoid.paranoidota.helpers.SettingsHelper;
-
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
+
+import com.paranoid.paranoidota.helpers.SettingsHelper;
 
 public class IOUtils {
 
@@ -200,7 +198,8 @@ public class IOUtils {
             return file;
         }
 
-        String fstab = searchFstab();
+        String fstab = Utils
+                .su(new String[] { "grep -ls \"/dev/block/\" * --include=fstab.* --exclude=fstab.goldfish" });
         if (fstab != null) {
             String[] files = fstab.split("\n");
             for (int i = 0; i < files.length; i++) {
@@ -266,59 +265,12 @@ public class IOUtils {
     }
 
     private static void copyOrRemoveCache(File file, boolean copy) {
-        try {
-            Process p = Runtime.getRuntime().exec("su");
-            DataOutputStream os = new DataOutputStream(p.getOutputStream());
-            if (copy) {
-                os.writeBytes("cp " + file.getAbsolutePath() + " /cache/" + file.getName() + "\n");
-                os.writeBytes("chmod 644 /cache/" + file.getName() + "\n");
-            } else {
-                os.writeBytes("rm -f /cache/" + file.getName() + "\n");
-            }
-            os.writeBytes("sync\n");
-            os.writeBytes("exit\n");
-            os.flush();
-            p.waitFor();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        if (copy) {
+            Utils.su(new String[] {
+                    "cp " + file.getAbsolutePath() + " /cache/" + file.getName(),
+                    "chmod 644 /cache/" + file.getName() });
+        } else {
+            Utils.su(new String[] { "rm -f /cache/" + file.getName() });
         }
-    }
-
-    private static String searchFstab() {
-        try {
-            Process p = Runtime.getRuntime().exec("su");
-            DataOutputStream os = new DataOutputStream(p.getOutputStream());
-            os.writeBytes("grep -ls \"/dev/block/\" * --include=fstab.* --exclude=fstab.goldfish");
-            os.writeBytes("sync\n");
-            os.writeBytes("exit\n");
-            os.flush();
-            p.waitFor();
-            return getStreamLines(p.getInputStream());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }
-
-    private static String getStreamLines(final InputStream is) {
-        String out = null;
-        StringBuffer buffer = null;
-        final DataInputStream dis = new DataInputStream(is);
-
-        try {
-            if (dis.available() > 0) {
-                buffer = new StringBuffer(dis.readLine());
-                while (dis.available() > 0) {
-                    buffer.append("\n").append(dis.readLine());
-                }
-            }
-            dis.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        if (buffer != null) {
-            out = buffer.toString();
-        }
-        return out;
     }
 }

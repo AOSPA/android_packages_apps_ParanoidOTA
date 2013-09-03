@@ -16,6 +16,17 @@
 
 package com.paranoid.paranoidota;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -34,14 +45,6 @@ import android.widget.Toast;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.updater.Updater;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Utils {
 
@@ -220,5 +223,45 @@ public class Utils {
             sWeAreInAospa = "true".equals(prop) ? 1 : 0;
         }
         return sWeAreInAospa == 1;
+    }
+
+    public static String su(String[] commands) {
+        try {
+            Process p = Runtime.getRuntime().exec("su");
+            DataOutputStream os = new DataOutputStream(p.getOutputStream());
+            for (int i = 0; i < commands.length; i++) {
+                os.writeBytes(commands[i] + "\n");
+            }
+            os.writeBytes("sync\n");
+            os.writeBytes("exit\n");
+            os.flush();
+            p.waitFor();
+            return getStreamLines(p.getInputStream());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    private static String getStreamLines(final InputStream is) {
+        String out = null;
+        StringBuffer buffer = null;
+        final DataInputStream dis = new DataInputStream(is);
+
+        try {
+            if (dis.available() > 0) {
+                buffer = new StringBuffer(dis.readLine());
+                while (dis.available() > 0) {
+                    buffer.append("\n").append(dis.readLine());
+                }
+            }
+            dis.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        if (buffer != null) {
+            out = buffer.toString();
+        }
+        return out;
     }
 }
