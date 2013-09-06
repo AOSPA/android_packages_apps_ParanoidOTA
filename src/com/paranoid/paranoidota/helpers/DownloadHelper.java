@@ -197,6 +197,8 @@ public class DownloadHelper {
 
     public static void downloadFile(String url, String fileName, String md5, boolean isRom) {
 
+        url = url.replace("http://download/", "http://download.paranoidandroid.co/");
+
         sUpdateHandler.post(sUpdateProgress);
         sCallback.onDownloadStarted();
 
