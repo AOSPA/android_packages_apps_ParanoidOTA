@@ -71,6 +71,13 @@ public class DownloadFragment extends android.preference.PreferenceFragment impl
         @Override
         public boolean onPreferenceClick(Preference preference) {
             boolean isRom = preference.getExtras().getBoolean("isRom");
+            String fileName = preference.getExtras().getString("fileName");
+            if (DownloadHelper.isDownloading(isRom, fileName)) {
+                int resId = isRom ? R.string.wait_downloading_rom : R.string.wait_downloading_gapps;
+                Toast.makeText(mContext, resId, Toast.LENGTH_LONG)
+                        .show();
+                return false;
+            }
             int index = Integer.parseInt(preference.getKey());
             PackageInfo info = isRom ? mRomPackages[index] : mGappsPackages[index];
             File file = new File(new SettingsHelper(mContext).getDownloadPath(), info.getFilename());
@@ -169,6 +176,7 @@ public class DownloadFragment extends android.preference.PreferenceFragment impl
                 pref.setSummary(packages[i].getSize());
                 pref.setKey(String.valueOf(i));
                 pref.getExtras().putBoolean("isRom", isRom);
+                pref.getExtras().putString("fileName", packages[i].getFilename());
                 if(IOUtils.isOnDownloadList(mContext, packages[i].getFilename())) {
                     pref.setIcon(R.drawable.ic_offline);
                     pref.setOnPreferenceClickListener(mDownloadedListener);

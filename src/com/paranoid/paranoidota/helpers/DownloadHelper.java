@@ -183,6 +183,18 @@ public class DownloadHelper {
         return rom ? sDownloadingRom : sDownloadingGapps;
     }
 
+    public static boolean isDownloading(boolean rom, String fileName) {
+        if (sDownloadingRom) {
+            String downloadName = sSettingsHelper.getDownloadRomName();
+            return fileName.equals(downloadName);
+        }
+        if (sDownloadingGapps) {
+            String downloadName = sSettingsHelper.getDownloadGappsName();
+            return fileName.equals(downloadName);
+        }
+        return false;
+    }
+
     public static void downloadFile(String url, String fileName, String md5, boolean isRom) {
 
         sUpdateHandler.post(sUpdateProgress);
@@ -201,20 +213,20 @@ public class DownloadHelper {
         long id = sDownloadManager.enqueue(request);
         if (isRom) {
             sDownloadingRom = true;
-            sSettingsHelper.setDownloadRomId(id, md5);
+            sSettingsHelper.setDownloadRomId(id, md5, fileName);
         } else {
             sDownloadingGapps = true;
-            sSettingsHelper.setDownloadGappsId(id, md5);
+            sSettingsHelper.setDownloadGappsId(id, md5, fileName);
         }
     }
 
     private static void removeDownload(long id, boolean isRom, boolean removeDownload) {
         if (isRom) {
             sDownloadingRom = false;
-            sSettingsHelper.setDownloadRomId(null, null);
+            sSettingsHelper.setDownloadRomId(null, null, null);
         } else {
             sDownloadingGapps = false;
-            sSettingsHelper.setDownloadGappsId(null, null);
+            sSettingsHelper.setDownloadGappsId(null, null, null);
         }
         if (removeDownload) {
             sDownloadManager.remove(id);

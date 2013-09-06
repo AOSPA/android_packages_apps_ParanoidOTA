@@ -52,6 +52,8 @@ public class SettingsHelper {
     public static final String DOWNLOAD_GAPPS_ID = "download_gapps_id";
     public static final String DOWNLOAD_ROM_MD5 = "download_rom_md5";
     public static final String DOWNLOAD_GAPPS_MD5 = "download_gapps_md5";
+    public static final String DOWNLOAD_ROM_FILENAME = "download_rom_filaname";
+    public static final String DOWNLOAD_GAPPS_FILENAME = "download_gapps_filename";
 
     private static final boolean DEFAULT_EXPERT = false;
     private static final String DEFAULT_CHECK_TIME = "18000000"; // five hours
@@ -143,13 +145,15 @@ public class SettingsHelper {
         return Long.parseLong(settings.getString(PROPERTY_CHECK_TIME_GAPPS, DEFAULT_CHECK_TIME));
     }
 
-    public void setDownloadRomId(Long id, String md5) {
+    public void setDownloadRomId(Long id, String md5, String fileName) {
         if (id == null) {
             removePreference(DOWNLOAD_ROM_ID);
             removePreference(DOWNLOAD_ROM_MD5);
+            removePreference(DOWNLOAD_ROM_FILENAME);
         } else {
             savePreference(DOWNLOAD_ROM_ID, String.valueOf(id));
             savePreference(DOWNLOAD_ROM_MD5, md5);
+            savePreference(DOWNLOAD_ROM_FILENAME, fileName);
         }
     }
 
@@ -161,13 +165,19 @@ public class SettingsHelper {
         return settings.getString(DOWNLOAD_ROM_MD5, null);
     }
 
-    public void setDownloadGappsId(Long id, String md5) {
+    public String getDownloadRomName() {
+        return settings.getString(DOWNLOAD_ROM_FILENAME, null);
+    }
+
+    public void setDownloadGappsId(Long id, String md5, String fileName) {
         if (id == null) {
             removePreference(DOWNLOAD_GAPPS_ID);
             removePreference(DOWNLOAD_GAPPS_MD5);
+            removePreference(DOWNLOAD_GAPPS_FILENAME);
         } else {
             savePreference(DOWNLOAD_GAPPS_ID, String.valueOf(id));
             savePreference(DOWNLOAD_GAPPS_MD5, md5);
+            savePreference(DOWNLOAD_GAPPS_FILENAME, fileName);
         }
     }
 
@@ -177,6 +187,10 @@ public class SettingsHelper {
 
     public String getDownloadGappsMd5() {
         return settings.getString(DOWNLOAD_GAPPS_MD5, null);
+    }
+
+    public String getDownloadGappsName() {
+        return settings.getString(DOWNLOAD_GAPPS_FILENAME, null);
     }
 
     private void savePreference(String preference, String value) {
