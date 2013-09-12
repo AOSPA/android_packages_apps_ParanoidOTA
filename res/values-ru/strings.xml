@@ -17,7 +17,7 @@
 
 <resources>
     <string name="app_name">Paranoid OTA</string>
-    <string name="slider_overview">Статистика</string>
+    <string name="slider_overview">Состояние</string>
     <string name="slider_updates">Обновления</string>
     <string name="slider_install">Установить</string>
     <string name="slider_changelog">Изменения</string>
@@ -74,7 +74,7 @@
     <string name="md5_mismatch_summary">Получено:\n%1$s\n\nПодсчитано:\n%2$s</string>
     <string name="md5_install_anyway">Установить всё-равно</string>
     <string name="update_no_local_files">Загрузок не обнаружено</string>
-    <string name="update_no_local_files_summary">Перейдите во вкладку Статистика за обновлениями</string>
+    <string name="update_no_local_files_summary">Перейдите во вкладку Состояние за обновлениями</string>
     <string name="update_no_extra_files">Дополнительные файлы не указаны</string>
     <string name="update_no_extra_files_summary">Нажмите на кнопку + выше, чтобы добавить ZIP файлы для прошивки</string>
 
