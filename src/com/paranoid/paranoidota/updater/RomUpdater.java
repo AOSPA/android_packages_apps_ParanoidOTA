@@ -16,11 +16,7 @@
 
 package com.paranoid.paranoidota.updater;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import android.content.Context;
 
@@ -28,14 +24,21 @@ import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.http.URLStringReader;
+import com.paranoid.paranoidota.updater.server.GooServer;
+import com.paranoid.paranoidota.updater.server.PaServer;
 
 public class RomUpdater extends Updater {
 
-    private static final String URL = "http://api.paranoidandroid.co/updates/%s?v=%s";
+    private static final Server[] SERVERS = {
+        new PaServer(),
+        new GooServer()
+    };
 
     private SettingsHelper mSettingsHelper;
+    private Server mServer;
     private boolean mScanning = false;
     private boolean mFromAlarm;
+    private int mCurrentServer = -1;
 
     public RomUpdater(Context context, boolean fromAlarm) {
         super(context);
@@ -54,16 +57,23 @@ public class RomUpdater extends Updater {
         }
         mScanning = true;
         fireStartChecking();
-        long version = !Utils.weAreInAospa() ? 0L : getVersion();
-        new URLStringReader(this)
-                .execute(String.format(URL, new Object[] { getDevice(), version }));
+        nextServerCheck();
+    }
+
+    private void nextServerCheck() {
+        mScanning = true;
+        mCurrentServer++;
+        mServer = SERVERS[mCurrentServer];
+        new URLStringReader(this).execute(mServer.getUrl(getDevice(), getVersion()));
     }
 
     @Override
     public long getVersion() {
         String version = Utils.getProp(Utils.MOD_VERSION);
+        version = version.replaceAll(".1-RC1-", "-");
+        version = version.replaceAll("-RC2-", "-");
         String stripped = version.replaceAll("\\D+", "");
-        return Long.parseLong(stripped);
+        return "".equals(stripped) ? 0L : Long.parseLong(stripped);
     }
 
     @Override
@@ -86,22 +96,9 @@ public class RomUpdater extends Updater {
             mScanning = false;
             PackageInfo[] lastRoms = null;
             setLastUpdates(null);
-            String error = null;
-            List<PackageInfo> list = new ArrayList<PackageInfo>();
-            if (buffer != null && !buffer.isEmpty()) {
-                JSONObject updateInfo = new JSONObject(buffer);
-                error = updateInfo.optString("error");
-                if (error == null || error.isEmpty()) {
-                    JSONArray updates = updateInfo.getJSONArray("updates");
-                    for (int i = updates.length() - 1; i >= 0; i--) {
-                        JSONObject update = updates.getJSONObject(i);
-                        list.add(new UpdatePackage(getDevice(), update.getString("name"), update
-                                .getLong("version"), update.getString("size"), update
-                                .getString("url"), update.getString("md5"), false));
-                    }
-                }
-            }
+            List<PackageInfo> list = mServer.createPackageInfoList(buffer);
             lastRoms = list.toArray(new PackageInfo[list.size()]);
+            String error = mServer.getError();
             if (list.size() > 0) {
                 if (mFromAlarm) {
                     Utils.showNotification(getContext(), lastRoms, ROM_NOTIFICATION_ID, !Utils
@@ -110,13 +107,16 @@ public class RomUpdater extends Updater {
                 }
             } else {
                 if (error != null && !error.isEmpty()) {
-                    versionError(error);
+                    if (versionError(error)) {
+                        return;
+                    }
                 } else {
                     if (!mFromAlarm) {
                         Utils.showToastOnUiThread(getContext(), R.string.check_rom_updates_no_new);
                     }
                 }
             }
+            mCurrentServer = -1;
             setLastUpdates(lastRoms);
             fireCheckCompleted(lastRoms);
         } catch (Exception ex) {
@@ -132,16 +132,23 @@ public class RomUpdater extends Updater {
         versionError(null);
     }
 
-    private void versionError(String error) {
+    private boolean versionError(String error) {
         if (!mFromAlarm) {
-            if (error != null) {
-                Utils.showToastOnUiThread(getContext(),
-                        getContext().getResources().getString(R.string.check_rom_updates_error)
-                                + ": " + error);
+            if (mCurrentServer < SERVERS.length - 1) {
+                nextServerCheck();
+                return true;
             } else {
-                Utils.showToastOnUiThread(getContext(), R.string.check_rom_updates_error);
+                if (error != null) {
+                    Utils.showToastOnUiThread(getContext(),
+                            getContext().getResources().getString(R.string.check_rom_updates_error)
+                                    + ": " + error);
+                } else {
+                    Utils.showToastOnUiThread(getContext(), R.string.check_rom_updates_error);
+                }
             }
         }
+        mCurrentServer = -1;
         fireCheckCompleted(null);
+        return false;
     }
 }

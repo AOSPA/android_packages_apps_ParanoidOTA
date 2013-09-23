@@ -173,7 +173,11 @@ public class DownloadFragment extends android.preference.PreferenceFragment impl
             for(int i = 0; i<packages.length && i<10; i++) {
                 final Preference pref = new Preference(mContext);
                 pref.setTitle(getPackageTitle(packages[i], isRom));
-                pref.setSummary(packages[i].getSize());
+                String size = packages[i].getSize();
+                if ("0".equals(size)) {
+                    size = mContext.getResources().getString(R.string.unknown_size);
+                }
+                pref.setSummary(size);
                 pref.setKey(String.valueOf(i));
                 pref.getExtras().putBoolean("isRom", isRom);
                 pref.getExtras().putString("fileName", packages[i].getFilename());

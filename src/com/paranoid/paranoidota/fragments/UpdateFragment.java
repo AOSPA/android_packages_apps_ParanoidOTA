@@ -70,7 +70,7 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
     public void versionFound(PackageInfo[] info, boolean isRom) {
         if (info == null || info.length == 0) {
             updateText(mRomUpdater.getLastUpdates(), mGappsUpdater.getLastUpdates());
-        } else if (info[0].isGapps()) {
+        } else if (!isRom) {
             updateText(mRomUpdater.getLastUpdates(), info);
         } else {
             updateText(info, mGappsUpdater.getLastUpdates());

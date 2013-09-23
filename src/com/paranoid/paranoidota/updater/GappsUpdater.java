@@ -18,12 +18,8 @@ package com.paranoid.paranoidota.updater;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import android.content.Context;
 
@@ -31,17 +27,24 @@ import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.http.URLStringReader;
+import com.paranoid.paranoidota.updater.server.GooServer;
+import com.paranoid.paranoidota.updater.server.PaServer;
 
 public class GappsUpdater extends Updater {
 
-    private static final String URL_GAPPS = "http://api.paranoidandroid.co/updates/gapps?v=%s";
+    private static final Server[] SERVERS = {
+        new PaServer(),
+        new GooServer()
+    };
 
     private SettingsHelper mSettingsHelper;
+    private Server mServer;
     private String mPlatform;
     private long mVersion = -1L;
     private boolean mCanUpdate;
     private boolean mFromAlarm;
     private boolean mScanning;
+    private int mCurrentServer = -1;
 
     public GappsUpdater(Context context, boolean fromAlarm) {
         super(context);
@@ -91,22 +94,9 @@ public class GappsUpdater extends Updater {
         try {
             PackageInfo[] lastGapps = null;
             setLastUpdates(null);
-            String error = null;
-            List<PackageInfo> packagesList = new ArrayList<PackageInfo>();
-            if (buffer != null && !buffer.isEmpty()) {
-                JSONObject updateInfo = new JSONObject(buffer);
-                error = updateInfo.optString("error");
-                if (error == null || error.isEmpty()) {
-                    JSONArray updates = updateInfo.getJSONArray("updates");
-                    for (int i = updates.length() - 1; i >= 0; i--) {
-                        JSONObject update = updates.getJSONObject(i);
-                        packagesList.add(new UpdatePackage("gapps", update.getString("name"),
-                                update.getLong("version"), update.getString("size"), update
-                                        .getString("url"), update.getString("md5"), true));
-                    }
-                }
-            }
-            lastGapps = packagesList.toArray(new PackageInfo[packagesList.size()]);
+            List<PackageInfo> list = mServer.createPackageInfoList(buffer);
+            String error = mServer.getError();
+            lastGapps = list.toArray(new PackageInfo[list.size()]);
             if (lastGapps.length > 0) {
                 if (mFromAlarm) {
                     Utils.showNotification(getContext(), lastGapps, GAPPS_NOTIFICATION_ID, !Utils
@@ -115,13 +105,16 @@ public class GappsUpdater extends Updater {
                 }
             } else {
                 if (error != null && !error.isEmpty()) {
-                    versionError(error);
+                    if (versionError(error)) {
+                        return;
+                    }
                 } else {
                     if (!mFromAlarm) {
                         Utils.showToastOnUiThread(getContext(), R.string.check_gapps_updates_no_new);
                     }
                 }
             }
+            mCurrentServer = -1;
             setLastUpdates(lastGapps);
             fireCheckCompleted(lastGapps);
         } catch (Exception ex) {
@@ -136,25 +129,35 @@ public class GappsUpdater extends Updater {
         versionError(null);
     }
 
-    private void versionError(String error) {
+    private boolean versionError(String error) {
         mScanning = false;
         if (!mFromAlarm) {
-            if (error != null) {
-                Utils.showToastOnUiThread(getContext(), R.string.check_gapps_updates_error + ": "
-                        + error);
+            if (mCurrentServer < SERVERS.length - 1) {
+                nextServerCheck();
+                return true;
             } else {
-                Utils.showToastOnUiThread(getContext(), R.string.check_gapps_updates_error);
+                if (error != null) {
+                    Utils.showToastOnUiThread(getContext(), R.string.check_gapps_updates_error + ": "
+                            + error);
+                } else {
+                    Utils.showToastOnUiThread(getContext(), R.string.check_gapps_updates_error);
+                }
             }
         }
+        mCurrentServer = -1;
         fireCheckCompleted(null);
+        return false;
     }
 
     public String getPlatform() {
-        return mPlatform;
+        return mPlatform == null ? "0" : mPlatform;
     }
 
     @Override
     public long getVersion() {
+        if (!Utils.weAreInAospa()) {
+            return 0L;
+        }
         return mVersion;
     }
 
@@ -175,9 +178,15 @@ public class GappsUpdater extends Updater {
         }
         mScanning = true;
         fireStartChecking();
-        long version = !Utils.weAreInAospa() ? 0L : getVersion();
-        new URLStringReader(this).execute(String.format(URL_GAPPS, new Object[] {
-                getPlatform() + version }));
+        nextServerCheck();
+    }
+
+    private void nextServerCheck() {
+        mScanning = true;
+        mCurrentServer++;
+        mServer = SERVERS[mCurrentServer];
+        new URLStringReader(this).execute(mServer.getUrl("gapps",
+                Double.parseDouble(getPlatform() + getVersion())));
     }
 
     @Override
