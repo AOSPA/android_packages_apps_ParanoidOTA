@@ -91,7 +91,7 @@ public class RomUpdater extends Updater {
         if (device == null || device.isEmpty()) {
             device = Utils.getProp(PROPERTY_DEVICE_EXT);
         }
-        return "mako";//device;
+        return device;
     }
 
     @Override
