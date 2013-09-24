@@ -44,7 +44,7 @@
     <string name="system_update">Se ha encontrado una actualización del sistema y está lista para descargar.\nPor favor, comprueba las notificaciones que han aparecido. Te llevarán a ParanoidOTA desde donde podrás descargar y / o instalar la actualización del sistema.\n\nActualizacion(es) nueva(s):\n%1$s</string>
 
     <!-- DOWNLOADS/NOTIFICATIONS -->
-    <string name="download_title">Descargando %1$s...</string>
+    <string name="download_title">%1$s...</string>
     <string name="new_rom_found_title">Nueva versión de la ROM encontrada</string>
     <string name="new_gapps_found_title">Nueva versión de Google Apps encontrada</string>
     <string name="new_package_name">%1$s</string>

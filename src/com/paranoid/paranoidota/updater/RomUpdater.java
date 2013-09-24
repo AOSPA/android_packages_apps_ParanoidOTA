@@ -87,7 +87,11 @@ public class RomUpdater extends Updater {
     }
 
     private String getDevice() {
-        return Utils.getProp(PROPERTY_DEVICE);
+        String device = Utils.getProp(PROPERTY_DEVICE);
+        if (device == null || device.isEmpty()) {
+            device = Utils.getProp(PROPERTY_DEVICE_EXT);
+        }
+        return "mako";//device;
     }
 
     @Override
@@ -101,9 +105,7 @@ public class RomUpdater extends Updater {
             String error = mServer.getError();
             if (list.size() > 0) {
                 if (mFromAlarm) {
-                    Utils.showNotification(getContext(), lastRoms, ROM_NOTIFICATION_ID, !Utils
-                            .weAreInAospa() ? R.string.update_rom_to_aospa
-                            : R.string.new_rom_found_title);
+                    Utils.showNotification(getContext(), lastRoms, null);
                 }
             } else {
                 if (error != null && !error.isEmpty()) {
@@ -133,18 +135,17 @@ public class RomUpdater extends Updater {
     }
 
     private boolean versionError(String error) {
+        if (mCurrentServer < SERVERS.length - 1) {
+            nextServerCheck();
+            return true;
+        }
         if (!mFromAlarm) {
-            if (mCurrentServer < SERVERS.length - 1) {
-                nextServerCheck();
-                return true;
+            if (error != null) {
+                Utils.showToastOnUiThread(getContext(),
+                        getContext().getResources().getString(R.string.check_rom_updates_error)
+                                + ": " + error);
             } else {
-                if (error != null) {
-                    Utils.showToastOnUiThread(getContext(),
-                            getContext().getResources().getString(R.string.check_rom_updates_error)
-                                    + ": " + error);
-                } else {
-                    Utils.showToastOnUiThread(getContext(), R.string.check_rom_updates_error);
-                }
+                Utils.showToastOnUiThread(getContext(), R.string.check_rom_updates_error);
             }
         }
         mCurrentServer = -1;

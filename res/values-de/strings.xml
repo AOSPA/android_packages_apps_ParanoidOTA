@@ -44,7 +44,7 @@
     <string name="system_update">"Es wurde eine Update gefunden und steht zum Download bereit.\nBitte &#252;berpr&#252;fe die Benachrichtigung auf eine Neue Benachrichtung. Diese wird dich zu ParanoidAndroidOTA f&#252;hren, wo du dann das Update herunterladen kannst.\n\nNeue(s) Update(s) gefunden:\n%1$s"</string>
     
     <!-- DOWNLOADS/NOTIFICATIONS -->
-    <string name="download_title">"Lade herunter %1$s..."</string>
+    <string name="download_title">"%1$s..."</string>
     <string name="new_rom_founs_title">"Neue Rom Version gefunden"</string>
     <string name="new_gapps_found_title">"Neue Google Apps version gefunden"</string>
 <!--    <string name="new_package_name">"%1$s"</string> -->

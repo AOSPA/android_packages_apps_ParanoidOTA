@@ -55,7 +55,7 @@
     <string name="system_update">Новое системное обновление найдено и готово к загрузке.\nПроверьте появившиеся уведомления, они проведут вас в ParanoidOTA, откуда вы сможете скачать и/или установить обновление.\n\nНайденные обновления:\n%1$s</string>
 
     <!-- DOWNLOADS/NOTIFICATIONS -->
-    <string name="download_title">Загрузка %1$s...</string>
+    <string name="download_title">%1$s...</string>
     <string name="new_rom_found_title">Найдена новая версия прошивки</string>
     <string name="new_gapps_found_title">Найдена новая версия Gapps</string>
     <string name="new_package_name">%1$s</string>

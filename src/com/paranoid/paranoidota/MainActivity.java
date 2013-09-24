@@ -159,19 +159,14 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
 
         if (savedInstanceState == null) {
             if (mNotificationInfo != null) {
-                if (mNotificationInfo.mNotificationId != Updater.ROM_NOTIFICATION_ID) {
+                if (mNotificationInfo.mNotificationId != Updater.NOTIFICATION_ID) {
                     mRomUpdater.check();
-                } else {
-                    mRomUpdater.setLastUpdates(mNotificationInfo.mPackageInfos);
-                    mNotificationHelper.setNotifications(mNotificationInfo.mPackageInfos.length,
-                            NotificationHelper.NO_UPDATE);
-                }
-                if (mNotificationInfo.mNotificationId != Updater.GAPPS_NOTIFICATION_ID) {
                     mGappsUpdater.check();
                 } else {
-                    mGappsUpdater.setLastUpdates(mNotificationInfo.mPackageInfos);
-                    mNotificationHelper.setNotifications(NotificationHelper.NO_UPDATE,
-                            mNotificationInfo.mPackageInfos.length);
+                    mRomUpdater.setLastUpdates(mNotificationInfo.mPackageInfosRom);
+                    mGappsUpdater.setLastUpdates(mNotificationInfo.mPackageInfosGapps);
+                    mNotificationHelper.setNotifications(mNotificationInfo.mPackageInfosRom.length,
+                            mNotificationInfo.mPackageInfosGapps.length);
                 }
             } else {
                 mRomUpdater.check();

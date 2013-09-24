@@ -46,6 +46,7 @@
     <string name="no_rom_updates">No ROM updates found</string>
     <string name="no_gapps_updates">No google apps updates found</string>
     <string name="no_gapps_installed">Google apps not installed</string>
+    <string name="update_all_to_aospa">Update to ParanoidAndroid!</string>
     <string name="check_rom_updates_no_new">No ROM updates found</string>
     <string name="check_rom_updates_error">Error checking for ROM updates</string>
     <string name="check_gapps_updates_no_new">No google apps updates found</string>
@@ -56,9 +57,10 @@
     <string name="unknown_size">Unknown file size</string>
 
     <!-- DOWNLOADS/NOTIFICATIONS -->
-    <string name="download_title">Downloading %1$s...</string>
+    <string name="download_title">%1$s...</string>
     <string name="new_rom_found_title">New rom version found</string>
     <string name="new_gapps_found_title">New google apps package found</string>
+    <string name="new_all_found_title">New rom and google apps packages found</string>
     <string name="new_package_name">%1$s</string>
     <string name="new_packages">%1$s updates available for download</string>
     <string name="cancel_download_alert_title">Cancel download</string>

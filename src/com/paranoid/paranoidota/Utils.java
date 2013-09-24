@@ -56,12 +56,15 @@ public class Utils {
     public static final int ROM_ALARM_ID = 122303221;
     public static final int GAPPS_ALARM_ID = 122303222;
 
+    public static PackageInfo[] sPackageInfosRom = new PackageInfo[0];
+    public static PackageInfo[] sPackageInfosGapps = new PackageInfo[0];
     private static int sWeAreInAospa = -1;
 
     public static class NotificationInfo implements Serializable {
 
         public int mNotificationId;
-        public PackageInfo[] mPackageInfos;
+        public PackageInfo[] mPackageInfosRom;
+        public PackageInfo[] mPackageInfosGapps;
     }
 
     public static String getProp(String prop) {
@@ -173,28 +176,54 @@ public class Utils {
         });
     }
 
-    public static void showNotification(Context context, Updater.PackageInfo[] infos,
-            int notificationId, int contentTitleResourceId) {
+    public static void showNotification(Context context, Updater.PackageInfo[] infosRom,
+            Updater.PackageInfo[] infosGapps) {
         Resources resources = context.getResources();
+
+        if (infosRom != null) {
+            sPackageInfosRom = infosRom;
+        } else {
+            infosRom = sPackageInfosRom;
+        }
+        if (infosGapps != null) {
+            sPackageInfosGapps = infosGapps;
+        } else {
+            infosGapps = sPackageInfosGapps;
+        }
+
+        int contentTitleResourceId = -1;
+        if (infosRom.length > 0 && infosGapps.length > 0) {
+            contentTitleResourceId = !Utils.weAreInAospa() ? R.string.update_all_to_aospa
+                    : R.string.new_all_found_title;
+        } else if (infosRom.length == 0) {
+            contentTitleResourceId = !Utils.weAreInAospa() ? R.string.update_gapps_to_aospa
+                    : R.string.new_gapps_found_title;
+        } else {
+            contentTitleResourceId = !Utils.weAreInAospa() ? R.string.update_rom_to_aospa
+                    : R.string.new_rom_found_title;
+        }
 
         Intent intent = new Intent(context, MainActivity.class);
         NotificationInfo fileInfo = new NotificationInfo();
-        fileInfo.mNotificationId = notificationId;
-        fileInfo.mPackageInfos = infos;
+        fileInfo.mNotificationId = Updater.NOTIFICATION_ID;
+        fileInfo.mPackageInfosRom = infosRom;
+        fileInfo.mPackageInfosGapps = infosGapps;
         intent.putExtra(FILES_INFO, fileInfo);
-        PendingIntent pIntent = PendingIntent.getActivity(context, notificationId, intent,
+        PendingIntent pIntent = PendingIntent.getActivity(context, Updater.NOTIFICATION_ID, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification.Builder builder = new Notification.Builder(context)
                 .setContentTitle(resources.getString(contentTitleResourceId))
                 .setSmallIcon(R.drawable.ic_launcher).setContentIntent(pIntent);
 
-        if (infos.length == 1) {
+        if (infosRom.length + infosGapps.length == 1) {
+            String filename = infosRom.length == 1 ? infosRom[0].getFilename() : infosGapps[0]
+                    .getFilename();
             builder.setContentText(resources.getString(R.string.new_package_name,
-                    new Object[] { infos[0].getFilename() }));
+                    new Object[] { filename }));
         } else {
             builder.setContentText(resources.getString(R.string.new_packages,
-                    new Object[] { infos.length }));
+                    new Object[] { infosRom.length + infosGapps.length }));
         }
 
         Notification notif = builder.build();
@@ -204,7 +233,7 @@ public class Utils {
 
         notif.flags |= Notification.FLAG_AUTO_CANCEL;
 
-        notificationManager.notify(notificationId, notif);
+        notificationManager.notify(Updater.NOTIFICATION_ID, notif);
     }
 
     public static boolean isSystemApp(Context context) throws Exception {
