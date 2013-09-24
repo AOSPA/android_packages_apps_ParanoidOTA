@@ -40,6 +40,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 import com.paranoid.paranoidota.helpers.SettingsHelper;
@@ -212,19 +213,33 @@ public class Utils {
         PendingIntent pIntent = PendingIntent.getActivity(context, Updater.NOTIFICATION_ID, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification.Builder builder = new Notification.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle(resources.getString(contentTitleResourceId))
                 .setSmallIcon(R.drawable.ic_launcher).setContentIntent(pIntent);
 
+        String contextText = "";
         if (infosRom.length + infosGapps.length == 1) {
             String filename = infosRom.length == 1 ? infosRom[0].getFilename() : infosGapps[0]
                     .getFilename();
-            builder.setContentText(resources.getString(R.string.new_package_name,
-                    new Object[] { filename }));
+            contextText = resources.getString(R.string.new_package_name, new Object[] { filename });
         } else {
-            builder.setContentText(resources.getString(R.string.new_packages,
-                    new Object[] { infosRom.length + infosGapps.length }));
+            contextText = resources.getString(R.string.new_packages, new Object[] { infosRom.length
+                    + infosGapps.length });
         }
+        builder.setContentText(contextText);
+
+        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+        inboxStyle.setBigContentTitle(context.getResources().getString(contentTitleResourceId));
+        if (infosRom.length + infosGapps.length > 1) {
+            inboxStyle.addLine(contextText);
+        }
+        for (int i = 0; i < infosRom.length; i++) {
+            inboxStyle.addLine(infosRom[i].getFilename());
+        }
+        for (int i = 0; i < infosGapps.length; i++) {
+            inboxStyle.addLine(infosGapps[i].getFilename());
+        }
+        builder.setStyle(inboxStyle);
 
         Notification notif = builder.build();
 
