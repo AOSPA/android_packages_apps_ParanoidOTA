@@ -92,7 +92,7 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
         if (mRomUpdater.isScanning() || mGappsUpdater.isScanning()) {
             mStatusView.setText(R.string.rom_scanning);
             mRomView.setText(Utils.getProp(Utils.MOD_VERSION));
-            if (mGappsUpdater.getVersion() == -1) {
+            if (mGappsUpdater.getVersion() <= 0) {
                 mGappsView.setText(resources.getString(R.string.no_gapps_installed));
             } else {
                 mGappsView.setText(resources.getString(R.string.gapps_version,
@@ -119,7 +119,7 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
             if (gapp != null) {
                 mGappsView.setText(gapp.getFilename());
             } else {
-                if (mGappsUpdater.getVersion() == -1) {
+                if (mGappsUpdater.getVersion() < 0) {
                     mGappsView.setText(resources.getString(R.string.no_gapps_installed));
                 } else {
                     mGappsView.setText(resources.getString(R.string.gapps_version,

@@ -155,7 +155,7 @@ public class GappsUpdater extends Updater {
 
     @Override
     public long getVersion() {
-        if (!Utils.weAreInAospa()) {
+        if (mVersion <= 0L) {
             return 0L;
         }
         return mVersion;
