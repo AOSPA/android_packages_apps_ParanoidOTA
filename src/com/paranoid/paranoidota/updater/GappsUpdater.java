@@ -169,7 +169,7 @@ public class GappsUpdater extends Updater {
             if (mSettingsHelper == null) {
                 mSettingsHelper = new SettingsHelper(getContext());
             }
-            if (mSettingsHelper.getCheckTimeGapps() < 0) {
+            if (mSettingsHelper.getCheckTime() < 0) {
                 return;
             }
         }

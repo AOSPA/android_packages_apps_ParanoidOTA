@@ -133,8 +133,7 @@ public class Utils {
     public static void setAlarm(Context context, boolean trigger, boolean isRom) {
 
         SettingsHelper helper = new SettingsHelper(context);
-        long time = isRom ? helper.getCheckTimeRom() : helper.getCheckTimeGapps();
-        setAlarm(context, time, trigger, isRom);
+        setAlarm(context, helper.getCheckTime(), trigger, isRom);
     }
 
     public static void setAlarm(Context context, long time, boolean trigger, boolean isRom) {

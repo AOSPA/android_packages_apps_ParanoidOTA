@@ -29,18 +29,10 @@
         android:title="@string/settings_update" >
 
         <ListPreference
-            android:key="checktimerom"
-            android:title="@string/settings_checktimerom_title"
-            android:summary="@string/settings_checktimerom_summary"
-            android:dialogTitle="@string/settings_checktimerom_title"
-            android:entries="@array/time_notifications_entries"
-            android:entryValues="@array/time_notifications_values" />
-
-        <ListPreference
-            android:key="checktimegapps"
-            android:title="@string/settings_checktimegapps_title"
-            android:summary="@string/settings_checktimegapps_summary"
-            android:dialogTitle="@string/settings_checktimegapps_title"
+            android:key="checktime"
+            android:title="@string/settings_checktime_title"
+            android:summary="@string/settings_checktime_summary"
+            android:dialogTitle="@string/settings_checktime_title"
             android:entries="@array/time_notifications_entries"
             android:entryValues="@array/time_notifications_values" />
 

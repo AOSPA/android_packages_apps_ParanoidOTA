@@ -90,10 +90,8 @@
     <string name="settings_expertmode_title">Modo experto</string>
     <string name="settings_expertmode_summary">Mostrar todas las opciones</string>
     <string name="settings_update">Actualizaciones</string>
-    <string name="settings_checktimerom_title">Comprobar actualizaciones ROM</string>
-    <string name="settings_checktimerom_summary">Especifica el tiempo entre cada comprobacion de actualizacion de la ROM</string>
-    <string name="settings_checktimegapps_title">Comprobar actualizaciones Google Apps</string>
-    <string name="settings_checktimegapps_summary">Especifica el tiempo entre cada comprobacion de actualizacion de Google Apps</string>
+    <string name="settings_checktime_title">Comprobar actualizaciones</string>
+    <string name="settings_checktime_summary">Especifica el tiempo entre cada comprobacion de actualizacion</string>
     <string name="time_notifications_never">No comprobar</string>
     <string name="time_notifications_half_an_hour">Media hora</string>
     <string name="time_notifications_an_hour">1 hora</string>

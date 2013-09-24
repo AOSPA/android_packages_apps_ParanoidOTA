@@ -51,7 +51,7 @@ public class RomUpdater extends Updater {
             if (mSettingsHelper == null) {
                 mSettingsHelper = new SettingsHelper(getContext());
             }
-            if (mSettingsHelper.getCheckTimeRom() < 0) {
+            if (mSettingsHelper.getCheckTime() < 0) {
                 return;
             }
         }

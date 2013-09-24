@@ -90,10 +90,8 @@
     <string name="settings_expertmode_title">"Experten Modus"</string>
     <string name="settings_expertmode_summary">"Zeige alles Optionen"</string>
     <string name="settings_update">"Updates"</string>
-    <string name="settings_checktimerom_title">"Rom Aktualisierungs &#252;berpr&#252;f Intervall"</string>
-    <string name="settings_checktimerom_summary">"Lege die Zeit fest, nach der auf Rom Updates gepr&#252;ft werden soll"</string>
-    <string name="settings_checktimegapps_title">"Google Apps Aktualisierungs &#252;berpr&#252;f intervall"</string>
-    <string name="settings_checktimegapps_summary">"Lege die Zeit fest, nach der auf Google Apps Updates geppr&#252;ft werden soll"</string>
+    <string name="settings_checktime_title">"Aktualisierungs &#252;berpr&#252;f Intervall"</string>
+    <string name="settings_checktime_summary">"Lege die Zeit fest, nach der auf Updates gepr&#252;ft werden soll"</string>
     <string name="time_notifications_never">"Niemals"</string>
     <string name="time_notifications_half_an_hour">"Jede halbe Stunde"</string>
     <string name="time_notifications_an_hour">"1 Stunde"</string>

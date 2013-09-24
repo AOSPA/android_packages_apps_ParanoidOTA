@@ -103,10 +103,8 @@
     <string name="settings_expertmode_title">Режим эксперта</string>
     <string name="settings_expertmode_summary">Отображать все опции</string>
     <string name="settings_update">Обновления</string>
-    <string name="settings_checktimerom_title">Частота проверки обновлений прошивки</string>
-    <string name="settings_checktimerom_summary">Укажите время между каждой проверкой обновлений прошивки</string>
-    <string name="settings_checktimegapps_title">Частота проверки обновлений Gapps</string>
-    <string name="settings_checktimegapps_summary">Укажите время между каждой проверкой обновлений Gapps</string>
+    <string name="settings_checktime_title">Частота проверки обновлений прошивки</string>
+    <string name="settings_checktime_summary">Укажите время между каждой проверкой обновлений прошивки</string>
     <string name="time_notifications_never">Не проверять</string>
     <string name="time_notifications_half_an_hour">Каждые полчаса</string>
     <string name="time_notifications_an_hour">Каждый час</string>

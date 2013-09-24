@@ -38,8 +38,7 @@ public class SettingsHelper {
             INSTALL_WIPEDATA, INSTALL_WIPECACHES };
 
     public static final String PROPERTY_EXPERT = "expertmode";
-    public static final String PROPERTY_CHECK_TIME_ROM = "checktimerom";
-    public static final String PROPERTY_CHECK_TIME_GAPPS = "checktimegapps";
+    public static final String PROPERTY_CHECK_TIME = "checktime";
     public static final String PROPERTY_DOWNLOAD_PATH = "downloadpath";
     public static final String PROPERTY_DOWNLOAD_FINISHED = "downloadfinished";
     public static final String PROPERTY_RECOVERY = "recovery";
@@ -137,12 +136,8 @@ public class SettingsHelper {
         return settings.getBoolean(PROPERTY_DOWNLOAD_FINISHED, DEFAULT_DOWNLOAD_FINISHED);
     }
 
-    public long getCheckTimeRom() {
-        return Long.parseLong(settings.getString(PROPERTY_CHECK_TIME_ROM, DEFAULT_CHECK_TIME));
-    }
-
-    public long getCheckTimeGapps() {
-        return Long.parseLong(settings.getString(PROPERTY_CHECK_TIME_GAPPS, DEFAULT_CHECK_TIME));
+    public long getCheckTime() {
+        return Long.parseLong(settings.getString(PROPERTY_CHECK_TIME, DEFAULT_CHECK_TIME));
     }
 
     public void setDownloadRomId(Long id, String md5, String fileName) {
