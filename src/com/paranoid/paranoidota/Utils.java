@@ -122,7 +122,6 @@ public class Utils {
         String stripped = version.replaceAll(".1-RC1-", "-");
         stripped = stripped.replaceAll("-RC2-", "-");
         stripped = stripped.replaceAll("\\D+", "");
-        System.out.println(version + " -> " + stripped);
         return "".equals(stripped) ? 0L : Long.parseLong(stripped);
     }
 
