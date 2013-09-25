@@ -26,6 +26,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -123,6 +124,22 @@ public class Utils {
         stripped = stripped.replaceAll("-RC2-", "-");
         stripped = stripped.replaceAll("\\D+", "");
         return "".equals(stripped) ? 0L : Long.parseLong(stripped);
+    }
+
+    public static String translateDeviceName(Context context, String device) {
+        Properties dictionary = IOUtils.getDictionary(context);
+        String translate = dictionary.getProperty(device);
+        if (translate == null) {
+            translate = device;
+            String[] remove = dictionary.getProperty("@remove").split(",");
+            for (int i = 0; i < remove.length; i++) {
+                if (translate.indexOf(remove[i]) >= 0) {
+                    translate = translate.replace(remove[i], "");
+                    break;
+                }
+            }
+        }
+        return translate;
     }
 
     public static String getDateAndTime() {
