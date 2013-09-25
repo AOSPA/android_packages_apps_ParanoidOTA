@@ -44,6 +44,7 @@ public class SettingsActivity extends PreferenceActivity implements
     private RecoveryHelper mRecoveryHelper;
     private CheckBoxPreference mExpertMode;
     private ListPreference mCheckTime;
+    private CheckBoxPreference mCheckGapps;
     private Preference mDownloadPath;
     private CheckBoxPreference mDownloadFinished;
     private PreferenceCategory mRecoveryCategory;
@@ -67,6 +68,7 @@ public class SettingsActivity extends PreferenceActivity implements
 
         mExpertMode = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_EXPERT);
         mCheckTime = (ListPreference) findPreference(SettingsHelper.PROPERTY_CHECK_TIME);
+        mCheckGapps = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_CHECK_GAPPS);
         mDownloadPath = findPreference(SettingsHelper.PROPERTY_DOWNLOAD_PATH);
         mDownloadFinished = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_DOWNLOAD_FINISHED);
         mRecovery = findPreference(SettingsHelper.PROPERTY_RECOVERY);
@@ -81,6 +83,7 @@ public class SettingsActivity extends PreferenceActivity implements
 
         mExpertMode.setDefaultValue(mSettingsHelper.getExpertMode());
         mCheckTime.setValue(String.valueOf(mSettingsHelper.getCheckTime()));
+        mCheckGapps.setChecked(mSettingsHelper.getCheckGapps());
         mDownloadFinished.setChecked(mSettingsHelper.getDownloadFinished());
         mOptions.setValues(mSettingsHelper.getShowOptions());
 

@@ -22,7 +22,7 @@ import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 
 public interface Server {
 
-    public String getUrl(String device, double version);
+    public String getUrl(String device, long version);
 
     public List<PackageInfo> createPackageInfoList(String buffer) throws Exception;
 

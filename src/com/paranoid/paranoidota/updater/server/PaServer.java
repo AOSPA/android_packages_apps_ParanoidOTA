@@ -35,7 +35,7 @@ public class PaServer implements Server {
     private String mError = null;
 
     @Override
-    public String getUrl(String device, double version) {
+    public String getUrl(String device, long version) {
         mDevice = device;
         return String.format(URL, new Object[] { device, version });
     }

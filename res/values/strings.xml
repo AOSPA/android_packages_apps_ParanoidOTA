@@ -108,6 +108,8 @@
     <string name="settings_update">Updates</string>
     <string name="settings_checktime_title">Update check frequency</string>
     <string name="settings_checktime_summary">Specify the time between each update check</string>
+    <string name="settings_checkgapps_title">Check for google apps</string>
+    <string name="settings_checkgapps_summary">Check also for PA specific google apps</string>
     <string name="time_notifications_never">Don\'t check</string>
     <string name="time_notifications_half_an_hour">Half an hour</string>
     <string name="time_notifications_an_hour">1 hour</string>

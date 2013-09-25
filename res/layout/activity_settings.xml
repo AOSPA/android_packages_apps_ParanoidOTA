@@ -36,6 +36,11 @@
             android:entries="@array/time_notifications_entries"
             android:entryValues="@array/time_notifications_values" />
 
+        <CheckBoxPreference
+            android:key="checkgapps"
+            android:title="@string/settings_checkgapps_title"
+            android:summary="@string/settings_checkgapps_summary" />
+
         <Preference
             android:key="downloadpath"
             android:title="@string/settings_download_path" />

@@ -29,11 +29,11 @@ public class UpdatePackage implements PackageInfo, Serializable {
     private String path = null;
     private String size = null;
     private String incremental_path = null;
-    private double version = -1;
+    private long version = -1;
     private boolean isDelta = false;
     private boolean isGapps = false;
 
-    public UpdatePackage(String device, String name, double version, String size, String url,
+    public UpdatePackage(String device, String name, long version, String size, String url,
             String md5, boolean gapps) {
         this.filename = name;
         this.version = version;
@@ -79,7 +79,7 @@ public class UpdatePackage implements PackageInfo, Serializable {
     }
 
     @Override
-    public double getVersion() {
+    public long getVersion() {
         return version;
     }
 

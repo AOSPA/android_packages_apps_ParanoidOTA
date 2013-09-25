@@ -34,10 +34,10 @@ public class GooServer implements Server {
     private static final String URL = "http://goo.im/json2&path=/devs/paranoidandroid/roms/%s&ro_board=%s";
 
     private String mDevice = null;
-    private double mVersion = 0L;
+    private long mVersion = 0L;
 
     @Override
-    public String getUrl(String device, double version) {
+    public String getUrl(String device, long version) {
         mDevice = device;
         mVersion = version;
         return String.format(URL, new Object[] { device, device });
@@ -61,7 +61,7 @@ public class GooServer implements Server {
                 if (filename != null && !filename.isEmpty() && filename.endsWith(".zip")) {
                     String stripped = filename.replaceAll(".1-RC1-", "-");
                     stripped = stripped.replaceAll("-RC2-", "-");
-                    double version = Double.parseDouble(stripped.replaceAll("\\D+", ""));
+                    long version = Long.parseLong(stripped.replaceAll("\\D+", ""));
                     if (version > mVersion) {
                         list.add(new UpdatePackage(mDevice, filename, version, "0", "http://goo.im"
                                 + file.getString("path"), file.getString("md5"), false));
@@ -73,8 +73,8 @@ public class GooServer implements Server {
 
             @Override
             public int compare(PackageInfo lhs, PackageInfo rhs) {
-                double v1 = lhs.getVersion();
-                double v2 = rhs.getVersion();
+                long v1 = lhs.getVersion();
+                long v2 = rhs.getVersion();
                 return v1 < v2 ? 1 : -1;
             }
 

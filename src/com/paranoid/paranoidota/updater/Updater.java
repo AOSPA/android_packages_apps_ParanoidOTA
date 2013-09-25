@@ -34,7 +34,7 @@ public abstract class Updater implements URLStringReaderListener, HttpStringRead
         public String getFilename();
         public String getPath();
         public String getSize();
-        public double getVersion();
+        public long getVersion();
         public boolean isDelta();
         public String getDeltaFilename();
         public String getDeltaPath();
