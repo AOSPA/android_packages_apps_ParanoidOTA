@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.updater.Server;
 import com.paranoid.paranoidota.updater.UpdatePackage;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
@@ -64,9 +65,15 @@ public class GooServer implements Server {
                 JSONObject file = updates.getJSONObject(i);
                 String filename = file.optString("filename");
                 if (filename != null && !filename.isEmpty() && filename.endsWith(".zip")) {
-                    String stripped = filename.replaceAll(".1-RC1-", "-");
-                    stripped = stripped.replaceAll("-RC2-", "-");
-                    long version = Long.parseLong(stripped.replaceAll("\\D+", ""));
+                    String stripped = filename.replace(".zip", "");
+                    stripped = stripped.replace("-signed", "");
+                    String[] parts = stripped.split("-");
+                    boolean isNew = parts.length < 2 ? true : parts[parts.length - 2]
+                            .matches("[-+]?\\d*\\.?\\d+");
+                    if (!isNew) {
+                        continue;
+                    }
+                    long version = Utils.parseRomVersion(filename);
                     if (version > mVersion) {
                         list.add(new UpdatePackage(mDevice, filename, version, "0", "http://goo.im"
                                 + file.getString("path"), file.getString("md5"), false));

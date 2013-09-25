@@ -118,6 +118,14 @@ public class Utils {
         }
     }
 
+    public static long parseRomVersion(String version) {
+        String stripped = version.replaceAll(".1-RC1-", "-");
+        stripped = stripped.replaceAll("-RC2-", "-");
+        stripped = stripped.replaceAll("\\D+", "");
+        System.out.println(version + " -> " + stripped);
+        return "".equals(stripped) ? 0L : Long.parseLong(stripped);
+    }
+
     public static String getDateAndTime() {
         return new SimpleDateFormat("yyyy-MM-dd.HH.mm.ss").format(new Date(System
                 .currentTimeMillis()));

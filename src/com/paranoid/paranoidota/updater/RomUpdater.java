@@ -70,10 +70,7 @@ public class RomUpdater extends Updater {
     @Override
     public long getVersion() {
         String version = Utils.getProp(Utils.MOD_VERSION);
-        version = version.replaceAll(".1-RC1-", "-");
-        version = version.replaceAll("-RC2-", "-");
-        String stripped = version.replaceAll("\\D+", "");
-        return "".equals(stripped) ? 0L : Long.parseLong(stripped);
+        return Utils.parseRomVersion(version);
     }
 
     @Override
