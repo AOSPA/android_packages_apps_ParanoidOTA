@@ -337,6 +337,13 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
         setProgressBarVisibility(true);
     }
 
+    @Override
+    public void checkError(boolean isRom) {
+        if (isRom && !Utils.weAreInAospa()) {
+            showNotFoundAlert();
+        }
+    }
+
     // NotificationCallback methods
     @Override
     public void updateNotifications(int notifications) {
@@ -517,6 +524,20 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                 dialog.dismiss();
 
                 addFile(file);
+            }
+        });
+        alert.show();
+    }
+
+    private void showNotFoundAlert() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.error_device_not_found_title);
+        alert.setMessage(R.string.error_device_not_found_summary);
+        alert.setCancelable(true);
+        alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
             }
         });
         alert.show();

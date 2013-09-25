@@ -140,6 +140,10 @@ public class DownloadFragment extends android.preference.PreferenceFragment impl
         }
     }
 
+    @Override
+    public void checkError(boolean isRom) {
+    }
+
     private void updateRom(PackageInfo[] packages) {
         if (mRomRoot == null) {
             return;

@@ -78,6 +78,10 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
     }
 
     @Override
+    public void checkError(boolean isRom) {
+    }
+
+    @Override
     public void startChecking(boolean isRom) {
         updateText(null, null);
     }

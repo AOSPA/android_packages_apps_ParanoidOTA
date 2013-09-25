@@ -85,6 +85,10 @@ public class SystemActivity extends Activity implements UpdaterListener {
         setMessages(info, isRom);
     }
 
+    @Override
+    public void checkError(boolean isRom) {
+    }
+
     private void setMessages(PackageInfo[] info, boolean isRom) {
         if (info != null && info.length > 0) {
             if (isRom) {

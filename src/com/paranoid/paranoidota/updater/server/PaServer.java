@@ -26,7 +26,6 @@ import com.paranoid.paranoidota.updater.Server;
 import com.paranoid.paranoidota.updater.UpdatePackage;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 
-
 public class PaServer implements Server {
 
     private static final String URL = "http://api.paranoidandroid.co/updates/%s?v=%s";
@@ -46,14 +45,14 @@ public class PaServer implements Server {
         List<PackageInfo> list = new ArrayList<PackageInfo>();
         if (buffer != null && !buffer.isEmpty()) {
             JSONObject updateInfo = new JSONObject(buffer);
-           mError = updateInfo.optString("error");
+            mError = updateInfo.optString("error");
             if (mError == null || mError.isEmpty()) {
                 JSONArray updates = updateInfo.getJSONArray("updates");
                 for (int i = updates.length() - 1; i >= 0; i--) {
                     JSONObject update = updates.getJSONObject(i);
                     list.add(new UpdatePackage(mDevice, update.getString("name"), update
-                            .getLong("version"), update.getString("size"), update
-                            .getString("url"), update.getString("md5"), false));
+                            .getLong("version"), update.getString("size"), update.getString("url"),
+                            update.getString("md5"), false));
                 }
             }
         }

@@ -91,6 +91,8 @@
     <string name="error_too_many_redirects">Error: Too many redirects</string>
     <string name="error_unhandled_http_code">Error: Unhandled http code</string>
     <string name="error_unknown">Error: Unknown</string>
+    <string name="error_device_not_found_title">Device not found</string>
+    <string name="error_device_not_found_summary">A ROM for your device was not found. Please check it manually.</string>
 
     <!-- RECOVERY -->
     <string name="recovery_cwm">ClockworkMod (CWM)</string>

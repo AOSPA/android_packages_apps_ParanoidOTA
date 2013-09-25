@@ -34,6 +34,7 @@ public class GooServer implements Server {
     private static final String URL = "http://goo.im/json2&path=/devs/paranoidandroid/roms/%s&ro_board=%s";
 
     private String mDevice = null;
+    private String mError = null;
     private long mVersion = 0L;
 
     @Override
@@ -46,6 +47,7 @@ public class GooServer implements Server {
     @Override
     public List<PackageInfo> createPackageInfoList(String buffer) throws Exception {
         List<PackageInfo> list = new ArrayList<PackageInfo>();
+        mError = null;
         if (buffer != null && !buffer.isEmpty()) {
             JSONObject result = new JSONObject(buffer);
             JSONObject update = null;
@@ -55,6 +57,9 @@ public class GooServer implements Server {
                 update = result;
             }
             JSONArray updates = update.optJSONArray("list");
+            if (updates == null) {
+                mError = "Device not found";
+            }
             for (int i = 0; updates != null && i < updates.length(); i++) {
                 JSONObject file = updates.getJSONObject(i);
                 String filename = file.optString("filename");
@@ -84,7 +89,7 @@ public class GooServer implements Server {
 
     @Override
     public String getError() {
-        return null;
+        return mError;
     }
 
 }
