@@ -367,7 +367,7 @@ public class RecoveryHelper {
 
                 if (size > 0) {
                     for (; i < size; i++) {
-                        File file = new File(items[i]);
+                        File file = new File(originalItems[i]);
                         IOUtils.copyOrRemoveCache(file, true);
                         commands.add("--update_package=CACHE:" + file.getName() + "\n");
                     }
