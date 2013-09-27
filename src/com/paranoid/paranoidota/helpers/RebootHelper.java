@@ -47,7 +47,8 @@ public class RebootHelper {
     }
 
     private void showBackupDialog(final Context context, final String[] items,
-            final boolean wipeSystem, final boolean wipeData, final boolean wipeCaches) {
+            final String[] originalItems, final boolean wipeSystem, final boolean wipeData,
+            final boolean wipeCaches) {
 
         double checkSpace = 1.0;// ManagerFactory.getPreferencesManager().getSpaceLeft();
         if (checkSpace > 0) {
@@ -63,7 +64,7 @@ public class RebootHelper {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.dismiss();
 
-                        reallyShowBackupDialog(context, items, wipeSystem, wipeData,
+                        reallyShowBackupDialog(context, items, originalItems, wipeSystem, wipeData,
                                 wipeCaches);
                     }
                 });
@@ -77,16 +78,17 @@ public class RebootHelper {
                         });
                 alert.show();
             } else {
-                reallyShowBackupDialog(context, items, wipeSystem, wipeData,
+                reallyShowBackupDialog(context, items, originalItems, wipeSystem, wipeData,
                         wipeCaches);
             }
         } else {
-            reallyShowBackupDialog(context, items, wipeSystem, wipeData, wipeCaches);
+            reallyShowBackupDialog(context, items, originalItems, wipeSystem, wipeData, wipeCaches);
         }
     }
 
     private void reallyShowBackupDialog(final Context context, final String[] items,
-            final boolean wipeSystem, final boolean wipeData, final boolean wipeCaches) {
+            final String[] originalItems, final boolean wipeSystem, final boolean wipeData,
+            final boolean wipeCaches) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle(R.string.alert_backup_title);
@@ -161,7 +163,8 @@ public class RebootHelper {
                     }
                 }
 
-                reboot(context, items, wipeSystem, wipeData, wipeCaches, text, backupOptions);
+                reboot(context, items, originalItems, wipeSystem, wipeData, wipeCaches, text,
+                        backupOptions);
             }
         });
 
@@ -174,7 +177,7 @@ public class RebootHelper {
         alert.show();
     }
 
-    public void showRebootDialog(final Context context, final String[] items) {
+    public void showRebootDialog(final Context context, final String[] items, final String[] originalItems) {
 
         if (items == null || items.length == 0) {
             return;
@@ -226,11 +229,11 @@ public class RebootHelper {
                 dialog.dismiss();
 
                 if (cbBackup.isChecked() && recovery.getId() != R.id.stock) {
-                    showBackupDialog(context, items, cbWipeSystem.isChecked(), cbWipeData.isChecked(),
-                            cbWipeCaches.isChecked());
+                    showBackupDialog(context, items, originalItems, cbWipeSystem.isChecked(),
+                            cbWipeData.isChecked(), cbWipeCaches.isChecked());
                 } else {
-                    reboot(context, items, cbWipeSystem.isChecked(), cbWipeData.isChecked(),
-                            cbWipeCaches.isChecked(), null, null);
+                    reboot(context, items, originalItems, cbWipeSystem.isChecked(),
+                            cbWipeData.isChecked(), cbWipeCaches.isChecked(), null, null);
                 }
                 installCursor.close();
 
@@ -247,9 +250,9 @@ public class RebootHelper {
         alert.show();
     }
 
-    private void reboot(Context context, final String[] items, final boolean wipeSystem,
-            final boolean wipeData, final boolean wipeCaches, final String backupFolder,
-            final String backupOptions) {
+    private void reboot(Context context, final String[] items, final String[] originalItems,
+            final boolean wipeSystem, final boolean wipeData, final boolean wipeCaches,
+            final String backupFolder, final String backupOptions) {
 
         if (wipeSystem) {
             AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -262,8 +265,8 @@ public class RebootHelper {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             dialog.dismiss();
 
-                            _reboot(items, wipeSystem, wipeData, wipeCaches, backupFolder,
-                                    backupOptions);
+                            _reboot(items, originalItems, wipeSystem, wipeData, wipeCaches,
+                                    backupFolder, backupOptions);
 
                         }
                     });
@@ -276,13 +279,14 @@ public class RebootHelper {
             });
             alert.show();
         } else {
-            _reboot(items, wipeSystem, wipeData, wipeCaches, backupFolder, backupOptions);
+            _reboot(items, originalItems, wipeSystem, wipeData, wipeCaches, backupFolder,
+                    backupOptions);
         }
 
     }
 
-    private void _reboot(String[] items, boolean wipeSystem, boolean wipeData, boolean wipeCaches,
-            String backupFolder, String backupOptions) {
+    private void _reboot(String[] items, String[] originalItems, boolean wipeSystem,
+            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions) {
 
         try {
             Process p = Runtime.getRuntime().exec("su");
@@ -294,8 +298,8 @@ public class RebootHelper {
 
             String file = mRecoveryHelper.getCommandsFile();
 
-            String[] commands = mRecoveryHelper.getCommands(items, wipeSystem, wipeData,
-                    wipeCaches, backupFolder, backupOptions);
+            String[] commands = mRecoveryHelper.getCommands(items, originalItems, wipeSystem,
+                    wipeData, wipeCaches, backupFolder, backupOptions);
             if (commands != null) {
                 int size = commands.length, i = 0;
                 for (; i < size; i++) {

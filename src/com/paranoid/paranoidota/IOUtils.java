@@ -278,7 +278,7 @@ public class IOUtils {
         return downloads;
     }
 
-    private static void copyOrRemoveCache(File file, boolean copy) {
+    public static void copyOrRemoveCache(File file, boolean copy) {
         if (copy) {
             Utils.su(new String[] {
                     "cp " + file.getAbsolutePath() + " /cache/" + file.getName(),

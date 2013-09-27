@@ -260,8 +260,9 @@ public class RecoveryHelper {
         return filePath;
     }
 
-    public String[] getCommands(String[] items, boolean wipeSystem, boolean wipeData,
-            boolean wipeCaches, String backupFolder, String backupOptions) throws Exception {
+    public String[] getCommands(String[] items, String[] originalItems, boolean wipeSystem,
+            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions)
+            throws Exception {
         List<String> commands = new ArrayList<String>();
 
         int size = items.length, i = 0;
@@ -357,16 +358,18 @@ public class RecoveryHelper {
             case R.id.stock:
 
                 if (wipeData) {
-                    commands.add("--wipe_data");
+                    commands.add("--wipe_data\n");
                 }
 
                 if (wipeCaches) {
-                    commands.add("--wipe_cache");
+                    commands.add("--wipe_cache\n");
                 }
 
                 if (size > 0) {
                     for (; i < size; i++) {
-                        commands.add("--update_package=" + items[i]);
+                        File file = new File(items[i]);
+                        IOUtils.copyOrRemoveCache(file, true);
+                        commands.add("--update_package=CACHE:" + file.getName() + "\n");
                     }
                 }
 

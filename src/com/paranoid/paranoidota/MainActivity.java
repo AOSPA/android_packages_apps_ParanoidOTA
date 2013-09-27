@@ -295,12 +295,13 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                 mGappsUpdater.check();
                 return true;
             case R.id.action_install:
-                String[] files = InstallFragment.getFiles();
+                String[] originalFiles = InstallFragment.getFiles();
+                String[] files = new String[originalFiles.length];
                 if (files.length > 0) {
                     for (int i=0;i<files.length;i++) {
-                        files[i] = mRecoveryHelper.getRecoveryFilePath(files[i]);
+                        files[i] = mRecoveryHelper.getRecoveryFilePath(originalFiles[i]);
                     }
-                    mRebootHelper.showRebootDialog(this, files);
+                    mRebootHelper.showRebootDialog(this, files, originalFiles);
                 }
                 return true;
             case R.id.action_add:
