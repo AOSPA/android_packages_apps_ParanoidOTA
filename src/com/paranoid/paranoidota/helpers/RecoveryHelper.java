@@ -171,48 +171,6 @@ public class RecoveryHelper {
         return str;
     }
 
-    public String[] getBackupList() {
-
-        RecoveryInfo info = getRecovery();
-
-        String folder = "";
-
-        switch (info.getId()) {
-            case R.id.twrp:
-                folder = SDCARD + "/TWRP/BACKUPS/";
-                File f = new File(folder);
-                if (f.exists()) {
-                    File[] fs = f.listFiles();
-                    folder += fs[0].getName() + "/";
-                }
-                break;
-            default:
-                folder = SDCARD + "/clockworkmod/backup/";
-                break;
-        }
-
-        List<String> list = new ArrayList<String>();
-
-        File f = new File(folder);
-        if (f.exists()) {
-            File[] fs = f.listFiles();
-            for (int i = 0; i < fs.length; i++) {
-                list.add(fs[i].getName());
-            }
-        }
-
-        Collections.sort(list, new Comparator<String>() {
-
-            @Override
-            public int compare(String s1, String s2) {
-                int value = s1.compareTo(s2);
-                return -value;
-            }
-        });
-
-        return list.toArray(new String[list.size()]);
-    }
-
     public void selectSdcard(final boolean internal) {
 
         final EditText input = new EditText(mContext);
