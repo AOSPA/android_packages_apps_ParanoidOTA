@@ -34,6 +34,7 @@ import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.InstallOptionsCursor;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
+import com.paranoid.paranoidota.helpers.RecoveryHelper.RecoveryInfo;
 
 public class RebootHelper {
 
@@ -179,6 +180,8 @@ public class RebootHelper {
             return;
         }
 
+        final RecoveryInfo recovery = mRecoveryHelper.getRecovery();
+
         mContext = context;
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -195,13 +198,18 @@ public class RebootHelper {
         final CheckBox cbWipeData = (CheckBox) view.findViewById(R.id.wipedata);
         final CheckBox cbWipeCaches = (CheckBox) view.findViewById(R.id.wipecaches);
 
+        cbWipeCaches.setText(recovery.getId() == R.id.stock ? R.string.wipe_cache : R.string.wipe_caches);
+
         if (installCursor.getCount() > 0) {
             alert.setTitle(R.string.alert_reboot_install_title);
         } else {
             alert.setTitle(R.string.alert_reboot_only_install_title);
         }
-        cbBackup.setVisibility(installCursor.hasBackup() ? View.VISIBLE : View.GONE);
-        cbWipeSystem.setVisibility(installCursor.hasWipeSystem() ? View.VISIBLE : View.GONE);
+        cbBackup.setVisibility(installCursor.hasBackup() && recovery.getId() != R.id.stock ? View.VISIBLE
+                : View.GONE);
+        cbWipeSystem
+                .setVisibility(installCursor.hasWipeSystem() && recovery.getId() != R.id.stock ? View.VISIBLE
+                        : View.GONE);
         cbWipeData.setVisibility(installCursor.hasWipeData() ? View.VISIBLE : View.GONE);
         cbWipeCaches.setVisibility(installCursor.hasWipeCaches() ? View.VISIBLE : View.GONE);
         if (items.length == 1) {
@@ -217,7 +225,7 @@ public class RebootHelper {
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.dismiss();
 
-                if (cbBackup.isChecked()) {
+                if (cbBackup.isChecked() && recovery.getId() != R.id.stock) {
                     showBackupDialog(context, items, cbWipeSystem.isChecked(), cbWipeData.isChecked(),
                             cbWipeCaches.isChecked());
                 } else {

@@ -16,6 +16,10 @@
 
 package com.paranoid.paranoidota.helpers;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -32,12 +36,6 @@ import android.widget.Toast;
 
 import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class RecoveryHelper {
 
@@ -103,6 +101,7 @@ public class RecoveryHelper {
         recoveries.put(R.id.cwmbased, new RecoveryInfo(R.id.cwmbased, "cwmbased", "sdcard",
                 "external_sd"));
         recoveries.put(R.id.twrp, new RecoveryInfo(R.id.twrp, "twrp", "sdcard", "external_sd"));
+        recoveries.put(R.id.stock, new RecoveryInfo(R.id.stock, "stock", "sdcard", "external_sd"));
 
         if (!mSettings.existsRecovery()) {
             test();
@@ -115,6 +114,7 @@ public class RecoveryHelper {
 
         RadioButton cbCwmbased = (RadioButton) view.findViewById(R.id.cwmbased);
         RadioButton cbTwrp = (RadioButton) view.findViewById(R.id.twrp);
+        RadioButton cbStock = (RadioButton) view.findViewById(R.id.stock);
 
         final RadioGroup mGroup = (RadioGroup) view.findViewById(R.id.recovery_radio_group);
 
@@ -123,6 +123,9 @@ public class RecoveryHelper {
             cbCwmbased.setChecked(true);
         } else {
             switch (info.getId()) {
+                case R.id.stock:
+                    cbStock.setChecked(true);
+                    break;
                 case R.id.twrp:
                     cbTwrp.setChecked(true);
                     break;
@@ -236,6 +239,8 @@ public class RecoveryHelper {
         RecoveryInfo info = getRecovery();
 
         switch (info.getId()) {
+            case R.id.stock:
+                return "command";
             case R.id.twrp:
                 return "openrecoveryscript";
             default:
@@ -279,8 +284,7 @@ public class RecoveryHelper {
     }
 
     public String[] getCommands(String[] items, boolean wipeSystem, boolean wipeData,
-            boolean wipeCaches, String backupFolder, String backupOptions)
-            throws Exception {
+            boolean wipeCaches, String backupFolder, String backupOptions) throws Exception {
         List<String> commands = new ArrayList<String>();
 
         int size = items.length, i = 0;
@@ -372,6 +376,24 @@ public class RecoveryHelper {
                 }
 
                 break;
+
+            case R.id.stock:
+
+                if (wipeData) {
+                    commands.add("--wipe_data");
+                }
+
+                if (wipeCaches) {
+                    commands.add("--wipe_cache");
+                }
+
+                if (size > 0) {
+                    for (; i < size; i++) {
+                        commands.add("--update_package=" + items[i]);
+                    }
+                }
+
+                break;
         }
 
         return commands.toArray(new String[commands.size()]);
@@ -390,9 +412,14 @@ public class RecoveryHelper {
         File folderTwrp = new File(SDCARD + "/TWRP/");
         File folderCwm = new File(SDCARD + "/clockworkmod/");
 
-        if ((!folderTwrp.exists() && !folderCwm.exists())
-                || (folderTwrp.exists() && folderCwm.exists())) {
+        if (folderTwrp.exists() && folderCwm.exists()) {
             selectRecovery();
+        } else if (!folderTwrp.exists() && !folderCwm.exists()) {
+            setRecovery(R.id.stock);
+            Toast.makeText(
+                    mContext,
+                    mContext.getString(R.string.recovery_changed,
+                            mContext.getString(R.string.recovery_stock)), Toast.LENGTH_LONG).show();
         } else if (folderTwrp.exists()) {
             setRecovery(R.id.twrp);
             Toast.makeText(

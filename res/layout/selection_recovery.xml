@@ -36,6 +36,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"></RadioButton>
+    
+        <RadioButton android:text="@string/recovery_stock"
+                android:id="@+id/stock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"></RadioButton>
         
     </RadioGroup>
 
