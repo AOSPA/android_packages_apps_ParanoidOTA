@@ -151,29 +151,6 @@ public class RecoveryHelper {
                 }).show();
     }
 
-    public String getBackupDir(boolean force) {
-
-        RecoveryInfo info = getRecovery();
-
-        String str = "";
-
-        switch (info.getId()) {
-            case R.id.twrp:
-                File f = new File(SDCARD + "/TWRP/BACKUPS/");
-                if (f.exists()) {
-                    File[] fs = f.listFiles();
-                    str += fs[0].getName() + "/";
-                }
-                break;
-            default:
-                if (force) {
-                    str = SDCARD + "/clockworkmod/backup/";
-                }
-                break;
-        }
-        return str;
-    }
-
     public void selectSdcard(final boolean internal) {
 
         final EditText input = new EditText(mContext);
