@@ -100,15 +100,9 @@ public class RecoveryHelper {
         mContext = context;
         mSettings = new SettingsHelper(context);
 
-        if (IOUtils.hasSecondarySdCard()) {
-            recoveries.put(R.id.cwmbased, new RecoveryInfo(R.id.cwmbased, "cwmbased", "emmc",
-                    "sdcard"));
-            recoveries.put(R.id.twrp, new RecoveryInfo(R.id.twrp, "twrp", "emmc", "sdcard"));
-        } else {
-            recoveries.put(R.id.cwmbased, new RecoveryInfo(R.id.cwmbased, "cwmbased", "sdcard",
-                    "sdcard"));
-            recoveries.put(R.id.twrp, new RecoveryInfo(R.id.twrp, "twrp", "sdcard", "sdcard"));
-        }
+        recoveries.put(R.id.cwmbased, new RecoveryInfo(R.id.cwmbased, "cwmbased", "sdcard",
+                "external_sd"));
+        recoveries.put(R.id.twrp, new RecoveryInfo(R.id.twrp, "twrp", "sdcard", "external_sd"));
 
         if (!mSettings.existsRecovery()) {
             test();
