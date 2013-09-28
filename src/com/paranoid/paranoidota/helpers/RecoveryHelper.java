@@ -366,6 +366,7 @@ public class RecoveryHelper {
                 }
 
                 if (size > 0) {
+                    commands.add("--disable_verification");
                     for (; i < size; i++) {
                         File file = new File(originalItems[i]);
                         IOUtils.copyOrRemoveCache(file, true);
