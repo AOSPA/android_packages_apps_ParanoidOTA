@@ -303,8 +303,13 @@ public class RebootHelper {
             if (commands != null) {
                 int size = commands.length, i = 0;
                 for (; i < size; i++) {
-                    os.writeBytes("echo '" + commands[i] + "' >> /cache/recovery/" + file
-                            + "\n");
+                    String comm = "echo";
+                    if (i == size - 1
+                            && mRecoveryHelper.getRecovery().getId() == R.id.stock) {
+                        comm = "echo -n";
+                    }
+                    os.writeBytes(comm + " '" + commands[i]
+                            + "' >> /cache/recovery/" + file + "\n");
                 }
             }
 
