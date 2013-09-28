@@ -178,20 +178,23 @@ public class DownloadFragment extends android.preference.PreferenceFragment impl
                 final Preference pref = new Preference(mContext);
                 pref.setTitle(getPackageTitle(packages[i], isRom));
                 String size = packages[i].getSize();
-                if ("0".equals(size)) {
-                    size = mContext.getResources().getString(R.string.unknown_size);
-                }
-                pref.setSummary(size);
                 pref.setKey(String.valueOf(i));
                 pref.getExtras().putBoolean("isRom", isRom);
                 pref.getExtras().putString("fileName", packages[i].getFilename());
                 if(IOUtils.isOnDownloadList(mContext, packages[i].getFilename())) {
                     pref.setIcon(R.drawable.ic_offline);
                     pref.setOnPreferenceClickListener(mDownloadedListener);
+                    if ("0".equals(size)) {
+                        size = IOUtils.getDownloadSize(mContext, packages[i].getFilename());
+                    }
                 } else {
                     pref.setIcon(R.drawable.ic_download);
                     pref.setOnPreferenceClickListener(mDownloadListener);
                 }
+                if ("0".equals(size)) {
+                    size = mContext.getResources().getString(R.string.unknown_size);
+                }
+                pref.setSummary(size);
                 root.addPreference(pref);
             }
             info.setTitle(getOutdatedIconResourceId(isRom));

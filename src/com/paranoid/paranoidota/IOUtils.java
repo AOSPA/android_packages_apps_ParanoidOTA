@@ -64,6 +64,17 @@ public class IOUtils {
         return list.toArray(new String[list.size()]);
     }
 
+    public static String getDownloadSize(Context context, String fileName) {
+        File downloads = initSettingsHelper(context);
+        for(String file : getDownloadList(context)) {
+            if(fileName.equals(file)) {
+                File f = new File(downloads, fileName);
+                return humanReadableByteCount(f.length(), false);
+            }
+        }
+        return "0";
+    }
+
     public static boolean isOnDownloadList(Context context, String fileName) {
         for(String file : getDownloadList(context)) {
             if(fileName.equals(file)) return true;
