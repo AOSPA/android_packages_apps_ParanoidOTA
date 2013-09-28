@@ -57,7 +57,8 @@
     <string name="unknown_size">Unknown file size</string>
 
     <!-- DOWNLOADS/NOTIFICATIONS -->
-    <string name="download_title">%1$s...</string>
+    <string name="downloading_title">Downloading %1$s...</string>
+    <string name="download_title">%1$s</string>
     <string name="new_rom_found_title">New rom version found</string>
     <string name="new_gapps_found_title">New google apps package found</string>
     <string name="new_all_found_title">New rom and google apps packages found</string>

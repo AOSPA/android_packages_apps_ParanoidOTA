@@ -61,7 +61,7 @@ public class DownloadFragment extends android.preference.PreferenceFragment impl
             DownloadHelper.downloadFile(info.getPath(), info.getFilename(), info.getMd5(), isRom);
             Toast.makeText(
                     mContext,
-                    mContext.getResources().getString(R.string.download_title,
+                    mContext.getResources().getString(R.string.downloading_title,
                             new Object[] { info.getFilename() }), Toast.LENGTH_LONG).show();
             return false;
         }
