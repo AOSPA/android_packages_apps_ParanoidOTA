@@ -223,6 +223,11 @@ public class RebootHelper {
                     R.string.alert_reboot_more_message, new Object[] { items.length }));
         }
 
+        if (!Utils.weAreInAospa()) {
+            cbWipeData.setChecked(true);
+            cbWipeCaches.setChecked(true);
+        }
+
         alert.setPositiveButton(R.string.alert_reboot_now, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int whichButton) {
