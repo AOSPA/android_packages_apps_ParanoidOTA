@@ -77,11 +77,9 @@ public class SettingsHelper {
 
         settings = PreferenceManager.getDefaultSharedPreferences(context);
 
-        if (!Utils.weAreInAospa()) {
-            DEFAULT_SHOW_OPTIONS.add(INSTALL_BACKUP);
-            DEFAULT_SHOW_OPTIONS.add(INSTALL_WIPEDATA);
-            DEFAULT_SHOW_OPTIONS.add(INSTALL_WIPECACHES);
-        }
+        DEFAULT_SHOW_OPTIONS.add(INSTALL_BACKUP);
+        DEFAULT_SHOW_OPTIONS.add(INSTALL_WIPEDATA);
+        DEFAULT_SHOW_OPTIONS.add(INSTALL_WIPECACHES);
     }
 
     public boolean getExpertMode() {
