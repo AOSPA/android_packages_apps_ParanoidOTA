@@ -48,10 +48,14 @@ public class IOUtils {
     public static String[] getDownloadList(Context context) {
         File downloads = initSettingsHelper(context);
         ArrayList<String> list = new ArrayList<String>();
+        try {
         for(File f : downloads.listFiles()) {
             if(isRom(f.getName())) {
                 list.add(f.getName());
             }
+        }
+        } catch (NullPointerException e) {
+            //blah
         }
         return list.toArray(new String[list.size()]);
     }
