@@ -4,3 +4,7 @@
 bin
 gen
 *.properties
+.idea
+*.iml
+*gradle*
+build/
