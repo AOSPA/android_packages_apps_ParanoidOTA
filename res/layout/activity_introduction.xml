@@ -46,9 +46,10 @@
             android:background="@android:color/darker_gray"/>
 
         <TextView
+            android:id="@+id/introduction"
             android:layout_below="@id/divider"
             android:paddingTop="20dp"
-            android:text="@string/introduction_installer"
+            android:text="@string/introduction_installer_pa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/ClingText"/>

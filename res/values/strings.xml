@@ -36,9 +36,20 @@
 
     <!-- INTRODUCTION -->
     <string name="introduction_header">Welcome</string>
+    <string name="introduction_installer_pa">
+        This app allows you to update your Paranoid Android ROM and your Google Apps.\n\n
+        If an update is found, you\'ll see a notification telling so. Click it to open ParanoidOTA.\n
+        Go to the Updates tab and click on the file you want to download.\n
+        Once the download finishes, it will be added to the Install tab. Click the Install button and select the options you want to perform. Your device will reboot into recovery to install the updates.\n\n
+        Only TWRP and CWM-based recoveries are supported. Closed source CWM is not supported.
+    </string>
     <string name="introduction_installer">
         This app allows you to install Paranoid Android on your device.\n\n
-        Keep in mind that it will perform a factory reset, which means your apps and accounts will be wiped. Please back-up your data! The content of your SD-card remains untouched.
+        If an update is found, you\'ll see a notification telling so. Click it to open ParanoidOTA.\n
+        Go to the Updates tab and click on the file you want to download.\n
+        Once the download finishes, it will be added to the Install tab. Click the Install button and select the options you want to perform. Your device will reboot into recovery to install the updates.\n\n
+        Only TWRP and CWM-based recoveries are supported. Closed source CWM is not supported.\n\n
+        Keep in mind that you\'ll be prompted to perform a factory reset, which means your apps and accounts will be wiped. Please back-up your data! The content of your SD-card remains untouched.
     </string>
     <string name="introduction_continue">Got it!</string>
 

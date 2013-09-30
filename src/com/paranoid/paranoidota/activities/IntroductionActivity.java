@@ -19,14 +19,15 @@
 
 package com.paranoid.paranoidota.activities;
 
-import com.paranoid.paranoidota.R;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.paranoid.paranoidota.R;
+import com.paranoid.paranoidota.Utils;
 
 public class IntroductionActivity extends Activity {
 
@@ -37,10 +38,19 @@ public class IntroductionActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mActivity = this;
+
         setContentView(R.layout.activity_introduction);
-        Button button = (Button)findViewById(R.id.button);
+
+        TextView introduction = (TextView) findViewById(R.id.introduction);
+        if (!Utils.weAreInAospa()) {
+            introduction.setText(R.string.introduction_installer);
+        }
+
+        Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 SharedPreferences mPreferences = mActivity.getSharedPreferences(KEY_PREFERENCES, 0);
