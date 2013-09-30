@@ -27,9 +27,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -51,6 +53,7 @@ import android.widget.Toast;
 
 import com.paranoid.paranoidota.ListItems.PreferenceItem;
 import com.paranoid.paranoidota.Utils.NotificationInfo;
+import com.paranoid.paranoidota.activities.IntroductionActivity;
 import com.paranoid.paranoidota.activities.RequestFileActivity;
 import com.paranoid.paranoidota.activities.SettingsActivity;
 import com.paranoid.paranoidota.fragments.ChangelogFragment;
@@ -79,6 +82,8 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
     private static final int INSTALL = 2;
     private static final int CHANGELOG = 3;
 
+    private Context mContext;
+
     private UpdateFragment mUpdateFragment;
     private InstallFragment mInstallFragment;
     private DownloadFragment mDownloadFragment;
@@ -103,10 +108,16 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
     private RecoveryHelper mRecoveryHelper;
     private RebootHelper mRebootHelper;
 
+    private Bundle mSavedInstanceState;
+    private boolean mInitialized = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_PROGRESS);
+
+        mContext = this;
+        mSavedInstanceState = savedInstanceState;
 
         setContentView(R.layout.activity_main);
 
@@ -157,24 +168,17 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
         Intent intent = getIntent();
         onNewIntent(intent);
 
-        if (savedInstanceState == null) {
-            if (mNotificationInfo != null) {
-                if (mNotificationInfo.mNotificationId != Updater.NOTIFICATION_ID) {
-                    mRomUpdater.check();
-                    mGappsUpdater.check();
-                } else {
-                    mRomUpdater.setLastUpdates(mNotificationInfo.mPackageInfosRom);
-                    mGappsUpdater.setLastUpdates(mNotificationInfo.mPackageInfosGapps);
-                    mNotificationHelper.setNotifications(mNotificationInfo.mPackageInfosRom.length,
-                            mNotificationInfo.mPackageInfosGapps.length);
-                }
-            } else {
-                mRomUpdater.check();
-                mGappsUpdater.check();
-            }
+        SharedPreferences mPreferences = mContext.getSharedPreferences(IntroductionActivity.KEY_PREFERENCES, 0);
+        if (mPreferences.getBoolean(IntroductionActivity.KEY_FIRST_RUN, true)) {
             selectItem(0);
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    Intent splash = new Intent(mContext, IntroductionActivity.class);
+                    splash.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivityForResult(splash, 1);
+                }}, 500);
         } else {
-            selectItem(savedInstanceState.getInt(SELECTED_ITEM));
+            initInstance();
         }
 
         if (!Utils.alarmExists(this, true)) {
@@ -183,6 +187,47 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
 
         if (!Utils.alarmExists(this, false)) {
             Utils.setAlarm(this, true, false);
+        }
+    }
+
+    private void initInstance() {
+        if (!mInitialized) {
+            mInitialized = true;
+        } else {
+            return;
+        }
+
+        if (mSavedInstanceState == null) {
+            if (mNotificationInfo != null) {
+                if (mNotificationInfo.mNotificationId != Updater.NOTIFICATION_ID) {
+                    checkUpdates();
+                } else {
+                    mRomUpdater.setLastUpdates(mNotificationInfo.mPackageInfosRom);
+                    mGappsUpdater.setLastUpdates(mNotificationInfo.mPackageInfosGapps);
+                    mNotificationHelper.setNotifications(mNotificationInfo.mPackageInfosRom.length,
+                            mNotificationInfo.mPackageInfosGapps.length);
+                }
+            } else {
+                checkUpdates();
+            }
+            selectItem(0);
+        } else {
+            selectItem(mSavedInstanceState.getInt(SELECTED_ITEM));
+        }
+    }
+
+    private void checkUpdates() {
+        mRomUpdater.check();
+        mGappsUpdater.check();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        SharedPreferences mPreferences = mContext.getSharedPreferences(IntroductionActivity.KEY_PREFERENCES, 0);
+        if (!mPreferences.getBoolean(IntroductionActivity.KEY_FIRST_RUN, true)) {
+            initInstance();
         }
     }
 
@@ -291,8 +336,7 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                 startActivity(intent);
                 return true;
             case R.id.action_check:
-                mRomUpdater.check();
-                mGappsUpdater.check();
+                checkUpdates();
                 return true;
             case R.id.action_install:
                 String[] originalFiles = InstallFragment.getFiles();

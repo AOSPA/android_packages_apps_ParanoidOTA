@@ -18,6 +18,7 @@ package com.paranoid.paranoidota.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
+import com.paranoid.paranoidota.activities.IntroductionActivity;
 import com.paranoid.paranoidota.updater.GappsUpdater;
 import com.paranoid.paranoidota.updater.RomUpdater;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
@@ -52,14 +54,15 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_updates, container,
-                false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_updates, container, false);
 
         mStatusView = (TextView) rootView.findViewById(R.id.status);
         mRomView = (TextView) rootView.findViewById(R.id.rom);
         mGappsView = (TextView) rootView.findViewById(R.id.gapps);
 
-        if (mRomUpdater != null && mGappsUpdater != null) {
+        SharedPreferences mPreferences = getActivity().getSharedPreferences(IntroductionActivity.KEY_PREFERENCES, 0);
+        final boolean firstRun = (mPreferences.getBoolean(IntroductionActivity.KEY_FIRST_RUN, true));
+        if (!firstRun && mRomUpdater != null && mGappsUpdater != null) {
             updateText(mRomUpdater.getLastUpdates(), mGappsUpdater.getLastUpdates());
         }
 

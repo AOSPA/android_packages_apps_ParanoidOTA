@@ -21,7 +21,7 @@
 
     <original-package android:name="com.paranoid.paranoidota" />
 
-    <uses-sdk android:minSdkVersion="13" android:targetSdkVersion="18" />
+    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
@@ -62,6 +62,10 @@
 
         <activity android:name=".activities.RequestFileActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".activities.IntroductionActivity"
+            android:theme="@style/Theme.Transparent"
+            android:configChanges="orientation"/>
 
         <receiver android:name="com.paranoid.paranoidota.NotificationAlarm" />
         <receiver

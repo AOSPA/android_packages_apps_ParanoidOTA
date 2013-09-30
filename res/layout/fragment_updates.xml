@@ -13,43 +13,49 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#000000">
 
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textColor="#FFFFFF"
-        android:textSize="32sp"
-         android:paddingTop="20dp"/>
-
-    <TextView
-         android:id="@+id/rom"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:gravity="center_horizontal"
-         android:textColor="#FFFFFF"
-         android:textSize="16sp" />
-
-    <TextView
-         android:id="@+id/gapps"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:gravity="center_horizontal"
-         android:textColor="#FFFFFF"
-         android:textSize="16sp" />
-
     <ImageView
-         android:id="@+id/icon"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:gravity="center"
-         android:src="@drawable/lennon"/>
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/lennon"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitEnd"/>
 
-</LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp"
+            android:paddingTop="20dp"/>
+
+        <TextView
+            android:id="@+id/rom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/gapps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

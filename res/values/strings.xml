@@ -31,6 +31,14 @@
     <string name="local">Downloaded files</string>
     <string name="extras">Additional files</string>
 
+    <!-- INTRODUCTION -->
+    <string name="introduction_header">Welcome</string>
+    <string name="introduction_installer">
+        This app allows you to install Paranoid Android on your device.\n\n
+        Keep in mind that it will perform a factory reset, which means your apps and accounts will be wiped. Please back-up your data! The content of your SD-card remains untouched.
+    </string>
+    <string name="introduction_continue">Got it!</string>
+
     <!-- OVERVIEW -->
     <string name="all_up_to_date">You\'re up to date!</string>
     <string name="rom_gapps_new_version">New versions found!</string>
