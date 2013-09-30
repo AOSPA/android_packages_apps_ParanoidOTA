@@ -38,14 +38,14 @@
     <string name="introduction_header">Welcome</string>
     <string name="introduction_installer_pa">
         This app allows you to update your Paranoid Android ROM and your Google Apps.\n\n
-        If an update is found, you\'ll see a notification telling so. Click it to open ParanoidOTA.\n
+        If an update is found, you\'ll receive a notification. Click it to open ParanoidOTA.\n
         Go to the Updates tab and click on the file you want to download.\n
         Once the download finishes, it will be added to the Install tab. Click the Install button and select the options you want to perform. Your device will reboot into recovery to install the updates.\n\n
         Only TWRP and CWM-based recoveries are supported. Closed source CWM is not supported.
     </string>
     <string name="introduction_installer">
         This app allows you to install Paranoid Android on your device.\n\n
-        If an update is found, you\'ll see a notification telling so. Click it to open ParanoidOTA.\n
+        If an update is found, you\'ll receive a notification. Click it to open ParanoidOTA.\n
         Go to the Updates tab and click on the file you want to download.\n
         Once the download finishes, it will be added to the Install tab. Click the Install button and select the options you want to perform. Your device will reboot into recovery to install the updates.\n\n
         Only TWRP and CWM-based recoveries are supported. Closed source CWM is not supported.\n\n
@@ -57,22 +57,22 @@
     <string name="all_up_to_date">You\'re up to date!</string>
     <string name="rom_gapps_new_version">New versions found!</string>
     <string name="update_to_aospa">Update to ParanoidAndroid!</string>
-    <string name="rom_new_version">New rom version found!</string>
-    <string name="gapps_new_version">New google apps version found!</string>
+    <string name="rom_new_version">New ROM version found!</string>
+    <string name="gapps_new_version">New Google apps version found!</string>
     <string name="rom_scanning">Checking for new versions...</string>
     <string name="gapps_version">Google apps %1$s</string>
     <string name="rom_outdated">Your ROM is outdated!</string>
     <string name="update_rom_to_aospa">Update ROM to ParanoidAndroid!</string>
-    <string name="gapps_outdated">Your google apps are outdated!</string>
-    <string name="update_gapps_to_aospa">Update google apps to ParanoidAndroid!</string>
+    <string name="gapps_outdated">Your Google apps are outdated!</string>
+    <string name="update_gapps_to_aospa">Update Google apps to ParanoidAndroid!</string>
     <string name="no_rom_updates">No ROM updates found</string>
-    <string name="no_gapps_updates">No google apps updates found</string>
+    <string name="no_gapps_updates">No Google apps updates found</string>
     <string name="no_gapps_installed">Google apps not installed</string>
     <string name="update_all_to_aospa">Update to ParanoidAndroid!</string>
     <string name="check_rom_updates_no_new">No ROM updates found</string>
     <string name="check_rom_updates_error">Error checking for ROM updates</string>
-    <string name="check_gapps_updates_no_new">No google apps updates found</string>
-    <string name="check_gapps_updates_error">Error checking for google apps updates</string>
+    <string name="check_gapps_updates_no_new">No Google apps updates found</string>
+    <string name="check_gapps_updates_error">Error checking for Google apps updates</string>
     <string name="no_updates">No updates found</string>
     <string name="check_for_updates_long">Check for updates</string>
     <string name="system_update">A new system update was found and is ready to download.\nPlease check the notifications that may have appeared. They will lead you to ParanoidOTA from where you will be able to download and/or install the system update.\n\nNewest update(s) found:\n%1$s</string>
@@ -81,20 +81,20 @@
     <!-- DOWNLOADS/NOTIFICATIONS -->
     <string name="downloading_title">Downloading %1$s...</string>
     <string name="download_title">%1$s</string>
-    <string name="new_rom_found_title">New rom version found</string>
-    <string name="new_gapps_found_title">New google apps package found</string>
-    <string name="new_all_found_title">New rom and google apps packages found</string>
+    <string name="new_rom_found_title">New ROM version found</string>
+    <string name="new_gapps_found_title">New Google apps package found</string>
+    <string name="new_all_found_title">New ROM and Google apps packages found</string>
     <string name="new_package_name">%1$s</string>
     <string name="new_packages">%1$s updates available for download</string>
     <string name="cancel_download_alert_title">Cancel download</string>
     <string name="cancel_rom_download_alert_summary">Do you want to cancel the current ROM download?</string>
-    <string name="cancel_gapps_download_alert_summary">Do you want to cancel the current google apps download?</string>
+    <string name="cancel_gapps_download_alert_summary">Do you want to cancel the current Google apps download?</string>
     <string name="cancel_download_alert_yes">Yes</string>
     <string name="cancel_download_alert_no">No</string>
     <string name="already_downloading_rom">You are already downloading a ROM update.</string>
-    <string name="already_downloading_gapps">You are already downloading a google apps update.</string>
+    <string name="already_downloading_gapps">You are already downloading a Google apps update.</string>
     <string name="wait_downloading_rom">The ROM update is still downloading.</string>
-    <string name="wait_downloading_gapps">The google apps update is still downloading.</string>
+    <string name="wait_downloading_gapps">The Google apps update is still downloading.</string>
     <string name="calculating_md5">Calculating MD5 sum...</string>
     <string name="md5_mismatch">MD5 mismatch</string>
     <string name="md5_mismatch_summary">Received:\n%1$s\n\nCalculated:\n%2$s</string>
@@ -115,7 +115,7 @@
     <string name="error_unhandled_http_code">Error: Unhandled http code</string>
     <string name="error_unknown">Error: Unknown</string>
     <string name="error_device_not_found_title">Device not found</string>
-    <string name="error_device_not_found_summary">A ROM for your device was not found. Please check it manually.</string>
+    <string name="error_device_not_found_summary">A ROM for your device was not found. Please check manually.</string>
 
     <!-- RECOVERY -->
     <string name="recovery_cwm">ClockworkMod (CWM)</string>
@@ -134,8 +134,8 @@
     <string name="settings_update">Updates</string>
     <string name="settings_checktime_title">Update check frequency</string>
     <string name="settings_checktime_summary">Specify the time between each update check</string>
-    <string name="settings_checkgapps_title">Check for google apps</string>
-    <string name="settings_checkgapps_summary">Check also for PA specific google apps</string>
+    <string name="settings_checkgapps_title">Check for Google apps</string>
+    <string name="settings_checkgapps_summary">Check also for PA specific Google apps</string>
     <string name="time_notifications_never">Don\'t check</string>
     <string name="time_notifications_half_an_hour">Half an hour</string>
     <string name="time_notifications_an_hour">1 hour</string>
@@ -146,7 +146,7 @@
     <string name="settings_download_path_alert_title">Downloads path</string>
     <string name="settings_download_path_alert_summary">Specify the path to save the downloads</string>
     <string name="settings_download_path_alert_error">Please specify the path to save the downloads</string>
-    <string name="settings_download_finished_title">Open app on download finished</string>
+    <string name="settings_download_finished_title">Open app when download finishes</string>
     <string name="settings_download_finished_summary">Untick this option if you want to manually enter the app after a download is completed</string>
     <string name="settings_recovery">Recovery</string>
     <string name="settings_selectrecovery_title">Select recovery</string>
@@ -156,7 +156,7 @@
     <string name="settings_externalsdcard_title">External storage path</string>
     <string name="settings_externalsdcard_summary">Specify the external storage path used by the recovery</string>
     <string name="settings_showoptions_title">Options</string>
-    <string name="settings_showoptions_summary">Chose flash options to show</string>
+    <string name="settings_showoptions_summary">Choose flash options to show</string>
     <string name="install_option_backup">Backup</string>
     <string name="install_option_wipe_system">Wipe System</string>
     <string name="install_option_wipe_data">Wipe Data</string>
@@ -188,7 +188,7 @@
     <string name="alert_wipe_system_title">System wipe</string>
     <string name="alert_wipe_system_message">You are about to perform a system wipe. Are you sure you want to do that?</string>
     <string name="invalid_zip_file">Invalid ZIP file.</string>
-    <string name="install_file_manager_error">No application found to pick the zip file. Please install a file manager.</string>
+    <string name="install_file_manager_error">No applications found to select the zip file. Please install a file manager.</string>
     <string name="remove_file_title">Remove file</string>
     <string name="remove_file_summary">Do you want to remove the file from the list?</string>
     <string name="install">Install</string>
