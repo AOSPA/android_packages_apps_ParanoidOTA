@@ -16,16 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.paranoid.paranoidota.updater.server;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.paranoid.paranoidota.Utils;
@@ -33,16 +29,16 @@ import com.paranoid.paranoidota.updater.Server;
 import com.paranoid.paranoidota.updater.UpdatePackage;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 
-public class GooServer implements Server {
+public class BasketServer implements Server {
 
-    private static final String URL = "http://goo.im/json2&path=/devs/paranoidandroid/roms/%s&ro_board=%s";
+    private static final String URL = "http://pa.basketbuild.com/horizon.php?device=%s";
 
     private String mDevice = null;
     private String mError = null;
     private long mVersion = 0L;
     private boolean mIsRom;
 
-    public GooServer(boolean isRom) {
+    public BasketServer(boolean isRom) {
         mIsRom = isRom;
     }
 
@@ -50,29 +46,21 @@ public class GooServer implements Server {
     public String getUrl(String device, long version) {
         mDevice = device;
         mVersion = version;
-        return String.format(URL, new Object[] { device, device });
+        return String.format(URL, new Object[] { device });
     }
 
     @Override
     public List<PackageInfo> createPackageInfoList(String buffer) throws Exception {
-        List<PackageInfo> list = new ArrayList<PackageInfo>();
         mError = null;
+        List<PackageInfo> list = new ArrayList<PackageInfo>();
         if (buffer != null && !buffer.isEmpty()) {
-            JSONObject result = new JSONObject(buffer);
-            JSONObject update = null;
-            try {
-                update = result.getJSONObject("update_info");
-            } catch (JSONException ex) {
-                update = result;
-            }
-            JSONArray updates = update.optJSONArray("list");
-            if (updates == null) {
-                mError = "Device not found";
-            }
-            for (int i = 0; updates != null && i < updates.length(); i++) {
-                JSONObject file = updates.getJSONObject(i);
-                String filename = file.optString("filename");
-                if (filename != null && !filename.isEmpty() && filename.endsWith(".zip")) {
+            JSONObject updateInfo = new JSONObject(buffer);
+            mError = updateInfo.optString("error");
+            if (mError == null || mError.isEmpty()) {
+                JSONArray updates = updateInfo.getJSONArray("updates");
+                for (int i = updates.length() - 1; i >= 0; i--) {
+                    JSONObject file = updates.getJSONObject(i);
+                    String filename = file.optString("name");
                     String stripped = filename.replace(".zip", "");
                     stripped = stripped.replace("-signed", "");
                     String[] parts = stripped.split("-");
@@ -86,22 +74,13 @@ public class GooServer implements Server {
                     }
                     long version = Utils.parseRomVersion(filename);
                     if (version > mVersion) {
-                        list.add(new UpdatePackage(mDevice, filename, version, "0", "http://goo.im"
-                                + file.getString("path"), file.getString("md5"), mIsRom));
+                        list.add(new UpdatePackage(mDevice, filename, file
+                                .getLong("version"), file.getString("size"), file.getString("url"),
+                                file.getString("md5"), mIsRom));
                     }
                 }
             }
         }
-        Collections.sort(list, new Comparator<PackageInfo>() {
-
-            @Override
-            public int compare(PackageInfo lhs, PackageInfo rhs) {
-                long v1 = lhs.getVersion();
-                long v2 = rhs.getVersion();
-                return v1 < v2 ? 1 : -1;
-            }
-
-        });
         return list;
     }
 

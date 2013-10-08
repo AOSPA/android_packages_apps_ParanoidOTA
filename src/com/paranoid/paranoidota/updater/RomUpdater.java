@@ -27,14 +27,16 @@ import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.http.URLStringReader;
+import com.paranoid.paranoidota.updater.server.BasketServer;
 import com.paranoid.paranoidota.updater.server.GooServer;
 import com.paranoid.paranoidota.updater.server.PaServer;
 
 public class RomUpdater extends Updater {
 
     private static final Server[] SERVERS = {
-        new PaServer(),
-        new GooServer()
+        new BasketServer(true),
+        new PaServer(true),
+        new GooServer(true)
     };
 
     private SettingsHelper mSettingsHelper;

@@ -34,6 +34,11 @@ public class PaServer implements Server {
 
     private String mDevice = null;
     private String mError = null;
+    private boolean mIsRom;
+
+    public PaServer(boolean isRom) {
+        mIsRom = isRom;
+    }
 
     @Override
     public String getUrl(String device, long version) {
@@ -54,7 +59,7 @@ public class PaServer implements Server {
                     JSONObject update = updates.getJSONObject(i);
                     list.add(new UpdatePackage(mDevice, update.getString("name"), update
                             .getLong("version"), update.getString("size"), update.getString("url"),
-                            update.getString("md5"), false));
+                            update.getString("md5"), mIsRom));
                 }
             }
         }
