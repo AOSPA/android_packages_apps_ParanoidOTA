@@ -136,6 +136,8 @@
     <string name="settings_checktime_summary">Specify the time between each update check</string>
     <string name="settings_checkgapps_title">Check for Google apps</string>
     <string name="settings_checkgapps_summary">Check also for PA specific Google apps</string>
+    <string name="settings_checkgappsmini_title">Use Google apps mini</string>
+    <string name="settings_checkgappsmini_summary">Use mini modular package instead of the full package</string>
     <string name="time_notifications_never">Don\'t check</string>
     <string name="time_notifications_half_an_hour">Half an hour</string>
     <string name="time_notifications_an_hour">1 hour</string>

@@ -169,10 +169,10 @@ public class GappsUpdater extends Updater {
 
     @Override
     public void check() {
+        if (mSettingsHelper == null) {
+            mSettingsHelper = new SettingsHelper(getContext());
+        }
         if (mFromAlarm) {
-            if (mSettingsHelper == null) {
-                mSettingsHelper = new SettingsHelper(getContext());
-            }
             if (mSettingsHelper.getCheckTime() < 0 || !mSettingsHelper.getCheckGapps()) {
                 return;
             }
@@ -186,7 +186,11 @@ public class GappsUpdater extends Updater {
         mScanning = true;
         mCurrentServer++;
         mServer = SERVERS[mCurrentServer];
-        new URLStringReader(this).execute(mServer.getUrl("gapps",
+        String gapps = "gapps";
+        if (mSettingsHelper.getCheckGappsMini()) {
+            gapps += "-mini";
+        }
+        new URLStringReader(this).execute(mServer.getUrl(gapps,
                 Long.parseLong(getPlatform() + getVersion())));
     }
 

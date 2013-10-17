@@ -23,8 +23,6 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.paranoid.paranoidota.Utils;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
@@ -43,6 +41,7 @@ public class SettingsHelper {
     public static final String PROPERTY_EXPERT = "expertmode";
     public static final String PROPERTY_CHECK_TIME = "checktime";
     public static final String PROPERTY_CHECK_GAPPS = "checkgapps";
+    public static final String PROPERTY_CHECK_GAPPSMINI = "checkgappsmini";
     public static final String PROPERTY_DOWNLOAD_PATH = "downloadpath";
     public static final String PROPERTY_DOWNLOAD_FINISHED = "downloadfinished";
     public static final String PROPERTY_RECOVERY = "recovery";
@@ -61,6 +60,7 @@ public class SettingsHelper {
     private static final boolean DEFAULT_EXPERT = false;
     private static final String DEFAULT_CHECK_TIME = "18000000"; // five hours
     private static final boolean DEFAULT_CHECK_GAPPS = true;
+    private static final boolean DEFAULT_CHECK_GAPPSMINI = false;
     private static final String DEFAULT_DOWNLOAD_PATH = new File(Environment
             .getExternalStorageDirectory(), "paranoidota/").getAbsolutePath();
     private static final boolean DEFAULT_DOWNLOAD_FINISHED = true;
@@ -145,6 +145,10 @@ public class SettingsHelper {
 
     public boolean getCheckGapps() {
         return settings.getBoolean(PROPERTY_CHECK_GAPPS, DEFAULT_CHECK_GAPPS);
+    }
+
+    public boolean getCheckGappsMini() {
+        return settings.getBoolean(PROPERTY_CHECK_GAPPSMINI, DEFAULT_CHECK_GAPPSMINI);
     }
 
     public void setDownloadRomId(Long id, String md5, String fileName) {
