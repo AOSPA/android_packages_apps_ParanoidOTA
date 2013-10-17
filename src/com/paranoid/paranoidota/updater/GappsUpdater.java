@@ -32,13 +32,11 @@ import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.http.URLStringReader;
 import com.paranoid.paranoidota.updater.server.BasketServer;
 import com.paranoid.paranoidota.updater.server.GooServer;
-import com.paranoid.paranoidota.updater.server.PaServer;
 
 public class GappsUpdater extends Updater {
 
     private static final Server[] SERVERS = {
         new BasketServer(false),
-        new PaServer(false),
         new GooServer(false)
     };
 
