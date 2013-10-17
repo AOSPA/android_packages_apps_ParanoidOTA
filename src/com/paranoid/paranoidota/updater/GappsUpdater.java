@@ -24,12 +24,18 @@ import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
 
+import org.json.JSONObject;
+
 import android.content.Context;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
-import com.paranoid.paranoidota.http.URLStringReader;
 import com.paranoid.paranoidota.updater.server.BasketServer;
 import com.paranoid.paranoidota.updater.server.GooServer;
 
@@ -40,6 +46,7 @@ public class GappsUpdater extends Updater {
         new GooServer(false)
     };
 
+    private RequestQueue mQueue;
     private SettingsHelper mSettingsHelper;
     private Server mServer;
     private String mPlatform;
@@ -52,6 +59,8 @@ public class GappsUpdater extends Updater {
     public GappsUpdater(Context context, boolean fromAlarm) {
         super(context);
         mFromAlarm = fromAlarm;
+
+        mQueue = Volley.newRequestQueue(context);
 
         File file = new File("/system/etc/g.prop");
         mCanUpdate = file.exists();
@@ -92,12 +101,12 @@ public class GappsUpdater extends Updater {
     }
 
     @Override
-    public void onReadEnd(String buffer) {
+    public void onResponse(JSONObject response) {
         mScanning = false;
         try {
             PackageInfo[] lastGapps = null;
             setLastUpdates(null);
-            List<PackageInfo> list = mServer.createPackageInfoList(buffer);
+            List<PackageInfo> list = mServer.createPackageInfoList(response);
             String error = mServer.getError();
             lastGapps = list.toArray(new PackageInfo[list.size()]);
             if (lastGapps.length > 0) {
@@ -119,13 +128,14 @@ public class GappsUpdater extends Updater {
             setLastUpdates(lastGapps);
             fireCheckCompleted(lastGapps);
         } catch (Exception ex) {
-            System.out.println(buffer);
-            onReadError(ex);
+            System.out.println(response.toString());
+            ex.printStackTrace();
+            versionError(null);
         }
     }
 
     @Override
-    public void onReadError(Exception ex) {
+    public void onErrorResponse(VolleyError ex) {
         ex.printStackTrace();
         versionError(null);
     }
@@ -190,8 +200,9 @@ public class GappsUpdater extends Updater {
         if (mSettingsHelper.getCheckGappsMini()) {
             gapps += "-mini";
         }
-        new URLStringReader(this).execute(mServer.getUrl(gapps,
-                Long.parseLong(getPlatform() + getVersion())));
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, mServer.getUrl(
+                gapps, Long.parseLong(getPlatform() + getVersion())), null, this, this);
+        mQueue.add(jsObjRequest);
     }
 
     @Override

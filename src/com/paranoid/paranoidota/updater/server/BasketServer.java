@@ -50,34 +50,32 @@ public class BasketServer implements Server {
     }
 
     @Override
-    public List<PackageInfo> createPackageInfoList(String buffer) throws Exception {
+    public List<PackageInfo> createPackageInfoList(JSONObject response) throws Exception {
         mError = null;
         List<PackageInfo> list = new ArrayList<PackageInfo>();
-        if (buffer != null && !buffer.isEmpty()) {
-            JSONObject updateInfo = new JSONObject(buffer);
-            mError = updateInfo.optString("error");
-            if (mError == null || mError.isEmpty()) {
-                JSONArray updates = updateInfo.getJSONArray("updates");
-                for (int i = updates.length() - 1; i >= 0; i--) {
-                    JSONObject file = updates.getJSONObject(i);
-                    String filename = file.optString("name");
-                    String stripped = filename.replace(".zip", "");
-                    stripped = stripped.replace("-signed", "");
-                    String[] parts = stripped.split("-");
-                    int part = parts.length - 2;
-                    if (parts[part].startsWith("RC")) {
-                        part = parts.length - 1;
-                    }
-                    boolean isNew = parts[parts.length - 1].matches("[-+]?\\d*\\.?\\d+");
-                    if (!isNew) {
-                        continue;
-                    }
-                    long version = Utils.parseRomVersion(filename);
-                    if (version > mVersion) {
-                        list.add(new UpdatePackage(mDevice, filename, file
-                                .getLong("version"), file.getString("size"), file.getString("url"),
-                                file.getString("md5"), mIsRom));
-                    }
+        mError = response.optString("error");
+        if (mError == null || mError.isEmpty()) {
+            JSONArray updates = response.getJSONArray("updates");
+            for (int i = updates.length() - 1; i >= 0; i--) {
+                JSONObject file = updates.getJSONObject(i);
+                String filename = file.optString("name");
+                String stripped = filename.replace(".zip", "");
+                stripped = stripped.replace("-signed", "");
+                stripped = stripped.replace("-modular", "");
+                String[] parts = stripped.split("-");
+                int part = parts.length - 2;
+                if (parts[part].startsWith("RC")) {
+                    part = parts.length - 1;
+                }
+                boolean isNew = parts[parts.length - 1].matches("[-+]?\\d*\\.?\\d+");
+                if (!isNew) {
+                    continue;
+                }
+                long version = Utils.parseRomVersion(filename);
+                if (version > mVersion) {
+                    list.add(new UpdatePackage(mDevice, filename, file
+                            .getLong("version"), file.getString("size"), file.getString("url"),
+                            file.getString("md5"), mIsRom));
                 }
             }
         }

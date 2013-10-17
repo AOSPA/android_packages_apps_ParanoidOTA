@@ -54,41 +54,39 @@ public class GooServer implements Server {
     }
 
     @Override
-    public List<PackageInfo> createPackageInfoList(String buffer) throws Exception {
+    public List<PackageInfo> createPackageInfoList(JSONObject response) throws Exception {
         List<PackageInfo> list = new ArrayList<PackageInfo>();
         mError = null;
-        if (buffer != null && !buffer.isEmpty()) {
-            JSONObject result = new JSONObject(buffer);
-            JSONObject update = null;
-            try {
-                update = result.getJSONObject("update_info");
-            } catch (JSONException ex) {
-                update = result;
-            }
-            JSONArray updates = update.optJSONArray("list");
-            if (updates == null) {
-                mError = "Device not found";
-            }
-            for (int i = 0; updates != null && i < updates.length(); i++) {
-                JSONObject file = updates.getJSONObject(i);
-                String filename = file.optString("filename");
-                if (filename != null && !filename.isEmpty() && filename.endsWith(".zip")) {
-                    String stripped = filename.replace(".zip", "");
-                    stripped = stripped.replace("-signed", "");
-                    String[] parts = stripped.split("-");
-                    int part = parts.length - 2;
-                    if (parts[part].startsWith("RC")) {
-                        part = parts.length - 1;
-                    }
-                    boolean isNew = parts[parts.length - 1].matches("[-+]?\\d*\\.?\\d+");
-                    if (!isNew) {
-                        continue;
-                    }
-                    long version = Utils.parseRomVersion(filename);
-                    if (version > mVersion) {
-                        list.add(new UpdatePackage(mDevice, filename, version, "0", "http://goo.im"
-                                + file.getString("path"), file.getString("md5"), mIsRom));
-                    }
+        JSONObject update = null;
+        try {
+            update = response.getJSONObject("update_info");
+        } catch (JSONException ex) {
+            update = response;
+        }
+        JSONArray updates = update.optJSONArray("list");
+        if (updates == null) {
+            mError = "Device not found";
+        }
+        for (int i = 0; updates != null && i < updates.length(); i++) {
+            JSONObject file = updates.getJSONObject(i);
+            String filename = file.optString("filename");
+            if (filename != null && !filename.isEmpty() && filename.endsWith(".zip")) {
+                String stripped = filename.replace(".zip", "");
+                stripped = stripped.replace("-signed", "");
+                stripped = stripped.replace("-modular", "");
+                String[] parts = stripped.split("-");
+                int part = parts.length - 2;
+                if (parts[part].startsWith("RC")) {
+                    part = parts.length - 1;
+                }
+                boolean isNew = parts[parts.length - 1].matches("[-+]?\\d*\\.?\\d+");
+                if (!isNew) {
+                    continue;
+                }
+                long version = Utils.parseRomVersion(filename);
+                if (version > mVersion) {
+                    list.add(new UpdatePackage(mDevice, filename, version, "0", "http://goo.im"
+                            + file.getString("path"), file.getString("md5"), mIsRom));
                 }
             }
         }

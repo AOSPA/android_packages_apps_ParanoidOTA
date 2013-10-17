@@ -21,12 +21,18 @@ package com.paranoid.paranoidota.updater;
 
 import java.util.List;
 
+import org.json.JSONObject;
+
 import android.content.Context;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
-import com.paranoid.paranoidota.http.URLStringReader;
 import com.paranoid.paranoidota.updater.server.BasketServer;
 import com.paranoid.paranoidota.updater.server.GooServer;
 
@@ -37,6 +43,7 @@ public class RomUpdater extends Updater {
         new GooServer(true)
     };
 
+    private RequestQueue mQueue;
     private SettingsHelper mSettingsHelper;
     private Server mServer;
     private boolean mScanning = false;
@@ -46,6 +53,8 @@ public class RomUpdater extends Updater {
     public RomUpdater(Context context, boolean fromAlarm) {
         super(context);
         mFromAlarm = fromAlarm;
+
+        mQueue = Volley.newRequestQueue(context);
     }
 
     @Override
@@ -67,7 +76,9 @@ public class RomUpdater extends Updater {
         mScanning = true;
         mCurrentServer++;
         mServer = SERVERS[mCurrentServer];
-        new URLStringReader(this).execute(mServer.getUrl(getDevice(), getVersion()));
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, mServer.getUrl(
+                getDevice(), getVersion()), null, this, this);
+        mQueue.add(jsObjRequest);
     }
 
     @Override
@@ -96,12 +107,12 @@ public class RomUpdater extends Updater {
     }
 
     @Override
-    public void onReadEnd(String buffer) {
+    public void onResponse(JSONObject response) {
         try {
             mScanning = false;
             PackageInfo[] lastRoms = null;
             setLastUpdates(null);
-            List<PackageInfo> list = mServer.createPackageInfoList(buffer);
+            List<PackageInfo> list = mServer.createPackageInfoList(response);
             lastRoms = list.toArray(new PackageInfo[list.size()]);
             String error = mServer.getError();
             if (list.size() > 0) {
@@ -130,7 +141,7 @@ public class RomUpdater extends Updater {
     }
 
     @Override
-    public void onReadError(Exception ex) {
+    public void onErrorResponse(VolleyError ex) {
         mScanning = false;
         versionError(null);
     }

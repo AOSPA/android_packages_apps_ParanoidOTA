@@ -21,13 +21,15 @@ package com.paranoid.paranoidota.updater;
 
 import java.util.List;
 
+import org.json.JSONObject;
+
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 
 public interface Server {
 
     public String getUrl(String device, long version);
 
-    public List<PackageInfo> createPackageInfoList(String buffer) throws Exception;
+    public List<PackageInfo> createPackageInfoList(JSONObject response) throws Exception;
 
     public String getError();
 }

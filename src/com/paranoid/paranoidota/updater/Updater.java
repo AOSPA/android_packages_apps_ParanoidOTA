@@ -23,13 +23,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
+import com.android.volley.Response;
+
 import android.app.Activity;
 import android.content.Context;
 
-import com.paranoid.paranoidota.http.HttpStringReader.HttpStringReaderListener;
-import com.paranoid.paranoidota.http.URLStringReader.URLStringReaderListener;
-
-public abstract class Updater implements URLStringReaderListener, HttpStringReaderListener  {
+public abstract class Updater implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     public interface PackageInfo extends Serializable {
 
