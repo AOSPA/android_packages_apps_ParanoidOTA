@@ -28,6 +28,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Environment;
+import android.os.Build.VERSION;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,8 +102,29 @@ public class RecoveryHelper {
         mContext = context;
         mSettings = new SettingsHelper(context);
 
-        recoveries.put(R.id.cwmbased, new RecoveryInfo(R.id.cwmbased, "cwmbased", "sdcard",
-                "external_sd"));
+        String sdcard = "sdcard";
+        String externalsd = "external_sd";
+        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        if(VERSION.SDK_INT > 16) {
+            String path = System.getenv("EMULATED_STORAGE_TARGET");
+            if (path != null && dirPath != null && dirPath.startsWith(path)) {
+                sdcard = sdcard + dirPath.replace(path, "");
+            } else if (path != null) {
+                sdcard = path;
+            }
+            if (IOUtils.hasSecondarySdCard()) {
+                path = System.getenv("SECONDARY_STORAGE");
+                if (path != null) {
+                    externalsd = path;
+                }
+            }
+        } else if (dirPath.startsWith("/mnt/emmc")) {
+            sdcard = "emmc";
+            externalsd = "sdcard";
+        }
+
+        recoveries.put(R.id.cwmbased, new RecoveryInfo(R.id.cwmbased, "cwmbased", sdcard,
+                externalsd));
         recoveries.put(R.id.twrp, new RecoveryInfo(R.id.twrp, "twrp", "sdcard", "external_sd"));
         recoveries.put(R.id.stock, new RecoveryInfo(R.id.stock, "stock", "sdcard", "external_sd"));
 
