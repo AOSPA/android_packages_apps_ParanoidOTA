@@ -19,16 +19,21 @@
 
 package com.paranoid.paranoidota.activities;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
 import com.paranoid.paranoidota.R;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.Toast;
 
 public class RequestFileActivity extends Activity {
@@ -78,7 +83,24 @@ public class RequestFileActivity extends Activity {
                 return;
             }
 
-            String filePath = data.getData().getPath();
+            Uri uri = data.getData();
+
+            String filePath = uri.getPath();
+
+            if (!(new File(filePath)).exists()) {
+                ContentResolver cr = getContentResolver();
+                Cursor cursor = cr.query(uri, null, null, null, null);
+                try {
+                    if (cursor.moveToNext()) {
+                        int index = cursor.getColumnIndex(MediaStore.MediaColumns.DATA);
+                        if (index >= 0) {
+                            filePath = cursor.getString(index);
+                        }
+                    }
+                } finally {
+                    cursor.close();
+                }
+            }
 
             if (sCallback != null) {
                 sCallback.fileRequested(filePath);
