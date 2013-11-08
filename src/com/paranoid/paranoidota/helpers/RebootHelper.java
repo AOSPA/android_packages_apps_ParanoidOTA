@@ -37,7 +37,7 @@ import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.InstallOptionsCursor;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
-import com.paranoid.paranoidota.helpers.RecoveryHelper.RecoveryInfo;
+import com.paranoid.paranoidota.helpers.recovery.RecoveryInfo;
 
 public class RebootHelper {
 
@@ -112,10 +112,10 @@ public class RebootHelper {
         input.selectAll();
 
         if (mRecoveryHelper.getRecovery().getId() == R.id.twrp) {
-            if (!mRecoveryHelper.hasAndroidSecure()) {
+            if (!IOUtils.hasAndroidSecure()) {
                 cbSecure.setVisibility(View.GONE);
             }
-            if (!mRecoveryHelper.hasSdExt()) {
+            if (!IOUtils.hasSdExt()) {
                 cbSdext.setVisibility(View.GONE);
             }
         } else {

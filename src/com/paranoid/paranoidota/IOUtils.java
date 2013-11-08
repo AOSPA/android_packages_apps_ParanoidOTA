@@ -36,6 +36,9 @@ import com.paranoid.paranoidota.helpers.SettingsHelper;
 
 public class IOUtils {
 
+    public static final String SDCARD = Environment.getExternalStorageDirectory()
+            .getAbsolutePath();
+
     private static final String PREFIX = "pa_";
     private static final String SUFFIX = ".zip";
 
@@ -304,5 +307,18 @@ public class IOUtils {
         } else {
             Utils.su(new String[] { "rm -f /cache/" + file.getName() });
         }
+    }
+
+    public static boolean hasAndroidSecure() {
+        return folderExists(SDCARD + "/.android-secure");
+    }
+
+    public static boolean hasSdExt() {
+        return folderExists("/sd-ext");
+    }
+
+    public static boolean folderExists(String path) {
+        File f = new File(path);
+        return f.exists() && f.isDirectory();
     }
 }

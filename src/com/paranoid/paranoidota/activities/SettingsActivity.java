@@ -37,8 +37,8 @@ import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.helpers.RecoveryHelper;
-import com.paranoid.paranoidota.helpers.RecoveryHelper.RecoveryInfo;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
+import com.paranoid.paranoidota.helpers.recovery.RecoveryInfo;
 
 public class SettingsActivity extends PreferenceActivity implements
         OnSharedPreferenceChangeListener {

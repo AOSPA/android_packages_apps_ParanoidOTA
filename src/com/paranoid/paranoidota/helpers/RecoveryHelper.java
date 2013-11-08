@@ -20,15 +20,11 @@
 package com.paranoid.paranoidota.helpers;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Environment;
-import android.os.Build.VERSION;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,58 +36,12 @@ import android.widget.Toast;
 
 import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
+import com.paranoid.paranoidota.helpers.recovery.CwmBasedRecovery;
+import com.paranoid.paranoidota.helpers.recovery.RecoveryInfo;
+import com.paranoid.paranoidota.helpers.recovery.StockRecovery;
+import com.paranoid.paranoidota.helpers.recovery.TwrpRecovery;
 
 public class RecoveryHelper {
-
-    public class RecoveryInfo {
-
-        private int id;
-        private String name = null;
-        private String internalSdcard = null;
-        private String externalSdcard = null;
-
-        public RecoveryInfo(int id, String name, String internalSdcard, String externalSdcard) {
-            this.id = id;
-            this.name = name;
-            this.internalSdcard = internalSdcard;
-            this.externalSdcard = externalSdcard;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getInternalSdcard() {
-            return internalSdcard;
-        }
-
-        public void setInternalSdcard(String sdcard) {
-            this.internalSdcard = sdcard;
-        }
-
-        public String getExternalSdcard() {
-            return externalSdcard;
-        }
-
-        public void setExternalSdcard(String sdcard) {
-            this.externalSdcard = sdcard;
-        }
-    }
-
-    private static final String SDCARD = Environment.getExternalStorageDirectory()
-            .getAbsolutePath();
 
     private SparseArray<RecoveryInfo> recoveries = new SparseArray<RecoveryInfo>();
     private SettingsHelper mSettings;
@@ -102,31 +52,9 @@ public class RecoveryHelper {
         mContext = context;
         mSettings = new SettingsHelper(context);
 
-        String sdcard = "sdcard";
-        String externalsd = "external_sd";
-        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        if(VERSION.SDK_INT > 16) {
-            String path = System.getenv("EMULATED_STORAGE_TARGET");
-            if (path != null && dirPath != null && dirPath.startsWith(path)) {
-                sdcard = sdcard + dirPath.replace(path, "");
-            } else if (path != null) {
-                sdcard = path;
-            }
-            if (IOUtils.hasSecondarySdCard()) {
-                path = System.getenv("SECONDARY_STORAGE");
-                if (path != null) {
-                    externalsd = path;
-                }
-            }
-        } else if (dirPath.startsWith("/mnt/emmc")) {
-            sdcard = "emmc";
-            externalsd = "sdcard";
-        }
-
-        recoveries.put(R.id.cwmbased, new RecoveryInfo(R.id.cwmbased, "cwmbased", sdcard,
-                externalsd));
-        recoveries.put(R.id.twrp, new RecoveryInfo(R.id.twrp, "twrp", "sdcard", "external_sd"));
-        recoveries.put(R.id.stock, new RecoveryInfo(R.id.stock, "stock", "sdcard", "external_sd"));
+        recoveries.put(R.id.cwmbased, new CwmBasedRecovery(context));
+        recoveries.put(R.id.twrp, new TwrpRecovery());
+        recoveries.put(R.id.stock, new StockRecovery());
 
         if (!mSettings.existsRecovery()) {
             test();
@@ -240,14 +168,7 @@ public class RecoveryHelper {
 
         RecoveryInfo info = getRecovery();
 
-        switch (info.getId()) {
-            case R.id.stock:
-                return "command";
-            case R.id.twrp:
-                return "openrecoveryscript";
-            default:
-                return "extendedcommand";
-        }
+        return info.getCommandsFile();
     }
 
     public String getRecoveryFilePath(String filePath) {
@@ -261,12 +182,14 @@ public class RecoveryHelper {
         String[] internalNames = new String[] {
                 primarySdcard,
                 "/mnt/sdcard",
+                "/storage/sdcard/",
                 "/sdcard",
                 "/storage/sdcard0",
                 "/storage/emulated/0" };
         String[] externalNames = new String[] {
                 secondarySdcard == null ? " " : secondarySdcard,
                 "/mnt/extSdCard",
+                "/storage/extSdCard/",
                 "/extSdCard",
                 "/storage/sdcard1",
                 "/storage/emulated/1" };
@@ -282,141 +205,27 @@ public class RecoveryHelper {
             }
         }
 
+        while (filePath.startsWith("//")) {
+            filePath = filePath.substring(1);
+        }
+
         return filePath;
     }
 
     public String[] getCommands(String[] items, String[] originalItems, boolean wipeSystem,
             boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions)
             throws Exception {
-        List<String> commands = new ArrayList<String>();
-
-        int size = items.length, i = 0;
 
         RecoveryInfo info = getRecovery();
 
-        String internalStorage = mSettings.getInternalStorage();
-
-        switch (info.getId()) {
-            default:
-
-                if (backupFolder != null) {
-                    commands.add("backup_rom(\"/" + internalStorage + "/clockworkmod/backup/"
-                            + backupFolder + "\");");
-                }
-
-                if (wipeSystem) {
-                    commands.add("format(\"/system\");");
-                }
-
-                if (wipeData) {
-                    commands.add("format(\"/data\");");
-                    commands.add("format(\"/" + internalStorage + "/.android_secure\");");
-                }
-                if (wipeCaches) {
-                    commands.add("format(\"/cache\");");
-                    commands.add("format(\"/data/dalvik-cache\");");
-                    commands.add("format(\"/cache/dalvik-cache\");");
-                    commands.add("format(\"/sd-ext/dalvik-cache\");");
-                }
-
-                if (size > 0) {
-                    for (; i < size; i++) {
-                        commands.add("assert(install_zip(\"" + items[i] + "\"));");
-                    }
-                }
-
-                break;
-
-            case R.id.twrp:
-
-                boolean hasAndroidSecure = hasAndroidSecure();
-                boolean hasSdExt = hasSdExt();
-
-                if (backupFolder != null) {
-                    String str = "backup ";
-                    if (backupOptions != null && backupOptions.indexOf("S") >= 0) {
-                        str += "S";
-                    }
-                    if (backupOptions != null && backupOptions.indexOf("D") >= 0) {
-                        str += "D";
-                    }
-                    if (backupOptions != null && backupOptions.indexOf("C") >= 0) {
-                        str += "C";
-                    }
-                    if (backupOptions != null && backupOptions.indexOf("R") >= 0) {
-                        str += "R";
-                    }
-                    str += "123";
-                    if (backupOptions != null && backupOptions.indexOf("B") >= 0) {
-                        str += "B";
-                    }
-                    if (backupOptions != null && backupOptions.indexOf("A") >= 0
-                            && hasAndroidSecure) {
-                        str += "A";
-                    }
-                    if (backupOptions != null && backupOptions.indexOf("E") >= 0 && hasSdExt) {
-                        str += "E";
-                    }
-                    commands.add(str + "O " + backupFolder);
-                }
-
-                if (wipeSystem) {
-                    commands.add("mount system");
-                    commands.add("cmd /sbin/busybox rm -r /system/*");
-                    commands.add("unmount system");
-                }
-
-                if (wipeData) {
-                    commands.add("wipe data");
-                }
-                if (wipeCaches) {
-                    commands.add("wipe cache");
-                    commands.add("wipe dalvik");
-                }
-
-                for (; i < size; i++) {
-                    commands.add("install " + items[i]);
-                }
-
-                break;
-
-            case R.id.stock:
-
-                if (wipeData) {
-                    commands.add("--wipe_data");
-                }
-
-                if (wipeCaches) {
-                    commands.add("--wipe_cache");
-                }
-
-                if (size > 0) {
-                    commands.add("--disable_verification");
-                    for (; i < size; i++) {
-                        File file = new File(originalItems[i]);
-                        IOUtils.copyOrRemoveCache(file, true);
-                        commands.add("--update_package=/cache/" + file.getName());
-                    }
-                }
-
-                break;
-        }
-
-        return commands.toArray(new String[commands.size()]);
-    }
-
-    public boolean hasAndroidSecure() {
-        return folderExists(SDCARD + "/.android-secure");
-    }
-
-    public boolean hasSdExt() {
-        return folderExists("/sd-ext");
+        return info.getCommands(mContext, items, originalItems, wipeSystem, wipeData, wipeCaches,
+                backupFolder, backupOptions);
     }
 
     private void test() {
 
-        File folderTwrp = new File(SDCARD + "/TWRP/");
-        File folderCwm = new File(SDCARD + "/clockworkmod/");
+        File folderTwrp = new File(IOUtils.SDCARD + recoveries.get(R.id.twrp).getFolderPath());
+        File folderCwm = new File(IOUtils.SDCARD + recoveries.get(R.id.cwmbased).getFolderPath());
 
         if (folderTwrp.exists() && folderCwm.exists()) {
             selectRecovery();
@@ -439,10 +248,5 @@ public class RecoveryHelper {
                     mContext.getString(R.string.recovery_changed,
                             mContext.getString(R.string.recovery_cwm)), Toast.LENGTH_LONG).show();
         }
-    }
-
-    private boolean folderExists(String path) {
-        File f = new File(path);
-        return f.exists() && f.isDirectory();
     }
 }
