@@ -112,13 +112,14 @@ public class InstallFragment extends android.preference.PreferenceFragment
         mLocalRoot.removeAll();
         mExtrasRoot.removeAll();
         for (File file : sFiles) {
+            boolean downloaded = IOUtils.isOnDownloadList(mContext, file.getName());
             Preference pref = new Preference(mContext);
             pref.setTitle(file.getName());
-            pref.setSummary(getSummary(file, true));
+            pref.setSummary(getSummary(file, downloaded));
             pref.setIcon(R.drawable.ic_download);
             pref.getExtras().putString("filePath", file.getAbsolutePath());
             pref.setOnPreferenceClickListener(mListener);
-            if (IOUtils.isOnDownloadList(mContext, file.getName())) {
+            if (downloaded) {
                 mLocalRoot.addPreference(pref);
             } else {
                 mExtrasRoot.addPreference(pref);
