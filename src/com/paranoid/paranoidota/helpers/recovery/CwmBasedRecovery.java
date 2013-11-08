@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.storage.StorageManager;
 
+import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
 
@@ -89,6 +90,10 @@ public class CwmBasedRecovery extends RecoveryInfo {
         }
 
         if (size > 0) {
+            if (IOUtils.isExternalStorageAvailable()) {
+                commands.add("run_program(\"/sbin/mount\", \""
+                        + settings.getExternalStorage() + "\");");
+            }
             for (; i < size; i++) {
                 commands.add("assert(install_zip(\"" + items[i] + "\"));");
             }
