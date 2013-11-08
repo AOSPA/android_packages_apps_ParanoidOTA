@@ -35,6 +35,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
+import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.updater.server.BasketServer;
 import com.paranoid.paranoidota.updater.server.GooServer;
@@ -165,11 +166,8 @@ public class GappsUpdater extends Updater {
     }
 
     @Override
-    public long getVersion() {
-        if (mVersion <= 0L) {
-            return 0L;
-        }
-        return mVersion;
+    public Version getVersion() {
+        return Version.fromGapps(mPlatform, mVersion);
     }
 
     @Override
@@ -201,7 +199,7 @@ public class GappsUpdater extends Updater {
             gapps += "-mini";
         }
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, mServer.getUrl(
-                gapps, Long.parseLong(getPlatform() + getVersion())), null, this, this);
+                gapps, getVersion()), null, this, this);
         mQueue.add(jsObjRequest);
     }
 

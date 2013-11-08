@@ -21,6 +21,7 @@ package com.paranoid.paranoidota.updater;
 
 import java.io.Serializable;
 
+import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 
 public class UpdatePackage implements PackageInfo, Serializable {
@@ -32,11 +33,11 @@ public class UpdatePackage implements PackageInfo, Serializable {
     private String path = null;
     private String size = null;
     private String incremental_path = null;
-    private long version = -1;
+    private Version version;
     private boolean isDelta = false;
     private boolean isGapps = false;
 
-    public UpdatePackage(String device, String name, long version, String size, String url,
+    public UpdatePackage(String device, String name, Version version, String size, String url,
             String md5, boolean gapps) {
         this.filename = name;
         this.version = version;
@@ -82,7 +83,7 @@ public class UpdatePackage implements PackageInfo, Serializable {
     }
 
     @Override
-    public long getVersion() {
+    public Version getVersion() {
         return version;
     }
 

@@ -196,6 +196,8 @@ public class DownloadFragment extends android.preference.PreferenceFragment impl
                 }
                 if ("0".equals(size)) {
                     size = mContext.getResources().getString(R.string.unknown_size);
+                } else if (Utils.isNumeric(size)) {
+                    size = IOUtils.humanReadableByteCount(Long.parseLong(size), false);
                 }
                 pref.setSummary(size);
                 root.addPreference(pref);
@@ -210,10 +212,10 @@ public class DownloadFragment extends android.preference.PreferenceFragment impl
         if (isRom) {
             return Utils.getReadableVersion(Utils.getProp(Utils.MOD_VERSION));
         } else {
-            if (mGappsUpdater.getVersion() == -1) {
+            if (mGappsUpdater.getVersion().isEmpty()) {
                 return mContext.getResources().getString(R.string.no_gapps_installed);
             }
-            return Utils.getReadableVersion("pa_gapps-" + mGappsUpdater.getPlatform() + "-" + mGappsUpdater.getVersion());
+            return Utils.getReadableVersion(mGappsUpdater.getVersion().toString());
         }
     }
 

@@ -122,13 +122,6 @@ public class Utils {
         }
     }
 
-    public static long parseRomVersion(String version) {
-        String stripped = version.replaceAll(".1-RC1-", "-");
-        stripped = stripped.replaceAll("-RC2-", "-");
-        stripped = stripped.replaceAll("\\D+", "");
-        return "".equals(stripped) ? 0L : Long.parseLong(stripped);
-    }
-
     public static String translateDeviceName(Context context, String device) {
         Properties dictionary = IOUtils.getDictionary(context);
         String translate = dictionary.getProperty(device);
@@ -293,6 +286,15 @@ public class Utils {
             sWeAreInAospa = "true".equals(prop) ? 1 : 0;
         }
         return sWeAreInAospa == 1;
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException ex) {
+        }
+        return false;
     }
 
     public static String su(String[] commands) {

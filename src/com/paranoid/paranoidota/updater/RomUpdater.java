@@ -32,6 +32,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
+import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.updater.server.BasketServer;
 import com.paranoid.paranoidota.updater.server.GooServer;
@@ -82,9 +83,9 @@ public class RomUpdater extends Updater {
     }
 
     @Override
-    public long getVersion() {
-        String version = Utils.getProp(Utils.MOD_VERSION);
-        return Utils.parseRomVersion(version);
+    public Version getVersion() {
+        String version = getDevice() + "-" + Utils.getProp(Utils.MOD_VERSION);
+        return new Version(version);
     }
 
     @Override

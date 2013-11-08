@@ -24,7 +24,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.paranoid.paranoidota.Utils;
+import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.updater.Server;
 import com.paranoid.paranoidota.updater.UpdatePackage;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
@@ -35,7 +35,7 @@ public class BasketServer implements Server {
 
     private String mDevice = null;
     private String mError = null;
-    private long mVersion = 0L;
+    private Version mVersion;
     private boolean mIsRom;
 
     public BasketServer(boolean isRom) {
@@ -43,7 +43,7 @@ public class BasketServer implements Server {
     }
 
     @Override
-    public String getUrl(String device, long version) {
+    public String getUrl(String device, Version version) {
         mDevice = device;
         mVersion = version;
         return String.format(URL, new Object[] { device });
@@ -71,11 +71,10 @@ public class BasketServer implements Server {
                 if (!isNew) {
                     continue;
                 }
-                long version = Utils.parseRomVersion(filename);
-                if (version > mVersion) {
-                    list.add(new UpdatePackage(mDevice, filename, file
-                            .getLong("version"), file.getString("size"), file.getString("url"),
-                            file.getString("md5"), mIsRom));
+                Version version = new Version(filename);
+                if (Version.compare(mVersion, version) < 0) {
+                    list.add(new UpdatePackage(mDevice, filename, version, file.getString("size"),
+                            file.getString("url"), file.getString("md5"), mIsRom));
                 }
             }
         }

@@ -26,6 +26,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 import com.android.volley.Response;
+import com.paranoid.paranoidota.Version;
 
 import android.app.Activity;
 import android.content.Context;
@@ -38,7 +39,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
         public String getFilename();
         public String getPath();
         public String getSize();
-        public long getVersion();
+        public Version getVersion();
         public boolean isDelta();
         public String getDeltaFilename();
         public String getDeltaPath();
@@ -70,7 +71,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
         mContext = context;
     }
 
-    public abstract long getVersion();
+    public abstract Version getVersion();
 
     public abstract void check();
 

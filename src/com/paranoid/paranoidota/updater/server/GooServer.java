@@ -28,7 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.paranoid.paranoidota.Utils;
+import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.updater.Server;
 import com.paranoid.paranoidota.updater.UpdatePackage;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
@@ -39,7 +39,7 @@ public class GooServer implements Server {
 
     private String mDevice = null;
     private String mError = null;
-    private long mVersion = 0L;
+    private Version mVersion;
     private boolean mIsRom;
 
     public GooServer(boolean isRom) {
@@ -47,7 +47,7 @@ public class GooServer implements Server {
     }
 
     @Override
-    public String getUrl(String device, long version) {
+    public String getUrl(String device, Version version) {
         mDevice = device;
         mVersion = version;
         return String.format(URL, new Object[] { device, device });
@@ -83,8 +83,8 @@ public class GooServer implements Server {
                 if (!isNew) {
                     continue;
                 }
-                long version = Utils.parseRomVersion(filename);
-                if (version > mVersion) {
+                Version version = new Version(filename);
+                if (Version.compare(mVersion, version) < 0) {
                     list.add(new UpdatePackage(mDevice, filename, version, "0", "http://goo.im"
                             + file.getString("path"), file.getString("md5"), mIsRom));
                 }
@@ -94,9 +94,7 @@ public class GooServer implements Server {
 
             @Override
             public int compare(PackageInfo lhs, PackageInfo rhs) {
-                long v1 = lhs.getVersion();
-                long v2 = rhs.getVersion();
-                return v1 < v2 ? 1 : -1;
+                return Version.compare(lhs.getVersion(), rhs.getVersion());
             }
 
         });
