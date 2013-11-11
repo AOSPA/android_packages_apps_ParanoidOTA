@@ -103,10 +103,18 @@ public class Version {
             version = split[2];
             if (version.startsWith("A")) {
                 mPhase = ALPHA;
-                version = version.substring(1);
+                if (version.startsWith("ALPHA")) {
+                    version = version.substring(5);
+                } else {
+                    version = version.substring(1);
+                }
             } else if (version.startsWith("B")) {
                 mPhase = BETA;
-                version = version.substring(1);
+                if (version.startsWith("BETA")) {
+                    version = version.substring(4);
+                } else {
+                    version = version.substring(1);
+                }
             } else if (version.startsWith("RC")) {
                 mPhase = RELEASE_CANDIDATE;
                 version = version.substring(2);
