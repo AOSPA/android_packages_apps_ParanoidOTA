@@ -37,13 +37,11 @@ import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
-import com.paranoid.paranoidota.updater.server.BasketServer;
 import com.paranoid.paranoidota.updater.server.GooServer;
 
 public class GappsUpdater extends Updater {
 
     private static final Server[] SERVERS = {
-        new BasketServer(false),
         new GooServer(false)
     };
 
