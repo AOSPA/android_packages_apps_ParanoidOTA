@@ -107,6 +107,22 @@ public class GappsUpdater extends Updater {
             setLastUpdates(null);
             List<PackageInfo> list = mServer.createPackageInfoList(response);
             String error = mServer.getError();
+            boolean onlyMini = mSettingsHelper.getCheckGappsMini();
+            PackageInfo info = null;
+            Version version = getVersion();
+            Version infoVersion = null;
+            for (int i = 0; i < list.size(); i++) {
+                info = list.get(i);
+                infoVersion = info.getVersion();
+                if ((!onlyMini && info.getFilename().contains("-mini"))
+                        || (onlyMini && !info.getFilename().contains("-mini"))
+                        || version.getMajor() != infoVersion.getMajor()
+                        || version.getMinor() != infoVersion.getMinor()) {
+                    list.remove(i);
+                    i--;
+                    continue;
+                }
+            }
             lastGapps = list.toArray(new PackageInfo[list.size()]);
             if (lastGapps.length > 0) {
                 if (mFromAlarm) {
@@ -192,12 +208,8 @@ public class GappsUpdater extends Updater {
         mScanning = true;
         mCurrentServer++;
         mServer = SERVERS[mCurrentServer];
-        String gapps = "gapps";
-        if (mSettingsHelper.getCheckGappsMini()) {
-            gapps += "-mini";
-        }
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, mServer.getUrl(
-                gapps, getVersion()), null, this, this);
+                "gapps", getVersion()), null, this, this);
         mQueue.add(jsObjRequest);
     }
 
