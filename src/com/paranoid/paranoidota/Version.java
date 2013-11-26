@@ -19,6 +19,8 @@
 
 package com.paranoid.paranoidota;
 
+import java.io.Serializable;
+
 /**
  * Class to manage different versions in the zip name.
  * 
@@ -41,7 +43,7 @@ package com.paranoid.paranoidota;
  * pa_gapps-modular-mini-4.3-20131010-signed.zip
  * 
  */
-public class Version {
+public class Version implements Serializable {
 
     private final String[] STATIC_REMOVE = { ".zip", "pa_" };
     private final String[] PHASES = { "ALPHA", "BETA", "RELEASE CANDIDATE", "GOLD" };
