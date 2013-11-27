@@ -122,8 +122,8 @@ public class DownloadHelper {
             sDownloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         }
         sSettingsHelper = new SettingsHelper(sContext);
-        checkIfDownloading();
         registerCallback(callback);
+        checkIfDownloading();
     }
 
     public static void registerCallback(DownloadCallback callback) {
