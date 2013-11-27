@@ -109,15 +109,10 @@ public class GappsUpdater extends Updater {
             String error = mServer.getError();
             boolean onlyMini = mSettingsHelper.getCheckGappsMini();
             PackageInfo info = null;
-            Version version = getVersion();
-            Version infoVersion = null;
             for (int i = 0; i < list.size(); i++) {
                 info = list.get(i);
-                infoVersion = info.getVersion();
                 if ((!onlyMini && info.getFilename().contains("-mini"))
-                        || (onlyMini && !info.getFilename().contains("-mini"))
-                        || version.getMajor() != infoVersion.getMajor()
-                        || version.getMinor() != infoVersion.getMinor()) {
+                        || (onlyMini && !info.getFilename().contains("-mini"))) {
                     list.remove(i);
                     i--;
                     continue;
