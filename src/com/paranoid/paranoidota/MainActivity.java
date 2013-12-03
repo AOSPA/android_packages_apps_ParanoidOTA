@@ -194,6 +194,7 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
 
     private void initInstance() {
         if (!mInitialized) {
+            IOUtils.init();
             mInitialized = true;
         } else {
             return;

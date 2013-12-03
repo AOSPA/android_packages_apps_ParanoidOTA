@@ -48,6 +48,10 @@ public class IOUtils {
     private static String sSecondarySdcard;
     private static boolean sSdcardsChecked;
 
+    public static void init() {
+        readMounts();
+    }
+
     public static String[] getDownloadList(Context context) {
         File downloads = initSettingsHelper(context);
         ArrayList<String> list = new ArrayList<String>();
