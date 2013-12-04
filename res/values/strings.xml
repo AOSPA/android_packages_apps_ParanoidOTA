@@ -116,6 +116,7 @@
     <string name="error_unknown">Error: Unknown</string>
     <string name="error_device_not_found_title">Device not found</string>
     <string name="error_device_not_found_summary">A ROM for your device was not found. Please check manually.</string>
+    <string name="error_device_not_found">A ROM for your device was not found.</string>
 
     <!-- RECOVERY -->
     <string name="recovery_cwm">ClockworkMod (CWM)</string>

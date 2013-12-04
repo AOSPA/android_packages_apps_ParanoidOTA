@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.paranoid.paranoidota.updater.server;
 
 import java.util.ArrayList;
@@ -25,60 +24,39 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-
-import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.updater.Server;
 import com.paranoid.paranoidota.updater.UpdatePackage;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 
-public class GooServer implements Server {
+public class PaServer implements Server {
 
-    private static final String URL = "http://goo.im/json2&path=/devs/paranoidandroid/roms/%s&ro_board=%s";
+    private static final String URL = "http://api.paranoidandroid.co/updates/%s";
 
-    private Context mContext;
     private String mDevice = null;
     private String mError = null;
     private Version mVersion;
-    private boolean mIsRom;
-
-    public GooServer(Context context, boolean isRom) {
-        mContext = context;
-        mIsRom = isRom;
-    }
 
     @Override
     public String getUrl(String device, Version version) {
         mDevice = device;
         mVersion = version;
-        return String.format(URL, new Object[] { device, device });
+        return String.format(URL, new Object[] { device });
     }
 
     @Override
     public List<PackageInfo> createPackageInfoList(JSONObject response) throws Exception {
-        List<PackageInfo> list = new ArrayList<PackageInfo>();
         mError = null;
-        JSONObject update = null;
-        try {
-            update = response.getJSONObject("update_info");
-        } catch (JSONException ex) {
-            update = response;
-        }
-        JSONArray updates = update.optJSONArray("list");
-        if (updates == null) {
-            mError = mContext.getResources().getString(R.string.error_device_not_found);
-        }
-        for (int i = 0; updates != null && i < updates.length(); i++) {
-            JSONObject file = updates.getJSONObject(i);
-            String filename = file.optString("filename");
-            if (filename != null && !filename.isEmpty() && filename.endsWith(".zip")) {
+        List<PackageInfo> list = new ArrayList<PackageInfo>();
+        mError = response.optString("error");
+        if (mError == null || mError.isEmpty()) {
+            JSONArray updates = response.getJSONArray("updates");
+            for (int i = updates.length() - 1; i >= 0; i--) {
+                JSONObject file = updates.getJSONObject(i);
+                String filename = file.optString("name");
                 String stripped = filename.replace(".zip", "");
-                stripped = stripped.replace("-signed", "");
-                stripped = stripped.replace("-modular", "");
                 String[] parts = stripped.split("-");
                 int part = parts.length - 2;
                 if (parts[part].startsWith("RC")) {
@@ -90,8 +68,8 @@ public class GooServer implements Server {
                 }
                 Version version = new Version(filename);
                 if (Version.compare(mVersion, version) < 0) {
-                    list.add(new UpdatePackage(mDevice, filename, version, "0", "http://goo.im"
-                            + file.getString("path"), file.getString("md5"), mIsRom));
+                    list.add(new UpdatePackage(mDevice, filename, version, file.getString("size"),
+                            file.getString("url"), file.getString("md5"), true));
                 }
             }
         }
