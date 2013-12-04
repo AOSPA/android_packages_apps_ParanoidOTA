@@ -316,16 +316,6 @@ public class IOUtils {
         return downloads;
     }
 
-    public static void copyOrRemoveCache(File file, boolean copy) {
-        if (copy) {
-            Utils.su(new String[] {
-                    "cp " + file.getAbsolutePath() + " /cache/" + file.getName(),
-                    "chmod 644 /cache/" + file.getName() });
-        } else {
-            Utils.su(new String[] { "rm -f /cache/" + file.getName() });
-        }
-    }
-
     public static boolean hasAndroidSecure() {
         return folderExists(SDCARD + "/.android-secure");
     }
