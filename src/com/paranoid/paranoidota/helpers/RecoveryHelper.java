@@ -38,7 +38,6 @@ import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.helpers.recovery.CwmBasedRecovery;
 import com.paranoid.paranoidota.helpers.recovery.RecoveryInfo;
-import com.paranoid.paranoidota.helpers.recovery.StockRecovery;
 import com.paranoid.paranoidota.helpers.recovery.TwrpRecovery;
 
 public class RecoveryHelper {
@@ -54,7 +53,6 @@ public class RecoveryHelper {
 
         recoveries.put(R.id.cwmbased, new CwmBasedRecovery(context));
         recoveries.put(R.id.twrp, new TwrpRecovery());
-        recoveries.put(R.id.stock, new StockRecovery());
 
         if (!mSettings.existsRecovery()) {
             test();
@@ -67,7 +65,6 @@ public class RecoveryHelper {
 
         RadioButton cbCwmbased = (RadioButton) view.findViewById(R.id.cwmbased);
         RadioButton cbTwrp = (RadioButton) view.findViewById(R.id.twrp);
-        RadioButton cbStock = (RadioButton) view.findViewById(R.id.stock);
 
         final RadioGroup mGroup = (RadioGroup) view.findViewById(R.id.recovery_radio_group);
 
@@ -76,9 +73,6 @@ public class RecoveryHelper {
             cbCwmbased.setChecked(true);
         } else {
             switch (info.getId()) {
-                case R.id.stock:
-                    cbStock.setChecked(true);
-                    break;
                 case R.id.twrp:
                     cbTwrp.setChecked(true);
                     break;
@@ -227,14 +221,8 @@ public class RecoveryHelper {
         File folderTwrp = new File(IOUtils.SDCARD + recoveries.get(R.id.twrp).getFolderPath());
         File folderCwm = new File(IOUtils.SDCARD + recoveries.get(R.id.cwmbased).getFolderPath());
 
-        if (folderTwrp.exists() && folderCwm.exists()) {
+        if ((folderTwrp.exists() && folderCwm.exists()) || (!folderTwrp.exists() && !folderCwm.exists())) {
             selectRecovery();
-        } else if (!folderTwrp.exists() && !folderCwm.exists()) {
-            setRecovery(R.id.stock);
-            Toast.makeText(
-                    mContext,
-                    mContext.getString(R.string.recovery_changed,
-                            mContext.getString(R.string.recovery_stock)), Toast.LENGTH_LONG).show();
         } else if (folderTwrp.exists()) {
             setRecovery(R.id.twrp);
             Toast.makeText(

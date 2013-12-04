@@ -204,18 +204,13 @@ public class RebootHelper {
         final CheckBox cbWipeData = (CheckBox) view.findViewById(R.id.wipedata);
         final CheckBox cbWipeCaches = (CheckBox) view.findViewById(R.id.wipecaches);
 
-        cbWipeCaches.setText(recovery.getId() == R.id.stock ? R.string.wipe_cache : R.string.wipe_caches);
-
         if (installCursor.getCount() > 0) {
             alert.setTitle(R.string.alert_reboot_install_title);
         } else {
             alert.setTitle(R.string.alert_reboot_only_install_title);
         }
-        cbBackup.setVisibility(installCursor.hasBackup() && recovery.getId() != R.id.stock ? View.VISIBLE
-                : View.GONE);
-        cbWipeSystem
-                .setVisibility(installCursor.hasWipeSystem() && recovery.getId() != R.id.stock ? View.VISIBLE
-                        : View.GONE);
+        cbBackup.setVisibility(installCursor.hasBackup() ? View.VISIBLE : View.GONE);
+        cbWipeSystem.setVisibility(installCursor.hasWipeSystem() ? View.VISIBLE : View.GONE);
         cbWipeData.setVisibility(installCursor.hasWipeData() ? View.VISIBLE : View.GONE);
         cbWipeCaches.setVisibility(installCursor.hasWipeCaches() ? View.VISIBLE : View.GONE);
         if (items.length == 1) {
@@ -236,7 +231,7 @@ public class RebootHelper {
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.dismiss();
 
-                if (cbBackup.isChecked() && recovery.getId() != R.id.stock) {
+                if (cbBackup.isChecked()) {
                     showBackupDialog(context, items, originalItems, cbWipeSystem.isChecked(),
                             cbWipeData.isChecked(), cbWipeCaches.isChecked());
                 } else {
@@ -311,13 +306,7 @@ public class RebootHelper {
             if (commands != null) {
                 int size = commands.length, i = 0;
                 for (; i < size; i++) {
-                    String comm = "echo";
-                    if (i == size - 1
-                            && mRecoveryHelper.getRecovery().getId() == R.id.stock) {
-                        comm = "echo -n";
-                    }
-                    os.writeBytes(comm + " '" + commands[i]
-                            + "' >> /cache/recovery/" + file + "\n");
+                    os.writeBytes("echo '" + commands[i] + "' >> /cache/recovery/" + file + "\n");
                 }
             }
 

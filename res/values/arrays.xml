@@ -59,14 +59,4 @@
         <item>WIPEDATA</item>
         <item>WIPECACHES</item>
     </string-array>
-    <string-array name="install_options_entries_stock">
-        <item>@string/install_option_backup</item>
-        <item>@string/install_option_wipe_data</item>
-        <item>@string/install_option_wipe_cache</item>
-    </string-array>
-    <string-array name="install_options_values_stock" translatable="false">
-        <item>BACKUP</item>
-        <item>WIPEDATA</item>
-        <item>WIPECACHES</item>
-    </string-array>
 </resources>

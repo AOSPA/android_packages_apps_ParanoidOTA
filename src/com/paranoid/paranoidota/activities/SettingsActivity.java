@@ -147,13 +147,8 @@ public class SettingsActivity extends PreferenceActivity implements
                 + " (" + mSettingsHelper.getInternalStorage() + ")");
         mExternalSdcard.setSummary(getResources().getText(R.string.settings_externalsdcard_summary)
                 + " (" + mSettingsHelper.getExternalStorage() + ")");
-        if (info.getId() == R.id.stock) {
-            mOptions.setEntries(R.array.install_options_entries_stock);
-            mOptions.setEntryValues(R.array.install_options_values_stock);
-        } else {
-            mOptions.setEntries(R.array.install_options_entries);
-            mOptions.setEntryValues(R.array.install_options_values);
-        }
+        mOptions.setEntries(R.array.install_options_entries);
+        mOptions.setEntryValues(R.array.install_options_values);
     }
 
     @SuppressWarnings("deprecation")

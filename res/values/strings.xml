@@ -120,7 +120,6 @@
     <!-- RECOVERY -->
     <string name="recovery_cwm">ClockworkMod (CWM)</string>
     <string name="recovery_twrp">TeamWin (TWRP)</string>
-    <string name="recovery_stock">Stock (AOSPA)</string>
     <string name="recovery_select_alert_title">Select recovery</string>
     <string name="recovery_select_alert_summary">Specify the recovery you are using. You can change this option later in the app settings.</string>
     <string name="recovery_select_sdcard_alert_title">Storage path</string>

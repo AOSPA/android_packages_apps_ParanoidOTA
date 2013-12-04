@@ -165,7 +165,6 @@ public class IOUtils {
                 scanner = new Scanner(new File(path));
                 while (scanner.hasNext()) {
                     String line = scanner.nextLine();
-                    System.out.println(line);
                     if (line.startsWith("dev_mount")) {
                         String[] lineElements = line.split(" ");
                         String element = lineElements[2];
