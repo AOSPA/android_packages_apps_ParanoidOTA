@@ -48,8 +48,8 @@ public class IOUtils {
     private static String sSecondarySdcard;
     private static boolean sSdcardsChecked;
 
-    public static void init() {
-        readMounts();
+    public static void init(Context context) {
+        readMounts(context);
     }
 
     public static String[] getDownloadList(Context context) {
@@ -110,21 +110,18 @@ public class IOUtils {
     }
 
     public static boolean hasSecondarySdCard() {
-        readMounts();
         return sSecondarySdcard != null;
     }
 
     public static String getPrimarySdCard() {
-        readMounts();
         return sPrimarySdcard;
     }
 
     public static String getSecondarySdCard() {
-        readMounts();
         return sSecondarySdcard;
     }
 
-    private static void readMounts() {
+    private static void readMounts(Context context) {
         if(sSdcardsChecked) {
             return;
         }
@@ -132,8 +129,9 @@ public class IOUtils {
         ArrayList<String> mounts = new ArrayList<String>();
         ArrayList<String> vold = new ArrayList<String>();
 
+        Scanner scanner = null;
         try {
-            Scanner scanner = new Scanner(new File("/proc/mounts"));
+            scanner = new Scanner(new File("/proc/mounts"));
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 if (line.startsWith("/dev/block/vold/")) {
@@ -145,18 +143,29 @@ public class IOUtils {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
         }
         if (mounts.size() == 0 && isExternalStorageAvailable()) {
             mounts.add("/mnt/sdcard");
         }
         File fstab = findFstab();
+        scanner = null;
+        String path = null;
         if (fstab != null) {
             try {
-                copyOrRemoveCache(fstab, true);
+                String cachePath = context.getCacheDir().getAbsolutePath();
+                path = new File(cachePath, fstab.getName()).getAbsolutePath();
+                Utils.su(new String[] {
+                        "cp " + fstab.getAbsolutePath() + " " + path,
+                        "chmod 644 " + path });
 
-                Scanner scanner = new Scanner(new File("/cache/" + fstab.getName()));
+                scanner = new Scanner(new File(path));
                 while (scanner.hasNext()) {
                     String line = scanner.nextLine();
+                    System.out.println(line);
                     if (line.startsWith("dev_mount")) {
                         String[] lineElements = line.split(" ");
                         String element = lineElements[2];
@@ -184,7 +193,12 @@ public class IOUtils {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                copyOrRemoveCache(fstab, false);
+                if (path != null) {
+                    Utils.su(new String[] { "rm -f " + path });
+                }
+                if (scanner != null) {
+                    scanner.close();
+                }
             }
         }
         if (vold.size() == 0 && isExternalStorageAvailable()) {
