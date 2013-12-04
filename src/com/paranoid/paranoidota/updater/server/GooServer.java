@@ -70,7 +70,7 @@ public class GooServer implements Server {
         }
         JSONArray updates = update.optJSONArray("list");
         if (updates == null) {
-            mError = mContext.getResources().getString(R.string.error_device_not_found);
+            mError = mContext.getResources().getString(R.string.error_device_not_found_server);
         }
         for (int i = 0; updates != null && i < updates.length(); i++) {
             JSONObject file = updates.getJSONObject(i);
