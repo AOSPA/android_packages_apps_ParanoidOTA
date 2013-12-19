@@ -168,22 +168,22 @@ public class IOUtils {
                     if (line.startsWith("dev_mount")) {
                         String[] lineElements = line.split(" ");
                         String element = lineElements[2];
-    
+
                         if (element.contains(":")) {
                             element = element.substring(0, element.indexOf(":"));
                         }
-    
+
                         if (element.toLowerCase().indexOf("usb") < 0) {
                             vold.add(element);
                         }
                     } else if (line.startsWith("/devices/platform")) {
                         String[] lineElements = line.split(" ");
                         String element = lineElements[1];
-    
+
                         if (element.contains(":")) {
                             element = element.substring(0, element.indexOf(":"));
                         }
-    
+
                         if (element.toLowerCase().indexOf("usb") < 0) {
                             vold.add(element);
                         }
@@ -255,7 +255,7 @@ public class IOUtils {
 
     public static double getSpaceLeft() {
         StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-        double sdAvailSize = (double) stat.getAvailableBlocks() * (double) stat.getBlockSize();
+        double sdAvailSize = (double) stat.getAvailableBlocksLong() * (double) stat.getBlockSizeLong();
         // One binary gigabyte equals 1,073,741,824 bytes.
         return sdAvailSize / 1073741824;
     }

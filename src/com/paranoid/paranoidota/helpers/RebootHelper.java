@@ -53,39 +53,34 @@ public class RebootHelper {
             final String[] originalItems, final boolean wipeSystem, final boolean wipeData,
             final boolean wipeCaches) {
 
-        double checkSpace = 1.0;// ManagerFactory.getPreferencesManager().getSpaceLeft();
-        if (checkSpace > 0) {
-            double spaceLeft = IOUtils.getSpaceLeft();
-            if (spaceLeft < checkSpace) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                alert.setTitle(R.string.alert_backup_space_title);
-                alert.setMessage(context.getResources().getString(
-                        R.string.alert_backup_space_message, checkSpace));
+        double spaceLeft = IOUtils.getSpaceLeft();
+        if (spaceLeft < 1.0) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(context);
+            alert.setTitle(R.string.alert_backup_space_title);
+            alert.setMessage(context.getResources().getString(
+                    R.string.alert_backup_space_message, 1.0));
 
-                alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    dialog.dismiss();
 
-                        reallyShowBackupDialog(context, items, originalItems, wipeSystem, wipeData,
-                                wipeCaches);
-                    }
-                });
+                    reallyShowBackupDialog(context, items, originalItems, wipeSystem, wipeData,
+                            wipeCaches);
+                }
+            });
 
-                alert.setNegativeButton(android.R.string.cancel,
-                        new DialogInterface.OnClickListener() {
+            alert.setNegativeButton(android.R.string.cancel,
+                    new DialogInterface.OnClickListener() {
 
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alert.show();
-            } else {
-                reallyShowBackupDialog(context, items, originalItems, wipeSystem, wipeData,
-                        wipeCaches);
-            }
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alert.show();
         } else {
-            reallyShowBackupDialog(context, items, originalItems, wipeSystem, wipeData, wipeCaches);
+            reallyShowBackupDialog(context, items, originalItems, wipeSystem, wipeData,
+                    wipeCaches);
         }
     }
 
@@ -134,7 +129,7 @@ public class RebootHelper {
                 dialog.dismiss();
 
                 String text = input.getText().toString();
-                text = text.replace(" ", "");
+                text = text.replaceAll("[^a-zA-Z0-9.-]", "");
 
                 String backupOptions = null;
                 if (mRecoveryHelper.getRecovery().getId() == R.id.twrp) {
