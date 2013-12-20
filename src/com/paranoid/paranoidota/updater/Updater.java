@@ -158,8 +158,9 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
                 PackageInfo info = null;
                 for (int i = 0; i < list.size(); i++) {
                     info = list.get(i);
-                    if ((!onlyMini && info.getFilename().contains("-mini"))
-                            || (onlyMini && !info.getFilename().contains("-mini"))) {
+                    String fileName = info.getFilename();
+                    if ((!onlyMini && (fileName.contains("-mini") || !fileName.contains("-full")))
+                            || (onlyMini && !fileName.contains("-mini"))) {
                         list.remove(i);
                         i--;
                         continue;
