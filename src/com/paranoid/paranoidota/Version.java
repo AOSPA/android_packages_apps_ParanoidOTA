@@ -77,7 +77,7 @@ public class Version implements Serializable {
         mDevice = split[0];
 
         // remove gapps extra names (modular, full, mini, etc)
-        while (!Utils.isNumeric(split[1])) {
+        while (split[1].matches ("\\w+\\.?")) {
             String[] newSplit = new String[split.length - 1];
             newSplit[0] = split[0];
             for (int i = 2; i < split.length; i++) {
@@ -95,7 +95,11 @@ public class Version implements Serializable {
                 mMinor = Integer.parseInt(version.substring(0, 1));
             }
             if (version.length() > 1) {
-                mMaintenance = Integer.parseInt(version.substring(1));
+                String maintenance = version.substring(1);
+                if (maintenance.startsWith(".")) {
+                    maintenance = maintenance.substring(1);
+                }
+                mMaintenance = Integer.parseInt(maintenance);
             }
         } else {
             mMajor = Integer.parseInt(version);
