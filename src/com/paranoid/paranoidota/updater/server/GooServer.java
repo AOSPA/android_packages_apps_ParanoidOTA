@@ -39,6 +39,7 @@ import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 public class GooServer implements Server {
 
     private static final String URL = "http://goo.im/json2&path=/devs/paranoidandroid/roms/%s&ro_board=%s";
+    private static final String GAPPS_RESERVED_WORDS = "-signed|-modular|-full|-mini|-stock";
 
     private Context mContext;
     private String mDevice = null;
@@ -77,13 +78,10 @@ public class GooServer implements Server {
             String filename = file.optString("filename");
             if (filename != null && !filename.isEmpty() && filename.endsWith(".zip")) {
                 String stripped = filename.replace(".zip", "");
-                stripped = stripped.replace("-signed", "");
-                stripped = stripped.replace("-modular", "");
-                String[] parts = stripped.split("-");
-                int part = parts.length - 2;
-                if (parts[part].startsWith("RC")) {
-                    part = parts.length - 1;
+                if (!mIsRom) {
+                    stripped = stripped.replaceAll("\\b(" + GAPPS_RESERVED_WORDS + ")\\b", "");
                 }
+                String[] parts = stripped.split("-");
                 boolean isNew = parts[parts.length - 1].matches("[-+]?\\d*\\.?\\d+");
                 if (!isNew) {
                     continue;

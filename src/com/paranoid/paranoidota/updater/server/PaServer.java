@@ -58,10 +58,6 @@ public class PaServer implements Server {
                 String filename = file.optString("name");
                 String stripped = filename.replace(".zip", "");
                 String[] parts = stripped.split("-");
-                int part = parts.length - 2;
-                if (parts[part].startsWith("RC")) {
-                    part = parts.length - 1;
-                }
                 boolean isNew = parts[parts.length - 1].matches("[-+]?\\d*\\.?\\d+");
                 if (!isNew) {
                     continue;
