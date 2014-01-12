@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2013 ParanoidAndroid Project
+
+  This file is part of Paranoid OTA.
+
+  Paranoid OTA is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Paranoid OTA is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+    <string name="app_name">Paranoid OTA</string>
+    <string name="slider_overview">Panoramica</string>
+    <string name="slider_updates">Aggiornamenti</string>
+    <string name="slider_install">Installa</string>
+    <string name="slider_changelog">Changelog</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="drawer_open">Apri il navigation drawer</string>
+    <string name="drawer_close">Chiudi il navigation drawer</string>
+    <string name="check_for_updates">Controlla</string>
+    <string name="changelog_error">Impossibile caricare il changelog!</string>
+    <string name="rom">ROM</string>
+    <string name="gapps">Google apps</string>
+    <string name="local">Files scaricati</string>
+    <string name="extras">Files aggiuntivi</string>
+
+    <!-- INTRODUCTION -->
+    <string name="introduction_header">Benvenuto</string>
+    <string name="introduction_installer_pa">
+        Questa applicazione ti permette di aggiornare la tua ROM Paranoid Android e le tue Google Apps.\n\n
+        Se viene trovato un aggiornamento, riceverai una notifica. Cliccala per aprire ParanoidOTA.\n
+        Vai nella scheda Aggiornamenti e clicca sul file che vuoi scaricare.\n
+        Quando il download sarà terminato, verrà aggiunto alla scheda Installa. Clicca il pulsante Installa e seleziona le operazioni che vuoi eseguire. Il tuo dispositivo si riavvierà in recovery per installare gli aggiornamenti.\n\n
+        Solo le recovery TWRP e quelle CWM-based sono supportate. La recovery CWM a sorgente chiusa non è supportata.
+    </string>
+    <string name="introduction_installer">
+        Questa applicazione ti permette di installare Paranoid Android nel tuo dispositivo.\n\n
+        Se viene trovato un aggiornamento, riceverai una notifica. Cliccala per aprire ParanoidOTA.\n
+        Vai nella scheda Aggiornamenti e clicca sul file che vuoi scaricare.\n
+        Quando il download sarà terminato, verrà aggiunto alla scheda Installa. Clicca il pulsante Installa e seleziona le operazioni che vuoi eseguire. Il tuo dispositivo si riavvierà in recovery per installare gli aggiornamenti.\n\n
+        Solo le recovery TWRP e quelle CWM-based sono supportate. La recovery CWM a sorgente chiusa non è supportata.\n\n
+        Ricorda che ti verrà chiesto di eseguire un factory reset, questo significa che le tue applicazione e gli account saranno cancellati. Per favore salva i tuoi dati! Il contenuto della tua scheda SD rimarrà invariato.
+    </string>
+    <string name="introduction_continue">Capito!</string>
+
+    <!-- OVERVIEW -->
+    <string name="all_up_to_date">Sei aggiornato!</string>
+    <string name="rom_gapps_new_version">Nuova versione trovata!</string>
+    <string name="update_to_aospa">Update to ParanoidAndroid!</string>
+    <string name="rom_new_version">Nuova versione della ROM trovata!</string>
+    <string name="gapps_new_version">Nuova versione delle Google apps trovata!</string>
+    <string name="rom_scanning">Controllo della presenza di nuove versioni...</string>
+    <string name="gapps_version">Google apps %1$s</string>
+    <string name="rom_outdated">La tua ROM è obsoleta!</string>
+    <string name="update_rom_to_aospa">Aggiorna la ROM a ParanoidAndroid!</string>
+    <string name="gapps_outdated">Le tue Google apps sono obsolete!</string>
+    <string name="update_gapps_to_aospa">Aggiorna le Google apps a ParanoidAndroid!</string>
+    <string name="no_rom_updates">Nessun aggiornamento per la ROM trovato</string>
+    <string name="no_gapps_updates">Nessun aggiornamento per le Google apps trovato</string>
+    <string name="no_gapps_installed">Google apps non installate</string>
+    <string name="update_all_to_aospa">Aggiorna a ParanoidAndroid!</string>
+    <string name="check_rom_updates_no_new">Nessun aggiornamento per la ROM trovato</string>
+    <string name="check_rom_updates_error">Errore nel controllo degli aggiornamenti per la ROM</string>
+    <string name="check_gapps_updates_no_new">Nessun aggiornamento per le Google apps trovato</string>
+    <string name="check_gapps_updates_error">Errore nel controllo degli aggiornamenti per le Google apps</string>
+    <string name="no_updates">Nessun aggiornamento trovato</string>
+    <string name="check_for_updates_long">Controlla la presenza di aggiornamenti</string>
+    <string name="system_update">Un nuovo aggiornamento di sistema è stato trovato ed è pronto per il download.\nPer favore controlla le notifiche che possono essere apparse. Esse ti portaranno al ParanoidOTA dove potrai scaricare ed/o installare l\'aggiornamento di sistema.\n\nNuovo aggiornamento trovato:\n%1$s</string>
+    <string name="unknown_size">Dimensione file sconosciuta</string>
+
+    <!-- DOWNLOADS/NOTIFICATIONS -->
+    <string name="downloading_title">Scaricando %1$s...</string>
+    <string name="download_title">%1$s</string>
+    <string name="new_rom_found_title">Nuova versione della ROM trovata</string>
+    <string name="new_gapps_found_title">Nuovo pacchetto di Google apps trovato</string>
+    <string name="new_all_found_title">Nuova ROM e pacchetto Google apps trovate</string>
+    <string name="new_package_name">%1$s</string>
+    <string name="new_packages">%1$s aggiornamenti disponibili per il download</string>
+    <string name="cancel_download_alert_title">Annullare il download</string>
+    <string name="cancel_rom_download_alert_summary">Vuoi annullare il download della ROM?</string>
+    <string name="cancel_gapps_download_alert_summary">Vuoi annullare il download delle Google apps?</string>
+    <string name="cancel_download_alert_yes">Si</string>
+    <string name="cancel_download_alert_no">No</string>
+    <string name="already_downloading_rom">Stai già scaricando un aggiornamento per la ROM.</string>
+    <string name="already_downloading_gapps">Stai già scaricando un aggiornamento per le Google apps.</string>
+    <string name="wait_downloading_rom">L\'aggiornamento per la ROM è ancora in download.</string>
+    <string name="wait_downloading_gapps">L\'aggiornamento per le Google apps è ancora in download.</string>
+    <string name="calculating_md5">Calcolo della somma MD5...</string>
+    <string name="md5_mismatch">MD5 non corrispondente</string>
+    <string name="md5_mismatch_summary">Ricevuto:\n%1$s\n\nCalcolato:\n%2$s</string>
+    <string name="md5_install_anyway">Installa comunque</string>
+    <string name="update_no_local_files">Nessun download trovato</string>
+    <string name="update_no_local_files_summary">Controlla la scheda Panoramica per aggiornamenti</string>
+    <string name="update_no_extra_files">Nessun file aggiuntivo specificato</string>
+    <string name="update_no_extra_files_summary">Premi il pulsante + in alto per aggiungere un file ZIP flashabile</string>
+
+    <!-- DOWNLOAD ERRORS -->
+    <string name="error_cannot_resume">Errore: Il download non può essere ripreso</string>
+    <string name="error_device_not_found">Errore: Scheda SD non montata</string>
+    <string name="error_file_already_exists">Errore: Il file esiste già</string>
+    <string name="error_file_error">Errore: Problema in memoria</string>
+    <string name="error_http_data_error">Errore: Problema http</string>
+    <string name="error_insufficient_space">Errore: Non c\'è più spazio</string>
+    <string name="error_too_many_redirects">Errore: Troppi reindirizzamenti</string>
+    <string name="error_unhandled_http_code">Errore: Codice http non gestito</string>
+    <string name="error_unknown">Errore: Sconosciuto</string>
+    <string name="error_device_not_found_title">Dispositivo non trovato</string>
+    <string name="error_device_not_found_summary">Non è stata trovata una ROM per il tuo dispositivo. Per favore controlla manualmente.</string>
+
+    <!-- RECOVERY -->
+    <string name="recovery_cwm">ClockworkMod (CWM)</string>
+    <string name="recovery_twrp">TeamWin (TWRP)</string>
+    <string name="recovery_stock">Stock (AOSPA)</string>
+    <string name="recovery_select_alert_title">Seleziona la recovery</string>
+    <string name="recovery_select_alert_summary">Specifica la recovery che stai utilizzando. Puoi modificare questa opzione più tardi nelle impostazioni dell\'applicazione.</string>
+    <string name="recovery_select_sdcard_alert_title">Percorso di memoria</string>
+    <string name="recovery_select_sdcard_alert_summary">Specifica il nome della memoria</string>
+    <string name="recovery_select_sdcard_alert_error">Per favore specifica il nome della memoria</string>
+    <string name="recovery_changed">Recovery %1$s configurata.</string>
+
+    <!-- SETTINGS -->
+    <string name="settings_expertmode_title">Modalità avanzata</string>
+    <string name="settings_expertmode_summary">Mostra tutte le opzioni</string>
+    <string name="settings_update">Aggiornamenti</string>
+    <string name="settings_checktime_title">Frequenza controllo aggiornamenti</string>
+    <string name="settings_checktime_summary">Specifica il tempo tra ogni controllo d\'aggiornamento</string>
+    <string name="settings_checkgapps_title">Controlla per le Google apps</string>
+    <string name="settings_checkgapps_summary">Controlla anche per le Google apps specifiche per PA</string>
+    <string name="time_notifications_never">Non controllare</string>
+    <string name="time_notifications_half_an_hour">Mezz\'ora</string>
+    <string name="time_notifications_an_hour">1 ora</string>
+    <string name="time_notifications_two_hours">2 ore</string>
+    <string name="time_notifications_five_hours">5 ore</string>
+    <string name="time_notifications_daily">Giornalmente</string>
+    <string name="settings_download_path">Cartella download</string>
+    <string name="settings_download_path_alert_title">Percorso di download</string>
+    <string name="settings_download_path_alert_summary">Specifica il percorso per salvare i download</string>
+    <string name="settings_download_path_alert_error">Per favore specifica il percorso per salvare i download</string>
+    <string name="settings_download_finished_title">Apri l\'applicazione quando il download termina</string>
+    <string name="settings_download_finished_summary">Deseleziona questa opzione se vuoi aprire l\'app manualmente al termine di un download</string>
+    <string name="settings_recovery">Recovery</string>
+    <string name="settings_selectrecovery_title">Seleziona recovery</string>
+    <string name="settings_selectrecovery_summary">Seleziona la recovery installata nel tuo dispositivo</string>
+    <string name="settings_internalsdcard_title">Percorso della memoria interna</string>
+    <string name="settings_internalsdcard_summary">Specifica il percorso della memoria interna usata dalla recovery</string>
+    <string name="settings_externalsdcard_title">Percorso della memoria esterna</string>
+    <string name="settings_externalsdcard_summary">Specifica il percorso della memoria esterna usata dalla recovery</string>
+    <string name="settings_showoptions_title">Opzioni</string>
+    <string name="settings_showoptions_summary">Choose flash options to show</string>
+    <string name="install_option_backup">Backup</string>
+    <string name="install_option_wipe_system">Elimina Sistema</string>
+    <string name="install_option_wipe_data">Elimina Dati</string>
+    <string name="install_option_wipe_caches">Elimina Cache &amp; Dalvik</string>
+    <string name="install_option_wipe_cache">Elimina Cache</string>
+
+    <!-- REBOOT & INSTALL-->
+    <string name="backup">Backup</string>
+    <string name="wipe_system">Elimina Sistema</string>
+    <string name="wipe_data">Elimina Dati</string>
+    <string name="wipe_caches">Elimina Cache &amp; Dalvik</string>
+    <string name="wipe_cache">Elimina Cache</string>
+    <string name="alert_backup_space_title">Spazio rimasto</string>
+    <string name="alert_backup_space_message">C\'è meno di %1$sGB nella scheda SD interna. Vuoi continuare col backup?</string>
+    <string name="alert_backup_title">Backup</string>
+    <string name="alert_backup_message">Specifica il nome del backup (gli spazi verranno eliminati).</string>
+    <string name="system">Sistema</string>
+    <string name="data">Dati</string>
+    <string name="cache">Cache</string>
+    <string name="recovery">Recovery</string>
+    <string name="boot">Avvio</string>
+    <string name="androidsecure">Android secure</string>
+    <string name="sdext">Scheda SD</string>
+    <string name="alert_reboot_install_title">Seleziona le azioni ed installa</string>
+    <string name="alert_reboot_only_install_title">Installa l\'aggiornamento</string>
+    <string name="alert_reboot_one_message">Il tuo dispositivo si riavvierà in recovery ed installerà il file %1$s.</string>
+    <string name="alert_reboot_more_message">Il tuo dispositivo si riavvierà in recovery ed installerà %1$s files.</string>
+    <string name="alert_reboot_now">Installa ora</string>
+    <string name="alert_wipe_system_title">Cancellazione sistema</string>
+    <string name="alert_wipe_system_message">Stai per eliminare il sistema. Sei sicuro di volerlo fare?</string>
+    <string name="invalid_zip_file">File ZIP non valido.</string>
+    <string name="install_file_manager_error">Nessun applicazione trovata per selezionare il file zip. Per favore installa un file manager.</string>
+    <string name="remove_file_title">Rimuovi file</string>
+    <string name="remove_file_summary">Vuoi rimuovere il file dall\'elenco?</string>
+    <string name="install">Installa</string>
+    <string name="install_add_file">Aggiungi</string>
+</resources>
