@@ -109,6 +109,10 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
         return mContext;
     }
 
+    public SettingsHelper getSettingsHelper() {
+        return mSettingsHelper;
+    }
+
     public PackageInfo[] getLastUpdates() {
         return mLastUpdates;
     }

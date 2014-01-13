@@ -88,7 +88,8 @@ public class GappsUpdater extends Updater {
 
     @Override
     public String getDevice() {
-        return "gapps";
+        boolean onlyMini = getSettingsHelper().getCheckGappsMini();
+        return "gapps-" + (onlyMini ? "mini" : "full");
     }
 
     @Override
