@@ -122,6 +122,9 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
     }
 
     public void check() {
+        if (mScanning) {
+            return;
+        }
         if (mSettingsHelper == null) {
             mSettingsHelper = new SettingsHelper(getContext());
         }
