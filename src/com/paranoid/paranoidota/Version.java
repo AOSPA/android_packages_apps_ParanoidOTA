@@ -84,6 +84,14 @@ public class Version implements Serializable {
                 newSplit[i - 1] = split[i];
             }
             split = newSplit;
+            if (split.length <= 1) {
+                break;
+            }
+        }
+
+        if (split.length <= 1) {
+            // malformed version
+            return;
         }
 
         String version = split[1];
