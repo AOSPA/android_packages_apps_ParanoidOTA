@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 public class RequestFileActivity extends Activity {
 
+    private static final String ROOT_ID_PRIMARY_EMULATED = "primary";
     private static final int REQUEST_PICK_FILE = 203;
 
     public interface RequestFileCallback extends Serializable {
@@ -105,8 +106,13 @@ public class RequestFileActivity extends Activity {
                                     .build().toString();
                             String path = uri.toString();
                             if (path.startsWith(newUri)) {
+                                String firstPath = filePath.substring(0, filePath.indexOf(":"));
                                 filePath = filePath.substring(filePath.indexOf(":") + 1);
-                                filePath = IOUtils.getPrimarySdCard() + "/" + filePath;
+                                String storage = IOUtils.getPrimarySdCard();
+                                if (firstPath.indexOf(ROOT_ID_PRIMARY_EMULATED) < 0) {
+                                    storage = IOUtils.getSecondarySdCard();
+                                }
+                                filePath = storage + "/" + filePath;
                             }
 
                         }

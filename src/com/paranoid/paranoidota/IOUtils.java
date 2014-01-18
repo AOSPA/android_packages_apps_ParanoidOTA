@@ -148,7 +148,8 @@ public class IOUtils {
                 scanner.close();
             }
         }
-        if (mounts.size() == 0 && isExternalStorageAvailable()) {
+        boolean addExternal = mounts.size() == 1 && isExternalStorageAvailable();
+        if (mounts.size() == 0 && addExternal) {
             mounts.add("/mnt/sdcard");
         }
         File fstab = findFstab();
@@ -199,6 +200,9 @@ public class IOUtils {
                     scanner.close();
                 }
             }
+        }
+        if (addExternal && (vold.size() == 1 && isExternalStorageAvailable())) {
+            mounts.add(vold.get(0));
         }
         if (vold.size() == 0 && isExternalStorageAvailable()) {
             vold.add("/mnt/sdcard");
