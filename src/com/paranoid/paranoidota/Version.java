@@ -23,7 +23,7 @@ import java.io.Serializable;
 
 /**
  * Class to manage different versions in the zip name.
- * 
+ *
  * Format
  * pa_A-B-C.DE-FG-H.zip
  * where
@@ -35,13 +35,13 @@ import java.io.Serializable;
  * F = phase, possible values are A, B or RC, not required, default is gold/production
  * G = phase number, integer from 0 to n, not required
  * H = date, YYYYMMDD, not required, the format can be YYYYMMDDx where x is a letter (for gapps)
- * 
+ *
  * All the default values not specified above are 0
- * 
+ *
  * Examples
  * pa_find5-3.99-RC2-20130923.zip
  * pa_gapps-modular-mini-4.3-20131010-signed.zip
- * 
+ *
  */
 public class Version implements Serializable {
 
@@ -84,6 +84,14 @@ public class Version implements Serializable {
                 newSplit[i - 1] = split[i];
             }
             split = newSplit;
+            if (split.length <= 1) {
+                break;
+            }
+        }
+
+        if (split.length <= 1) {
+            // malformed version
+            return;
         }
 
         String version = split[1];
