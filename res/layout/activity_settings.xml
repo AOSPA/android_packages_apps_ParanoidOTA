@@ -43,11 +43,13 @@
             android:title="@string/settings_checkgapps_title"
             android:summary="@string/settings_checkgapps_summary" />
 
-        <CheckBoxPreference
-            android:key="checkgappsmini"
+        <ListPreference
+            android:key="gappstype"
             android:dependency="checkgapps"
-            android:title="@string/settings_checkgappsmini_title"
-            android:summary="@string/settings_checkgappsmini_summary" />
+            android:title="@string/settings_gappstype_title"
+            android:summary="@string/settings_gappstype_summary"
+            android:entries="@array/gapps_type_entries"
+            android:entryValues="@array/gapps_type_values" />
 
         <Preference
             android:key="downloadpath"

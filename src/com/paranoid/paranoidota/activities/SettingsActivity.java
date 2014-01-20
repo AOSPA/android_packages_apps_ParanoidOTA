@@ -21,6 +21,7 @@ package com.paranoid.paranoidota.activities;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -48,7 +49,7 @@ public class SettingsActivity extends PreferenceActivity implements
     private CheckBoxPreference mExpertMode;
     private ListPreference mCheckTime;
     private CheckBoxPreference mCheckGapps;
-    private CheckBoxPreference mCheckGappsMini;
+    private ListPreference mGappsType;
     private Preference mDownloadPath;
     private CheckBoxPreference mDownloadFinished;
     private PreferenceCategory mRecoveryCategory;
@@ -73,7 +74,7 @@ public class SettingsActivity extends PreferenceActivity implements
         mExpertMode = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_EXPERT);
         mCheckTime = (ListPreference) findPreference(SettingsHelper.PROPERTY_CHECK_TIME);
         mCheckGapps = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_CHECK_GAPPS);
-        mCheckGappsMini = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_CHECK_GAPPSMINI);
+        mGappsType = (ListPreference) findPreference(SettingsHelper.PROPERTY_GAPPS_TYPE);
         mDownloadPath = findPreference(SettingsHelper.PROPERTY_DOWNLOAD_PATH);
         mDownloadFinished = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_DOWNLOAD_FINISHED);
         mRecovery = findPreference(SettingsHelper.PROPERTY_RECOVERY);
@@ -89,7 +90,7 @@ public class SettingsActivity extends PreferenceActivity implements
         mExpertMode.setDefaultValue(mSettingsHelper.getExpertMode());
         mCheckTime.setValue(String.valueOf(mSettingsHelper.getCheckTime()));
         mCheckGapps.setChecked(mSettingsHelper.getCheckGapps());
-        mCheckGappsMini.setChecked(mSettingsHelper.getCheckGappsMini());
+        mGappsType.setValue(String.valueOf(mSettingsHelper.getGappsType()));
         mDownloadFinished.setChecked(mSettingsHelper.getDownloadFinished());
         mOptions.setValues(mSettingsHelper.getShowOptions());
 
@@ -139,13 +140,14 @@ public class SettingsActivity extends PreferenceActivity implements
     }
 
     private void updateSummaries() {
+        Resources res = getResources();
         mDownloadPath.setSummary(mSettingsHelper.getDownloadPath());
         RecoveryInfo info = mRecoveryHelper.getRecovery();
-        mRecovery.setSummary(getResources().getText(R.string.settings_selectrecovery_summary)
+        mRecovery.setSummary(res.getText(R.string.settings_selectrecovery_summary)
                 + " (" + info.getName() + ")");
-        mInternalSdcard.setSummary(getResources().getText(R.string.settings_internalsdcard_summary)
+        mInternalSdcard.setSummary(res.getText(R.string.settings_internalsdcard_summary)
                 + " (" + mSettingsHelper.getInternalStorage() + ")");
-        mExternalSdcard.setSummary(getResources().getText(R.string.settings_externalsdcard_summary)
+        mExternalSdcard.setSummary(res.getText(R.string.settings_externalsdcard_summary)
                 + " (" + mSettingsHelper.getExternalStorage() + ")");
         mOptions.setEntries(R.array.install_options_entries);
         mOptions.setEntryValues(R.array.install_options_values);
