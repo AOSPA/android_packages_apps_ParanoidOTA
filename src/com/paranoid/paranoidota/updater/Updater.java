@@ -165,13 +165,14 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
             List<PackageInfo> list = mServer.createPackageInfoList(response);
             String error = mServer.getError();
             if (!isRom()) {
-                boolean onlyMini = mSettingsHelper.getCheckGappsMini();
+                int gappsType = mSettingsHelper.getGappsType();
                 PackageInfo info = null;
                 for (int i = 0; i < list.size(); i++) {
                     info = list.get(i);
                     String fileName = info.getFilename();
-                    if ((!onlyMini && (fileName.contains("-mini") || !fileName.contains("-full")))
-                            || (onlyMini && !fileName.contains("-mini"))) {
+                    if ((gappsType == SettingsHelper.GAPPS_MINI && !fileName.contains("-mini")) ||
+                            (gappsType == SettingsHelper.GAPPS_STOCK && !fileName.contains("-stock")) ||
+                            (gappsType == SettingsHelper.GAPPS_FULL && !fileName.contains("-full"))) {
                         list.remove(i);
                         i--;
                         continue;

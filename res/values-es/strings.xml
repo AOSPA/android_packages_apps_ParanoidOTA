@@ -105,6 +105,11 @@
     <string name="settings_update">Actualizaciones</string>
     <string name="settings_checktime_title">Comprobar actualizaciones</string>
     <string name="settings_checktime_summary">Especifica el tiempo entre cada comprobacion de actualizacion</string>
+    <string name="settings_gappstype_title">Tipo de Google apps</string>
+    <string name="settings_gappstype_summary">Elije entre los paquetes de gapps full, mini y stock</string>
+    <string name="gapps_type_full">Paquete full</string>
+    <string name="gapps_type_mini">Paquete mini</string>
+    <string name="gapps_type_stock">Paquete stock</string>
     <string name="time_notifications_never">No comprobar</string>
     <string name="time_notifications_half_an_hour">Media hora</string>
     <string name="time_notifications_an_hour">1 hora</string>
