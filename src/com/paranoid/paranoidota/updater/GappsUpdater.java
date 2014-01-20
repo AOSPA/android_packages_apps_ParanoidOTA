@@ -28,9 +28,15 @@ import android.content.Context;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.Version;
+import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.updater.server.GooServer;
 
 public class GappsUpdater extends Updater {
+
+    private static final String PROPERTIES_FILE = "/system/etc/g.prop";
+    private static final String VERSION_PROPERTY = "ro.addon.pa_version";
+    private static final String VERSION_PROPERTY_EXT = "ro.addon.version";
+    private static final String PLATFORM_PROPERTY = "ro.build.version.release";
 
     private String mPlatform;
     private long mVersion = -1L;
@@ -38,19 +44,16 @@ public class GappsUpdater extends Updater {
     public GappsUpdater(Context context, boolean fromAlarm) {
         super(context, new Server[] { new GooServer(context, false) }, fromAlarm);
 
-        File file = new File("/system/etc/g.prop");
+        File file = new File(PROPERTIES_FILE);
         if (file.exists()) {
             Properties properties = new Properties();
             try {
                 properties.load(new FileInputStream(file));
-                String versionProperty = "ro.addon.pa_version";
-                String versionString = properties.getProperty(versionProperty);
-                if (versionString == null || "".equals(versionString) || versionProperty == null
-                        || "".equals(versionProperty)) {
-                    versionProperty = "ro.addon.version";
-                    versionString = properties.getProperty(versionProperty);
+                String versionString = properties.getProperty(VERSION_PROPERTY);
+                if (versionString == null || "".equals(versionString)) {
+                    versionString = properties.getProperty(VERSION_PROPERTY_EXT);
                 }
-                mPlatform = Utils.getProp("ro.build.version.release");
+                mPlatform = Utils.getProp(PLATFORM_PROPERTY);
                 mPlatform = mPlatform.replace(".", "");
                 while (mPlatform.length() < 3) {
                     mPlatform = mPlatform + "0";
@@ -88,8 +91,15 @@ public class GappsUpdater extends Updater {
 
     @Override
     public String getDevice() {
-        boolean onlyMini = getSettingsHelper().getCheckGappsMini();
-        return "gapps-" + (onlyMini ? "mini" : "full");
+        switch (getSettingsHelper().getGappsType()) {
+            case SettingsHelper.GAPPS_MINI :
+                return "gapps-mini";
+            case SettingsHelper.GAPPS_STOCK:
+                return "gapps";
+            case SettingsHelper.GAPPS_FULL :
+            default :
+                return "gapps-full";
+        }
     }
 
     @Override
