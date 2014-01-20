@@ -61,7 +61,7 @@ public class Version implements Serializable {
     private int mMaintenance = 0;
     private int mPhase = GOLD;
     private int mPhaseNumber = 0;
-    private String mDate = "0";
+    private int mDate = 0;
 
     public Version() {
     }
@@ -136,12 +136,10 @@ public class Version implements Serializable {
             if (!version.isEmpty()) {
                 mPhaseNumber = Integer.parseInt(version);
             }
-            mDate = split[3];
+            mDate = Integer.parseInt(split[3]);
         } else {
-            mDate = split[2];
+            mDate = Integer.parseInt(split[2]);
         }
-        mDate = mDate.toLowerCase();
-
     }
 
     public String getDevice() {
@@ -172,7 +170,7 @@ public class Version implements Serializable {
         return mPhaseNumber;
     }
 
-    public String getDate() {
+    public int getDate() {
         return mDate;
     }
 
@@ -209,8 +207,8 @@ public class Version implements Serializable {
         if (v1.getPhaseNumber() != v2.getPhaseNumber()) {
             return v1.getPhaseNumber() < v2.getPhaseNumber() ? -1 : 1;
         }
-        if (!v1.getDate().equals(v2.getDate())) {
-            return v1.getDate().compareTo(v2.getDate());
+        if (v1.getDate() != v2.getDate()) {
+            return v1.getDate() < v2.getDate() ? -1 : 1;
         }
         return 0;
     }
