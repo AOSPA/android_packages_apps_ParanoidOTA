@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
+import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.activities.IntroductionActivity;
 import com.paranoid.paranoidota.updater.GappsUpdater;
 import com.paranoid.paranoidota.updater.RomUpdater;
@@ -42,7 +43,9 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
     private RomUpdater mRomUpdater;
     private GappsUpdater mGappsUpdater;
     private TextView mStatusView;
+    private TextView mCurrentRomView;
     private TextView mRomView;
+    private TextView mCurrentGappsView;
     private TextView mGappsView;
 
     public void setUpdaters(RomUpdater romUpdater, GappsUpdater gappsUpdater) {
@@ -60,8 +63,20 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_updates, container, false);
 
         mStatusView = (TextView) rootView.findViewById(R.id.status);
+        mCurrentRomView = (TextView) rootView.findViewById(R.id.currentrom);
         mRomView = (TextView) rootView.findViewById(R.id.rom);
+        mCurrentGappsView = (TextView) rootView.findViewById(R.id.currentgapps);
         mGappsView = (TextView) rootView.findViewById(R.id.gapps);
+
+        mCurrentRomView.setText(Utils.getProp(Utils.MOD_VERSION));
+        if (mGappsUpdater != null) {
+            if (mGappsUpdater.getVersion().isEmpty()) {
+                mCurrentGappsView.setText(R.string.no_gapps_installed);
+            } else {
+                mCurrentGappsView.setText(getResources().getString(R.string.gapps_version,
+                        mGappsUpdater.getVersion().toString(false, true)));
+            }
+        }
 
         SharedPreferences mPreferences = getActivity().getSharedPreferences(IntroductionActivity.KEY_PREFERENCES, 0);
         final boolean firstRun = (mPreferences.getBoolean(IntroductionActivity.KEY_FIRST_RUN, true));
@@ -101,15 +116,8 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
         Resources resources = context.getResources();
         if (mRomUpdater.isScanning() || mGappsUpdater.isScanning()) {
             mStatusView.setText(R.string.rom_scanning);
-            mRomView.setText(Utils.getProp(Utils.MOD_VERSION));
-            if (mGappsUpdater.getVersion().isEmpty()) {
-                mGappsView.setText(resources.getString(R.string.no_gapps_installed));
-            } else {
-                mGappsView.setText(resources.getString(R.string.gapps_version,
-                        new Object[] {
-                                mGappsUpdater.getVersion()
-                        }));
-            }
+            mRomView.setText(R.string.rom_scanning);
+            mGappsView.setText(R.string.rom_scanning);
         } else {
             PackageInfo rom = roms != null && roms.length > 0 ? roms[0] : null;
             PackageInfo gapp = gapps != null && gapps.length > 0 ? gapps[0] : null;
@@ -122,19 +130,22 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
                 mStatusView.setText(R.string.update_to_aospa);
             }
             if (rom != null) {
-                mRomView.setText(rom.getFilename());
+                mRomView.setText((new Version(rom.getFilename())).toString(false, false));
             } else {
-                mRomView.setText(Utils.getProp(Utils.MOD_VERSION));
+                mRomView.setText(R.string.no_rom_updates);
             }
             if (gapp != null) {
-                mGappsView.setText(gapp.getFilename());
+                mGappsView.setText(resources.getString(R.string.gapps_version,
+                        new Object[] {
+                            (new Version(gapp.getFilename())).toString(false, true)
+                        }));
             } else {
                 if (mGappsUpdater.getVersion().isEmpty()) {
                     mGappsView.setText(resources.getString(R.string.no_gapps_installed));
                 } else {
                     mGappsView.setText(resources.getString(R.string.gapps_version,
                             new Object[] {
-                                    mGappsUpdater.getVersion()
+                                mGappsUpdater.getVersion().toString(false, true)
                             }));
                 }
             }

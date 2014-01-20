@@ -27,37 +27,81 @@
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/lennon"
         android:layout_alignParentBottom="true"
-        android:scaleType="fitEnd"/>
+        android:scaleType="fitEnd"
+        android:src="@drawable/lennon" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp" >
 
         <TextView
             android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:textColor="#FFFFFF"
-            android:textSize="32sp"
-            android:paddingTop="20dp"/>
+            android:textSize="32sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="@string/current_rom_title"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/currentrom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/newer_rom_title"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="16sp"
+            android:paddingTop="10dp" />
 
         <TextView
             android:id="@+id/rom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="@string/current_gapps_title"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/currentgapps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="@string/newer_gapps_title"
+            android:textColor="@android:color/holo_blue_light"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/gapps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
 

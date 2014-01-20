@@ -40,6 +40,10 @@
     <string name="rom_new_version">Nueva versión de la ROM!</string>
     <string name="gapps_new_version">Nueva versión de Google Apps!</string>
     <string name="rom_scanning">Buscando nuevas versiones...</string>
+    <string name="current_rom_title">Versión de rom actual</string>
+    <string name="newer_rom_title">Última versión de Paranoid Android</string>
+    <string name="current_gapps_title">Versión de gapps actual</string>
+    <string name="newer_gapps_title">Última versión de gapps</string>
     <string name="gapps_version">Google apps %1$s</string>
     <string name="rom_outdated">Tu ROM está desactualizada!</string>
     <string name="update_rom_to_aospa">Actualizar rom a ParanoidAndroid!</string>
