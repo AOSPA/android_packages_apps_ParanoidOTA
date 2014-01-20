@@ -52,8 +52,8 @@ public class GappsUpdater extends Updater {
                 }
                 mPlatform = Utils.getProp("ro.build.version.release");
                 mPlatform = mPlatform.replace(".", "");
-                if (mPlatform.length() > 2) {
-                    mPlatform = mPlatform.substring(0, 2);
+                while (mPlatform.length() < 3) {
+                    mPlatform = mPlatform + "0";
                 }
                 if (versionString != null && !"".equals(versionString)) {
                     String[] version = versionString.split("-");
