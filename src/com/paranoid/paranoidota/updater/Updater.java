@@ -126,6 +126,10 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
     }
 
     public void check() {
+        check(false);
+    }
+
+    public void check(boolean force) {
         if (mScanning) {
             return;
         }
@@ -133,8 +137,8 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
             mSettingsHelper = new SettingsHelper(getContext());
         }
         if (mFromAlarm) {
-            if (mSettingsHelper.getCheckTime() < 0
-                    || (!isRom() && !mSettingsHelper.getCheckGapps())) {
+            if (!force && (mSettingsHelper.getCheckTime() < 0
+                    || (!isRom() && !mSettingsHelper.getCheckGapps()))) {
                 return;
             }
         }
