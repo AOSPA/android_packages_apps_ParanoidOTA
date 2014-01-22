@@ -60,8 +60,8 @@ public class SystemActivity extends Activity implements UpdaterListener {
 
             @Override
             public void onClick(View v) {
-                mRomUpdater.check();
-                mGappsUpdater.check();
+                mRomUpdater.check(true);
+                mGappsUpdater.check(true);
             }
 
         });
@@ -74,8 +74,8 @@ public class SystemActivity extends Activity implements UpdaterListener {
         mGappsUpdater = new GappsUpdater(this, true);
         mGappsUpdater.addUpdaterListener(this);
 
-        mRomUpdater.check();
-        mGappsUpdater.check();
+        mRomUpdater.check(true);
+        mGappsUpdater.check(true);
     }
 
     @Override
