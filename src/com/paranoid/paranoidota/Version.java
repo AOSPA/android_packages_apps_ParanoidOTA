@@ -179,7 +179,16 @@ public class Version implements Serializable {
     }
 
     public String toString() {
-        return mDevice + "-" + mMajor + "." + mMinor + (mMaintenance > 0 ? mMaintenance : "")
+        return toString(true, false);
+    }
+
+    public String toString(boolean showDevice, boolean separateMaintenance) {
+        return (showDevice ? mDevice + "-" : "")
+                + mMajor
+                + "."
+                + mMinor
+                + (mMaintenance > 0 ? (separateMaintenance ? "." : "")
+                        + mMaintenance : "")
                 + (mPhase != GOLD ? "-" + mPhase + mPhaseNumber : "") + "-" + mDate;
     }
 
