@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -57,11 +57,6 @@ public class RomUpdater extends Updater {
     @Override
     public int getErrorStringId() {
         return R.string.check_rom_updates_error;
-    }
-
-    @Override
-    public int getNoUpdatesStringId() {
-        return R.string.check_rom_updates_no_new;
     }
 
 }

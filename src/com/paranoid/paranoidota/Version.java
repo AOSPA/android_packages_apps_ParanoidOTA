@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -61,7 +61,7 @@ public class Version implements Serializable {
     private int mMaintenance = 0;
     private int mPhase = GOLD;
     private int mPhaseNumber = 0;
-    private int mDate = 0;
+    private String mDate = "0";
 
     public Version() {
     }
@@ -136,9 +136,9 @@ public class Version implements Serializable {
             if (!version.isEmpty()) {
                 mPhaseNumber = Integer.parseInt(version);
             }
-            mDate = Integer.parseInt(split[3]);
+            mDate = split[3];
         } else {
-            mDate = Integer.parseInt(split[2]);
+            mDate = split[2];
         }
     }
 
@@ -170,7 +170,7 @@ public class Version implements Serializable {
         return mPhaseNumber;
     }
 
-    public int getDate() {
+    public String getDate() {
         return mDate;
     }
 
@@ -189,13 +189,11 @@ public class Version implements Serializable {
                 + mMinor
                 + (mMaintenance > 0 ? (separateMaintenance ? "." : "")
                         + mMaintenance : "")
-                + (mPhase != GOLD ? "-" + mPhase + mPhaseNumber : "") + "-" + mDate;
+                + (mPhase != GOLD ? "-" + getPhaseName() + mPhaseNumber : "")
+                + "-" + mDate;
     }
 
-    public static Version fromGapps(String platform, long version) {
-        if (version <= 0L) {
-            return new Version();
-        }
+    public static Version fromGapps(String platform, String version) {
         return new Version("gapps-" + platform.substring(0, 1) + "."
                 + (platform.length() > 1 ? platform.substring(1) : "") + "-" + version);
     }
@@ -216,8 +214,8 @@ public class Version implements Serializable {
         if (v1.getPhaseNumber() != v2.getPhaseNumber()) {
             return v1.getPhaseNumber() < v2.getPhaseNumber() ? -1 : 1;
         }
-        if (v1.getDate() != v2.getDate()) {
-            return v1.getDate() < v2.getDate() ? -1 : 1;
+        if (!v1.getDate().equals(v2.getDate())) {
+            return v1.getDate().compareTo(v2.getDate());
         }
         return 0;
     }

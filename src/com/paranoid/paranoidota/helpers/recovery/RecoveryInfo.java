@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -63,13 +63,8 @@ public abstract class RecoveryInfo {
         this.externalSdcard = sdcard;
     }
 
-    public abstract String getFullName(Context context);
-
-    public abstract String getFolderPath();
-
     public abstract String getCommandsFile();
 
     public abstract String[] getCommands(Context context, String[] items, String[] originalItems,
-            boolean wipeSystem, boolean wipeData, boolean wipeCaches, String backupFolder,
-            String backupOptions) throws Exception;
+            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions) throws Exception;
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2013 ParanoidAndroid Project
+  Copyright 2014 ParanoidAndroid Project
 
   This file is part of Paranoid OTA.
 
@@ -17,77 +17,35 @@
   You should have received a copy of the GNU General Public License
   along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
 -->
+
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
-    <CheckBoxPreference
-        android:key="expertmode"
-        android:title="@string/settings_expertmode_title"
-        android:summary="@string/settings_expertmode_summary" />
+    <com.paranoid.paranoidota.widget.PreferenceCategory 
+        android:title="@string/settings" >
 
-    <PreferenceCategory
-        android:key="settings_update"
-        android:title="@string/settings_update" >
+	    <com.paranoid.paranoidota.widget.ListPreference
+	        android:key="checktime"
+	        android:title="@string/settings_checktime_title"
+	        android:summary="@string/settings_checktime_summary"
+	        android:dialogTitle="@string/settings_checktime_title"
+	        android:entries="@array/time_notifications_entries"
+	        android:entryValues="@array/time_notifications_values" />
 
-        <ListPreference
-            android:key="checktime"
-            android:title="@string/settings_checktime_title"
-            android:summary="@string/settings_checktime_summary"
-            android:dialogTitle="@string/settings_checktime_title"
-            android:entries="@array/time_notifications_entries"
-            android:entryValues="@array/time_notifications_values" />
+	    <com.paranoid.paranoidota.widget.CheckBoxPreference
+	        android:key="checkgapps"
+	        android:title="@string/settings_checkgapps_title"
+	        android:summary="@string/settings_checkgapps_summary" />
 
-        <CheckBoxPreference
-            android:key="checkgapps"
-            android:title="@string/settings_checkgapps_title"
-            android:summary="@string/settings_checkgapps_summary" />
+	    <com.paranoid.paranoidota.widget.ListPreference
+	        android:key="gappstype"
+	        android:dependency="checkgapps"
+	        android:title="@string/settings_gappstype_title"
+	        android:summary="@string/settings_gappstype_summary"
+	        android:entries="@array/gapps_type_entries"
+	        android:entryValues="@array/gapps_type_values" />
 
-        <ListPreference
-            android:key="gappstype"
-            android:dependency="checkgapps"
-            android:title="@string/settings_gappstype_title"
-            android:summary="@string/settings_gappstype_summary"
-            android:entries="@array/gapps_type_entries"
-            android:entryValues="@array/gapps_type_values" />
-
-        <Preference
-            android:key="downloadpath"
-            android:title="@string/settings_download_path" />
-
-        <CheckBoxPreference
-            android:key="downloadfinished"
-            android:title="@string/settings_download_finished_title"
-            android:summary="@string/settings_download_finished_summary" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory 
-        android:key="settings_recovery"
-        android:title="@string/settings_recovery" >
-
-        <Preference
-            android:key="recovery"
-            android:summary="@string/settings_selectrecovery_summary"
-            android:title="@string/settings_selectrecovery_title" />
-
-        <Preference
-            android:key="internal-storage"
-            android:summary="@string/settings_internalsdcard_summary"
-            android:title="@string/settings_internalsdcard_title" />
-
-        <Preference
-            android:key="external-storage"
-            android:summary="@string/settings_externalsdcard_summary"
-            android:title="@string/settings_externalsdcard_title" />
-
-        <MultiSelectListPreference
-            android:key="showoptions"
-            android:title="@string/settings_showoptions_title"
-            android:summary="@string/settings_showoptions_summary"
-            android:entries="@array/install_options_entries"
-            android:entryValues="@array/install_options_values" />
-
-    </PreferenceCategory>
+	</com.paranoid.paranoidota.widget.PreferenceCategory>
 
 </PreferenceScreen>
