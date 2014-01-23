@@ -154,16 +154,10 @@ public class IOUtils {
         }
         File fstab = findFstab();
         scanner = null;
-        String path = null;
         if (fstab != null) {
             try {
-                String cachePath = context.getCacheDir().getAbsolutePath();
-                path = new File(cachePath, fstab.getName()).getAbsolutePath();
-                Utils.su(new String[] {
-                        "cp " + fstab.getAbsolutePath() + " " + path,
-                        "chmod 644 " + path });
 
-                scanner = new Scanner(new File(path));
+                scanner = new Scanner(fstab);
                 while (scanner.hasNext()) {
                     String line = scanner.nextLine();
                     if (line.startsWith("dev_mount")) {
@@ -193,9 +187,6 @@ public class IOUtils {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                if (path != null) {
-                    Utils.su(new String[] { "rm -f " + path });
-                }
                 if (scanner != null) {
                     scanner.close();
                 }
@@ -242,8 +233,7 @@ public class IOUtils {
             return file;
         }
 
-        String fstab = Utils
-                .su(new String[] { "grep -ls \"/dev/block/\" * --include=fstab.* --exclude=fstab.goldfish" });
+        String fstab = Utils.exec("grep -ls \"/dev/block/\" * --include=fstab.* --exclude=fstab.goldfish");
         if (fstab != null) {
             String[] files = fstab.split("\n");
             for (int i = 0; i < files.length; i++) {

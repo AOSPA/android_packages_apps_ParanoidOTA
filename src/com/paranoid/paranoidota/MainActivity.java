@@ -142,7 +142,7 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
         // Helper methods
         mNotificationHelper = new NotificationHelper(this);
         mRecoveryHelper = new RecoveryHelper(this);
-        mRebootHelper = new RebootHelper(this, mRecoveryHelper);
+        mRebootHelper = new RebootHelper(mRecoveryHelper);
 
         // No need to instantiate Download Helper, as it's static
         DownloadHelper.init(this, this);
@@ -342,13 +342,9 @@ public class MainActivity extends Activity implements DownloadCallback, Notifica
                 checkUpdates();
                 return true;
             case R.id.action_install:
-                String[] originalFiles = InstallFragment.getFiles();
-                String[] files = new String[originalFiles.length];
+                String[] files = InstallFragment.getFiles();
                 if (files.length > 0) {
-                    for (int i=0;i<files.length;i++) {
-                        files[i] = mRecoveryHelper.getRecoveryFilePath(originalFiles[i]);
-                    }
-                    mRebootHelper.showRebootDialog(this, files, originalFiles);
+                    mRebootHelper.showRebootDialog(this, files);
                 }
                 return true;
             case R.id.action_add:

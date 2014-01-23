@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import android.content.Context;
 
 import com.paranoid.paranoidota.R;
+import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.updater.Server;
 import com.paranoid.paranoidota.updater.UpdatePackage;
@@ -84,12 +85,24 @@ public class GooServer implements Server {
                 String[] parts = stripped.split("-");
                 boolean isNew = parts[parts.length - 1].matches("[-+]?\\d*\\.?\\d+");
                 if (!isNew) {
-                    continue;
+                    if (!mIsRom) {
+                        String part = parts[parts.length - 1];
+                        isNew = Utils.isNumeric(part)
+                                || Utils.isNumeric(part.substring(0,
+                                        part.length() - 1));
+                        if (!isNew) {
+                            continue;
+                        }
+                    } else {
+                        continue;
+                    }
                 }
                 Version version = new Version(filename);
                 if (Version.compare(mVersion, version) < 0) {
-                    list.add(new UpdatePackage(mDevice, filename, version, "0", "http://goo.im"
-                            + file.getString("path"), file.getString("md5"), mIsRom));
+                    list.add(new UpdatePackage(mDevice, filename, version, file
+                            .getLong("filesize"), "http://goo.im"
+                            + file.getString("path"), file.getString("md5"),
+                            mIsRom));
                 }
             }
         }

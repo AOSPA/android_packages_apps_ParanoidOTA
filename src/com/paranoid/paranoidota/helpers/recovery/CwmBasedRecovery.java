@@ -29,14 +29,14 @@ import android.os.storage.StorageManager;
 
 import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
-import com.paranoid.paranoidota.helpers.SettingsHelper;
+import com.paranoid.paranoidota.Utils;
 
 public class CwmBasedRecovery extends RecoveryInfo {
 
     public CwmBasedRecovery(Context context) {
         super();
 
-        setId(R.id.cwmbased);
+        setId(Utils.CWM);
         setName("cwmbased");
         setInternalSdcard(internalStorage());
         setExternalSdcard(externalStorage(context));
@@ -66,8 +66,7 @@ public class CwmBasedRecovery extends RecoveryInfo {
 
         int size = items.length, i = 0;
 
-        SettingsHelper settings = new SettingsHelper(context);
-        String internalStorage = settings.getInternalStorage();
+        String internalStorage = getInternalSdcard();
 
         if (backupFolder != null) {
             commands.add("assert(backup_rom(\"/" + internalStorage + "/clockworkmod/backup/"
@@ -92,12 +91,14 @@ public class CwmBasedRecovery extends RecoveryInfo {
         if (size > 0) {
             if (IOUtils.isExternalStorageAvailable()) {
                 commands.add("run_program(\"/sbin/mount\", \""
-                        + settings.getExternalStorage() + "\");");
+                        + getExternalSdcard() + "\");");
             }
             for (; i < size; i++) {
                 commands.add("assert(install_zip(\"" + items[i] + "\"));");
             }
         }
+
+        commands.add("run_program(\"/sbin/busybox\", \"rm\", \"-rf\", \"/cache/*\");");
 
         return commands.toArray(new String[commands.size()]);
     }
