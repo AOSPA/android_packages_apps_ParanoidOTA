@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2013 ParanoidAndroid Project
+  Copyright 2014 ParanoidAndroid Project
 
   This file is part of Paranoid OTA.
 
@@ -13,100 +13,100 @@
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
- 
+
   You should have received a copy of the GNU General Public License
   along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <resources>
+
+    <!-- GENERAL -->
     <string name="app_name">Paranoid OTA</string>
-    <string name="slider_overview">Overview</string>
-    <string name="slider_updates">Updates</string>
-    <string name="slider_install">Install</string>
-    <string name="slider_changelog">Changelog</string>
-    <string name="action_settings">Settings</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
+    <string name="title_checking">Checking...</string>
     <string name="check_for_updates">Check</string>
-    <string name="changelog_error">Could not load changelog!</string>
-    <string name="rom">ROM</string>
-    <string name="gapps">Google apps</string>
-    <string name="local">Downloaded files</string>
-    <string name="extras">Additional files</string>
+    <string name="no_additional_info">No additional information</string>
 
-    <!-- INTRODUCTION -->
-    <string name="introduction_header">Welcome</string>
-    <string name="introduction_installer_pa">
-        This app allows you to update your Paranoid Android ROM and your Google Apps.\n\n
-        If an update is found, you\'ll receive a notification. Click it to open ParanoidOTA.\n
-        Go to the Updates tab and click on the file you want to download.\n
-        Once the download finishes, it will be added to the Install tab. Click the Install button and select the options you want to perform. Your device will reboot into recovery to install the updates.\n\n
-        Only TWRP and CWM-based recoveries are supported. Closed source CWM is not supported.
-    </string>
-    <string name="introduction_installer">
-        This app allows you to install Paranoid Android on your device.\n\n
-        If an update is found, you\'ll receive a notification. Click it to open ParanoidOTA.\n
-        Go to the Updates tab and click on the file you want to download.\n
-        Once the download finishes, it will be added to the Install tab. Click the Install button and select the options you want to perform. Your device will reboot into recovery to install the updates.\n\n
-        Only TWRP and CWM-based recoveries are supported. Closed source CWM is not supported.\n\n
-        Keep in mind that you\'ll be prompted to perform a factory reset, which means your apps and accounts will be wiped. Please back-up your data! The content of your SD-card remains untouched.
-    </string>
-    <string name="introduction_continue">Got it!</string>
-
-    <!-- OVERVIEW -->
-    <string name="all_up_to_date">You\'re up to date!</string>
-    <string name="rom_gapps_new_version">New versions found!</string>
-    <string name="update_to_aospa">Update to ParanoidAndroid!</string>
-    <string name="rom_new_version">New ROM version found!</string>
-    <string name="gapps_new_version">New Google apps version found!</string>
-    <string name="rom_scanning">Checking for new versions...</string>
-    <string name="current_rom_title">Current rom version</string>
-    <string name="newer_rom_title">Newer Paranoid Android version</string>
-    <string name="current_gapps_title">Current gapps version</string>
-    <string name="newer_gapps_title">Newer gapps version</string>
-    <string name="gapps_version">Google apps %1$s</string>
-    <string name="rom_outdated">Your ROM is outdated!</string>
-    <string name="update_rom_to_aospa">Update ROM to ParanoidAndroid!</string>
-    <string name="gapps_outdated">Your Google apps are outdated!</string>
-    <string name="update_gapps_to_aospa">Update Google apps to ParanoidAndroid!</string>
-    <string name="no_rom_updates">No ROM updates found</string>
-    <string name="no_gapps_updates">No Google apps updates found</string>
-    <string name="no_gapps_installed">Google apps not installed</string>
-    <string name="update_all_to_aospa">Update to ParanoidAndroid!</string>
-    <string name="check_rom_updates_no_new">No ROM updates found</string>
-    <string name="check_rom_updates_error">Error checking for ROM updates</string>
-    <string name="check_gapps_updates_no_new">No Google apps updates found</string>
-    <string name="check_gapps_updates_error">Error checking for Google apps updates</string>
-    <string name="no_updates">No updates found</string>
+    <!-- SYSTEM ACTIVITY -->
     <string name="check_for_updates_long">Check for updates</string>
-    <string name="system_update">A new system update was found and is ready to download.\nPlease check the notifications that may have appeared. They will lead you to ParanoidOTA from where you will be able to download and/or install the system update.\n\nNewest update(s) found:\n%1$s</string>
-    <string name="unknown_size">Unknown file size</string>
+    <string name="all_up_to_date">You\'re up to date!</string>
+    <string name="rom_scanning">Checking for system updates...</string>
+    <string name="rom_gapps_new_version">System updates found!</string>
+    <string name="rom_new_version">New ROM update found!</string>
+    <string name="gapps_new_version">New Google apps update found!</string>
+    <string name="no_updates">No system updates found</string>
+    <string name="system_update_found">A new system update was found and is ready to download.\nPlease check the notifications that may have appeared. They will lead you to ParanoidOTA from where you will be able to download and/or install the update.\n\nUpdate(s) found:\n%1$s</string>
+
+    <!-- SYSTEM -->
+    <string name="system_title">System info</string>
+    <string name="system_rom">ROM version: %1$s</string>
+    <string name="system_gapps">Google apps version: %1$s %2$s</string>
+    <string name="system_recovery">Recovery version: %1$s</string>
+    <string name="system_recovery_unknown">Unknown</string>
+
+    <!-- UPDATES -->
+    <string name="updates">Updates</string>
+    <string name="updates_checking">Checking...</string>
+    <string name="updates_error">Error</string>
+    <string name="updates_found">System update found</string>
+    <string name="updates_uptodate">You\'re up to date</string>
+    <string name="no_updates_found">No updates found</string>
+    <string name="check_rom_updates_error">Error checking for ROM updates</string>
+    <string name="check_gapps_updates_error">Error checking for Google apps updates</string>
+    <string name="system_update">System update found.\nSelect the update(s) you want to download.\n\nUpdate(s) found:</string>
+    <string name="download_and_install">Download and install</string>
+    <string name="update_host">Hosted at %1$s</string>
+
+    <!-- INSTALL -->
+    <string name="install">Install</string>
+    <string name="install_title">Ready to install</string>
+    <string name="install_info">The following update(s) are ready to be installed.\n\nYou can add more zips by clicking on the \"Add file\" button.</string>
+    <string name="add_file">Add file</string>
+    <string name="install_now">Install now</string>
+    <string name="calculating_md5">Calculating MD5 sum...</string>
+    <string name="md5_mismatch">MD5 mismatch</string>
+    <string name="md5_mismatch_summary">Received:\n%1$s\n\nCalculated:\n%2$s</string>
+    <string name="md5_install_anyway">Continue anyway</string>
+    <string name="select_actions">Select the actions you would like to perform</string>
+    <string name="backup">Backup</string>
+    <string name="wipe_data">Wipe Data</string>
+    <string name="wipe_caches">Wipe Cache &amp; Dalvik</string>
+    <string name="remove_file_title">Remove file</string>
+    <string name="remove_file_summary">Do you want to remove the file from the list?\n\n%1$s</string>
+    <string name="file_manager_error">No applications found to select the zip file. Please install a file manager.</string>
+    <string name="alert_backup_space_title">Space left</string>
+    <string name="alert_backup_space_message">There\'s less than %1$sGB in the internal SD card. Do you want to continue with the backup?</string>
+    <string name="alert_backup_title">Backup</string>
+    <string name="alert_backup_message">Specify the backup name (illegal characters will be removed).\n\nThe following options will only work in TWRP.</string>
+    <string name="system">System</string>
+    <string name="data">Data</string>
+    <string name="cache">Cache</string>
+    <string name="recovery">Recovery</string>
+    <string name="boot">Boot</string>
+    <string name="androidsecure">Android secure</string>
+    <string name="sdext">SD-Ext</string>
+    <string name="alert_reboot_install_title">Install update(s)</string>
+    <string name="alert_reboot_one_message">Your device will reboot and install the update.</string>
+    <string name="alert_reboot_more_message">Your device will reboot and install the updates.</string>
+    <string name="alert_reboot_now">Install now</string>
+
+    <!-- CHANGELOG -->
+    <string name="changelog">Changelog</string>
 
     <!-- DOWNLOADS/NOTIFICATIONS -->
-    <string name="downloading_title">Downloading %1$s...</string>
+    <string name="download_card_title">Downloading system update</string>
     <string name="download_title">%1$s</string>
-    <string name="new_rom_found_title">New ROM version found</string>
-    <string name="new_gapps_found_title">New Google apps package found</string>
-    <string name="new_all_found_title">New ROM and Google apps packages found</string>
-    <string name="new_package_name">%1$s</string>
-    <string name="new_packages">%1$s updates available for download</string>
     <string name="cancel_download_alert_title">Cancel download</string>
     <string name="cancel_rom_download_alert_summary">Do you want to cancel the current ROM download?</string>
     <string name="cancel_gapps_download_alert_summary">Do you want to cancel the current Google apps download?</string>
     <string name="cancel_download_alert_yes">Yes</string>
     <string name="cancel_download_alert_no">No</string>
+    <string name="new_system_update">New system update found</string>
+    <string name="new_package_name">%1$s</string>
+    <string name="new_packages">%1$s updates available for download</string>
     <string name="already_downloading_rom">You are already downloading a ROM update.</string>
     <string name="already_downloading_gapps">You are already downloading a Google apps update.</string>
-    <string name="wait_downloading_rom">The ROM update is still downloading.</string>
-    <string name="wait_downloading_gapps">The Google apps update is still downloading.</string>
-    <string name="calculating_md5">Calculating MD5 sum...</string>
-    <string name="md5_mismatch">MD5 mismatch</string>
-    <string name="md5_mismatch_summary">Received:\n%1$s\n\nCalculated:\n%2$s</string>
-    <string name="md5_install_anyway">Install anyway</string>
-    <string name="update_no_local_files">No downloads found</string>
-    <string name="update_no_local_files_summary">Check the overview tab for updates</string>
-    <string name="update_no_extra_files">No additional files specified</string>
-    <string name="update_no_extra_files_summary">Press the + button above to add flashable ZIP files</string>
+    <string name="cancel_download">Cancel download(s)</string>
+    <string name="downloading_info">Update(s) downloading:\n%1$s</string>
 
     <!-- DOWNLOAD ERRORS -->
     <string name="error_cannot_resume">Error: The download couldn\'t be resumed</string>
@@ -122,84 +122,23 @@
     <string name="error_device_not_found_summary">A ROM for your device was not found. Please check manually.</string>
     <string name="error_device_not_found_server">A ROM for your device was not found.</string>
 
-    <!-- RECOVERY -->
-    <string name="recovery_cwm">ClockworkMod (CWM)</string>
-    <string name="recovery_twrp">TeamWin (TWRP)</string>
-    <string name="recovery_select_alert_title">Select recovery</string>
-    <string name="recovery_select_alert_summary">Specify the recovery you are using. You can change this option later in the app settings.</string>
-    <string name="recovery_select_sdcard_alert_title">Storage path</string>
-    <string name="recovery_select_sdcard_alert_summary">Specify the storage name</string>
-    <string name="recovery_select_sdcard_alert_error">Please specify the storage name</string>
-    <string name="recovery_changed">Recovery %1$s configured.</string>
-
     <!-- SETTINGS -->
-    <string name="settings_expertmode_title">Expert mode</string>
-    <string name="settings_expertmode_summary">Show all options</string>
-    <string name="settings_update">Updates</string>
+    <string name="settings">Settings</string>
     <string name="settings_checktime_title">Update check frequency</string>
     <string name="settings_checktime_summary">Specify the time between each update check</string>
     <string name="settings_checkgapps_title">Check for Google apps</string>
     <string name="settings_checkgapps_summary">Check also for PA specific Google apps</string>
     <string name="settings_gappstype_title">Google apps type</string>
-    <string name="settings_gappstype_summary">Choose between full, mini and stock gapps package</string>
+    <string name="settings_gappstype_summary">Choose between full, mini, micro and stock gapps package</string>
     <string name="gapps_type_full">Full package</string>
     <string name="gapps_type_mini">Mini package</string>
     <string name="gapps_type_stock">Stock package</string>
+    <string name="gapps_type_micro">Micro package</string>
     <string name="time_notifications_never">Don\'t check</string>
     <string name="time_notifications_half_an_hour">Half an hour</string>
     <string name="time_notifications_an_hour">1 hour</string>
     <string name="time_notifications_two_hours">2 hours</string>
     <string name="time_notifications_five_hours">5 hours</string>
     <string name="time_notifications_daily">Daily</string>
-    <string name="settings_download_path">Downloads folder</string>
-    <string name="settings_download_path_alert_title">Downloads path</string>
-    <string name="settings_download_path_alert_summary">Specify the path to save the downloads</string>
-    <string name="settings_download_path_alert_error">Please specify the path to save the downloads</string>
-    <string name="settings_download_finished_title">Open app when download finishes</string>
-    <string name="settings_download_finished_summary">Untick this option if you want to manually enter the app after a download is completed</string>
-    <string name="settings_recovery">Recovery</string>
-    <string name="settings_selectrecovery_title">Select recovery</string>
-    <string name="settings_selectrecovery_summary">Select the recovery installed in your device</string>
-    <string name="settings_internalsdcard_title">Internal storage path</string>
-    <string name="settings_internalsdcard_summary">Specify the internal storage path used by the recovery</string>
-    <string name="settings_externalsdcard_title">External storage path</string>
-    <string name="settings_externalsdcard_summary">Specify the external storage path used by the recovery</string>
-    <string name="settings_showoptions_title">Options</string>
-    <string name="settings_showoptions_summary">Choose flash options to show</string>
-    <string name="install_option_backup">Backup</string>
-    <string name="install_option_wipe_system">Wipe System</string>
-    <string name="install_option_wipe_data">Wipe Data</string>
-    <string name="install_option_wipe_caches">Wipe Cache &amp; Dalvik</string>
-    <string name="install_option_wipe_cache">Wipe Cache</string>
 
-    <!-- REBOOT & INSTALL-->
-    <string name="backup">Backup</string>
-    <string name="wipe_system">Wipe System</string>
-    <string name="wipe_data">Wipe Data</string>
-    <string name="wipe_caches">Wipe Cache &amp; Dalvik</string>
-    <string name="wipe_cache">Wipe Cache</string>
-    <string name="alert_backup_space_title">Space left</string>
-    <string name="alert_backup_space_message">There\'s less than %1$sGB in the internal SD card. Do you want to continue with the backup?</string>
-    <string name="alert_backup_title">Backup</string>
-    <string name="alert_backup_message">Specify the backup name (spaces will be removed).</string>
-    <string name="system">System</string>
-    <string name="data">Data</string>
-    <string name="cache">Cache</string>
-    <string name="recovery">Recovery</string>
-    <string name="boot">Boot</string>
-    <string name="androidsecure">Android secure</string>
-    <string name="sdext">SD-Ext</string>
-    <string name="alert_reboot_install_title">Select actions and install</string>
-    <string name="alert_reboot_only_install_title">Install update</string>
-    <string name="alert_reboot_one_message">Your device will reboot into recovery and install the file %1$s.</string>
-    <string name="alert_reboot_more_message">Your device will reboot into recovery and install %1$s files.</string>
-    <string name="alert_reboot_now">Install now</string>
-    <string name="alert_wipe_system_title">System wipe</string>
-    <string name="alert_wipe_system_message">You are about to perform a system wipe. Are you sure you want to do that?</string>
-    <string name="invalid_zip_file">Invalid ZIP file.</string>
-    <string name="install_file_manager_error">No applications found to select the zip file. Please install a file manager.</string>
-    <string name="remove_file_title">Remove file</string>
-    <string name="remove_file_summary">Do you want to remove the file from the list?</string>
-    <string name="install">Install</string>
-    <string name="install_add_file">Add</string>
 </resources>

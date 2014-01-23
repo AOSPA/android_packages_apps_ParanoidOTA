@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -21,79 +21,95 @@ package com.paranoid.paranoidota.updater;
 
 import java.io.Serializable;
 
+import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 
 public class UpdatePackage implements PackageInfo, Serializable {
 
-    private String md5 = null;
-    private String incremental_md5 = null;
-    private String filename = null;
-    private String incremental_filename = null;
-    private String path = null;
-    private String size = null;
-    private String incremental_path = null;
-    private Version version;
-    private boolean isDelta = false;
-    private boolean isGapps = false;
+    private String mMd5 = null;
+    private String mIncrementalMd5 = null;
+    private String mFilename = null;
+    private String mIncrementalFilename = null;
+    private String mPath = null;
+    private String mHost = null;
+    private String mSize = null;
+    private String mIncrementalPath = null;
+    private Version mVersion;
+    private boolean mIsDelta = false;
+    private boolean mIsGapps = false;
+
+    public UpdatePackage(String device, String name, Version version, long size, String url,
+            String md5, boolean gapps) {
+        this(device, name, version,
+                IOUtils.humanReadableByteCount(size, false), url, md5, gapps);
+    }
 
     public UpdatePackage(String device, String name, Version version, String size, String url,
             String md5, boolean gapps) {
-        this.filename = name;
-        this.version = version;
-        this.size = size;
-        this.path = url;
-        this.md5 = md5;
-        this.isGapps = gapps;
+        this.mFilename = name;
+        this.mVersion = version;
+        this.mSize = size;
+        this.mPath = url;
+        this.mMd5 = md5;
+        this.mIsGapps = gapps;
+        mHost = mPath.replace("http://", "");
+        mHost = mHost.replace("https://", "");
+        mHost = mHost.substring(0, mHost.indexOf("/"));
     }
 
     @Override
     public boolean isDelta() {
-        return isDelta;
+        return mIsDelta;
     }
 
     @Override
     public String getDeltaFilename() {
-        return incremental_filename;
+        return mIncrementalFilename;
     }
 
     @Override
     public String getDeltaPath() {
-        return incremental_path;
+        return mIncrementalPath;
     }
 
     @Override
     public String getDeltaMd5() {
-        return incremental_md5;
+        return mIncrementalMd5;
     }
 
     @Override
     public String getMd5() {
-        return md5;
+        return mMd5;
     }
 
     @Override
     public String getFilename() {
-        return filename;
+        return mFilename;
     }
 
     @Override
     public String getPath() {
-        return path;
+        return mPath;
+    }
+
+    @Override
+    public String getHost() {
+        return mHost;
     }
 
     @Override
     public Version getVersion() {
-        return version;
+        return mVersion;
     }
 
     @Override
     public String getSize() {
-        return size;
+        return mSize;
     }
 
     @Override
     public boolean isGapps() {
-        return isGapps;
+        return mIsGapps;
     }
 }

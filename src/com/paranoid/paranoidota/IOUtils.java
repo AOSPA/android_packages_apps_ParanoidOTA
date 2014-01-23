@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -32,23 +32,26 @@ import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
 
-import com.paranoid.paranoidota.helpers.SettingsHelper;
-
 public class IOUtils {
 
     public static final String SDCARD = Environment.getExternalStorageDirectory()
             .getAbsolutePath();
 
+    public static final String DOWNLOAD_PATH = new File(Environment
+            .getExternalStorageDirectory(), "paranoidota/").getAbsolutePath();
+
     private static final String PREFIX = "pa_";
     private static final String SUFFIX = ".zip";
 
-    private static SettingsHelper sSettingsHelper;
     private static Properties sDictionary;
     private static String sPrimarySdcard;
     private static String sSecondarySdcard;
     private static boolean sSdcardsChecked;
 
     public static void init(Context context) {
+        File downloads = new File(DOWNLOAD_PATH);
+        downloads.mkdirs();
+
         readMounts(context);
     }
 
@@ -154,16 +157,10 @@ public class IOUtils {
         }
         File fstab = findFstab();
         scanner = null;
-        String path = null;
         if (fstab != null) {
             try {
-                String cachePath = context.getCacheDir().getAbsolutePath();
-                path = new File(cachePath, fstab.getName()).getAbsolutePath();
-                Utils.su(new String[] {
-                        "cp " + fstab.getAbsolutePath() + " " + path,
-                        "chmod 644 " + path });
 
-                scanner = new Scanner(new File(path));
+                scanner = new Scanner(fstab);
                 while (scanner.hasNext()) {
                     String line = scanner.nextLine();
                     if (line.startsWith("dev_mount")) {
@@ -193,9 +190,6 @@ public class IOUtils {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                if (path != null) {
-                    Utils.su(new String[] { "rm -f " + path });
-                }
                 if (scanner != null) {
                     scanner.close();
                 }
@@ -242,8 +236,7 @@ public class IOUtils {
             return file;
         }
 
-        String fstab = Utils
-                .su(new String[] { "grep -ls \"/dev/block/\" * --include=fstab.* --exclude=fstab.goldfish" });
+        String fstab = Utils.exec("grep -ls \"/dev/block/\" * --include=fstab.* --exclude=fstab.goldfish");
         if (fstab != null) {
             String[] files = fstab.split("\n");
             for (int i = 0; i < files.length; i++) {
@@ -312,10 +305,7 @@ public class IOUtils {
     }
 
     private static File initSettingsHelper(Context context) {
-        if (sSettingsHelper == null) {
-            sSettingsHelper = new SettingsHelper(context);
-        }
-        File downloads = new File(sSettingsHelper.getDownloadPath());
+        File downloads = new File(DOWNLOAD_PATH);
         downloads.mkdirs();
         return downloads;
     }
