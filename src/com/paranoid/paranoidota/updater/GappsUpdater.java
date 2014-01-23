@@ -39,7 +39,7 @@ public class GappsUpdater extends Updater {
     private static final String PLATFORM_PROPERTY = "ro.build.version.release";
 
     private String mPlatform;
-    private long mVersion = -1L;
+    private String mVersion = "-1";
 
     public GappsUpdater(Context context, boolean fromAlarm) {
         super(context, new Server[] { new GooServer(context, false) }, fromAlarm);
@@ -62,7 +62,7 @@ public class GappsUpdater extends Updater {
                     String[] version = versionString.split("-");
                     for (int i = 0; i < version.length; i++) {
                         try {
-                            mVersion = Long.parseLong(version[i]);
+                            mVersion = version[i];
                             break;
                         } catch (NumberFormatException ex) {
                             // ignore

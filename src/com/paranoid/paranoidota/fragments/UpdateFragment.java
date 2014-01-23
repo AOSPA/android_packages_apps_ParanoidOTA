@@ -68,6 +68,8 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
         mCurrentGappsView = (TextView) rootView.findViewById(R.id.currentgapps);
         mGappsView = (TextView) rootView.findViewById(R.id.gapps);
 
+        Utils.setRobotoThin(getActivity(), rootView);
+
         mCurrentRomView.setText(Utils.getProp(Utils.MOD_VERSION));
         if (mGappsUpdater != null) {
             if (mGappsUpdater.getVersion().isEmpty()) {
@@ -143,10 +145,7 @@ public class UpdateFragment extends Fragment implements UpdaterListener {
                 if (mGappsUpdater.getVersion().isEmpty()) {
                     mGappsView.setText(resources.getString(R.string.no_gapps_installed));
                 } else {
-                    mGappsView.setText(resources.getString(R.string.gapps_version,
-                            new Object[] {
-                                mGappsUpdater.getVersion().toString(false, true)
-                            }));
+                    mGappsView.setText(R.string.no_gapps_updates);
                 }
             }
         }

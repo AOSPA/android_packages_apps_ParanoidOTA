@@ -96,17 +96,8 @@
     <!-- RECOVERY -->
     <string name="recovery_cwm">ClockworkMod (CWM)</string>
     <string name="recovery_twrp">TeamWin (TWRP)</string>
-    <string name="recovery_select_alert_title">Elige recovery</string>
-    <string name="recovery_select_alert_summary">Especifica el recovery que estás usando. Puedes cambiarlo más tarde en los ajustes.</string>
-    <string name="recovery_select_sdcard_alert_title">Ruta de almacenamiento</string>
-    <string name="recovery_select_sdcard_alert_summary">Elige el nombre del almacenamiento</string>
-    <string name="recovery_select_sdcard_alert_error">Por favor, elige el nombre del almacenamiento</string>
-    <string name="recovery_changed">Recovery %1$s configurado.</string>
 
     <!-- SETTINGS -->
-    <string name="settings_expertmode_title">Modo experto</string>
-    <string name="settings_expertmode_summary">Mostrar todas las opciones</string>
-    <string name="settings_update">Actualizaciones</string>
     <string name="settings_checktime_title">Comprobar actualizaciones</string>
     <string name="settings_checktime_summary">Especifica el tiempo entre cada comprobacion de actualizacion</string>
     <string name="settings_gappstype_title">Tipo de Google apps</string>
@@ -121,18 +112,8 @@
     <string name="time_notifications_five_hours">5 horas</string>
     <string name="time_notifications_daily">Diariamente</string>
     <string name="settings_download_path">Carpeta de descargas</string>
-    <string name="settings_download_path_alert_title">Ruta descargas</string>
-    <string name="settings_download_path_alert_summary">Especifica la ruta donde guardar las descargas</string>
-    <string name="settings_download_path_alert_error">Por favor, especifica la ruta donde guardar las descargas</string>
     <string name="settings_download_finished_title">Abrir app cuando termine la descarga</string>
     <string name="settings_download_finished_summary">Desmarca esta opción si deseas abrir la app manualmente después de que se complete la descarga</string>
-    <string name="settings_recovery">Recovery</string>
-    <string name="settings_selectrecovery_title">Elegir recovery</string>
-    <string name="settings_selectrecovery_summary">Elige el recovery instalado en el dispositivo</string>
-    <string name="settings_internalsdcard_title">Ruta de almacenamiento interna</string>
-    <string name="settings_internalsdcard_summary">Especifica la ruta de almacenamiento interna usada por el recovery</string>
-    <string name="settings_externalsdcard_title">Ruta de almacenamiento externa</string>
-    <string name="settings_externalsdcard_summary">Especifica la ruta de almacenamiento externa usada por el recovery</string>
     <string name="settings_showoptions_title">Opciones</string>
     <string name="settings_showoptions_summary">Elige las opciones para el flasheo</string>
     <string name="install_option_backup">Backup</string>
@@ -148,7 +129,7 @@
     <string name="alert_backup_space_title">Espacio libre</string>
     <string name="alert_backup_space_message">Hay menos de %1$sGB libre en la tarjeta SD. Quieres continuar con la copia?</string>
     <string name="alert_backup_title">Backup</string>
-    <string name="alert_backup_message">Nombre de la copia de seguridad (se eliminarán los espacios).</string>
+    <string name="alert_backup_message">Nombre de la copia de seguridad (se eliminarán los espacios).\n\nLas siguientes opciones sólo funcionarán en TWRP.</string>
     <string name="system">Sistema</string>
     <string name="data">Data</string>
     <string name="cache">Cache</string>
