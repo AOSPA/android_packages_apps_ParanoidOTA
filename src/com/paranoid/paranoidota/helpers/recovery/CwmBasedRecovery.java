@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -28,28 +28,17 @@ import android.os.Environment;
 import android.os.storage.StorageManager;
 
 import com.paranoid.paranoidota.IOUtils;
-import com.paranoid.paranoidota.R;
-import com.paranoid.paranoidota.helpers.SettingsHelper;
+import com.paranoid.paranoidota.Utils;
 
 public class CwmBasedRecovery extends RecoveryInfo {
 
     public CwmBasedRecovery(Context context) {
         super();
 
-        setId(R.id.cwmbased);
+        setId(Utils.CWM_BASED);
         setName("cwmbased");
         setInternalSdcard(internalStorage());
         setExternalSdcard(externalStorage(context));
-    }
-
-    @Override
-    public String getFullName(Context context) {
-        return context.getString(R.string.recovery_cwm);
-    }
-
-    @Override
-    public String getFolderPath() {
-        return "/clockworkmod/";
     }
 
     @Override
@@ -59,28 +48,22 @@ public class CwmBasedRecovery extends RecoveryInfo {
 
     @Override
     public String[] getCommands(Context context, String[] items, String[] originalItems,
-            boolean wipeSystem, boolean wipeData, boolean wipeCaches, String backupFolder,
-            String backupOptions) throws Exception {
+            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions) throws Exception {
 
         List<String> commands = new ArrayList<String>();
 
         int size = items.length, i = 0;
 
-        SettingsHelper settings = new SettingsHelper(context);
-        String internalStorage = settings.getInternalStorage();
+        String internalStorage = getInternalSdcard();
 
         if (backupFolder != null) {
-            commands.add("assert(backup_rom(\"/" + internalStorage + "/clockworkmod/backup/"
+            commands.add("assert(backup_rom(\"/data/media/clockworkmod/backup/"
                     + backupFolder + "\"));");
-        }
-
-        if (wipeSystem) {
-            commands.add("format(\"/system\");");
         }
 
         if (wipeData) {
             commands.add("format(\"/data\");");
-            commands.add("format(\"/" + internalStorage + "/.android_secure\");");
+            commands.add("format(\"" + internalStorage + "/.android_secure\");");
         }
         if (wipeCaches) {
             commands.add("format(\"/cache\");");
@@ -92,7 +75,7 @@ public class CwmBasedRecovery extends RecoveryInfo {
         if (size > 0) {
             if (IOUtils.isExternalStorageAvailable()) {
                 commands.add("run_program(\"/sbin/mount\", \""
-                        + settings.getExternalStorage() + "\");");
+                        + getExternalSdcard() + "\");");
             }
             for (; i < size; i++) {
                 commands.add("assert(install_zip(\"" + items[i] + "\"));");

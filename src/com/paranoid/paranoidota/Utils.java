@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,12 +40,14 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.NotificationCompat;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paranoid.paranoidota.helpers.SettingsHelper;
@@ -61,9 +64,12 @@ public class Utils {
     public static final int ROM_ALARM_ID = 122303221;
     public static final int GAPPS_ALARM_ID = 122303222;
 
+    public static final int TWRP = 1;
+    public static final int CWM_BASED = 2;
+
     public static PackageInfo[] sPackageInfosRom = new PackageInfo[0];
     public static PackageInfo[] sPackageInfosGapps = new PackageInfo[0];
-    private static int sWeAreInAospa = -1;
+    private static Typeface sRobotoThin;
 
     public static class NotificationInfo implements Serializable {
 
@@ -87,6 +93,35 @@ public class Utils {
             // Runtime error
         }
         return null;
+    }
+
+    /**
+     * Method borrowed from OpenDelta
+     * Credits to Jorrit "Chainfire" Jongma and The OmniROM Project
+     * Using reflection voodoo instead calling the hidden class directly, to
+     * dev/test outside of AOSP tree
+     */
+    public static boolean setPermissions(String path, int mode, int uid, int gid) {
+        try {
+            Class<?> FileUtils = Utils.class.getClassLoader().loadClass("android.os.FileUtils");
+            Method setPermissions = FileUtils.getDeclaredMethod("setPermissions", new Class[] {
+                    String.class,
+                    int.class,
+                    int.class,
+                    int.class });
+            return ((Integer) setPermissions.invoke(
+                    null,
+                    new Object[] {
+                            path,
+                            Integer.valueOf(mode),
+                            Integer.valueOf(uid),
+                            Integer.valueOf(gid) }) == 0);
+        } catch (Exception e) {
+            // A lot of voodoo could go wrong here, return failure instead of
+            // crash
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static String getReadableVersion(String version) {
@@ -211,18 +246,6 @@ public class Utils {
             infosGapps = sPackageInfosGapps;
         }
 
-        int contentTitleResourceId = -1;
-        if (infosRom.length > 0 && infosGapps.length > 0) {
-            contentTitleResourceId = !Utils.weAreInAospa() ? R.string.update_all_to_aospa
-                    : R.string.new_all_found_title;
-        } else if (infosRom.length == 0) {
-            contentTitleResourceId = !Utils.weAreInAospa() ? R.string.update_gapps_to_aospa
-                    : R.string.new_gapps_found_title;
-        } else {
-            contentTitleResourceId = !Utils.weAreInAospa() ? R.string.update_rom_to_aospa
-                    : R.string.new_rom_found_title;
-        }
-
         Intent intent = new Intent(context, MainActivity.class);
         NotificationInfo fileInfo = new NotificationInfo();
         fileInfo.mNotificationId = Updater.NOTIFICATION_ID;
@@ -233,7 +256,7 @@ public class Utils {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setContentTitle(resources.getString(contentTitleResourceId))
+                .setContentTitle(resources.getString(R.string.new_system_update))
                 .setSmallIcon(R.drawable.ic_launcher).setContentIntent(pIntent);
 
         String contextText = "";
@@ -248,7 +271,7 @@ public class Utils {
         builder.setContentText(contextText);
 
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-        inboxStyle.setBigContentTitle(context.getResources().getString(contentTitleResourceId));
+        inboxStyle.setBigContentTitle(context.getResources().getString(R.string.new_system_update));
         if (infosRom.length + infosGapps.length > 1) {
             inboxStyle.addLine(contextText);
         }
@@ -270,24 +293,6 @@ public class Utils {
         notificationManager.notify(Updater.NOTIFICATION_ID, notif);
     }
 
-    public static boolean isSystemApp(Context context) throws Exception {
-        PackageManager pm = context.getPackageManager();
-        android.content.pm.PackageInfo info = pm.getPackageInfo("com.paranoid.paranoidota",
-                PackageManager.GET_ACTIVITIES);
-        ApplicationInfo aInfo = info.applicationInfo;
-        String path = aInfo.sourceDir.substring(0, aInfo.sourceDir.lastIndexOf("/"));
-        boolean isSystemApp = path.contains("system/app");
-        return isSystemApp;
-    }
-
-    public static boolean weAreInAospa() {
-        if (sWeAreInAospa == -1) {
-            String prop = getProp(RO_PA_VERSION);
-            sWeAreInAospa = prop == null || "".equals(prop) ? 0 : 1;
-        }
-        return sWeAreInAospa == 1;
-    }
-
     public static boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);
@@ -297,13 +302,10 @@ public class Utils {
         return false;
     }
 
-    public static String su(String[] commands) {
+    public static String exec(String command) {
         try {
-            Process p = Runtime.getRuntime().exec("su");
+            Process p = Runtime.getRuntime().exec(command);
             DataOutputStream os = new DataOutputStream(p.getOutputStream());
-            for (int i = 0; i < commands.length; i++) {
-                os.writeBytes(commands[i] + "\n");
-            }
             os.writeBytes("sync\n");
             os.writeBytes("exit\n");
             os.flush();
@@ -335,5 +337,24 @@ public class Utils {
             out = buffer.toString();
         }
         return out;
+    }
+
+    public static void setRobotoThin(Context context, View view) {
+        if (sRobotoThin == null) {
+            sRobotoThin = Typeface.createFromAsset(context.getAssets(),
+                    "Roboto-Light.ttf");
+        }
+        setFont(view, sRobotoThin);
+    }
+
+    private static void setFont(View view, Typeface robotoTypeFace) {
+        if (view instanceof ViewGroup) {
+            int count = ((ViewGroup) view).getChildCount();
+            for (int i = 0; i < count; i++) {
+                setFont(((ViewGroup) view).getChildAt(i), robotoTypeFace);
+            }
+        } else if (view instanceof TextView) {
+            ((TextView) view).setTypeface(robotoTypeFace);
+        }
     }
 }

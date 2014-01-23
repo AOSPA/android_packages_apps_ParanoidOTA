@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.paranoid.paranoidota.updater.server;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class PaServer implements Server {
                 Version version = new Version(filename);
                 if (Version.compare(mVersion, version) < 0) {
                     list.add(new UpdatePackage(mDevice, filename, version, file.getString("size"),
-                            file.getString("url"), file.getString("md5"), true));
+                            file.getString("url"), file.getString("md5"), false));
                 }
             }
         }
@@ -77,6 +78,7 @@ public class PaServer implements Server {
             }
 
         });
+        Collections.reverse(list);
         return list;
     }
 
