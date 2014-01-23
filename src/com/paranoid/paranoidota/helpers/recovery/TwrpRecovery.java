@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -25,27 +25,17 @@ import java.util.List;
 import android.content.Context;
 
 import com.paranoid.paranoidota.IOUtils;
-import com.paranoid.paranoidota.R;
+import com.paranoid.paranoidota.Utils;
 
 public class TwrpRecovery extends RecoveryInfo {
 
     public TwrpRecovery() {
         super();
 
-        setId(R.id.twrp);
+        setId(Utils.TWRP);
         setName("twrp");
         setInternalSdcard("sdcard");
         setExternalSdcard("external_sd");
-    }
-
-    @Override
-    public String getFullName(Context context) {
-        return context.getString(R.string.recovery_twrp);
-    }
-
-    @Override
-    public String getFolderPath() {
-        return "/TWRP/";
     }
 
     @Override
@@ -55,8 +45,7 @@ public class TwrpRecovery extends RecoveryInfo {
 
     @Override
     public String[] getCommands(Context context, String[] items, String[] originalItems,
-            boolean wipeSystem, boolean wipeData, boolean wipeCaches, String backupFolder,
-            String backupOptions) throws Exception {
+            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions) throws Exception {
 
         List<String> commands = new ArrayList<String>();
 
@@ -90,12 +79,6 @@ public class TwrpRecovery extends RecoveryInfo {
                 str += "E";
             }
             commands.add(str + "O " + backupFolder);
-        }
-
-        if (wipeSystem) {
-            commands.add("mount system");
-            commands.add("cmd /sbin/busybox rm -r /system/*");
-            commands.add("unmount system");
         }
 
         if (wipeData) {

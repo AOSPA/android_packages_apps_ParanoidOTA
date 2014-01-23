@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -20,155 +20,55 @@
 package com.paranoid.paranoidota.helpers;
 
 import java.io.File;
+import java.util.Scanner;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.paranoid.paranoidota.IOUtils;
-import com.paranoid.paranoidota.R;
+import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.helpers.recovery.CwmBasedRecovery;
 import com.paranoid.paranoidota.helpers.recovery.RecoveryInfo;
 import com.paranoid.paranoidota.helpers.recovery.TwrpRecovery;
 
 public class RecoveryHelper {
 
-    private SparseArray<RecoveryInfo> recoveries = new SparseArray<RecoveryInfo>();
-    private SettingsHelper mSettings;
+    private SparseArray<RecoveryInfo> mRecoveries = new SparseArray<RecoveryInfo>();
     private Context mContext;
 
     public RecoveryHelper(Context context) {
 
         mContext = context;
-        mSettings = new SettingsHelper(context);
 
-        recoveries.put(R.id.cwmbased, new CwmBasedRecovery(context));
-        recoveries.put(R.id.twrp, new TwrpRecovery());
-
-        if (!mSettings.existsRecovery()) {
-            test();
-        }
+        mRecoveries.put(Utils.CWM_BASED, new CwmBasedRecovery(context));
+        mRecoveries.put(Utils.TWRP, new TwrpRecovery());
     }
 
-    public void selectRecovery() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.selection_recovery,
-                (ViewGroup) ((Activity) mContext).findViewById(R.id.recovery_layout));
-
-        RadioButton cbCwmbased = (RadioButton) view.findViewById(R.id.cwmbased);
-        RadioButton cbTwrp = (RadioButton) view.findViewById(R.id.twrp);
-
-        final RadioGroup mGroup = (RadioGroup) view.findViewById(R.id.recovery_radio_group);
-
-        RecoveryInfo info = getRecovery();
-        if (info == null) {
-            cbCwmbased.setChecked(true);
-        } else {
-            switch (info.getId()) {
-                case R.id.twrp:
-                    cbTwrp.setChecked(true);
-                    break;
-                default:
-                    cbCwmbased.setChecked(true);
-                    break;
-            }
-        }
-
-        new AlertDialog.Builder(mContext).setTitle(R.string.recovery_select_alert_title)
-                .setCancelable(false).setMessage(R.string.recovery_select_alert_summary)
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                        int id = mGroup.getCheckedRadioButtonId();
-
-                        setRecovery(id);
-
-                        dialog.dismiss();
-                    }
-                }).show();
-    }
-
-    public void selectSdcard(final boolean internal) {
-
-        final EditText input = new EditText(mContext);
-        input.setText(internal ? mSettings.getInternalStorage() : mSettings.getExternalStorage());
-
-        new AlertDialog.Builder(mContext)
-                .setTitle(R.string.recovery_select_sdcard_alert_title)
-                .setMessage(R.string.recovery_select_sdcard_alert_summary)
-                .setView(input)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        String value = input.getText().toString();
-
-                        if (value == null || "".equals(value.trim())) {
-                            Toast.makeText(mContext, R.string.recovery_select_sdcard_alert_error,
-                                    Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                            return;
-                        }
-
-                        if (value.startsWith("/")) {
-                            value = value.substring(1);
-                        }
-
-                        if (internal) {
-                            mSettings.setInternalStorage(value);
-                        } else {
-                            mSettings.setExternalStorage(value);
-                        }
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
-                    }
-                }).show();
-    }
-
-    public RecoveryInfo getRecovery() {
-        String recovery = mSettings.getRecovery();
-        for (int i = 0; i < recoveries.size(); i++) {
-            int key = recoveries.keyAt(i);
-            RecoveryInfo info = recoveries.get(key);
-            if (info.getName().equals(recovery)) {
+    public RecoveryInfo getRecovery(int id) {
+        for (int i = 0; i < mRecoveries.size(); i++) {
+            int key = mRecoveries.keyAt(i);
+            RecoveryInfo info = mRecoveries.get(key);
+            if (info.getId() == id) {
                 return info;
             }
         }
         return null;
     }
 
-    public void setRecovery(int id) {
-        RecoveryInfo info = recoveries.get(id);
-        mSettings.setRecovery(info.getName());
-        mSettings.setInternalStorage(info.getInternalSdcard());
-        mSettings.setExternalStorage(info.getExternalSdcard());
-    }
+    public String getCommandsFile(int id) {
 
-    public String getCommandsFile() {
-
-        RecoveryInfo info = getRecovery();
+        RecoveryInfo info = getRecovery(id);
 
         return info.getCommandsFile();
     }
 
-    public String getRecoveryFilePath(String filePath) {
+    public String getRecoveryFilePath(int id, String filePath) {
 
-        String internalStorage = mSettings.getInternalStorage();
-        String externalStorage = mSettings.getExternalStorage();
+        RecoveryInfo info = getRecovery(id);
+
+        String internalStorage = info.getInternalSdcard();
+        String externalStorage = info.getExternalSdcard();
 
         String primarySdcard = IOUtils.getPrimarySdCard();
         String secondarySdcard = IOUtils.getSecondarySdCard();
@@ -206,35 +106,12 @@ public class RecoveryHelper {
         return filePath;
     }
 
-    public String[] getCommands(String[] items, String[] originalItems, boolean wipeSystem,
-            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions)
-            throws Exception {
+    public String[] getCommands(int id, String[] items, String[] originalItems, boolean wipeData,
+            boolean wipeCaches, String backupFolder, String backupOptions) throws Exception {
 
-        RecoveryInfo info = getRecovery();
+        RecoveryInfo info = getRecovery(id);
 
-        return info.getCommands(mContext, items, originalItems, wipeSystem, wipeData, wipeCaches,
-                backupFolder, backupOptions);
-    }
-
-    private void test() {
-
-        File folderTwrp = new File(IOUtils.SDCARD + recoveries.get(R.id.twrp).getFolderPath());
-        File folderCwm = new File(IOUtils.SDCARD + recoveries.get(R.id.cwmbased).getFolderPath());
-
-        if ((folderTwrp.exists() && folderCwm.exists()) || (!folderTwrp.exists() && !folderCwm.exists())) {
-            selectRecovery();
-        } else if (folderTwrp.exists()) {
-            setRecovery(R.id.twrp);
-            Toast.makeText(
-                    mContext,
-                    mContext.getString(R.string.recovery_changed,
-                            mContext.getString(R.string.recovery_twrp)), Toast.LENGTH_LONG).show();
-        } else if (folderCwm.exists()) {
-            setRecovery(R.id.cwmbased);
-            Toast.makeText(
-                    mContext,
-                    mContext.getString(R.string.recovery_changed,
-                            mContext.getString(R.string.recovery_cwm)), Toast.LENGTH_LONG).show();
-        }
+        return info.getCommands(mContext, items, originalItems, wipeData, wipeCaches, backupFolder,
+                backupOptions);
     }
 }

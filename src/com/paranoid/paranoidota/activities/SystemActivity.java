@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -20,6 +20,7 @@
 package com.paranoid.paranoidota.activities;
 
 import com.paranoid.paranoidota.R;
+import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.updater.GappsUpdater;
 import com.paranoid.paranoidota.updater.RomUpdater;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
@@ -50,6 +51,8 @@ public class SystemActivity extends Activity implements UpdaterListener {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_system);
+
+        Utils.setRobotoThin(this, findViewById(R.id.mainlayout));
 
         mTitle = (TextView) findViewById(R.id.title);
         mMessage = (TextView) findViewById(R.id.message);
@@ -89,7 +92,7 @@ public class SystemActivity extends Activity implements UpdaterListener {
     }
 
     @Override
-    public void checkError(boolean isRom) {
+    public void checkError(String cause, boolean isRom) {
     }
 
     private void setMessages(PackageInfo[] info, boolean isRom) {
@@ -110,15 +113,15 @@ public class SystemActivity extends Activity implements UpdaterListener {
             mButton.setVisibility(View.VISIBLE);
             if (mRom != null && mGapps != null) {
                 mTitle.setText(R.string.rom_gapps_new_version);
-                mMessage.setText(res.getString(R.string.system_update,
+                mMessage.setText(res.getString(R.string.system_update_found,
                         new Object[] { mRom.getFilename() + "\n" + mGapps.getFilename() }));
             } else if (mRom != null) {
                 mTitle.setText(R.string.rom_new_version);
-                mMessage.setText(res.getString(R.string.system_update,
+                mMessage.setText(res.getString(R.string.system_update_found,
                         new Object[] { mRom.getFilename() }));
             } else if (mGapps != null) {
                 mTitle.setText(R.string.gapps_new_version);
-                mMessage.setText(res.getString(R.string.system_update,
+                mMessage.setText(res.getString(R.string.system_update_found,
                         new Object[] { mGapps.getFilename() }));
             } else {
                 mTitle.setText(R.string.all_up_to_date);
