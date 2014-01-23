@@ -57,7 +57,7 @@
     
     <!-- DOWNLOADS/NOTIFICATIONS -->
     <string name="download_title">"%1$s..."</string>
-    <string name="new_rom_founs_title">"Neue Rom Version gefunden"</string>
+    <string name="new_rom_found_title">"Neue Rom Version gefunden"</string>
     <string name="new_gapps_found_title">"Neue Google Apps version gefunden"</string>
 <!--    <string name="new_package_name">"%1$s"</string> -->
     <string name="new_packages">"%1$s Aktulasierungen zum Download bereit"</string>
@@ -91,17 +91,8 @@
     <!-- RECOVERY -->
     <string name="recovery_cwm">"ClockWorkMod (CWM)"</string>
 <!--    <string name="recovery_twrp">"TeamWin (TWRP)"</string> -->
-    <string name="recovery_select_alert_title">"Recovery ausw&#228;hlen"</string>
-    <string name="recovery_select_alert_summary">"W&#228;hle das Recovery aus, welches du benutzt. Die Einstellung kann sp&#228;ter unter den APP-Einstellungen ge&#228;ndert werden"</string>
-    <string name="recovery_select_sdcard_alert_title">"Speicherpfad"</string>
-    <string name="recovery_select_sdcard_alert_summary">"Bitte gebe einen Speichernamen an"</string>
-    <string name="recovery_select_sdcard_alert_error">"Bitte gebe einen Speichernamen an"</string>
-    <string name="recovery_changed">"Recovery %1$s konfiguriert.</string>
     
     <!-- SETTINGS -->
-    <string name="settings_expertmode_title">"Experten Modus"</string>
-    <string name="settings_expertmode_summary">"Zeige alles Optionen"</string>
-    <string name="settings_update">"Updates"</string>
     <string name="settings_checktime_title">"Aktualisierungs &#252;berpr&#252;f Intervall"</string>
     <string name="settings_checktime_summary">"Lege die Zeit fest, nach der auf Updates gepr&#252;ft werden soll"</string>
     <string name="time_notifications_never">"Niemals"</string>
@@ -111,18 +102,8 @@
     <string name="time_notifications_five_hours">"5 Stunden"</string>
     <string name="time_notifications_daily">"T&#228;glich"</string>
     <string name="settings_download_path">"Downloadordner"</string>
-    <string name="settings_download_path_alert_title">"Downloadpfad"</string>
-    <string name="settings_download_path_alert_summary">"Lege den Pfad fest wo die Downloads gespeichert werden sollen"</string>
-    <string name="settings_download_path_alert_error">"Bitte lege den Pfad fest, wo die Downloads gespeichert werden sollen"</string>
     <string name="settings_download_finished_title">"&#214;ffne App nach Downloadabschluss"</string>
     <string name="settings_download_finished_summary">"W&#228;hle diese Option ab, wenn du die App manuell &#246;ffnen m&#246;chtest nach Downloadabschluss"</string>
-<!--    <string name="settings_recovery">"Recovery"</string> -->
-    <string name="settings_selectrecovery_title">"W&#228;hle Recovery"</string>
-    <string name="settings_selectrecovery_summary">"W&#228;hle das auf dem Ger&#228;t installierte Recovery"</string>
-    <string name="settings_internalsdcard_title">"Interner Speicherpfad"</string>
-    <string name="settings_internalsdcard_summary">"Lege den Internen Speicherpfad fest, welcher von der Reovery genutzt wird"</string>
-    <string name="settings_externalsdcard_title">"Externer Speicherpfad"</string>
-    <string name="settings_externalsdcard_summary">"Lege den Externen Speicherpfad fest, welcher von deiner Recovery verwendet wird"</string>
 <!--    <string name="settings_showoptions_title">"Options"</string> -->
     <string name="settings_showoptions_summary">"W&#228;hle Flashoptionen zum zeigen"</string>
     <string name="install_option_backup">"Backup"</string>

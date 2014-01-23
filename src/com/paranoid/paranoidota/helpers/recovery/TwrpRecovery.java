@@ -26,13 +26,14 @@ import android.content.Context;
 
 import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
+import com.paranoid.paranoidota.Utils;
 
 public class TwrpRecovery extends RecoveryInfo {
 
     public TwrpRecovery() {
         super();
 
-        setId(R.id.twrp);
+        setId(Utils.TWRP);
         setName("twrp");
         setInternalSdcard("sdcard");
         setExternalSdcard("external_sd");
