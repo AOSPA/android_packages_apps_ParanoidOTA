@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -35,6 +35,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 
+import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
 
 public class DownloadHelper {
@@ -131,6 +132,10 @@ public class DownloadHelper {
         sUpdateHandler.post(sUpdateProgress);
     }
 
+    private static void readdCallback() {
+        sUpdateHandler.post(sUpdateProgress);
+    }
+
     public static void unregisterCallback() {
         sUpdateHandler.removeCallbacks(sUpdateProgress);
     }
@@ -145,9 +150,11 @@ public class DownloadHelper {
         checkDownloadFinished(downloadId, false, true);
     }
 
-    public static void clearDownload(long downloadId) {
-        checkDownloadFinished(downloadId, true, false);
-        checkDownloadFinished(downloadId, false, false);
+    public static void clearDownloads() {
+        long id = sSettingsHelper.getDownloadRomId();
+        checkDownloadFinished(id, true, false);
+        id = sSettingsHelper.getDownloadGappsId();
+        checkDownloadFinished(id, false, false);
     }
 
     private static void checkDownloadFinished(long downloadId, boolean isRom,
@@ -176,7 +183,7 @@ public class DownloadHelper {
                                 .getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
                         sCallback.onDownloadFinished(Uri.parse(uriString), md5, isRom);
                     }
-                    removeDownload(id, isRom, false);
+                    downloadSuccesful(id, isRom);
                     break;
                 default:
                     cancelDownload(id, isRom);
@@ -233,6 +240,7 @@ public class DownloadHelper {
                         } catch (InterruptedException e) {
                         }
                         realDownloadFile(url, fileName, md5, isRom);
+                        readdCallback();
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -259,11 +267,11 @@ public class DownloadHelper {
         request.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setTitle(sContext.getResources().getString(R.string.download_title,
                 new Object[] { fileName }));
-        File file = new File(sSettingsHelper.getDownloadPath());
+        File file = new File(IOUtils.DOWNLOAD_PATH);
         if (!file.exists()) {
             file.mkdirs();
         }
-        request.setDestinationUri(Uri.fromFile(new File(sSettingsHelper.getDownloadPath(), fileName)));
+        request.setDestinationUri(Uri.fromFile(new File(IOUtils.DOWNLOAD_PATH, fileName)));
 
         long id = sDownloadManager.enqueue(request);
         if (isRom) {
@@ -288,6 +296,17 @@ public class DownloadHelper {
         }
         sUpdateHandler.removeCallbacks(sUpdateProgress);
         sCallback.onDownloadFinished(null, null, isRom);
+    }
+
+    private static void downloadSuccesful(long id, boolean isRom) {
+        if (isRom) {
+            sDownloadingRom = false;
+            sSettingsHelper.setDownloadRomId(null, null, null);
+        } else {
+            sDownloadingGapps = false;
+            sSettingsHelper.setDownloadGappsId(null, null, null);
+        }
+        sUpdateHandler.removeCallbacks(sUpdateProgress);
     }
 
     private static void cancelDownload(final long id, final boolean isRom) {

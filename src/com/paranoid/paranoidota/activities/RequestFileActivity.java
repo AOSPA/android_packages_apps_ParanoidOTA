@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -69,9 +69,7 @@ public class RequestFileActivity extends Activity {
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, REQUEST_PICK_FILE);
         } else {
-            // No app installed to handle the intent - file explorer
-            // required
-            Toast.makeText(this, R.string.install_file_manager_error, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.file_manager_error, Toast.LENGTH_SHORT).show();
             finish();
         }
     }
@@ -80,8 +78,6 @@ public class RequestFileActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_PICK_FILE) {
             if (data == null) {
-                // Nothing returned by user, probably pressed back button in
-                // file manager
                 finish();
                 return;
             }
