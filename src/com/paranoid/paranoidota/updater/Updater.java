@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -48,6 +48,8 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
 
         public String getPath();
 
+        public String getHost();
+
         public String getSize();
 
         public Version getVersion();
@@ -74,7 +76,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
 
         public void versionFound(PackageInfo[] info, boolean isRom);
 
-        public void checkError(boolean isRom);
+        public void checkError(String cause, boolean isRom);
     }
 
     private Context mContext;
@@ -86,6 +88,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
     private Server mServer;
     private boolean mScanning = false;
     private boolean mFromAlarm;
+    private boolean mServerWorks = false;
     private int mCurrentServer = -1;
 
     public Updater(Context context, Server[] servers, boolean fromAlarm) {
@@ -103,7 +106,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
 
     public abstract int getErrorStringId();
 
-    public abstract int getNoUpdatesStringId();
+//    public abstract int getNoUpdatesStringId();
 
     protected Context getContext() {
         return mContext;
@@ -142,6 +145,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
                 return;
             }
         }
+        mServerWorks = false;
         mScanning = true;
         fireStartChecking();
         nextServerCheck();
@@ -172,7 +176,8 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
                     String fileName = info.getFilename();
                     if ((gappsType == SettingsHelper.GAPPS_MINI && !fileName.contains("-mini")) ||
                             (gappsType == SettingsHelper.GAPPS_STOCK && !fileName.contains("-stock")) ||
-                            (gappsType == SettingsHelper.GAPPS_FULL && !fileName.contains("-full"))) {
+                            (gappsType == SettingsHelper.GAPPS_FULL && !fileName.contains("-full")) ||
+                            (gappsType == SettingsHelper.GAPPS_MICRO && !fileName.contains("-micro"))) {
                         list.remove(i);
                         i--;
                         continue;
@@ -181,6 +186,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
             }
             lastUpdates = list.toArray(new PackageInfo[list.size()]);
             if (lastUpdates.length > 0) {
+                mServerWorks = true;
                 if (mFromAlarm) {
                     if (!isRom()) {
                         Utils.showNotification(getContext(), null, lastUpdates);
@@ -194,13 +200,14 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
                         return;
                     }
                 } else {
+                    mServerWorks = true;
                     if (mCurrentServer < mServers.length - 1) {
                         nextServerCheck();
                         return;
                     }
-                    if (!mFromAlarm) {
-                        Utils.showToastOnUiThread(getContext(), getNoUpdatesStringId());
-                    }
+//                    if (!mFromAlarm) {
+//                        Utils.showToastOnUiThread(getContext(), getNoUpdatesStringId());
+//                    }
                 }
             }
             mCurrentServer = -1;
@@ -224,7 +231,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
             nextServerCheck();
             return true;
         }
-        if (!mFromAlarm) {
+        if (!mFromAlarm && !mServerWorks) {
             int id = getErrorStringId();
             if (error != null) {
                 Utils.showToastOnUiThread(getContext(), getContext().getResources().getString(id)
@@ -235,7 +242,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
         }
         mCurrentServer = -1;
         fireCheckCompleted(null);
-        fireCheckError(true);
+        fireCheckError(error);
         return false;
     }
 
@@ -273,13 +280,13 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
         }
     }
 
-    protected void fireCheckError(final boolean isRom) {
+    protected void fireCheckError(final String cause) {
         if (mContext instanceof Activity) {
             ((Activity) mContext).runOnUiThread(new Runnable() {
 
                 public void run() {
                     for (UpdaterListener listener : mListeners) {
-                        listener.checkError(isRom);
+                        listener.checkError(cause, isRom());
                     }
                 }
             });

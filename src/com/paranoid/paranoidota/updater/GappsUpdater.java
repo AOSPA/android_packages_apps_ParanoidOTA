@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -37,9 +37,11 @@ public class GappsUpdater extends Updater {
     private static final String VERSION_PROPERTY = "ro.addon.pa_version";
     private static final String VERSION_PROPERTY_EXT = "ro.addon.version";
     private static final String PLATFORM_PROPERTY = "ro.build.version.release";
+    private static final String TYPE_PROPERTY = "ro.addon.pa_type";
 
     private String mPlatform;
-    private long mVersion = -1L;
+    private String mVersion = "-1";
+    private String mType;
 
     public GappsUpdater(Context context, boolean fromAlarm) {
         super(context, new Server[] { new GooServer(context, false) }, fromAlarm);
@@ -53,6 +55,7 @@ public class GappsUpdater extends Updater {
                 if (versionString == null || "".equals(versionString)) {
                     versionString = properties.getProperty(VERSION_PROPERTY_EXT);
                 }
+                mType = properties.getProperty(TYPE_PROPERTY);
                 mPlatform = Utils.getProp(PLATFORM_PROPERTY);
                 mPlatform = mPlatform.replace(".", "");
                 while (mPlatform.length() < 3) {
@@ -62,7 +65,7 @@ public class GappsUpdater extends Updater {
                     String[] version = versionString.split("-");
                     for (int i = 0; i < version.length; i++) {
                         try {
-                            mVersion = Long.parseLong(version[i]);
+                            mVersion = version[i];
                             break;
                         } catch (NumberFormatException ex) {
                             // ignore
@@ -73,6 +76,10 @@ public class GappsUpdater extends Updater {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public String getType() {
+        return mType;
     }
 
     public String getPlatform() {
@@ -92,6 +99,8 @@ public class GappsUpdater extends Updater {
     @Override
     public String getDevice() {
         switch (getSettingsHelper().getGappsType()) {
+            case SettingsHelper.GAPPS_MICRO :
+                return "gapps-micro";
             case SettingsHelper.GAPPS_MINI :
                 return "gapps-mini";
             case SettingsHelper.GAPPS_STOCK:
@@ -105,11 +114,6 @@ public class GappsUpdater extends Updater {
     @Override
     public int getErrorStringId() {
         return R.string.check_gapps_updates_error;
-    }
-
-    @Override
-    public int getNoUpdatesStringId() {
-        return R.string.check_gapps_updates_no_new;
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 ParanoidAndroid Project
+ * Copyright 2014 ParanoidAndroid Project
  *
  * This file is part of Paranoid OTA.
  *
@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import android.content.Context;
 
 import com.paranoid.paranoidota.R;
+import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.updater.Server;
 import com.paranoid.paranoidota.updater.UpdatePackage;
@@ -39,7 +40,7 @@ import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 public class GooServer implements Server {
 
     private static final String URL = "http://goo.im/json2&path=/devs/paranoidandroid/roms/%s&ro_board=%s";
-    private static final String GAPPS_RESERVED_WORDS = "-signed|-modular|-full|-mini|-stock";
+    private static final String GAPPS_RESERVED_WORDS = "-signed|-modular|-full|-mini|-micro|-stock";
 
     private Context mContext;
     private String mDevice = null;
@@ -84,12 +85,24 @@ public class GooServer implements Server {
                 String[] parts = stripped.split("-");
                 boolean isNew = parts[parts.length - 1].matches("[-+]?\\d*\\.?\\d+");
                 if (!isNew) {
-                    continue;
+                    if (!mIsRom) {
+                        String part = parts[parts.length - 1];
+                        isNew = Utils.isNumeric(part)
+                                || Utils.isNumeric(part.substring(0,
+                                        part.length() - 1));
+                        if (!isNew) {
+                            continue;
+                        }
+                    } else {
+                        continue;
+                    }
                 }
                 Version version = new Version(filename);
                 if (Version.compare(mVersion, version) < 0) {
-                    list.add(new UpdatePackage(mDevice, filename, version, "0", "http://goo.im"
-                            + file.getString("path"), file.getString("md5"), mIsRom));
+                    list.add(new UpdatePackage(mDevice, filename, version, file
+                            .getLong("filesize"), "http://goo.im"
+                            + file.getString("path"), file.getString("md5"),
+                            !mIsRom));
                 }
             }
         }
@@ -101,6 +114,7 @@ public class GooServer implements Server {
             }
 
         });
+        Collections.reverse(list);
         return list;
     }
 
