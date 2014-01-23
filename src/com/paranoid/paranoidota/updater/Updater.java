@@ -86,6 +86,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
     private Server mServer;
     private boolean mScanning = false;
     private boolean mFromAlarm;
+    private boolean mServerWorks = false;
     private int mCurrentServer = -1;
 
     public Updater(Context context, Server[] servers, boolean fromAlarm) {
@@ -142,6 +143,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
                 return;
             }
         }
+        mServerWorks = false;
         mScanning = true;
         fireStartChecking();
         nextServerCheck();
@@ -181,6 +183,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
             }
             lastUpdates = list.toArray(new PackageInfo[list.size()]);
             if (lastUpdates.length > 0) {
+                mServerWorks = true;
                 if (mFromAlarm) {
                     if (!isRom()) {
                         Utils.showNotification(getContext(), null, lastUpdates);
@@ -194,6 +197,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
                         return;
                     }
                 } else {
+                    mServerWorks = true;
                     if (mCurrentServer < mServers.length - 1) {
                         nextServerCheck();
                         return;
@@ -224,7 +228,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
             nextServerCheck();
             return true;
         }
-        if (!mFromAlarm) {
+        if (!mFromAlarm && !mServerWorks) {
             int id = getErrorStringId();
             if (error != null) {
                 Utils.showToastOnUiThread(getContext(), getContext().getResources().getString(id)

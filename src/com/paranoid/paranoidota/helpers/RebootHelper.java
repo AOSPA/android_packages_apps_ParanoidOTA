@@ -19,7 +19,8 @@
 
 package com.paranoid.paranoidota.helpers;
 
-import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -37,21 +38,17 @@ import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.InstallOptionsCursor;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
-import com.paranoid.paranoidota.helpers.recovery.RecoveryInfo;
 
 public class RebootHelper {
 
-    private Context mContext;
     private RecoveryHelper mRecoveryHelper;
 
-    public RebootHelper(Context context, RecoveryHelper recoveryHelper) {
-        mContext = context;
+    public RebootHelper(RecoveryHelper recoveryHelper) {
         mRecoveryHelper = recoveryHelper;
     }
 
     private void showBackupDialog(final Context context, final String[] items,
-            final String[] originalItems, final boolean wipeSystem, final boolean wipeData,
-            final boolean wipeCaches) {
+            final boolean wipeSystem, final boolean wipeData, final boolean wipeCaches) {
 
         double spaceLeft = IOUtils.getSpaceLeft();
         if (spaceLeft < 1.0) {
@@ -65,8 +62,7 @@ public class RebootHelper {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     dialog.dismiss();
 
-                    reallyShowBackupDialog(context, items, originalItems, wipeSystem, wipeData,
-                            wipeCaches);
+                    reallyShowBackupDialog(context, items, wipeSystem, wipeData, wipeCaches);
                 }
             });
 
@@ -79,14 +75,12 @@ public class RebootHelper {
                     });
             alert.show();
         } else {
-            reallyShowBackupDialog(context, items, originalItems, wipeSystem, wipeData,
-                    wipeCaches);
+            reallyShowBackupDialog(context, items, wipeSystem, wipeData, wipeCaches);
         }
     }
 
     private void reallyShowBackupDialog(final Context context, final String[] items,
-            final String[] originalItems, final boolean wipeSystem, final boolean wipeData,
-            final boolean wipeCaches) {
+            final boolean wipeSystem, final boolean wipeData, final boolean wipeCaches) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle(R.string.alert_backup_title);
@@ -106,20 +100,10 @@ public class RebootHelper {
         input.setText(Utils.getDateAndTime());
         input.selectAll();
 
-        if (mRecoveryHelper.getRecovery().getId() == R.id.twrp) {
-            if (!IOUtils.hasAndroidSecure()) {
-                cbSecure.setVisibility(View.GONE);
-            }
-            if (!IOUtils.hasSdExt()) {
-                cbSdext.setVisibility(View.GONE);
-            }
-        } else {
-            cbSystem.setVisibility(View.GONE);
-            cbData.setVisibility(View.GONE);
-            cbCache.setVisibility(View.GONE);
-            cbRecovery.setVisibility(View.GONE);
-            cbBoot.setVisibility(View.GONE);
+        if (!IOUtils.hasAndroidSecure()) {
             cbSecure.setVisibility(View.GONE);
+        }
+        if (!IOUtils.hasSdExt()) {
             cbSdext.setVisibility(View.GONE);
         }
 
@@ -131,38 +115,30 @@ public class RebootHelper {
                 String text = input.getText().toString();
                 text = text.replaceAll("[^a-zA-Z0-9.-]", "");
 
-                String backupOptions = null;
-                if (mRecoveryHelper.getRecovery().getId() == R.id.twrp) {
-                    backupOptions = "";
-                    if (cbSystem.isChecked()) {
-                        backupOptions += "S";
-                    }
-                    if (cbData.isChecked()) {
-                        backupOptions += "D";
-                    }
-                    if (cbCache.isChecked()) {
-                        backupOptions += "C";
-                    }
-                    if (cbRecovery.isChecked()) {
-                        backupOptions += "R";
-                    }
-                    if (cbBoot.isChecked()) {
-                        backupOptions += "B";
-                    }
-                    if (cbSecure.isChecked()) {
-                        backupOptions += "A";
-                    }
-                    if (cbSdext.isChecked()) {
-                        backupOptions += "E";
-                    }
-
-                    if ("".equals(backupOptions)) {
-                        return;
-                    }
+                String backupOptions = "";
+                if (cbSystem.isChecked()) {
+                    backupOptions += "S";
+                }
+                if (cbData.isChecked()) {
+                    backupOptions += "D";
+                }
+                if (cbCache.isChecked()) {
+                    backupOptions += "C";
+                }
+                if (cbRecovery.isChecked()) {
+                    backupOptions += "R";
+                }
+                if (cbBoot.isChecked()) {
+                    backupOptions += "B";
+                }
+                if (cbSecure.isChecked()) {
+                    backupOptions += "A";
+                }
+                if (cbSdext.isChecked()) {
+                    backupOptions += "E";
                 }
 
-                reboot(context, items, originalItems, wipeSystem, wipeData, wipeCaches, text,
-                        backupOptions);
+                reboot(context, items, wipeSystem, wipeData, wipeCaches, text, backupOptions);
             }
         });
 
@@ -175,15 +151,11 @@ public class RebootHelper {
         alert.show();
     }
 
-    public void showRebootDialog(final Context context, final String[] items, final String[] originalItems) {
+    public void showRebootDialog(final Context context, final String[] items) {
 
         if (items == null || items.length == 0) {
             return;
         }
-
-        final RecoveryInfo recovery = mRecoveryHelper.getRecovery();
-
-        mContext = context;
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
@@ -227,11 +199,10 @@ public class RebootHelper {
                 dialog.dismiss();
 
                 if (cbBackup.isChecked()) {
-                    showBackupDialog(context, items, originalItems, cbWipeSystem.isChecked(),
+                    showBackupDialog(context, items, cbWipeSystem.isChecked(),
                             cbWipeData.isChecked(), cbWipeCaches.isChecked());
                 } else {
-                    reboot(context, items, originalItems, cbWipeSystem.isChecked(),
-                            cbWipeData.isChecked(), cbWipeCaches.isChecked(), null, null);
+                    reboot(context, items, cbWipeSystem.isChecked(), cbWipeData.isChecked(), cbWipeCaches.isChecked(), null, null);
                 }
                 installCursor.close();
 
@@ -248,9 +219,9 @@ public class RebootHelper {
         alert.show();
     }
 
-    private void reboot(Context context, final String[] items, final String[] originalItems,
-            final boolean wipeSystem, final boolean wipeData, final boolean wipeCaches,
-            final String backupFolder, final String backupOptions) {
+    private void reboot(final Context context, final String[] items, final boolean wipeSystem,
+            final boolean wipeData, final boolean wipeCaches, final String backupFolder,
+            final String backupOptions) {
 
         if (wipeSystem) {
             AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -263,8 +234,7 @@ public class RebootHelper {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             dialog.dismiss();
 
-                            _reboot(items, originalItems, wipeSystem, wipeData, wipeCaches,
-                                    backupFolder, backupOptions);
+                            _reboot(context, items, wipeSystem, wipeData, wipeCaches, backupFolder, backupOptions);
 
                         }
                     });
@@ -277,48 +247,50 @@ public class RebootHelper {
             });
             alert.show();
         } else {
-            _reboot(items, originalItems, wipeSystem, wipeData, wipeCaches, backupFolder,
-                    backupOptions);
+            _reboot(context, items, wipeSystem, wipeData, wipeCaches, backupFolder, backupOptions);
         }
 
     }
 
-    private void _reboot(String[] items, String[] originalItems, boolean wipeSystem,
-            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions) {
+    private void _reboot(Context context, String[] items, boolean wipeSystem, boolean wipeData,
+            boolean wipeCaches, String backupFolder, String backupOptions) {
 
         try {
-            Process p = Runtime.getRuntime().exec("su");
-            DataOutputStream os = new DataOutputStream(p.getOutputStream());
 
-            os.writeBytes("rm -f /cache/recovery/command\n");
-            os.writeBytes("rm -f /cache/recovery/extendedcommand\n");
-            os.writeBytes("rm -f /cache/recovery/openrecoveryscript\n");
+            File f = new File("/cache/recovery/command");
+            f.delete();
 
-            String file = mRecoveryHelper.getCommandsFile();
+            int[] recoveries = new int[] { Utils.TWRP, Utils.CWM };
 
-            String[] commands = mRecoveryHelper.getCommands(items, originalItems, wipeSystem,
-                    wipeData, wipeCaches, backupFolder, backupOptions);
-            if (commands != null) {
-                int size = commands.length, i = 0;
-                for (; i < size; i++) {
-                    os.writeBytes("echo '" + commands[i] + "' >> /cache/recovery/" + file + "\n");
+            for (int i = 0; i < recoveries.length; i++) {
+                String file = mRecoveryHelper.getCommandsFile(recoveries[i]);
+
+                FileOutputStream os = null;
+                try {
+                    os = new FileOutputStream("/cache/recovery/" + file, false);
+
+                    String[] files = new String[items.length];
+                    for (int k = 0; k < files.length; k++) {
+                        files[k] = mRecoveryHelper.getRecoveryFilePath(recoveries[i], items[k]);
+                    }
+
+                    String[] commands = mRecoveryHelper.getCommands(recoveries[i], files, items,
+                            wipeSystem, wipeData, wipeCaches, backupFolder, backupOptions);
+                    if (commands != null) {
+                        int size = commands.length, j = 0;
+                        for (; j < size; j++) {
+                            os.write((commands[j] + "\n").getBytes("UTF-8"));
+                        }
+                    }
+                } finally {
+                    if (os != null) {
+                        os.close();
+                        Utils.setPermissions("/cache/recovery/" + file, 0644, android.os.Process.myUid(), 2001);
+                    }
                 }
             }
 
-            os.writeBytes("/system/bin/touch /cache/recovery/boot\n");
-            os.writeBytes("reboot recovery\n");
-
-            os.writeBytes("sync\n");
-            os.writeBytes("exit\n");
-            os.flush();
-            p.waitFor();
-
-            if (Utils.isSystemApp(mContext)) {
-                ((PowerManager) mContext.getSystemService(Activity.POWER_SERVICE))
-                        .reboot("recovery");
-            } else {
-                Runtime.getRuntime().exec("/system/bin/reboot recovery");
-            }
+            ((PowerManager) context.getSystemService(Activity.POWER_SERVICE)).reboot("recovery");
 
         } catch (Exception e) {
             e.printStackTrace();

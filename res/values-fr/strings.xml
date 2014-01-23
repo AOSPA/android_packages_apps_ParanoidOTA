@@ -91,17 +91,8 @@
     <!-- RECOVERY -->
     <string name="recovery_cwm">"ClockWorkMod (CWM)"</string>
 <!--    <string name="recovery_twrp">"TeamWin (TWRP)"</string> -->
-    <string name="recovery_select_alert_title">"Sélectionner le recovery"</string>
-    <string name="recovery_select_alert_summary">"Spécifiez le recovery que vous utilisez. Vous pouvez changer cette option plus tard dans les paramètres de l\'application."</string>
-    <string name="recovery_select_sdcard_alert_title">"Répertoire de stockage"</string>
-    <string name="recovery_select_sdcard_alert_summary">"Spécifiez l\'emplacement du stockage"</string>
-    <string name="recovery_select_sdcard_alert_error">"Veuillez spécifier l\'emplacement du stockage"</string>
-    <string name="recovery_changed">"Recovery %1$s configuré.</string>
     
     <!-- SETTINGS -->
-    <string name="settings_expertmode_title">"Mode Expert"</string>
-    <string name="settings_expertmode_summary">"Montrer toutes les options"</string>
-    <string name="settings_update">"Mises à jour"</string>
     <string name="settings_checktime_title">"Fréquence de vérification des mises à jour"</string>
     <string name="settings_checktime_summary">"Spécifiez le temps entre chaque vérification des mises à jour"</string>
     <string name="time_notifications_never">"Ne jamais vérifier"</string>
@@ -111,18 +102,8 @@
     <string name="time_notifications_five_hours">"5 heures"</string>
     <string name="time_notifications_daily">"Tous les jours"</string>
     <string name="settings_download_path">"Répertoire des téléchargements"</string>
-    <string name="settings_download_path_alert_title">"Chemin des téléchargements"</string>
-    <string name="settings_download_path_alert_summary">"Spécifiez le chemin d'enregistrement des téléchargements"</string>
-    <string name="settings_download_path_alert_error">"Veuillez spécifier un chemin d'enregistrement des téléchargements"</string>
     <string name="settings_download_finished_title">"Ouvrir l\'application lorsque le téléchargement est terminé"</string>
     <string name="settings_download_finished_summary">"Décochez cette option si vous voulez entrer manuellement dans l\'application après qu\'un téléchargement soit terminé"</string>
-<!--    <string name="settings_recovery">"Recovery"</string> -->
-    <string name="settings_selectrecovery_title">"Sélectionner le recovery"</string>
-    <string name="settings_selectrecovery_summary">"Sélectionner le recovery installé sur votre appareil"</string>
-    <string name="settings_internalsdcard_title">"Chemin de stockage interne"</string>
-    <string name="settings_internalsdcard_summary">"Spécifiez le chemin de stockage interne utilisé par le recovery"</string>
-    <string name="settings_externalsdcard_title">"Chemin de stockage externe"</string>
-    <string name="settings_externalsdcard_summary">"Spécifiez le chemin de stockage externe utilisé par le recovery"</string>
 <!--    <string name="settings_showoptions_title">"Options"</string> -->
     <string name="settings_showoptions_summary">"Choisissez les options de flashage à montrer"</string>
     <string name="install_option_backup">"Sauvegarde (Backup)"</string>
