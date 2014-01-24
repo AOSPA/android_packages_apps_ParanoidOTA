@@ -92,6 +92,8 @@ public class GappsUpdater extends Updater {
     @Override
     public String getDevice() {
         switch (getSettingsHelper().getGappsType()) {
+            case SettingsHelper.GAPPS_MICRO :
+                return "gapps-micro";
             case SettingsHelper.GAPPS_MINI :
                 return "gapps-mini";
             case SettingsHelper.GAPPS_STOCK:

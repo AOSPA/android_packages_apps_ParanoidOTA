@@ -33,6 +33,7 @@ public class SettingsHelper {
     public static final int GAPPS_FULL = 0;
     public static final int GAPPS_MINI = 1;
     public static final int GAPPS_STOCK = 2;
+    public static final int GAPPS_MICRO = 3;
 
     // install options
     public static final String INSTALL_BACKUP = "BACKUP";
@@ -42,16 +43,11 @@ public class SettingsHelper {
     public static final String[] INSTALL_OPTIONS = { INSTALL_BACKUP, INSTALL_WIPESYSTEM,
             INSTALL_WIPEDATA, INSTALL_WIPECACHES };
 
-    public static final String PROPERTY_EXPERT = "expertmode";
     public static final String PROPERTY_CHECK_TIME = "checktime";
     public static final String PROPERTY_CHECK_GAPPS = "checkgapps";
     public static final String PROPERTY_GAPPS_TYPE = "gappstype";
     public static final String PROPERTY_DOWNLOAD_PATH = "downloadpath";
     public static final String PROPERTY_DOWNLOAD_FINISHED = "downloadfinished";
-    public static final String PROPERTY_RECOVERY = "recovery";
-    public static final String PROPERTY_INTERNAL_STORAGE = "internal-storage";
-    public static final String PROPERTY_EXTERNAL_STORAGE = "external-storage";
-    public static final String PROPERTY_SETTINGS_RECOVERY = "settings_recovery";
     public static final String PROPERTY_SHOW_OPTIONS = "showoptions";
 
     public static final String DOWNLOAD_ROM_ID = "download_rom_id";
@@ -61,61 +57,23 @@ public class SettingsHelper {
     public static final String DOWNLOAD_ROM_FILENAME = "download_rom_filaname";
     public static final String DOWNLOAD_GAPPS_FILENAME = "download_gapps_filename";
 
-    private static final boolean DEFAULT_EXPERT = false;
     private static final String DEFAULT_CHECK_TIME = "18000000"; // five hours
     private static final boolean DEFAULT_CHECK_GAPPS = true;
     private static final int DEFAULT_GAPPS_TYPE = GAPPS_FULL;
     private static final String DEFAULT_DOWNLOAD_PATH = new File(Environment
             .getExternalStorageDirectory(), "paranoidota/").getAbsolutePath();
     private static final boolean DEFAULT_DOWNLOAD_FINISHED = true;
-    private static final String DEFAULT_RECOVERY = "cwmbased";
-    private static final String DEFAULT_INTERNAL_STORAGE = "emmc";
-    private static final String DEFAULT_EXTERNAL_STORAGE = "sdcard";
     private static final Set<String> DEFAULT_SHOW_OPTIONS = new HashSet<String>();
 
     private SharedPreferences settings;
-    private Context mContext;
 
     public SettingsHelper(Context context) {
-        mContext = context;
 
         settings = PreferenceManager.getDefaultSharedPreferences(context);
 
         DEFAULT_SHOW_OPTIONS.add(INSTALL_BACKUP);
         DEFAULT_SHOW_OPTIONS.add(INSTALL_WIPEDATA);
         DEFAULT_SHOW_OPTIONS.add(INSTALL_WIPECACHES);
-    }
-
-    public boolean getExpertMode() {
-        return settings.getBoolean(PROPERTY_EXPERT, DEFAULT_EXPERT);
-    }
-
-    public String getInternalStorage() {
-        return settings.getString(PROPERTY_INTERNAL_STORAGE, DEFAULT_INTERNAL_STORAGE);
-    }
-
-    public void setInternalStorage(String value) {
-        savePreference(PROPERTY_INTERNAL_STORAGE, value);
-    }
-
-    public String getExternalStorage() {
-        return settings.getString(PROPERTY_EXTERNAL_STORAGE, DEFAULT_EXTERNAL_STORAGE);
-    }
-
-    public void setExternalStorage(String value) {
-        savePreference(PROPERTY_EXTERNAL_STORAGE, value);
-    }
-
-    public boolean existsRecovery() {
-        return settings.contains(PROPERTY_RECOVERY);
-    }
-
-    public String getRecovery() {
-        return settings.getString(PROPERTY_RECOVERY, DEFAULT_RECOVERY);
-    }
-
-    public void setRecovery(String value) {
-        savePreference(PROPERTY_RECOVERY, value);
     }
 
     public boolean isShowOption(String option) {

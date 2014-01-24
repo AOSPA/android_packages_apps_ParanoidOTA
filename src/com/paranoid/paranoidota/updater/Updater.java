@@ -172,7 +172,8 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
                     String fileName = info.getFilename();
                     if ((gappsType == SettingsHelper.GAPPS_MINI && !fileName.contains("-mini")) ||
                             (gappsType == SettingsHelper.GAPPS_STOCK && !fileName.contains("-stock")) ||
-                            (gappsType == SettingsHelper.GAPPS_FULL && !fileName.contains("-full"))) {
+                            (gappsType == SettingsHelper.GAPPS_FULL && !fileName.contains("-full")) ||
+                            (gappsType == SettingsHelper.GAPPS_MICRO && !fileName.contains("-micro"))) {
                         list.remove(i);
                         i--;
                         continue;
