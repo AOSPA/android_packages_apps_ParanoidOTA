@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2013 ParanoidAndroid Project
+
+  This file is part of Paranoid OTA.
+
+  Paranoid OTA is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Paranoid OTA is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+    <string name="app_name">Paranoid OTA</string>
+    <string name="slider_overview">Panoramica</string>
+    <string name="slider_updates">Aggiornamenti</string>
+    <string name="slider_install">Installa</string>
+    <string name="slider_changelog">Changelog</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="drawer_open">Apri menù</string>
+    <string name="drawer_close">Chiudi menù</string>
+    <string name="check_for_updates">Controlla</string>
+    <string name="changelog_error">Impossibile caricare il changelog!</string>
+    <string name="rom">ROM</string>
+    <string name="gapps">Google apps</string>
+    <string name="local">File scaricati</string>
+    <string name="extras">File aggiuntivi</string>
+
+    <!-- INTRODUCTION -->
+    <string name="introduction_header">Benvenuto</string>
+    <string name="introduction_installer_pa">
+        Questa applicazione permette di aggiornare la ROM Paranoid Android e le Google Apps.\n\n
+        Se viene rilevato un aggiornamento, riceverai una notifica. Clicca per aprire ParanoidOTA.\n
+        Vai nella scheda Aggiornamenti e clicca sul file da scaricare.\n
+        Una volta terminato il download, l\'aggiornamento verrà aggiunto alla scheda Installa. Clicca sul pulsante Installa e seleziona le opzioni che desideri eseguire. Il dispositivo verrà riavviato in recovery per installare gli aggiornamenti.\n\n
+        Solamente le recovery basate sulla CWM e sulla TWRP sono supportate. La versione closed source della CWM non è supportata.
+    </string>
+    <string name="introduction_installer">
+        Questa applicazione permette di aggiornare la ROM Paranoid Android e le Google Apps.\n\n
+        Se viene rilevato un aggiornamento, riceverai una notifica. Clicca per aprire ParanoidOTA.\n
+        Vai nella scheda Aggiornamenti e clicca sul file da scaricare.\n
+        Una volta terminato il download, l\'aggiornamento verrà aggiunto alla scheda Installa. Clicca sul pulsante Installa e seleziona le opzioni che desideri eseguire. Il dispositivo verrà riavviato in recovery per installare gli aggiornamenti.\n\n
+        Solamente le recovery basate sulla CWM e sulla TWRP sono supportate. La versione closed source della CWM non è supportata.\n\n
+        Tieni a mente che sarà richiesto di fare un ripristino delle impostazioni di fabbrica, il che significa che app e account saranno cancelati. Fai un backup dei tuoi dati! Il contenuto della scheda SD rimarrà intatto.
+    </string>
+    <string name="introduction_continue">Capito!</string>
+
+    <!-- OVERVIEW -->
+    <string name="all_up_to_date">Aggiornato!</string>
+    <string name="rom_gapps_new_version">Nuove versioni trovate!</string>
+    <string name="update_to_aospa">Aggiorna a ParanoidAndroid!</string>
+    <string name="rom_new_version">Nuova versione della ROM trovata!</string>
+    <string name="gapps_new_version">Nuova versione delle Google apps trovata!</string>
+    <string name="rom_scanning">Controllo nuove versioni...</string>
+	<string name="current_rom_title">Versione ROM</string>
+    <string name="newer_rom_title">Nuova versione Paranoid Android</string>
+    <string name="current_gapps_title">Versione Google apps</string>
+    <string name="newer_gapps_title">Nuova versione Google apps</string>	
+    <string name="gapps_version">Google apps %1$s</string>
+    <string name="rom_outdated">La ROM è obsoleta!</string>
+    <string name="update_rom_to_aospa">Aggiorna la ROM a ParanoidAndroid!</string>
+    <string name="gapps_outdated">Le Google apps sono obsolete!</string>
+    <string name="update_gapps_to_aospa">Aggiorna le Google apps a quelle ParanoidAndroid!</string>
+    <string name="no_rom_updates">Nessun aggiornamento della ROM trovato</string>
+    <string name="no_gapps_updates">Nessun aggiornamento delle Google apps trovato</string>
+    <string name="no_gapps_installed">Google apps non installate</string>
+    <string name="update_all_to_aospa">Aggiorna a ParanoidAndroid!</string>
+    <string name="check_rom_updates_no_new">Nessun aggiornamento della ROM trovato</string>
+    <string name="check_rom_updates_error">Errore nel controllo degli aggiornamenti per la ROM</string>
+    <string name="check_gapps_updates_no_new">Nessun aggiornamento delle Google apps trovato</string>
+    <string name="check_gapps_updates_error">Errore nel controllo degli aggiornamenti per le Google apps</string>
+    <string name="no_updates">Nessun aggiornamento trovato</string>
+    <string name="check_for_updates_long">Controlla aggiornamenti</string>
+    <string name="system_update">Un nuovo aggiornamento di sistema è stato trovato ed è pronto per essere scaricato.\nControlla le notifiche che dovrebbero essere comparse. Ti porteranno a l\'app ParanoidOTA dove sarai in grado di scaricare e/o installare l\'aggiornamento di sistema.\n\nNuovo(i) aggiornamento(i) trovato(i):\n%1$s</string>
+    <string name="unknown_size">Dimensione sconsosciuta</string>
+
+    <!-- DOWNLOADS/NOTIFICATIONS -->
+    <string name="downloading_title">In download %1$s...</string>
+    <string name="download_title">%1$s</string>
+    <string name="new_rom_found_title">Nuova versione della ROM trovata</string>
+    <string name="new_gapps_found_title">Nuova versione delle Google apps trovata</string>
+    <string name="new_all_found_title">Nuove versioni della ROM e delle Google apps trovate</string>
+    <string name="new_package_name">%1$s</string>
+    <string name="new_packages">%1$s aggiornamenti disponibili per il download</string>
+    <string name="cancel_download_alert_title">Annulla il download</string>
+    <string name="cancel_rom_download_alert_summary">Annullare il download della ROM?</string>
+    <string name="cancel_gapps_download_alert_summary">Annullare il download delle Google apps?</string>
+    <string name="cancel_download_alert_yes">Si</string>
+    <string name="cancel_download_alert_no">No</string>
+    <string name="already_downloading_rom">Stai già scaricando un aggiornamento della ROM.</string>
+    <string name="already_downloading_gapps">Stai già scaricando un aggiornamento delle Google apps.</string>
+    <string name="wait_downloading_rom">L\'aggiornamento della ROM è ancora in download.</string>
+    <string name="wait_downloading_gapps">L\'aggiornamento delle Google apps è ancora in download.</string>
+    <string name="calculating_md5">Calcolo MD5 checksum...</string>
+    <string name="md5_mismatch">MD5 non corrispondente</string>
+    <string name="md5_mismatch_summary">Ricevuta:\n%1$s\n\nCalcolata:\n%2$s</string>
+    <string name="md5_install_anyway">Installa comunque</string>
+    <string name="update_no_local_files">Nessun download trovato</string>
+    <string name="update_no_local_files_summary">Controlla la scheda Panoramica per gli aggiornamenti</string>
+    <string name="update_no_extra_files">Nessun file aggiuntivi specificati</string>
+    <string name="update_no_extra_files_summary">Premere il tasto + in alto per aggiungere ZIP</string>
+
+    <!-- DOWNLOAD ERRORS -->
+    <string name="error_cannot_resume">Errore: il download non può essere ripreso</string>
+    <string name="error_device_not_found">Errore: scheda SD non caricata</string>
+    <string name="error_file_already_exists">Errore: file già esistente</string>
+    <string name="error_file_error">Errore: errore di archiviazione</string>
+    <string name="error_http_data_error">Errore: errore HTTP</string>
+    <string name="error_insufficient_space">Errore: spazio insufficiente</string>
+    <string name="error_too_many_redirects">Errore: troppi rendirizzamenti</string>
+    <string name="error_unhandled_http_code">Errore: codice HTTP non gestito</string>
+    <string name="error_unknown">Errore: sconosciuto</string>
+    <string name="error_device_not_found_title">Device non trovato</string>
+    <string name="error_device_not_found_summary">Non è stata trovata alcuna ROM per il tuo dispositivo. Controlla manualmente.</string>
+    <string name="error_device_not_found_server">Non è stata trovata alcuna ROM per il tuo dispositivo.</string>
+
+    <!-- RECOVERY -->
+    <string name="recovery_cwm">ClockworkMod (CWM)</string>
+    <string name="recovery_twrp">TeamWin (TWRP)</string>
+    <string name="recovery_select_alert_title">Seleziona recovery</string>
+    <string name="recovery_select_alert_summary">Seleziona la recovery che stai usando. Puoi cambiare questa impostazione più tardi nelle impostazioni dell\'applicazione.</string>
+    <string name="recovery_select_sdcard_alert_title">Percoso di memorizzazione</string>
+    <string name="recovery_select_sdcard_alert_summary">Specificare il nome della memoria</string>
+    <string name="recovery_select_sdcard_alert_error">Si prega di specificare il nome della memoria</string>
+    <string name="recovery_changed">Recovery %1$s configurata.</string>
+
+    <!-- SETTINGS -->
+    <string name="settings_expertmode_title">Modalità espero</string>
+    <string name="settings_expertmode_summary">Mostra tutte le opzioni</string>
+    <string name="settings_update">Aggiornamenti</string>
+    <string name="settings_checktime_title">Frequenza controllo aggiornamenti</string>
+    <string name="settings_checktime_summary">Specifica il tempo tra ogni controllo degli aggiornamenti</string>
+    <string name="settings_checkgapps_title">Controlla per le Google apps</string>
+    <string name="settings_checkgapps_summary">Controlla anche per le Google apps specifiche PA</string>
+    <string name="settings_gappstype_title">Tipo di Google apps</string>
+    <string name="settings_gappstype_summary">Scegliere il pacchetto di Google apps tra completo, mini e stock</string>
+    <string name="gapps_type_full">Pacchetto completo</string>
+    <string name="gapps_type_mini">Pacchetto mini</string>
+    <string name="gapps_type_stock">Pacchetto stock</string>
+    <string name="time_notifications_never">Non verificare</string>
+    <string name="time_notifications_half_an_hour">Mezz\'ora</string>
+    <string name="time_notifications_an_hour">1 ora</string>
+    <string name="time_notifications_two_hours">2 ore</string>
+    <string name="time_notifications_five_hours">5 ore</string>
+    <string name="time_notifications_daily">Giornalmente</string>
+    <string name="settings_download_path">Cartella download</string>
+    <string name="settings_download_path_alert_title">Percorso download</string>
+    <string name="settings_download_path_alert_summary">Specificare il percorso dove salvare i download</string>
+    <string name="settings_download_path_alert_error">Si prega di specificare il percorso dove salvare i download</string>
+    <string name="settings_download_finished_title">Aprire l\'app quando i download sono completati</string>
+    <string name="settings_download_finished_summary">Deselezionare questa opzione se si desidera aprire manualmente l\'app dopo che il download è stato completato</string>
+    <string name="settings_recovery">Recovery</string>
+    <string name="settings_selectrecovery_title">Seleziona recovery</string>
+    <string name="settings_selectrecovery_summary">Selezionare la recovery installata nel dispositivo</string>
+    <string name="settings_internalsdcard_title">Percorso memoria interna</string>
+    <string name="settings_internalsdcard_summary">Specificare il percorso usato dalla recovery nella scheda SD interna</string>
+    <string name="settings_externalsdcard_title">Percorso memoria esterna</string>
+    <string name="settings_externalsdcard_summary">Specificare il percorso usato dalla recovery nella scheda SD esterna</string>
+    <string name="settings_showoptions_title">Opzioni</string>
+    <string name="settings_showoptions_summary">Scegliere le opzioni di installazione da visualizzare</string>
+    <string name="install_option_backup">Backup</string>
+    <string name="install_option_wipe_system">Cancella sistema</string>
+    <string name="install_option_wipe_data">Cancella dati</string>
+    <string name="install_option_wipe_caches">Cancella cache &amp; Dalvik</string>
+    <string name="install_option_wipe_cache">Cancella cache</string>
+
+    <!-- REBOOT & INSTALL-->
+    <string name="backup">Backup</string>
+    <string name="wipe_system">Cancella sistema</string>
+    <string name="wipe_data">Cancella dati</string>
+    <string name="wipe_caches">Cancella cache &amp; Dalvik</string>
+    <string name="wipe_cache">Cancella cache</string>
+    <string name="alert_backup_space_title">Spazio rimanente</string>
+    <string name="alert_backup_space_message">C\'è meno di %1$sGB nella scheda SD interna. Continuare con il backup?</string>
+    <string name="alert_backup_title">Backup</string>
+    <string name="alert_backup_message">Specificare il nome del backup (gli spazi verranno rimossi).</string>
+    <string name="system">Sistema</string>
+    <string name="data">Dati</string>
+    <string name="cache">Cache</string>
+    <string name="recovery">Recovery</string>
+    <string name="boot">Boot</string>
+    <string name="androidsecure">Android secure</string>
+    <string name="sdext">Scheda SD esterna</string>
+    <string name="alert_reboot_install_title">Selezionae le azioni e installa</string>
+    <string name="alert_reboot_only_install_title">Installa aggiornamento</string>
+    <string name="alert_reboot_one_message">Il dispositivo verrà riavviato in recovery e verrà installato il file %1$s.</string>
+    <string name="alert_reboot_more_message">Il dispositivo verrà riavviato in recovery e verranno installati %1$s file.</string>
+    <string name="alert_reboot_now">Installa adesso</string>
+    <string name="alert_wipe_system_title">Cancellazione di sistema</string>
+    <string name="alert_wipe_system_message">Stai per eseguire una cancellazione del sistema. Sicuro di volerlo fare?</string>
+    <string name="invalid_zip_file">File zip non valido.</string>
+    <string name="install_file_manager_error">Nessuna applicazione trovata per selezionare un file zip. Installare un file manager.</string>
+    <string name="remove_file_title">Rimuovi file</string>
+    <string name="remove_file_summary">Rimuovere il file dalla lista?</string>
+    <string name="install">Installa</string>
+    <string name="install_add_file">Aggiungi</string>
+</resources>
