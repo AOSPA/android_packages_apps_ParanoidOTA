@@ -13,7 +13,7 @@
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
- 
+
   You should have received a copy of the GNU General Public License
   along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
 -->
@@ -24,24 +24,24 @@
     android:orientation="vertical" >
 
     <LinearLayout
-	    android:id="@+id/layout"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:orientation="vertical" >
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-	    <TextView
-	        android:id="@+id/info"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:textColor="@color/card_text"
-	        android:textSize="@dimen/card_small_text_size" />
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/card_text"
+            android:textSize="@dimen/card_small_text_size" />
 
-	    <ProgressBar
-	        android:id="@+id/wait_progressbar"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center_horizontal" />
-    
+        <ProgressBar
+            android:id="@+id/wait_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
         <TextView
             android:id="@+id/error"
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
             android:textSize="@dimen/card_small_text_size"
             android:paddingTop="@dimen/card_header_padding" />
 
-	</LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/additional"
@@ -58,7 +58,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="gone" >
-    
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_separator_height"
@@ -75,7 +75,7 @@
             android:textSize="@dimen/card_small_text_size" />
 
     </LinearLayout>
-    
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/card_separator_height"

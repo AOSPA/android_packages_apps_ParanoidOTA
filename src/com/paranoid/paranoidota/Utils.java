@@ -129,7 +129,7 @@ public class Utils {
             String number = version.substring(version.indexOf("-") + 1, version.lastIndexOf("-"));
             String date = version.substring(version.lastIndexOf("-") + 1,
                     version.endsWith(".zip") ? version.lastIndexOf(".") : version.length());
-    
+
             SimpleDateFormat curFormater = new SimpleDateFormat("yyyyMMdd");
             Date dateObj = null;
             try {
@@ -138,7 +138,7 @@ public class Utils {
                 // ignore
             }
             SimpleDateFormat postFormater = new SimpleDateFormat("MMMM dd, yyyy");
-    
+
             if (dateObj == null) {
                 return number;
             }

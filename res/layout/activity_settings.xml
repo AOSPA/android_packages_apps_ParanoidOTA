@@ -13,7 +13,7 @@
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
- 
+
   You should have received a copy of the GNU General Public License
   along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
 -->
@@ -22,30 +22,35 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
-    <com.paranoid.paranoidota.widget.PreferenceCategory 
+    <com.paranoid.paranoidota.widget.PreferenceCategory
         android:title="@string/settings" >
 
-	    <com.paranoid.paranoidota.widget.ListPreference
-	        android:key="checktime"
-	        android:title="@string/settings_checktime_title"
-	        android:summary="@string/settings_checktime_summary"
-	        android:dialogTitle="@string/settings_checktime_title"
-	        android:entries="@array/time_notifications_entries"
-	        android:entryValues="@array/time_notifications_values" />
+        <com.paranoid.paranoidota.widget.ListPreference
+            android:key="checktime"
+            android:title="@string/settings_checktime_title"
+            android:summary="@string/settings_checktime_summary"
+            android:dialogTitle="@string/settings_checktime_title"
+            android:entries="@array/time_notifications_entries"
+            android:entryValues="@array/time_notifications_values" />
 
-	    <com.paranoid.paranoidota.widget.CheckBoxPreference
-	        android:key="checkgapps"
-	        android:title="@string/settings_checkgapps_title"
-	        android:summary="@string/settings_checkgapps_summary" />
+        <com.paranoid.paranoidota.widget.CheckBoxPreference
+            android:key="checkgapps"
+            android:title="@string/settings_checkgapps_title"
+            android:summary="@string/settings_checkgapps_summary" />
 
-	    <com.paranoid.paranoidota.widget.ListPreference
-	        android:key="gappstype"
-	        android:dependency="checkgapps"
-	        android:title="@string/settings_gappstype_title"
-	        android:summary="@string/settings_gappstype_summary"
-	        android:entries="@array/gapps_type_entries"
-	        android:entryValues="@array/gapps_type_values" />
+        <com.paranoid.paranoidota.widget.ListPreference
+            android:key="gappstype"
+            android:dependency="checkgapps"
+            android:title="@string/settings_gappstype_title"
+            android:summary="@string/settings_gappstype_summary"
+            android:entries="@array/gapps_type_entries"
+            android:entryValues="@array/gapps_type_values" />
 
-	</com.paranoid.paranoidota.widget.PreferenceCategory>
+        <com.paranoid.paranoidota.widget.Preference
+            android:key="goo"
+            android:title="@string/settings_goo"
+            android:summary="@string/settings_login_goo" />
+
+    </com.paranoid.paranoidota.widget.PreferenceCategory>
 
 </PreferenceScreen>
