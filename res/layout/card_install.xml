@@ -13,7 +13,7 @@
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
- 
+
   You should have received a copy of the GNU General Public License
   along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
 -->
@@ -46,7 +46,7 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/card_separator_padding"
         android:visibility="gone" >
-    
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_separator_height"
@@ -62,28 +62,28 @@
             android:textSize="@dimen/card_small_text_size" />
 
         <CheckBox
-	        android:id="@+id/backup"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:checked="false"
-	        android:text="@string/backup" />
-	
-	    <CheckBox
-	        android:id="@+id/wipedata"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:checked="false"
-	        android:text="@string/wipe_data" />
-	
-	    <CheckBox
-	        android:id="@+id/wipecaches"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+            android:id="@+id/backup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/backup" />
+
+        <CheckBox
+            android:id="@+id/wipedata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/wipe_data" />
+
+        <CheckBox
+            android:id="@+id/wipecaches"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:checked="true"
-	        android:text="@string/wipe_caches" />
+            android:text="@string/wipe_caches" />
 
     </LinearLayout>
-    
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/card_separator_height"
@@ -101,7 +101,7 @@
         app:itemDownTextColor="@android:color/white"
         app:itemIcon="@drawable/ic_add"
         app:itemTitle="@string/add_file" />
-    
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/card_separator_height"

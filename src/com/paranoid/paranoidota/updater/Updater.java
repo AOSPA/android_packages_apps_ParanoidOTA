@@ -106,8 +106,6 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
 
     public abstract int getErrorStringId();
 
-//    public abstract int getNoUpdatesStringId();
-
     protected Context getContext() {
         return mContext;
     }
@@ -205,9 +203,6 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
                         nextServerCheck();
                         return;
                     }
-//                    if (!mFromAlarm) {
-//                        Utils.showToastOnUiThread(getContext(), getNoUpdatesStringId());
-//                    }
                 }
             }
             mCurrentServer = -1;

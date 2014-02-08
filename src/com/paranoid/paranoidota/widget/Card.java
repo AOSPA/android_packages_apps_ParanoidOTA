@@ -70,7 +70,7 @@ public abstract class Card extends LinearLayout {
 
         if (canExpand()) {
             mButton.setOnClickListener(new OnClickListener() {
-    
+
                 @Override
                 public void onClick(View v) {
                     if (mExpanded) {
@@ -79,7 +79,7 @@ public abstract class Card extends LinearLayout {
                         expand();
                     }
                 }
-    
+
             });
         } else {
             mButton.setVisibility(View.GONE);
