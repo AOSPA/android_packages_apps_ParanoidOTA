@@ -100,7 +100,7 @@ public class GappsUpdater extends Updater {
 
     @Override
     public Version getVersion() {
-        return Version.fromGapps(mPlatform, mVersion);
+        return Version.fromGapps(getPlatform(), mVersion);
     }
 
     @Override
