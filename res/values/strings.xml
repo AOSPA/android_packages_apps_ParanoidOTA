@@ -140,5 +140,15 @@
     <string name="time_notifications_two_hours">2 hours</string>
     <string name="time_notifications_five_hours">5 hours</string>
     <string name="time_notifications_daily">Daily</string>
+    <string name="settings_goo">Goo.im</string>
+    <string name="settings_login_goo">Log in goo.im</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="logged_out">Logged out from goo.im</string>
+    <string name="logged_in">Logged in as %1$s</string>
+    <string name="logging_in">Logging in goo.im...</string>
+    <string name="error_logging_invalid">Invalid username/password</string>
+    <string name="error_logging_down">Unable to reach server</string>
+    <string name="error_logging_in">Unknown error logging in</string>
 
 </resources>

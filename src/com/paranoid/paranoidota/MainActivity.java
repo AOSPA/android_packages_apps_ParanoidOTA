@@ -137,7 +137,9 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
             if (DownloadHelper.isDownloading(true) || DownloadHelper.isDownloading(false)) {
                 setState(STATE_DOWNLOAD, true, false);
             } else {
-                setState(STATE_UPDATES, true, false);
+                if (mState != STATE_INSTALL) {
+                    setState(STATE_UPDATES, true, false);
+                }
             }
         } else {
             setState(mSavedInstanceState.getInt(STATE), false, true);
