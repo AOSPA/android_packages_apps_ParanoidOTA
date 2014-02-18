@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2014 ParanoidAndroid Project
+
+  This file is part of Paranoid OTA.
+
+  Paranoid OTA is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Paranoid OTA is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+
+    <!-- GENERAL -->
+    <string name="app_name">Paranoid OTA</string>
+    <string name="title_checking">Comprovant...</string>
+    <string name="check_for_updates">Comprovar</string>
+    <string name="no_additional_info">No hi ha informació addicional</string>
+
+    <!-- SYSTEM ACTIVITY -->
+    <string name="check_for_updates_long">Comprovar actualitzacions</string>
+    <string name="all_up_to_date">Estàs actualitzat!</string>
+    <string name="rom_scanning">Comprovant actualitzacions del sistema...</string>
+    <string name="rom_gapps_new_version">S\'han trobat actualitzacions del sistema!</string>
+    <string name="rom_new_version">S\'ha trobat una nova versió de la ROM!</string>
+    <string name="gapps_new_version">S\'ha trobat una nova versió de les Google apps!</string>
+    <string name="no_updates">No s\'han trobat actualitzacions del sistema</string>
+    <string name="system_update_found">S\'ha trobat una nova actualització i està preparada per descarregar.\nPer favor comprova les notificacions que han aparegut. Elles te duran a ParanoidOTA des d\'on podràs descarregar i/o instal\·lar l\'actualització.\n\nActualització(ns) trobada:\n%1$s</string>
+
+    <!-- SYSTEM -->
+    <string name="system_title">Info del sistema</string>
+    <string name="system_rom">Versió de ROM: %1$s</string>
+    <string name="system_gapps">Versió de Google apps: %1$s %2$s</string>
+    <string name="system_recovery">Versió de recovery: %1$s</string>
+    <string name="system_recovery_unknown">Desconegut</string>
+
+    <!-- UPDATES -->
+    <string name="updates">Actualitzacions</string>
+    <string name="updates_checking">Comprovant...</string>
+    <string name="updates_error">Error</string>
+    <string name="updates_found">S\'ha trobat una actualització del sistema</string>
+    <string name="updates_uptodate">Estàs actualitzat</string>
+    <string name="no_updates_found">No s\'han trobat actualitzacions</string>
+    <string name="check_rom_updates_error">Error buscant actualitzacions de la ROM</string>
+    <string name="check_gapps_updates_error">Error buscant actualitzacions de les Google apps</string>
+    <string name="system_update">S\'ha trobat una actualització del sistema.\nSelecciona l\'actualització(ns) que vols descarregar.\n\nActualització(ns) trobada:</string>
+    <string name="download_and_install">"Descarrega i instal·la"</string>
+    <string name="update_host">Allotjat a %1$s</string>
+
+    <!-- INSTALL -->
+    <string name="install">"Instal·la"</string>
+    <string name="install_title">"Preparat per instal·lar"</string>
+    <string name="install_info">La següent actualització(ns) està preparada per a ser instal\·lada.\n\nPots afegir més zips prement el botó \"Afegir arxiu\".</string>
+    <string name="add_file">Afegir arxiu</string>
+    <string name="install_now">"Instal·lar ara"</string>
+    <string name="calculating_md5">Calculant suma MD5...</string>
+    <string name="md5_mismatch">MD5 no concorda</string>
+    <string name="md5_mismatch_summary">Rebut:\n%1$s\n\nCalculat:\n%2$s</string>
+    <string name="md5_install_anyway">Continuar de totes maneres</string>
+    <string name="select_actions">Selecciona les accions que vols executar</string>
+    <string name="backup">Backup</string>
+    <string name="wipe_data">Wipe Data</string>
+    <string name="wipe_caches">Wipe Cache i Dalvik</string>
+    <string name="remove_file_title">Esborrar arxiu</string>
+    <string name="remove_file_summary">Vols esborrar l\'arxiu de la llista?\n\n%1$s</string>
+    <string name="file_manager_error">No s\'ha trobat cap aplicació per seleccionar un arxiu zip. Per favor instal\·la un administrador d\'arxius.</string>
+    <string name="alert_backup_space_title">Espai restant</string>
+    <string name="alert_backup_space_message">Hi ha menys de %1$sGB a la SD card interna. Vols continuar amb el backup?</string>
+    <string name="alert_backup_title">Backup</string>
+    <string name="alert_backup_message">Especifica el nom del backup (els caràcters il\·legals seran esborrats).\n\nLes següents opcions només funcionaran amb TWRP.</string>
+    <string name="system">System</string>
+    <string name="data">Data</string>
+    <string name="cache">Cache</string>
+    <string name="recovery">Recovery</string>
+    <string name="boot">Boot</string>
+    <string name="androidsecure">Android secure</string>
+    <string name="sdext">SD-Ext</string>
+    <string name="alert_reboot_install_title">Instal\·la actualització(ns)</string>
+    <string name="alert_reboot_one_message">El teu dispositiu es reiniciarà i instal\·larà l\'actualització.</string>
+    <string name="alert_reboot_more_message">El teu dispositiu es reiniciarà i instal\·larà les actualitzacions.</string>
+    <string name="alert_reboot_now">Instal\·lar ara</string>
+
+    <!-- CHANGELOG -->
+    <string name="changelog">Canvis</string>
+
+    <!-- DOWNLOADS/NOTIFICATIONS -->
+    <string name="download_card_title">Descarregant actualització del sistema</string>
+    <string name="download_title">%1$s</string>
+    <string name="cancel_download_alert_title">Cancel\·lar descàrrega</string>
+    <string name="cancel_rom_download_alert_summary">Vols cancel\·lar la descàrrega de la ROM?</string>
+    <string name="cancel_gapps_download_alert_summary">Vols cancel\·lar la descàrrega de les Google apps?</string>
+    <string name="cancel_download_alert_yes">Si</string>
+    <string name="cancel_download_alert_no">No</string>
+    <string name="new_system_update">No s\'han trobat actualitzacions del sistema</string>
+    <string name="new_package_name">%1$s</string>
+    <string name="new_packages">%1$s actualitzacions disponibles per descarregar</string>
+    <string name="already_downloading_rom">Ja estàs descarregant una actualització de la ROM.</string>
+    <string name="already_downloading_gapps">Ja estàs descarregant una actualització de les Google apps.</string>
+    <string name="cancel_download">Cancel\·lar descàrrega(s)</string>
+    <string name="downloading_info">Actualització(ns) descarregant-se:\n%1$s</string>
+
+    <!-- DOWNLOAD ERRORS -->
+    <string name="error_cannot_resume">Error: La descàrrega no se pot continuar</string>
+    <string name="error_device_not_found">Error: Sdcard no montada</string>
+    <string name="error_file_already_exists">Error: L\'arxiu ja existeix</string>
+    <string name="error_file_error">Error: Error a l\'emmagatzematge</string>
+    <string name="error_http_data_error">Error: Error http</string>
+    <string name="error_insufficient_space">Error: No queda espai</string>
+    <string name="error_too_many_redirects">Error: Massa redireccionaments</string>
+    <string name="error_unhandled_http_code">Error: Http code no soportat</string>
+    <string name="error_unknown">Error: Desconegut</string>
+    <string name="error_device_not_found_title">Dispositiu no trobat</string>
+    <string name="error_device_not_found_summary">No s\'ha trobat cap ROM per al teu dispositiu. Per favor comprova-ho manualment.</string>
+    <string name="error_device_not_found_server">No s\'ha trobat cap ROM per al teu dispositiu.</string>
+
+    <!-- SETTINGS -->
+    <string name="settings">Ajustaments</string>
+    <string name="settings_checktime_title">Freqüència comprovar actualitzacions</string>
+    <string name="settings_checktime_summary">Especifica el temps entre cada comprovació d\'actualitzacions</string>
+    <string name="settings_checkgapps_title">Comprova les Google apps</string>
+    <string name="settings_checkgapps_summary">Comprova també les Google apps específiques de PA</string>
+    <string name="settings_gappstype_title">Tipus de Google apps</string>
+    <string name="settings_gappstype_summary">Tria entre els paquets de gapps full, mini, micro i stock</string>
+    <string name="gapps_type_full">Full package</string>
+    <string name="gapps_type_mini">Mini package</string>
+    <string name="gapps_type_stock">Stock package</string>
+    <string name="gapps_type_micro">Micro package</string>
+    <string name="time_notifications_never">No comprovar</string>
+    <string name="time_notifications_half_an_hour">Mitja hora</string>
+    <string name="time_notifications_an_hour">1 hora</string>
+    <string name="time_notifications_two_hours">2 hores</string>
+    <string name="time_notifications_five_hours">5 hores</string>
+    <string name="time_notifications_daily">Diariament</string>
+    <string name="settings_goo">Goo.im</string>
+    <string name="settings_login_goo">Inicia sessió a goo.im</string>
+    <string name="username">Usuari</string>
+    <string name="password">Contrasenya</string>
+    <string name="logged_out">Sessió tancada a goo.im</string>
+    <string name="logged_in">Sessió iniciada com %1$s</string>
+    <string name="logging_in">Iniciant sessió a goo.im...</string>
+    <string name="error_logging_invalid">Usuari/contrasenya no vàlids</string>
+    <string name="error_logging_down">Impossible accedir al servidor</string>
+    <string name="error_logging_in">Error desconegut iniciant sessió</string>
+
+</resources>
