@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:background="@color/card_background"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/card_vertical_margin"
+            android:paddingBottom="@dimen/card_vertical_bottom_margin"
             android:paddingLeft="@dimen/card_horizontal_margin"
             android:paddingRight="@dimen/card_horizontal_margin"
             android:paddingTop="@dimen/card_vertical_margin" >
