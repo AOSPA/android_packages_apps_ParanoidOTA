@@ -31,6 +31,7 @@
 
     <dimen name="card_horizontal_margin">16dp</dimen>
     <dimen name="card_vertical_margin">16dp</dimen>
+    <dimen name="card_vertical_bottom_margin">6dp</dimen>
     <dimen name="card_title_text_size">25sp</dimen>
     <dimen name="card_large_text_size">25sp</dimen>
     <dimen name="card_medium_text_size">18sp</dimen>
