@@ -55,6 +55,7 @@
     <string name="system_update">S\'ha trobat una actualització del sistema.\nSelecciona l\'actualització(ns) que vols descarregar.\n\nActualització(ns) trobada:</string>
     <string name="download_and_install">"Descarrega i instal·la"</string>
     <string name="update_host">Allotjat a %1$s</string>
+    <string name="delta_update">[Actualització delta]</string>
 
     <!-- INSTALL -->
     <string name="install">"Instal·la"</string>

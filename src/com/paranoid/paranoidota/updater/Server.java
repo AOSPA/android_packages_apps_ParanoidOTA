@@ -33,4 +33,6 @@ public interface Server {
     public List<PackageInfo> createPackageInfoList(JSONObject response) throws Exception;
 
     public String getError();
+
+    public boolean supportsDelta();
 }

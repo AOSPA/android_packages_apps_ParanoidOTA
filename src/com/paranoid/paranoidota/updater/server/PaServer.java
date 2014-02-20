@@ -34,7 +34,7 @@ import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 
 public class PaServer implements Server {
 
-    private static final String URL = "http://api.paranoidandroid.co/updates/%s";
+    private static final String URL = "http://api.paranoidandroid.co/updates/%s?v=%s";
 
     private String mDevice = null;
     private String mError = null;
@@ -44,7 +44,7 @@ public class PaServer implements Server {
     public String getUrl(String device, Version version) {
         mDevice = device;
         mVersion = version;
-        return String.format(URL, new Object[] { device });
+        return String.format(URL, new Object[] { device, version.toString(false, false) });
     }
 
     @Override
@@ -66,7 +66,7 @@ public class PaServer implements Server {
                 Version version = new Version(filename);
                 if (Version.compare(mVersion, version) < 0) {
                     list.add(new UpdatePackage(mDevice, filename, version, file.getString("size"),
-                            file.getString("url"), file.getString("md5"), false));
+                            file.getString("url"), file.getString("md5"), false, filename.indexOf("-DELTA-") >= 0));
                 }
             }
         }
@@ -85,6 +85,11 @@ public class PaServer implements Server {
     @Override
     public String getError() {
         return mError;
+    }
+
+    @Override
+    public boolean supportsDelta() {
+        return true;
     }
 
 }

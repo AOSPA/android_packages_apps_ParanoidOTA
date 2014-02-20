@@ -40,19 +40,20 @@ public class UpdatePackage implements PackageInfo, Serializable {
     private boolean mIsGapps = false;
 
     public UpdatePackage(String device, String name, Version version, long size, String url,
-            String md5, boolean gapps) {
+            String md5, boolean gapps, boolean isDelta) {
         this(device, name, version,
-                IOUtils.humanReadableByteCount(size, false), url, md5, gapps);
+                IOUtils.humanReadableByteCount(size, false), url, md5, gapps, isDelta);
     }
 
     public UpdatePackage(String device, String name, Version version, String size, String url,
-            String md5, boolean gapps) {
+            String md5, boolean gapps, boolean isDelta) {
         this.mFilename = name;
         this.mVersion = version;
         this.mSize = size;
         this.mPath = url;
         this.mMd5 = md5;
         this.mIsGapps = gapps;
+        mIsDelta = isDelta;
         mHost = mPath.replace("http://", "");
         mHost = mHost.replace("https://", "");
         mHost = mHost.substring(0, mHost.indexOf("/"));

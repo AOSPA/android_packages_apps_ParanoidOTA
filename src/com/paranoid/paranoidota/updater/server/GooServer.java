@@ -40,7 +40,12 @@ import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 public class GooServer implements Server {
 
     private static final String URL = "http://goo.im/json2&path=/devs/paranoidandroid/roms/%s&ro_board=%s";
+    private static final String URL_UPDATE = "http://goo.im/json2/&action=update&ro_developerid=%s&ro_board=%s&ro_rom=%s&ro_version=%s";
     private static final String GAPPS_RESERVED_WORDS = "-signed|-modular|-full|-mini|-micro|-stock";
+
+    private static final String PROPERTY_GOO_DEVELOPER = "ro.goo.developerid";
+    private static final String PROPERTY_GOO_ROM = "ro.goo.rom";
+    private static final String PROPERTY_GOO_VERSION = "ro.goo.version";
 
     private Context mContext;
     private String mDevice = null;
@@ -57,6 +62,11 @@ public class GooServer implements Server {
     public String getUrl(String device, Version version) {
         mDevice = device;
         mVersion = version;
+        if (supportsDelta()) {
+            return String.format(URL_UPDATE, new Object[] {
+                    getGooDeveloper(), device, getGooRom(), getGooVersion()
+            });
+        }
         return String.format(URL, new Object[] { device, device });
     }
 
@@ -99,10 +109,26 @@ public class GooServer implements Server {
                 }
                 Version version = new Version(filename);
                 if (Version.compare(mVersion, version) < 0) {
+                    if (supportsDelta()) {
+                        int incremental_file = update.optInt("incremental_file");
+                        int previousVersion = getGooVersion();
+                        if (incremental_file > 0) {
+                            JSONObject incremental = file.getJSONObject("incremental_package");
+                            int previous = incremental.getInt("previous_ro_version");
+                            boolean isCurrentDelta = previousVersion == previous;
+                            if (isCurrentDelta) {
+                                String incremental_filename = incremental.optString("filename");
+                                String incremental_path = "http://goo.im/incremental/" + incremental_filename;
+                                String incremental_md5 = incremental.getString("md5");
+                                list.add(new UpdatePackage(mDevice, incremental_filename, version,
+                                        0L, incremental_path, incremental_md5, !mIsRom, true));
+                            }
+                        }
+                    }
                     list.add(new UpdatePackage(mDevice, filename, version, file
                             .getLong("filesize"), "http://goo.im"
                             + file.getString("path"), file.getString("md5"),
-                            !mIsRom));
+                            !mIsRom, false));
                 }
             }
         }
@@ -121,6 +147,36 @@ public class GooServer implements Server {
     @Override
     public String getError() {
         return mError;
+    }
+
+    @Override
+    public boolean supportsDelta() {
+        if (!mIsRom) {
+            return false;
+        }
+        String dev = getGooDeveloper();
+        String rom = getGooRom();
+        int ver = getGooVersion();
+        return dev != null && !dev.isEmpty() && rom != null && !rom.isEmpty() && ver >= 0;
+    }
+
+    private String getGooDeveloper() {
+        return Utils.getProp(PROPERTY_GOO_DEVELOPER);
+    }
+
+    private String getGooRom() {
+        return Utils.getProp(PROPERTY_GOO_ROM);
+    }
+
+    private int getGooVersion() {
+        String version = Utils.getProp(PROPERTY_GOO_VERSION);
+        if (version != null) {
+            try {
+                return Integer.parseInt(version);
+            } catch (NumberFormatException ex) {
+            }
+        }
+        return -1;
     }
 
 }

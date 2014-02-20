@@ -50,6 +50,7 @@ public class Version implements Serializable {
 
     private static final String SEPARATOR = "-";
 
+    private static final int DELTA = -1;
     private static final int ALPHA = 0;
     private static final int BETA = 1;
     private static final int RELEASE_CANDIDATE = 2;
@@ -132,6 +133,9 @@ public class Version implements Serializable {
             } else if (version.startsWith("RC")) {
                 mPhase = RELEASE_CANDIDATE;
                 version = version.substring(2);
+            } else if (version.startsWith("D") || version.startsWith("DELTA")) {
+                mPhase = DELTA;
+                version = "";
             }
             if (!version.isEmpty()) {
                 mPhaseNumber = Integer.parseInt(version);
@@ -163,6 +167,9 @@ public class Version implements Serializable {
     }
 
     public String getPhaseName() {
+        if (mPhase == DELTA) {
+            return "DELTA";
+        }
         return PHASES[mPhase];
     }
 
