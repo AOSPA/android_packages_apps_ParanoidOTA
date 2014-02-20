@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2014 ParanoidAndroid Project
+
+  This file is part of Paranoid OTA.
+
+  Paranoid OTA is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Paranoid OTA is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+
+    <!-- GENERAL -->
+    <string name="app_name">Paranoid OTA</string>
+    <string name="title_checking">Vérification...</string>
+    <string name="check_for_updates">Vérifier</string>
+    <string name="no_additional_info">Pas d\'information supplémentaire</string>
+
+    <!-- SYSTEM ACTIVITY -->
+    <string name="check_for_updates_long">Vérifier mise à jour</string>
+    <string name="all_up_to_date">Vous êtes à jour!</string>
+    <string name="rom_scanning">Vérification mise à jour système...</string>
+    <string name="rom_gapps_new_version">Mise à jour système trouvée!</string>
+    <string name="rom_new_version">Mise à jour de la ROM trouvée!</string>
+    <string name="gapps_new_version">Mise à jour Google Apps trouvée!</string>
+    <string name="no_updates">Pas de mise à jour système</string>
+    <string name="system_update_found">Mise à jour système prête à être téléchargé.\nVeuillez vérifier la notification. Celle ci vous redirigera vers ParanoidOTA où vous pourrez télécharger et/ou installer la mise à jour.\n\nMise(s) à jour trouvée(s):\n%1$s</string>
+
+    <!-- SYSTEM -->
+    <string name="system_title">Info Système</string>
+    <string name="system_rom">Version ROM: %1$s</string>
+    <string name="system_gapps">Version Google Apps: %1$s %2$s</string>
+    <string name="system_recovery">Version Recovery: %1$s</string>
+    <string name="system_recovery_unknown">Inconnu</string>
+
+    <!-- UPDATES -->
+    <string name="updates">Mises à jour</string>
+    <string name="updates_checking">Vérification...</string>
+    <string name="updates_error">Erreur</string>
+    <string name="updates_found">Mise à jour système trouvée</string>
+    <string name="updates_uptodate">Vous êtes à jour</string>
+    <string name="no_updates_found">Pas de mise à jour trouvée</string>
+    <string name="check_rom_updates_error">Erreur lors de la vérification système</string>
+    <string name="check_gapps_updates_error">Erreur lors de la vérification Google Apps</string>
+    <string name="system_update">Mise à jour système trouvée.\nSelectionnez celle(s) que vous voulez télécharger.\n\nMise(s) à jour trouvée(s):</string>
+    <string name="download_and_install">Télécharger et installer</string>
+    <string name="update_host">Hébergé chez %1$s</string>
+
+    <!-- INSTALL -->
+    <string name="install">Installer</string>
+    <string name="install_title">Prêt à être installé</string>
+    <string name="install_info">Ces mise(s) à jour sont prête(nt) à être installé(s).\n\nVous pouvez ajoutez des zip en appuyant sur le bouton \"Ajout fichier\".</string>
+    <string name="add_file">Ajout fichier</string>
+    <string name="install_now">Installer maintenant</string>
+    <string name="calculating_md5">Calcul somme MD5...</string>
+    <string name="md5_mismatch">Différence MD5</string>
+    <string name="md5_mismatch_summary">Reçu:\n%1$s\n\nCalculé:\n%2$s</string>
+    <string name="md5_install_anyway">Continuer quand même</string>
+    <string name="select_actions">Selectionnez les actions que vous voulez effectuer</string>
+    <string name="backup">Sauvegarde</string>
+    <string name="wipe_data">Effacer Data</string>
+    <string name="wipe_caches">Effacer Cache &amp; Dalvik</string>
+    <string name="remove_file_title">Enlever fichier</string>
+    <string name="remove_file_summary">Voulez vous enlever le fichier de la liste?\n\n%1$s</string>
+    <string name="file_manager_error">Pas d\'application trouvée pour sélectionner un zip. Veuillez installer un gestionnaire de fichier.</string>
+    <string name="alert_backup_space_title">Espace restant</string>
+    <string name="alert_backup_space_message">Il reste moins de %1$sGB sur la carte SD. Voulez vous continuer la sauvegarde?</string>
+    <string name="alert_backup_title">Sauvegarde</string>
+    <string name="alert_backup_message">Spécifier le nom de la sauvegarde (les caractères illegaux seront supprimés).\n\nCette option fonctionne uniquement avec TWRP.</string>
+    <string name="system">Système</string>
+    <string name="data">Données</string>
+    <string name="cache">Cache</string>
+    <string name="recovery">Recovery</string>
+    <string name="boot">Boot</string>
+    <string name="androidsecure">Android secure</string>
+    <string name="sdext">SD-Ext</string>
+    <string name="alert_reboot_install_title">Installer mise(s) à jour</string>
+    <string name="alert_reboot_one_message">Votre appareil va redémarrer et installer la mise à jour.</string>
+    <string name="alert_reboot_more_message">Votre appareil va redémarrer et installer les mises à jour.</string>
+    <string name="alert_reboot_now">Installer maintenant</string>
+
+    <!-- CHANGELOG -->
+    <string name="changelog">Changelog</string>
+
+    <!-- DOWNLOADS/NOTIFICATIONS -->
+    <string name="download_card_title">Téléchargement de la mise à jour système</string>
+    <string name="download_title">%1$s</string>
+    <string name="cancel_download_alert_title">Annuler téléchargement</string>
+    <string name="cancel_rom_download_alert_summary">Voulez vous annuler le téléchargement de la mise à jour de la ROM?</string>
+    <string name="cancel_gapps_download_alert_summary">Voulez vous annuler le téléchargement de la mise à jour des Google Apps?</string>
+    <string name="cancel_download_alert_yes">Oui</string>
+    <string name="cancel_download_alert_no">Non</string>
+    <string name="new_system_update">Nouvelle mise à jour sytème trouvée</string>
+    <string name="new_package_name">%1$s</string>
+    <string name="new_packages">%1$s mises à jour disponibles au téléchargement</string>
+    <string name="already_downloading_rom">Vous téléchargez déjà une mise à jour de la ROM.</string>
+    <string name="already_downloading_gapps">Vous téléchargez déjà une mise à jour des Google Apps.</string>
+    <string name="cancel_download">Annuler téléchargement(s)</string>
+    <string name="downloading_info">Téléchargement mise(s) à jour:\n%1$s</string>
+
+    <!-- DOWNLOAD ERRORS -->
+    <string name="error_cannot_resume">Erreur: Le téléchargement n\'a pas pu reprendre</string>
+    <string name="error_device_not_found">Erreur: Carte SD non montée</string>
+    <string name="error_file_already_exists">Erreur: Le fichier existe déjà</string>
+    <string name="error_file_error">Erreur: erreur de stockage</string>
+    <string name="error_http_data_error">Erreur: erreur Http</string>
+    <string name="error_insufficient_space">Erreur: Trop peu d\'espace</string>
+    <string name="error_too_many_redirects">Erreur: Trop de redirection</string>
+    <string name="error_unhandled_http_code">Erreur: Unhandled http code</string>
+    <string name="error_unknown">Erreur: Inconnue</string>
+    <string name="error_device_not_found_title">Appareil non trouvé</string>
+    <string name="error_device_not_found_summary">Aucune ROM pour votre appareil n\'a été trouvée. Vérifiez manuellement.</string>
+    <string name="error_device_not_found_server">Aucune ROM pour votre appareil n\'a été trouvée.</string>
+
+    <!-- SETTINGS -->
+    <string name="settings">Settings</string>
+    <string name="settings_checktime_title">Fréquence de vérification</string>
+    <string name="settings_checktime_summary">Spécifier le temps entre chaque vérification</string>
+    <string name="settings_checkgapps_title">Vérifier les Google apps</string>
+    <string name="settings_checkgapps_summary">Vérifier aussi pour les gapps spécifiques PA</string>
+    <string name="settings_gappstype_title">Type de Google Apps</string>
+    <string name="settings_gappstype_summary">Choisir entre full, mini, micro et stock gapps package</string>
+    <string name="gapps_type_full">Full package</string>
+    <string name="gapps_type_mini">Mini package</string>
+    <string name="gapps_type_stock">Stock package</string>
+    <string name="gapps_type_micro">Micro package</string>
+    <string name="time_notifications_never">Ne pas vérifier</string>
+    <string name="time_notifications_half_an_hour">Demi-heure</string>
+    <string name="time_notifications_an_hour">1 heure</string>
+    <string name="time_notifications_two_hours">2 heures</string>
+    <string name="time_notifications_five_hours">5 heures</string>
+    <string name="time_notifications_daily">Quotidien</string>
+
+</resources>
