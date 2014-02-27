@@ -100,7 +100,7 @@
     <string name="cancel_gapps_download_alert_summary">¿Quieres cancelar la descarga de las Google apps?</string>
     <string name="cancel_download_alert_yes">Si</string>
     <string name="cancel_download_alert_no">No</string>
-    <string name="new_system_update">No se han encontrado actualizaciones del sistema</string>
+    <string name="new_system_update">Se han encontrado actualizaciones del sistema</string>
     <string name="new_package_name">%1$s</string>
     <string name="new_packages">%1$s actualizaciones disponibles para descargar</string>
     <string name="already_downloading_rom">Ya estás descargando una actualización de la ROM.</string>
