@@ -62,9 +62,11 @@ public class GappsUpdater extends Updater {
                     mPlatform = mPlatform + "0";
                 }
                 if (versionString != null && !"".equals(versionString)) {
+                    versionString = versionString.replaceAll("[^\\d.]", "");
                     String[] version = versionString.split("-");
                     for (int i = 0; i < version.length; i++) {
                         try {
+                            Integer.parseInt(version[i]);
                             mVersion = version[i];
                             break;
                         } catch (NumberFormatException ex) {
@@ -79,7 +81,7 @@ public class GappsUpdater extends Updater {
     }
 
     public String getType() {
-        return mType;
+        return mType == null ? "" : mType;
     }
 
     private int getTypeForSettings() {
