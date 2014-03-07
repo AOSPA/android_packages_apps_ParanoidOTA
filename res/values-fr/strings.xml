@@ -140,5 +140,15 @@
     <string name="time_notifications_two_hours">2 heures</string>
     <string name="time_notifications_five_hours">5 heures</string>
     <string name="time_notifications_daily">Quotidien</string>
+    <string name="settings_goo">Goo.im</string>
+    <string name="settings_login_goo">Connexion à goo.im</string>
+    <string name="username">Identifiant</string>
+    <string name="password">Mot de passe</string>
+    <string name="logged_out">Déconnexion de goo.im</string>
+    <string name="logged_in">Connecté en tant que %1$s</string>
+    <string name="logging_in">Connexion à goo.im...</string>
+    <string name="error_logging_invalid">Identifiant/Mot de passe incorrect</string>
+    <string name="error_logging_down">Impossible de contacter le serveur</string>
+    <string name="error_logging_in">Erreur de connexion inconnue</string>
 
 </resources>
