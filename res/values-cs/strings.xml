@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2014 ParanoidAndroid Project
+
+  This file is part of Paranoid OTA.
+
+  Paranoid OTA is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Paranoid OTA is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+
+    <!-- GENERAL -->
+    <string name="app_name">Paranoid OTA</string>
+    <string name="title_checking">Kontroluji...</string>
+    <string name="check_for_updates">Zkontrolovat</string>
+    <string name="no_additional_info">Žádné další informace</string>
+
+    <!-- SYSTEM ACTIVITY -->
+    <string name="check_for_updates_long">Zkontrolovat aktualizace</string>
+    <string name="all_up_to_date">Váš systém je aktuální!</string>
+    <string name="rom_scanning">Kontrola aktualizací systému...</string>
+    <string name="rom_gapps_new_version">Byly nalezeny systémové aktualizace!</string>
+    <string name="rom_new_version">Byla nalezena aktualizace ROM!</string>
+    <string name="gapps_new_version">Byly nalezeny nové Google Apps!</string>
+    <string name="no_updates">Nebyly nalezeny žádné aktualizace</string>
+    <string name="system_update_found">Byla nalezena systémová aktualizace a je připravena ke stažení.\nPodívejte se do notifikační lišty, kde se objeví oznámení o aktualizaci. Klepnutím na toto oznámení se přesunete do aplikace ParanoidOTA, kde si budete moci aktualizaci stáhnout a nainstalovat.\n\nNalezené aktualizace:\n%1$s</string>
+
+    <!-- SYSTEM -->
+    <string name="system_title">Systémové info</string>
+    <string name="system_rom">Verze ROM: %1$s</string>
+    <string name="system_gapps">Verze Google Apps: %1$s %2$s</string>
+    <string name="system_recovery">Verze Recovery: %1$s</string>
+    <string name="system_recovery_unknown">Neznámá</string>
+
+    <!-- UPDATES -->
+    <string name="updates">Aktualizace</string>
+    <string name="updates_checking">Kontroluji...</string>
+    <string name="updates_error">Chyba</string>
+    <string name="updates_found">Byla nalezena aktualizace systému</string>
+    <string name="updates_uptodate">Váš systém je aktuální</string>
+    <string name="no_updates_found">Nebyly nalezeny žádné aktualizace</string>
+    <string name="check_rom_updates_error">Nastala chyba při kontrole aktualizací ROM</string>
+    <string name="check_gapps_updates_error">Nastala chyba při kontrole aktualizací Google Apps</string>
+    <string name="system_update">Byly nalezeny systémové aktualizace.\nVyberte aktualizace, které chcete stáhnout.\n\nNalezené aktualizace:</string>
+    <string name="download_and_install">Stáhnout a nainstalovat</string>
+    <string name="update_host">Hostováno na %1$s</string>
+
+    <!-- INSTALL -->
+    <string name="install">Instalace</string>
+    <string name="install_title">Připraveno k instalaci</string>
+    <string name="install_info">Následující aktualizace jsou připraveny k instalaci.\n\nMůžete také přidat další zip soubory kliknutím na tlačítko \"Přidat soubor\".</string>
+    <string name="add_file">Přidat soubor</string>
+    <string name="install_now">Instalovat</string>
+    <string name="calculating_md5">Výpočet kontrolního součtu MD5...</string>
+    <string name="md5_mismatch">MD5 nesouhlasí</string>
+    <string name="md5_mismatch_summary">Obdrženo:\n%1$s\n\nSpočítáno:\n%2$s</string>
+    <string name="md5_install_anyway">Přesto pokračovat</string>
+    <string name="select_actions">Vyberte akce, které chcete provést:</string>
+    <string name="backup">Zálohovat</string>
+    <string name="wipe_data">Vymazat data</string>
+    <string name="wipe_caches">Vyčistit Cache a Dalvik cache</string>
+    <string name="remove_file_title">Odstranit soubor</string>
+    <string name="remove_file_summary">Opravdu chcete tento soubor odstranit ze seznamu?\n\n%1$s</string>
+    <string name="file_manager_error">Nebyla nalezena žádná aplikace pro vybrání zip souboru. Nainstalujte správce souborů.</string>
+    <string name="alert_backup_space_title">Volné místo</string>
+    <string name="alert_backup_space_message">K dispozici je méně než %1$sGB místa ve vnitřním úložišti. Chcete pokračovat v zálohování?</string>
+    <string name="alert_backup_title">Záloha</string>
+    <string name="alert_backup_message">Zadejte název zálohy (nepovolené znaky budou odstraněny).\n\nNásledující volby budou fungovat pouze v TWRP.</string>
+    <string name="system">System</string>
+    <string name="data">Data</string>
+    <string name="cache">Cache</string>
+    <string name="recovery">Recovery</string>
+    <string name="boot">Boot</string>
+    <string name="androidsecure">Android secure</string>
+    <string name="sdext">SD-Ext</string>
+    <string name="alert_reboot_install_title">Instalace aktualizace(í)</string>
+    <string name="alert_reboot_one_message">Váš přístroj se nyní restartuje a nainstaluje aktualizaci.</string>
+    <string name="alert_reboot_more_message">Váš přístroj se nyní restartuje a nainstaluje aktualizace.</string>
+    <string name="alert_reboot_now">Instalovat</string>
+
+    <!-- CHANGELOG -->
+    <string name="changelog">Seznam změn</string>
+
+    <!-- DOWNLOADS/NOTIFICATIONS -->
+    <string name="download_card_title">Probíhá stažení systémové aktualizace</string>
+    <string name="download_title">%1$s</string>
+    <string name="cancel_download_alert_title">Zrušit stahování</string>
+    <string name="cancel_rom_download_alert_summary">Opravdu chcete zrušit stahování aktualizace ROM?</string>
+    <string name="cancel_gapps_download_alert_summary">Opravdu chcete zrušit stahování Google Apps?</string>
+    <string name="cancel_download_alert_yes">Ano</string>
+    <string name="cancel_download_alert_no">Ne</string>
+    <string name="new_system_update">Byla nalezena systémová aktualizace</string>
+    <string name="new_package_name">%1$s</string>
+    <string name="new_packages">%1$s aktualizace je k dispozici ke stažení</string>
+    <string name="already_downloading_rom">Již stahujete aktualizaci ROM.</string>
+    <string name="already_downloading_gapps">Již stahujete aktualizaci Google Apps.</string>
+    <string name="cancel_download">Zrušit stahování</string>
+    <string name="downloading_info">Stahované aktualizace:\n%1$s</string>
+
+    <!-- DOWNLOAD ERRORS -->
+    <string name="error_cannot_resume">Chyba: Stahování nemohlo být obnoveno</string>
+    <string name="error_device_not_found">Chyba: SD karta není vložena</string>
+    <string name="error_file_already_exists">Chyba: Soubor již existuje</string>
+    <string name="error_file_error">Chyba: Chyba úložiště</string>
+    <string name="error_http_data_error">Chyba: Chyba Http</string>
+    <string name="error_insufficient_space">Chyba: Žádné volné místo</string>
+    <string name="error_too_many_redirects">Chyba: Příliš mnoho přesměrování</string>
+    <string name="error_unhandled_http_code">Chyba: Neošetřený http kód</string>
+    <string name="error_unknown">Chyba: Neznámá</string>
+    <string name="error_device_not_found_title">Zařízení nebylo nalezeno</string>
+    <string name="error_device_not_found_summary">ROM pro vaše zařízení nebyla nalezena. Zkontrolujte aktualizaci ručně.</string>
+    <string name="error_device_not_found_server">ROM pro vaše zařízení nebyla nalezena.</string>
+
+    <!-- SETTINGS -->
+    <string name="settings">Nastavení</string>
+    <string name="settings_checktime_title">Frekvence automatické kontroly</string>
+    <string name="settings_checktime_summary">Zvolte časový interval mezi každou kontrolu aktualizací</string>
+    <string name="settings_checkgapps_title">Kontrolovat aktualizace Google Apps</string>
+    <string name="settings_checkgapps_summary">Kontrolovat také aktualizace vybraných Google Apps</string>
+    <string name="settings_gappstype_title">Typ Google Apps</string>
+    <string name="settings_gappstype_summary">Vyberte mezi kompletní, mini, mikro a výchozí verzí balíčku</string>
+    <string name="gapps_type_full">Kompletní balíček</string>
+    <string name="gapps_type_mini">Mini balíček</string>
+    <string name="gapps_type_stock">Výchozí balíček</string>
+    <string name="gapps_type_micro">Mikro balíček</string>
+    <string name="time_notifications_never">Nekontrolovat</string>
+    <string name="time_notifications_half_an_hour">Půl hodina</string>
+    <string name="time_notifications_an_hour">1 hodina</string>
+    <string name="time_notifications_two_hours">2 hodiny</string>
+    <string name="time_notifications_five_hours">5 hodin</string>
+    <string name="time_notifications_daily">Denně</string>
+    <string name="settings_goo">Goo.im</string>
+    <string name="settings_login_goo">Přihlásit se do goo.im</string>
+    <string name="username">Uživatelské jméno</string>
+    <string name="password">Heslo</string>
+    <string name="logged_out">Odhlášen z goo.im</string>
+    <string name="logged_in">Přihlášen jako %1$s</string>
+    <string name="logging_in">Přihlášení do goo.im...</string>
+    <string name="error_logging_invalid">Chybné uživatelské jméno nebo heslo</string>
+    <string name="error_logging_down">Nelze se připojit k serveru</string>
+    <string name="error_logging_in">Neznámá chyba při přihlášení</string>
+
+</resources>
