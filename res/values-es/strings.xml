@@ -54,7 +54,7 @@
     <string name="check_gapps_updates_error">Error buscando actualizaciones de las Google apps</string>
     <string name="system_update">Se ha encontrado una actualización del sistema.\nSelecciona la actualización(es) que quieres descargar.\n\nActualización(es) encontrada:</string>
     <string name="download_and_install">Descarga e instala</string>
-    <string name="update_host">Alotjado en %1$s</string>
+    <string name="update_host">Alojado en %1$s</string>
 
     <!-- INSTALL -->
     <string name="install">Instala</string>
