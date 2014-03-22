@@ -108,12 +108,13 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
 
         mRecoveryHelper = new RecoveryHelper(this);
         mRebootHelper = new RebootHelper(mRecoveryHelper);
-        DownloadHelper.init(this, this);
 
         mRomUpdater = new RomUpdater(this, false);
         mRomUpdater.addUpdaterListener(this);
         mGappsUpdater = new GappsUpdater(this, false);
         mGappsUpdater.addUpdaterListener(this);
+
+        DownloadHelper.init(this, this);
 
         Intent intent = getIntent();
         onNewIntent(intent);
