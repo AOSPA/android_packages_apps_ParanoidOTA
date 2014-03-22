@@ -66,7 +66,7 @@ public class GappsUpdater extends Updater {
                     String[] version = versionString.split("-");
                     for (int i = 0; i < version.length; i++) {
                         try {
-                            Integer.parseInt(version[i]);
+                            Integer.parseInt(new String(new char[] {version[i].charAt(0)}));
                             mVersion = version[i];
                             break;
                         } catch (NumberFormatException ex) {
