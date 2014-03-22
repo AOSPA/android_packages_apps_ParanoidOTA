@@ -128,7 +128,7 @@
     <string name="settings_checktime_summary">Zeitspanne nach der nach Updates gesucht wird</string>
     <string name="settings_checkgapps_title">Suche nach Google Apps</string>
     <string name="settings_checkgapps_summary">Suche außerdem nach PA spezifischen Google Apps</string>
-    <string name="settings_gappstype_title">Google Apps type</string>
+    <string name="settings_gappstype_title">Google Apps Typ</string>
     <string name="settings_gappstype_summary">Auswählen zwischen Full, Mini, Micro und Stock Gapps Paket</string>
     <string name="gapps_type_full">Full Paket</string>
     <string name="gapps_type_mini">Mini Paket</string>
