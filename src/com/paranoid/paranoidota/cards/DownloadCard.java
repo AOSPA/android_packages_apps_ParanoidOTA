@@ -86,6 +86,11 @@ public class DownloadCard extends Card implements DownloadCallback {
             setInfos(infos, mDownloadProgress);
         } else {
             mDownloading = infos;
+            if (infos == null) {
+                mDownloadProgress = -1;
+                setInfos(infos, mDownloadProgress);
+                mCancel.setEnabled(true);
+            }
         }
     }
 
