@@ -68,8 +68,8 @@ public class Version implements Serializable {
 
     public Version(String fileName) {
 
-        for (int i = 0; i < STATIC_REMOVE.length; i++) {
-            fileName = fileName.replace(STATIC_REMOVE[i], "");
+        for (String remove : STATIC_REMOVE){
+            fileName = fileName.replace(remove, "");
         }
 
         String[] split = fileName.split(SEPARATOR);
