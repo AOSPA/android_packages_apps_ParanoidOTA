@@ -360,8 +360,8 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
         if (animate) {
             mCardsLayout.setAnimation(AnimationUtils.loadAnimation(this, R.anim.up_from_bottom));
         }
-        for (int i=0;i<cards.length;i++) {
-            mCardsLayout.addView(cards[i]);
+        for (Card card: cards){
+            mCardsLayout.addView(card);
         }
     }
 

@@ -105,7 +105,7 @@ public class RequestFileActivity extends Activity {
                                 String firstPath = filePath.substring(0, filePath.indexOf(":"));
                                 filePath = filePath.substring(filePath.indexOf(":") + 1);
                                 String storage = IOUtils.getPrimarySdCard();
-                                if (firstPath.indexOf(ROOT_ID_PRIMARY_EMULATED) < 0) {
+                                if (!firstPath.contains(ROOT_ID_PRIMARY_EMULATED)) {
                                     storage = IOUtils.getSecondarySdCard();
                                 }
                                 filePath = storage + "/" + filePath;

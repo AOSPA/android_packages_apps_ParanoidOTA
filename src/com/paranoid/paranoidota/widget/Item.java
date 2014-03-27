@@ -24,6 +24,7 @@ import com.paranoid.paranoidota.R;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ public class Item extends LinearLayout {
     public static interface OnItemClickListener {
 
         public void onClick(int id);
-    };
+    }
 
     private TextView mTitleView;
     private int mDownColor;
@@ -80,12 +81,15 @@ public class Item extends LinearLayout {
         iView.setImageDrawable(icon);
 
         setOnTouchListener(new OnTouchListener() {
-
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 if (!isEnabled()) {
                     return true;
                 }
+
+                Rect mViewRect = new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
+                boolean mTouchCancelled = !mViewRect.contains(view.getLeft() + (int) event.getX(), view.getTop() + (int) event.getY());
+
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         setBackgroundColor(mDownColor);
@@ -95,7 +99,7 @@ public class Item extends LinearLayout {
                         setBackgroundColor(context.getResources().getColor(
                                 android.R.color.transparent));
                         mTitleView.setTextColor(mDefaultColors);
-                        if (mItemClickListener != null) {
+                        if (mItemClickListener != null && !mTouchCancelled) {
                             mItemClickListener.onClick(Item.this.getId());
                         }
                         break;
