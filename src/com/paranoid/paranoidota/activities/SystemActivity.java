@@ -98,9 +98,9 @@ public class SystemActivity extends Activity implements UpdaterListener {
     private void setMessages(PackageInfo[] info, boolean isRom) {
         if (info != null && info.length > 0) {
             if (isRom) {
-                mRom = info != null && info.length > 0 ? info[0] : null;
+                mRom = info.length > 0 ? info[0] : null;
             } else {
-                mGapps = info != null && info.length > 0 ? info[0] : null;
+                mGapps = info.length > 0 ? info[0] : null;
             }
         }
         Resources res = getResources();

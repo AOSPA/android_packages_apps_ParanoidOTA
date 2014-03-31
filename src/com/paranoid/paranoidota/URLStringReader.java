@@ -32,7 +32,7 @@ public class URLStringReader extends AsyncTask<String, Void, Void> {
 
         public void onReadEnd(String buffer);
         public void onReadError(Exception ex);
-    };
+    }
 
     private String mBuffer;
     private Exception mException;
