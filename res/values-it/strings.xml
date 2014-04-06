@@ -129,7 +129,7 @@
     <string name="settings_checkgapps_title">Controlla per le Google apps</string>
     <string name="settings_checkgapps_summary">Controlla per le Google apps specifiche PA</string>
     <string name="settings_gappstype_title">Tipo di Google apps</string>
-    <string name="settings_gappstype_summary">Scegli tra ilp pacchetto completo, mini, micro e stock delle gapps</string>
+    <string name="settings_gappstype_summary">Scegli tra il pacchetto completo, mini, micro e stock delle gapps</string>
     <string name="gapps_type_full">Pacchetto completo</string>
     <string name="gapps_type_mini">Pacchetto mini</string>
     <string name="gapps_type_stock">Pacchetto stock</string>
