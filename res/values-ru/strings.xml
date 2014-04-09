@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2014 ParanoidAndroid Project
+
+  This file is part of Paranoid OTA.
+
+  Paranoid OTA is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Paranoid OTA is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+
+    <!-- GENERAL -->
+    <string name="app_name">Paranoid OTA</string>
+    <string name="title_checking">Проверка...</string>
+    <string name="check_for_updates">Проверить</string>
+    <string name="no_additional_info">Дополнительной информации нет</string>
+
+    <!-- SYSTEM ACTIVITY -->
+    <string name="check_for_updates_long">Проверить обновления</string>
+    <string name="all_up_to_date">У Вас актуальное ПО!</string>
+    <string name="rom_scanning">Поиск системных обновлений...</string>
+    <string name="rom_gapps_new_version">Найдено обновление системы!</string>
+    <string name="rom_new_version">Доступно обновление прошивки!</string>
+    <string name="gapps_new_version">Доступно обновление приложений Google!</string>
+    <string name="no_updates">Новых обновлений не обнаружено</string>
+    <string name="system_update_found">Найдено новое обновление системы, доступное для загрузки.\nПроверьте появившиеся уведомления. Они проведут Вас в ParanoidOTA, откуда обновление можно скачать и/или установить.\n\nНайденные обновления:\n%1$s</string>
+
+    <!-- SYSTEM -->
+    <string name="system_title">Сведения о системе</string>
+    <string name="system_rom">Версия прошивки: %1$s</string>
+    <string name="system_gapps">Версия приложений Google: %1$s %2$s</string>
+    <string name="system_recovery">Версия меню восст.: %1$s</string>
+    <string name="system_recovery_unknown">Неизвестна</string>
+
+    <!-- UPDATES -->
+    <string name="updates">Обновления</string>
+    <string name="updates_checking">Прошивка...</string>
+    <string name="updates_error">Ошибка</string>
+    <string name="updates_found">Найдено обновление системы</string>
+    <string name="updates_uptodate">Ваше ПО актуально</string>
+    <string name="no_updates_found">Обновлений не обнаружено</string>
+    <string name="check_rom_updates_error">Ошибка при проверке обновлений прошивки</string>
+    <string name="check_gapps_updates_error">Ошибка при проверке обновлений для приложений Google</string>
+    <string name="system_update">Найдено системное обновление.\nВыберите нужное(-ые) для загрузки.\n\nНайденные обновления:</string>
+    <string name="download_and_install">Загрузить и установить</string>
+    <string name="update_host">Размещено на %1$s</string>
+
+    <!-- INSTALL -->
+    <string name="install">Установка</string>
+    <string name="install_title">Готовые к установке</string>
+    <string name="install_info">Следующие обновления готовы к установке.\n\nВы можете добавить несколько архивов, нажав на кнопку \"Добавить файл\".</string>
+    <string name="add_file">Добавить файл</string>
+    <string name="install_now">Установить прямо сейчас</string>
+    <string name="calculating_md5">Подсчитываетя сумма MD5...</string>
+    <string name="md5_mismatch">MD5 не совпадает</string>
+    <string name="md5_mismatch_summary">Получено:\n%1$s\n\nПодсчитано:\n%2$s</string>
+    <string name="md5_install_anyway">Всё-равно продолжить</string>
+    <string name="select_actions">Выберите желаемые для выполнения действия</string>
+    <string name="backup">Резервная копия</string>
+    <string name="wipe_data">Сброс данных</string>
+    <string name="wipe_caches">Сброс кэша и Dalvik-кэша</string>
+    <string name="remove_file_title">Убрать файл</string>
+    <string name="remove_file_summary">Вы хотите убрать файл из списка?\n\n%1$s</string>
+    <string name="file_manager_error">Не найдено приложение, чтобы выбрать zip файл. Пожалуйста, установите файловый менеджер.</string>
+    <string name="alert_backup_space_title">Осталось места</string>
+    <string name="alert_backup_space_message">Во внутренней памяти осталось меньше %1$sГБ. Продолжить с созданием резервной копии?</string>
+    <string name="alert_backup_title">Резервная копия</string>
+    <string name="alert_backup_message">Укажите название резервной копии (неподходящие символы будут удалены).\n\nДанные параметры доступны только с TWRP.</string>
+    <string name="system">Система</string>
+    <string name="data">Данные</string>
+    <string name="cache">Кэш</string>
+    <string name="recovery">Меню восстановления</string>
+    <string name="boot">Загрузчик</string>
+    <string name="androidsecure">Прил. с карты памяти</string>
+    <string name="sdext">SD-Ext</string>
+    <string name="alert_reboot_install_title">Установить обновление(-я)</string>
+    <string name="alert_reboot_one_message">Устройство перезагрузится и установит обновление.</string>
+    <string name="alert_reboot_more_message">Устройство перезагрузится и установит обновления.</string>
+    <string name="alert_reboot_now">Установить прямо сейчас</string>
+
+    <!-- CHANGELOG -->
+    <string name="changelog">Изменения</string>
+
+    <!-- DOWNLOADS/NOTIFICATIONS -->
+    <string name="download_card_title">Загружается системное обновление</string>
+    <string name="download_title">%1$s</string>
+    <string name="cancel_download_alert_title">Отмена загрузки</string>
+    <string name="cancel_rom_download_alert_summary">Вы действительно хотите отменить загрузку прошивки?</string>
+    <string name="cancel_gapps_download_alert_summary">Вы действительно хотите отменить загрузку приложений Google?</string>
+    <string name="cancel_download_alert_yes">Да</string>
+    <string name="cancel_download_alert_no">Нет</string>
+    <string name="new_system_update">Доступно обновление системы</string>
+    <string name="new_package_name">%1$s</string>
+    <string name="new_packages">%1$s обновлений доступно для загрузки</string>
+    <string name="already_downloading_rom">Вы уже загружаете обновление прошивки.</string>
+    <string name="already_downloading_gapps">Вы уже загружаете обновление приложений Google.</string>
+    <string name="cancel_download">Отменить загрузку(-и)</string>
+    <string name="downloading_info">загружаемые обновления:\n%1$s</string>
+
+    <!-- DOWNLOAD ERRORS -->
+    <string name="error_cannot_resume">Ошибка: Загрузка не может быть возоблена</string>
+    <string name="error_device_not_found">Ошибка: Память не подсоединена</string>
+    <string name="error_file_already_exists">Ошибка: Файл уже существует</string>
+    <string name="error_file_error">Ошибка: Ошибка хранилища</string>
+    <string name="error_http_data_error">Ошибка: Ошибка соединения</string>
+    <string name="error_insufficient_space">Ошибка: Нехватка свободного места</string>
+    <string name="error_too_many_redirects">Ошибка: Слишком много перенаправлений</string>
+    <string name="error_unhandled_http_code">Ошибка: Необработанный http код</string>
+    <string name="error_unknown">Ошибка: Неизвестна</string>
+    <string name="error_device_not_found_title">Устройство не найдено</string>
+    <string name="error_device_not_found_summary">Прошивка для Вашего устройства не найдена. Пожалуйста, проверьте вручную.</string>
+    <string name="error_device_not_found_server">Прошивка для Вашего устройства не найдена.</string>
+
+    <!-- SETTINGS -->
+    <string name="settings">Настройки</string>
+    <string name="settings_checktime_title">Частота проверки обновлений</string>
+    <string name="settings_checktime_summary">Выберите интервал между каждой проверкой</string>
+    <string name="settings_checkgapps_title">Проверять приложения Google</string>
+    <string name="settings_checkgapps_summary">Также следить за характерными PA приложениями Google</string>
+    <string name="settings_gappstype_title">Тип приложений Google</string>
+    <string name="settings_gappstype_summary">Выберите необходимый пакет приложений Google</string>
+    <string name="gapps_type_full">Пакет Full</string>
+    <string name="gapps_type_mini">Пакет Mini</string>
+    <string name="gapps_type_stock">Пакет Stock</string>
+    <string name="gapps_type_micro">Пакет Micro</string>
+    <string name="time_notifications_never">Не проверять</string>
+    <string name="time_notifications_half_an_hour">Каждые полчаса</string>
+    <string name="time_notifications_an_hour">Каждый час</string>
+    <string name="time_notifications_two_hours">Каждые 2 часа</string>
+    <string name="time_notifications_five_hours">Каждые 5 часов</string>
+    <string name="time_notifications_daily">Ежедневно</string>
+    <string name="settings_goo">Goo.im</string>
+    <string name="settings_login_goo">Войти на goo.im</string>
+    <string name="username">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="logged_out">Вышли из goo.im</string>
+    <string name="logged_in">Вошли как %1$s</string>
+    <string name="logging_in">Входим на goo.im...</string>
+    <string name="error_logging_invalid">Неправильный логин/пароль</string>
+    <string name="error_logging_down">Не удалось соединиться с сервером</string>
+    <string name="error_logging_in">При входе возникла непредвиденная ошибка</string>
+
+</resources>
