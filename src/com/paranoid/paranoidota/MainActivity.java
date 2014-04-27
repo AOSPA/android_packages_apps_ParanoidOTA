@@ -19,19 +19,24 @@
 
 package com.paranoid.paranoidota;
 
-import android.app.ActionBar;
-import android.app.ActionBar.OnNavigationListener;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.paranoid.paranoidota.Utils.NotificationInfo;
@@ -41,9 +46,9 @@ import com.paranoid.paranoidota.cards.InstallCard;
 import com.paranoid.paranoidota.cards.SystemCard;
 import com.paranoid.paranoidota.cards.UpdatesCard;
 import com.paranoid.paranoidota.helpers.DownloadHelper;
-import com.paranoid.paranoidota.helpers.DownloadHelper.DownloadCallback;
 import com.paranoid.paranoidota.helpers.RebootHelper;
 import com.paranoid.paranoidota.helpers.RecoveryHelper;
+import com.paranoid.paranoidota.helpers.DownloadHelper.DownloadCallback;
 import com.paranoid.paranoidota.updater.GappsUpdater;
 import com.paranoid.paranoidota.updater.RomUpdater;
 import com.paranoid.paranoidota.updater.Updater;
@@ -51,7 +56,7 @@ import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 import com.paranoid.paranoidota.updater.Updater.UpdaterListener;
 import com.paranoid.paranoidota.widget.Card;
 
-public class MainActivity extends Activity implements UpdaterListener, DownloadCallback, OnNavigationListener {
+public class MainActivity extends Activity implements UpdaterListener, DownloadCallback {
 
     private static final String CHANGELOG = "https://plus.google.com/app/basic/+ParanoidAndroidCorner/posts";
     private static final String STATE = "STATE";
@@ -73,14 +78,20 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
     private GappsUpdater mGappsUpdater;
     private NotificationInfo mNotificationInfo;
 
+    private CharSequence mTitle;
+    private CharSequence mDrawerTitle;
     private LinearLayout mCardsLayout;
-    private TextView mTitle;
+    private TextView mContentTitle;
     private MenuItem mCheckMenuItem;
 
     private Context mContext;
     private Bundle mSavedInstanceState;
 
     private int mState = STATE_UPDATES;
+
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,19 +101,44 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
         mSavedInstanceState = savedInstanceState;
 
         setContentView(R.layout.activity_main);
+        setTitle(R.string.updates);
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        actionBar.setListNavigationCallbacks(
-                new ArrayAdapter<String>(actionBar.getThemedContext(),
-                        android.R.layout.simple_list_item_1, android.R.id.text1, new String[] {
-                                getString(R.string.updates),
-                                getString(R.string.install),
-                                getString(R.string.changelog) }), this);
+        mDrawerTitle = getTitle();
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, android.R.id.text1, new String[] {
+                        getString(R.string.updates),
+                        getString(R.string.install),
+                        getString(R.string.changelog) }));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                mDrawerLayout,
+                R.drawable.ic_drawer,
+                R.string.drawer_open,
+                R.string.drawer_close
+                ) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(mTitle);
+                invalidateOptionsMenu();
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(mDrawerTitle);
+                invalidateOptionsMenu();
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         mCardsLayout = (LinearLayout) findViewById(R.id.cards_layout);
-        mTitle = (TextView) findViewById(R.id.header);
+        mContentTitle = (TextView) findViewById(R.id.header);
 
         Utils.setRobotoThin(mContext, findViewById(R.id.mainlayout));
 
@@ -182,36 +218,44 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
         mGappsUpdater.check();
     }
 
-    @Override
-    public boolean onNavigationItemSelected(int position, long id) {
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    public void selectItem(int position) {
         switch (position) {
             case 0 :
-                if (mState == STATE_UPDATES || mState == STATE_DOWNLOAD) {
-                    return true;
-                }
+                setTitle(R.string.updates);
                 setState(STATE_UPDATES, true, false);
+                mDrawerList.setItemChecked(0, true);
                 break;
             case 1 :
-                if (mState == STATE_INSTALL) {
-                    return true;
-                }
+                setTitle(R.string.install);
                 setState(STATE_INSTALL, true, false);
+                mDrawerList.setItemChecked(1, true);
                 break;
             case 2 :
+                setTitle(R.string.changelog);
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(CHANGELOG));
                 startActivity(browserIntent);
                 switch (mState) {
                     case STATE_UPDATES :
                     case STATE_DOWNLOAD :
-                        getActionBar().setSelectedNavigationItem(0);
+                        setTitle(R.string.updates);
+                        mDrawerList.setItemChecked(0, true);
                         break;
                     case STATE_INSTALL :
-                        getActionBar().setSelectedNavigationItem(1);
+                        setTitle(R.string.install);
+                        mDrawerList.setItemChecked(1, true);
                         break;
                 }
                 break;
         }
-        return true;
+
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
     @Override
@@ -241,25 +285,31 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
     @Override
     public void versionFound(PackageInfo[] info, boolean isRom) {
         boolean checking = mRomUpdater.isScanning() || mGappsUpdater.isScanning();
-        mTitle.setText(checking ? R.string.title_checking : R.string.app_name);
+        mContentTitle.setText(checking ? R.string.title_checking : R.string.app_name);
     }
 
     @Override
     public void startChecking(boolean isRom) {
-        mTitle.setText(R.string.title_checking);
+        mContentTitle.setText(R.string.title_checking);
         setProgressBarIndeterminate(true);
         setProgressBarVisibility(true);
     }
 
     @Override
     public void checkError(String cause, boolean isRom) {
-        mTitle.setText(R.string.app_name);
+        mContentTitle.setText(R.string.app_name);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         mCheckMenuItem = menu.findItem(R.id.action_check);
-        mCheckMenuItem.setVisible(mState == STATE_UPDATES);
+        if (!drawerOpen) {
+            mCheckMenuItem.setVisible(mState == STATE_UPDATES);
+        } else {
+            mCheckMenuItem.setVisible(!drawerOpen);
+        }
+        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -272,6 +322,9 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
@@ -297,19 +350,14 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
     public void setState(int state, boolean animate, PackageInfo[] infos,
             Uri uri, String md5, boolean isRom, boolean fromRotation) {
         mState = state;
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         switch (state) {
             case STATE_UPDATES :
-                actionBar.setSelectedNavigationItem(0);
+                mDrawerList.setItemChecked(0, true);
                 break;
             case STATE_INSTALL :
-                actionBar.setSelectedNavigationItem(1);
+                mDrawerList.setItemChecked(1, true);
                 break;
             case STATE_DOWNLOAD :
-                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-                actionBar.setDisplayShowTitleEnabled(true);
                 break;
         }
         if (mCheckMenuItem != null) {
@@ -350,6 +398,24 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
                 }
                 break;
         }
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getActionBar().setTitle(mTitle);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     public void addCards(Card[] cards, boolean animate, boolean remove) {
