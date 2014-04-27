@@ -22,7 +22,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/card_horizontal_margin"
+    android:paddingRight="@dimen/card_horizontal_margin">
 
     <TextView
         android:id="@+id/rom"

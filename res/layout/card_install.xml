@@ -27,7 +27,9 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/card_horizontal_margin"
+        android:paddingRight="@dimen/card_horizontal_margin">
 
         <TextView
             android:text="@string/install_info"
@@ -45,7 +47,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingTop="@dimen/card_separator_padding"
-        android:visibility="gone" >
+        android:visibility="gone"
+        android:paddingLeft="@dimen/card_horizontal_margin"
+        android:paddingRight="@dimen/card_horizontal_margin">
 
         <View
             android:layout_width="match_parent"
@@ -97,8 +101,6 @@
         android:layout_weight="1"
         android:paddingTop="@dimen/card_separator_padding"
         android:paddingBottom="@dimen/card_separator_padding"
-        app:itemDownColor="@android:color/holo_blue_light"
-        app:itemDownTextColor="@android:color/white"
         app:itemIcon="@drawable/ic_add"
         app:itemTitle="@string/add_file" />
 
@@ -114,8 +116,6 @@
         android:layout_weight="1"
         android:paddingTop="@dimen/card_separator_padding"
         android:paddingBottom="@dimen/card_separator_padding"
-        app:itemDownColor="@android:color/holo_blue_light"
-        app:itemDownTextColor="@android:color/white"
         app:itemIcon="@drawable/ic_flash"
         app:itemTitle="@string/install_now" />
 
