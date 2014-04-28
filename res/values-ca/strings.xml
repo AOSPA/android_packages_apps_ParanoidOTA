@@ -88,6 +88,7 @@
     <string name="alert_reboot_one_message">El teu dispositiu es reiniciarà i instal\·larà l\'actualització.</string>
     <string name="alert_reboot_more_message">El teu dispositiu es reiniciarà i instal\·larà les actualitzacions.</string>
     <string name="alert_reboot_now">Instal\·lar ara</string>
+    <string name="file_not_found">No s\'ha pogut afegir l\'arxiu</string>
 
     <!-- CHANGELOG -->
     <string name="changelog">Canvis</string>
