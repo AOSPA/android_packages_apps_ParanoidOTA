@@ -28,7 +28,9 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/card_horizontal_margin"
+        android:paddingRight="@dimen/card_horizontal_margin">
 
         <TextView
             android:id="@+id/info"
@@ -58,7 +60,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:paddingLeft="@dimen/card_horizontal_margin"
+        android:paddingRight="@dimen/card_horizontal_margin"
+        android:visibility="gone">
 
         <View
             android:layout_width="match_parent"
@@ -90,8 +94,6 @@
         android:layout_weight="1"
         android:paddingBottom="@dimen/card_separator_padding"
         android:paddingTop="@dimen/card_separator_padding"
-        app:itemDownColor="@android:color/holo_blue_light"
-        app:itemDownTextColor="@android:color/white"
         app:itemIcon="@drawable/ic_download"
         app:itemTitle="@string/download_and_install" />
 

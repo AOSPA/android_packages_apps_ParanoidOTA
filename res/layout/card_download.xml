@@ -27,7 +27,9 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/card_horizontal_margin"
+        android:paddingRight="@dimen/card_horizontal_margin">
 
         <TextView
             android:id="@+id/info"
@@ -72,8 +74,6 @@
         android:paddingTop="@dimen/card_separator_padding"
         android:paddingBottom="@dimen/card_separator_padding"
         app:itemIcon="@drawable/ic_cancel"
-        app:itemTitle="@string/cancel_download"
-        app:itemDownColor="@android:color/holo_blue_light"
-        app:itemDownTextColor="@android:color/white" />
+        app:itemTitle="@string/cancel_download" />
 
 </LinearLayout>
