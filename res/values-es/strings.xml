@@ -88,6 +88,7 @@
     <string name="alert_reboot_one_message">Tu dispositivo se reiniciará y instalarà la actualización.</string>
     <string name="alert_reboot_more_message">Tu dispositivo se reiniciará y instalarà las actualizaciones.</string>
     <string name="alert_reboot_now">Instalar ahora</string>
+    <string name="file_not_found">No se ha podido añadir el archivo</string>
 
     <!-- CHANGELOG -->
     <string name="changelog">Cambios</string>

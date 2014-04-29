@@ -88,6 +88,7 @@
     <string name="alert_reboot_one_message">Your device will reboot and install the update.</string>
     <string name="alert_reboot_more_message">Your device will reboot and install the updates.</string>
     <string name="alert_reboot_now">Install now</string>
+    <string name="file_not_found">Unable to add file</string>
 
     <!-- CHANGELOG -->
     <string name="changelog">Changelog</string>

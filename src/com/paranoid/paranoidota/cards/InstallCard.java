@@ -42,6 +42,7 @@ import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.activities.RequestFileActivity;
 import com.paranoid.paranoidota.activities.RequestFileActivity.RequestFileCallback;
 import com.paranoid.paranoidota.helpers.RebootHelper;
+import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.widget.Card;
 import com.paranoid.paranoidota.widget.Item;
 import com.paranoid.paranoidota.widget.Item.OnItemClickListener;
@@ -143,7 +144,11 @@ public class InstallCard extends Card implements RequestFileCallback {
 
     @Override
     public void fileRequested(String filePath) {
-        addFile(new File(filePath), null);
+        if (filePath == null) {
+            Utils.showToastOnUiThread(getContext(), R.string.file_not_found);
+        } else {
+            addFile(new File(filePath), null);
+        }
     }
 
     public void addFile(Uri uri, final String md5) {

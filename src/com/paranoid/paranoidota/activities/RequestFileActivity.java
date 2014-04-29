@@ -101,14 +101,17 @@ public class RequestFileActivity extends Activity {
                                     .authority(uri.getAuthority()).appendPath("document")
                                     .build().toString();
                             String path = uri.toString();
-                            if (path.startsWith(newUri)) {
-                                String firstPath = filePath.substring(0, filePath.indexOf(":"));
-                                filePath = filePath.substring(filePath.indexOf(":") + 1);
+                            index = filePath.indexOf(":");
+                            if (path.startsWith(newUri) && index >= 0) {
+                                String firstPath = filePath.substring(0, index);
+                                filePath = filePath.substring(index + 1);
                                 String storage = IOUtils.getPrimarySdCard();
                                 if (!firstPath.contains(ROOT_ID_PRIMARY_EMULATED)) {
                                     storage = IOUtils.getSecondarySdCard();
                                 }
                                 filePath = storage + "/" + filePath;
+                            } else {
+                                filePath = null;
                             }
 
                         }
