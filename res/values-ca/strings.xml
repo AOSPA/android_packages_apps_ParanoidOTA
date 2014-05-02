@@ -34,7 +34,7 @@
     <string name="rom_new_version">S\'ha trobat una nova versió de la ROM!</string>
     <string name="gapps_new_version">S\'ha trobat una nova versió de les Google apps!</string>
     <string name="no_updates">No s\'han trobat actualitzacions del sistema</string>
-    <string name="system_update_found">S\'ha trobat una nova actualització i està preparada per descarregar.\nPer favor comprova les notificacions que han aparegut. Elles te duran a ParanoidOTA des d\'on podràs descarregar i/o instal\·lar l\'actualització.\n\nActualització(ns) trobada:\n%1$s</string>
+    <string name="system_update_found">"S'ha trobat una nova actualització i està preparada per descarregar.\nPer favor comprova les notificacions que han aparegut. Elles te duran a ParanoidOTA des d'on podràs descarregar i/o instal·lar l'actualització.\n\nActualització(ns) trobada:\n%1$s"</string>
 
     <!-- SYSTEM -->
     <string name="system_title">Info del sistema</string>
@@ -59,7 +59,7 @@
     <!-- INSTALL -->
     <string name="install">"Instal·la"</string>
     <string name="install_title">"Preparat per instal·lar"</string>
-    <string name="install_info">La següent actualització(ns) està preparada per a ser instal\·lada.\n\nPots afegir més zips prement el botó \"Afegir arxiu\".</string>
+    <string name="install_info">"La següent actualització(ns) està preparada per a ser instal·lada.\n\nPots afegir més zips prement el botó 'Afegir arxiu'".</string>
     <string name="add_file">Afegir arxiu</string>
     <string name="install_now">"Instal·lar ara"</string>
     <string name="calculating_md5">Calculant suma MD5...</string>
@@ -72,11 +72,11 @@
     <string name="wipe_caches">Wipe Cache i Dalvik</string>
     <string name="remove_file_title">Esborrar arxiu</string>
     <string name="remove_file_summary">Vols esborrar l\'arxiu de la llista?\n\n%1$s</string>
-    <string name="file_manager_error">No s\'ha trobat cap aplicació per seleccionar un arxiu zip. Per favor instal\·la un administrador d\'arxius.</string>
+    <string name="file_manager_error">"No s'ha trobat cap aplicació per seleccionar un arxiu zip. Per favor instal·la un administrador d'arxius."</string>
     <string name="alert_backup_space_title">Espai restant</string>
     <string name="alert_backup_space_message">Hi ha menys de %1$sGB a la SD card interna. Vols continuar amb el backup?</string>
     <string name="alert_backup_title">Backup</string>
-    <string name="alert_backup_message">Especifica el nom del backup (els caràcters il\·legals seran esborrats).\n\nLes següents opcions només funcionaran amb TWRP.</string>
+    <string name="alert_backup_message">"Especifica el nom del backup (els caràcters il·legals seran esborrats).\n\nLes següents opcions només funcionaran amb TWRP."</string>
     <string name="system">System</string>
     <string name="data">Data</string>
     <string name="cache">Cache</string>
@@ -84,11 +84,11 @@
     <string name="boot">Boot</string>
     <string name="androidsecure">Android secure</string>
     <string name="sdext">SD-Ext</string>
-    <string name="alert_reboot_install_title">Instal\·la actualització(ns)</string>
-    <string name="alert_reboot_one_message">El teu dispositiu es reiniciarà i instal\·larà l\'actualització.</string>
-    <string name="alert_reboot_more_message">El teu dispositiu es reiniciarà i instal\·larà les actualitzacions.</string>
-    <string name="alert_reboot_now">Instal\·lar ara</string>
-    <string name="file_not_found">No s\'ha pogut afegir l\'arxiu</string>
+    <string name="alert_reboot_install_title">"Instal·la actualització(ns)"</string>
+    <string name="alert_reboot_one_message">"El teu dispositiu es reiniciarà i instal·larà l'actualització."</string>
+    <string name="alert_reboot_more_message">"El teu dispositiu es reiniciarà i instal·larà les actualitzacions."</string>
+    <string name="alert_reboot_now">"Instal·lar ara"</string>
+    <string name="file_not_found">"No s'ha pogut afegir l'arxiu"</string>
 
     <!-- CHANGELOG -->
     <string name="changelog">Canvis</string>
@@ -96,9 +96,9 @@
     <!-- DOWNLOADS/NOTIFICATIONS -->
     <string name="download_card_title">Descarregant actualització del sistema</string>
     <string name="download_title">%1$s</string>
-    <string name="cancel_download_alert_title">Cancel\·lar descàrrega</string>
-    <string name="cancel_rom_download_alert_summary">Vols cancel\·lar la descàrrega de la ROM?</string>
-    <string name="cancel_gapps_download_alert_summary">Vols cancel\·lar la descàrrega de les Google apps?</string>
+    <string name="cancel_download_alert_title">"Cancel·lar descàrrega"</string>
+    <string name="cancel_rom_download_alert_summary">"Vols cancel·lar la descàrrega de la ROM?"</string>
+    <string name="cancel_gapps_download_alert_summary">"Vols cancel·lar la descàrrega de les Google apps?"</string>
     <string name="cancel_download_alert_yes">Si</string>
     <string name="cancel_download_alert_no">No</string>
     <string name="new_system_update">S\'han trobat actualitzacions del sistema</string>
@@ -106,7 +106,7 @@
     <string name="new_packages">%1$s actualitzacions disponibles per descarregar</string>
     <string name="already_downloading_rom">Ja estàs descarregant una actualització de la ROM.</string>
     <string name="already_downloading_gapps">Ja estàs descarregant una actualització de les Google apps.</string>
-    <string name="cancel_download">Cancel\·lar descàrrega(s)</string>
+    <string name="cancel_download">"Cancel·lar descàrrega(s)"</string>
     <string name="downloading_info">Actualització(ns) descarregant-se:\n%1$s</string>
 
     <!-- DOWNLOAD ERRORS -->
