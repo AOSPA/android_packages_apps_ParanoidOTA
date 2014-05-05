@@ -19,6 +19,8 @@
 
 package com.paranoid.paranoidota.cards;
 
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,8 +76,13 @@ public class UpdatesCard extends Card implements UpdaterListener, OnCheckedChang
         mGappsUpdater.addUpdaterListener(this);
 
         if (savedInstanceState != null) {
-            mRomUpdater.setLastUpdates((PackageInfo[]) savedInstanceState.getSerializable(ROMS));
-            mGappsUpdater.setLastUpdates((PackageInfo[]) savedInstanceState.getSerializable(GAPPS));
+            Serializable mRoms = savedInstanceState.getSerializable(ROMS);
+            Serializable mGapps = savedInstanceState.getSerializable(GAPPS);
+
+            if (mRoms instanceof PackageInfo[] && mGapps instanceof PackageInfo[]) {
+                mRomUpdater.setLastUpdates((PackageInfo[]) savedInstanceState.getSerializable(ROMS));
+                mGappsUpdater.setLastUpdates((PackageInfo[]) savedInstanceState.getSerializable(GAPPS));
+            }
         }
 
         setLayoutId(R.layout.card_updates);
