@@ -31,6 +31,7 @@ import android.app.DownloadManager.Request;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -412,37 +413,42 @@ public class DownloadHelper {
 
     private static int getDownloadError(Cursor cursor) {
         int columnReason = cursor.getColumnIndex(DownloadManager.COLUMN_REASON);
-        int reason = cursor.getInt(columnReason);
         int reasonText = -1;
-        switch (reason) {
-            case DownloadManager.ERROR_CANNOT_RESUME:
-                reasonText = R.string.error_cannot_resume;
-                break;
-            case DownloadManager.ERROR_DEVICE_NOT_FOUND:
-                reasonText = R.string.error_device_not_found;
-                break;
-            case DownloadManager.ERROR_FILE_ALREADY_EXISTS:
-                reasonText = R.string.error_file_already_exists;
-                break;
-            case DownloadManager.ERROR_FILE_ERROR:
-                reasonText = R.string.error_file_error;
-                break;
-            case DownloadManager.ERROR_HTTP_DATA_ERROR:
-                reasonText = R.string.error_http_data_error;
-                break;
-            case DownloadManager.ERROR_INSUFFICIENT_SPACE:
-                reasonText = R.string.error_insufficient_space;
-                break;
-            case DownloadManager.ERROR_TOO_MANY_REDIRECTS:
-                reasonText = R.string.error_too_many_redirects;
-                break;
-            case DownloadManager.ERROR_UNHANDLED_HTTP_CODE:
-                reasonText = R.string.error_unhandled_http_code;
-                break;
-            case DownloadManager.ERROR_UNKNOWN:
-            default:
-                reasonText = R.string.error_unknown;
-                break;
+        try {
+            int reason = cursor.getInt(columnReason);
+            switch (reason) {
+                case DownloadManager.ERROR_CANNOT_RESUME:
+                    reasonText = R.string.error_cannot_resume;
+                    break;
+                case DownloadManager.ERROR_DEVICE_NOT_FOUND:
+                    reasonText = R.string.error_device_not_found;
+                    break;
+                case DownloadManager.ERROR_FILE_ALREADY_EXISTS:
+                    reasonText = R.string.error_file_already_exists;
+                    break;
+                case DownloadManager.ERROR_FILE_ERROR:
+                    reasonText = R.string.error_file_error;
+                    break;
+                case DownloadManager.ERROR_HTTP_DATA_ERROR:
+                    reasonText = R.string.error_http_data_error;
+                    break;
+                case DownloadManager.ERROR_INSUFFICIENT_SPACE:
+                    reasonText = R.string.error_insufficient_space;
+                    break;
+                case DownloadManager.ERROR_TOO_MANY_REDIRECTS:
+                    reasonText = R.string.error_too_many_redirects;
+                    break;
+                case DownloadManager.ERROR_UNHANDLED_HTTP_CODE:
+                    reasonText = R.string.error_unhandled_http_code;
+                    break;
+                case DownloadManager.ERROR_UNKNOWN:
+                default:
+                    reasonText = R.string.error_unknown;
+                    break;
+            }
+        } catch (CursorIndexOutOfBoundsException ex) {
+            // don't crash, just report it
+            reasonText = R.string.error_unknown;
         }
         return reasonText;
     }
