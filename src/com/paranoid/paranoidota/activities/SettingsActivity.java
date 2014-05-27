@@ -53,6 +53,7 @@ public class SettingsActivity extends PreferenceActivity implements
     private SettingsHelper mSettingsHelper;
     private ListPreference mCheckTime;
     private CheckBoxPreference mCheckGapps;
+    private CheckBoxPreference mNotifyGapps;
     private ListPreference mGappsType;
     private Preference mGoo;
 
@@ -70,11 +71,13 @@ public class SettingsActivity extends PreferenceActivity implements
 
         mCheckTime = (ListPreference) findPreference(SettingsHelper.PROPERTY_CHECK_TIME);
         mCheckGapps = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_CHECK_GAPPS);
+        mNotifyGapps = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_NOTIFY_GAPPS);
         mGappsType = (ListPreference) findPreference(SettingsHelper.PROPERTY_GAPPS_TYPE);
         mGoo = (Preference) findPreference("goo");
 
         mCheckTime.setValue(String.valueOf(mSettingsHelper.getCheckTime()));
         mCheckGapps.setChecked(mSettingsHelper.getCheckGapps());
+        mNotifyGapps.setChecked(mSettingsHelper.getNotifyGapps());
         mGappsType.setValue(String.valueOf(mSettingsHelper.getGappsType()));
 
         updateSummaries();

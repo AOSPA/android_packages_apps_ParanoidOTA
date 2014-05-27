@@ -129,6 +129,8 @@
     <string name="settings_checktime_summary">Specify the time between each update check</string>
     <string name="settings_checkgapps_title">Check for Google apps</string>
     <string name="settings_checkgapps_summary">Check also for PA specific Google apps</string>
+    <string name="settings_notifygapps_title">Google apps Notification</string>
+    <string name="settings_notifygapps_summary">Notify of new PA specific Google apps</string>
     <string name="settings_gappstype_title">Google apps type</string>
     <string name="settings_gappstype_summary">Choose between full, mini, micro and stock gapps package</string>
     <string name="gapps_type_full">Full package</string>

@@ -38,6 +38,12 @@
             android:title="@string/settings_checkgapps_title"
             android:summary="@string/settings_checkgapps_summary" />
 
+        <com.paranoid.paranoidota.widget.CheckBoxPreference
+            android:key="notifygapps"
+            android:dependency="checkgapps"
+            android:title="@string/settings_notifygapps_title"
+            android:summary="@string/settings_notifygapps_summary" />
+
         <com.paranoid.paranoidota.widget.ListPreference
             android:key="gappstype"
             android:dependency="checkgapps"
