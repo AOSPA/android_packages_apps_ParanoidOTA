@@ -20,13 +20,13 @@
 -->
 <resources>
   <string name="app_name">تحديث بارانويد عبر الهواء</string>
-  <string name="title_checking">جاري التحقق...</string>
-  <string name="check_for_updates">التحقق</string>
+  <string name="title_checking">جاري البحث...</string>
+  <string name="check_for_updates">ابحث</string>
   <string name="no_additional_info">لا توجد معلومات إضافية</string>
   <string name="check_for_updates_long">التحقق من وجود تحديثات</string>
   <string name="all_up_to_date">لديك اخر تحديث!</string>
-  <string name="rom_scanning">التحقق من وجود تحديثات للنظام...</string>
-  <string name="rom_gapps_new_version">يوجد تحديث جديد للنظام!</string>
+  <string name="rom_scanning">التحقق من وجود تحديثات النظام...</string>
+  <string name="rom_gapps_new_version">العثور على تحديث للجهاز!</string>
   <string name="rom_new_version">العثور على تحديث ROM جديد!</string>
   <string name="gapps_new_version">وجود اصدار تحديث لتطبيقات جوجل!</string>
   <string name="no_updates">لا توجد تحديثات للنظام</string>
