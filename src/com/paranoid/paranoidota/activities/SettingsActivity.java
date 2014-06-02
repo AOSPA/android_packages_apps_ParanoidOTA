@@ -114,9 +114,19 @@ public class SettingsActivity extends PreferenceActivity implements
         if (SettingsHelper.PROPERTY_CHECK_TIME.equals(key)) {
             Utils.setAlarm(this, mSettingsHelper.getCheckTime(), false, true);
         }
+        if (SettingsHelper.PROPERTY_GAPPS_TYPE.equals(key)) {
+            updateSummaries();
+        }
     }
 
     private void updateSummaries() {
+        final CharSequence gappsType = mGappsType.getEntry();
+        if (gappsType != null) {
+            mGappsType.setSummary(gappsType);
+        } else {
+            mGappsType.setSummary(R.string.settings_gappstype_summary);
+        }
+
         if (mSettingsHelper.isLogged()) {
             mGoo.setSummary(getResources().getString(R.string.logged_in, mSettingsHelper.getLoginUserName()));
         } else {
