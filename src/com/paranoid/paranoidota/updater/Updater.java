@@ -137,9 +137,11 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
         if (mSettingsHelper == null) {
             mSettingsHelper = new SettingsHelper(getContext());
         }
+        if(!isRom() && !mSettingsHelper.getCheckGapps()) {
+            return;
+        }
         if (mFromAlarm) {
-            if (!force && (mSettingsHelper.getCheckTime() < 0
-                    || (!isRom() && !mSettingsHelper.getCheckGapps()))) {
+            if (!force && (mSettingsHelper.getCheckTime() < 0)) {
                 return;
             }
         }
