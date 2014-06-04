@@ -25,6 +25,8 @@
     <string name="title_checking">Checking...</string>
     <string name="check_for_updates">Check</string>
     <string name="no_additional_info">No additional information</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
     <!-- SYSTEM ACTIVITY -->
     <string name="check_for_updates_long">Check for updates</string>
@@ -92,6 +94,9 @@
 
     <!-- CHANGELOG -->
     <string name="changelog">Changelog</string>
+
+    <!-- GOOGLEPLUS -->
+    <string name="google_plus">Google+</string>
 
     <!-- DOWNLOADS/NOTIFICATIONS -->
     <string name="download_card_title">Downloading system update</string>
