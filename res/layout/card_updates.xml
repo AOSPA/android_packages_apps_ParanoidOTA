@@ -88,6 +88,21 @@
         android:background="@color/card_border" />
 
     <com.paranoid.paranoidota.widget.Item
+        android:id="@+id/check"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="@dimen/card_separator_padding"
+        android:paddingBottom="@dimen/card_separator_padding"
+        app:itemIcon="@drawable/ic_check"
+        app:itemTitle="@string/check_for_updates" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_separator_height"
+        android:background="@color/card_border" />
+
+    <com.paranoid.paranoidota.widget.Item
         android:id="@+id/download"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
