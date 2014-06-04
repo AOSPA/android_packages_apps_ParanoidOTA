@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2014 ParanoidAndroid Project
+
+  This file is part of Paranoid OTA.
+
+  Paranoid OTA is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Paranoid OTA is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical" >
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:duplicateParentState="true"
+        android:gravity="center_vertical"
+	    android:paddingLeft="@dimen/drawer_item_padding_left"
+        android:paddingTop="@dimen/drawer_item_padding_top"
+        android:paddingBottom="@dimen/drawer_item_padding_top"
+        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+	<LinearLayout
+	    android:id="@+id/item_small"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@drawable/drawer_list_item_small_background"
+	    android:gravity="center_vertical"
+	    android:orientation="horizontal"
+	    android:visibility="gone"
+        android:paddingBottom="@dimen/drawer_item_padding_top_small"
+        android:paddingLeft="@dimen/drawer_item_padding_left"
+        android:paddingTop="@dimen/drawer_item_padding_top_small" >
+
+	    <ImageView
+	        android:id="@+id/icon"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" />
+	
+	    <TextView
+	        android:id="@+id/text_small"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:duplicateParentState="true"
+	        android:gravity="center_vertical"
+	        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+	        android:textColor="@color/card_grid_text" />
+
+	</LinearLayout>
+
+</LinearLayout>

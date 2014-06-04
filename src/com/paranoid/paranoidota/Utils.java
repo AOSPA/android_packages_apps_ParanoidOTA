@@ -41,6 +41,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -257,7 +258,9 @@ public class Utils {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle(resources.getString(R.string.new_system_update))
-                .setSmallIcon(R.drawable.ic_launcher).setContentIntent(pIntent);
+                .setSmallIcon(R.drawable.ic_launcher_mono)
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_launcher))
+                .setContentIntent(pIntent);
 
         String contextText = "";
         if (infosRom.length + infosGapps.length == 1) {
@@ -281,6 +284,7 @@ public class Utils {
         for (int i = 0; i < infosGapps.length; i++) {
             inboxStyle.addLine(infosGapps[i].getFilename());
         }
+        inboxStyle.setSummaryText(resources.getString(R.string.app_name));
         builder.setStyle(inboxStyle);
 
         Notification notif = builder.build();
