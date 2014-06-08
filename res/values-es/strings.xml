@@ -62,7 +62,7 @@
   <string name="wipe_caches">Borrar Caché y Dalvik</string>
   <string name="remove_file_title">Eliminar archivo</string>
   <string name="remove_file_summary">¿Desea eliminar el archivo de la lista?\n\n%1$s</string>
-  <string name="file_manager_error">No se han encontrado aplicaciones para abrir archivos ZIP. Por favor, instale un gestor de archivos.</string>
+  <string name="file_manager_error">No se han encontrado aplicaciones para seleccionar el archivo a instalar. Por favor, instale un gestor de archivos.</string>
   <string name="alert_backup_space_title">Espacio restante</string>
   <string name="alert_backup_space_message">Hay menos de %1$sGB en la tarjeta SD interna. ¿Desea continuar con la copia de seguridad?</string>
   <string name="alert_backup_title">Copia de seguridad</string>
@@ -89,13 +89,13 @@
   <string name="cancel_download_alert_no">No</string>
   <string name="new_system_update">Se ha encontrado una nueva actualización del sistema</string>
   <string name="new_package_name">%1$s</string>
-  <string name="new_packages">%1$s actualizaciones disponibles para descargar</string>
+  <string name="new_packages">%1$s actualizacion(es) disponibles para descargar</string>
   <string name="already_downloading_rom">Ya estás descargando una actualización de la ROM.</string>
   <string name="already_downloading_gapps">Ya estás descargando una actualización de las aplicaciones de Google.</string>
   <string name="cancel_download">Cancelar descarga(s)</string>
   <string name="downloading_info">Descargando actualización(es):\n%1$s</string>
   <string name="error_cannot_resume">Error: La descarga no pudo ser reanudada</string>
-  <string name="error_device_not_found">Error: Tarjeta SD no montada</string>
+  <string name="error_device_not_found">Error: Tarjeta SD no encontrada</string>
   <string name="error_file_already_exists">Error: El archivo ya existe</string>
   <string name="error_file_error">Error: Error de almacenamiento</string>
   <string name="error_http_data_error">Error: Error Http</string>

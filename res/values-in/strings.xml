@@ -24,7 +24,7 @@
   <string name="check_for_updates">Periksa</string>
   <string name="no_additional_info">Tidak ada informasi tambahan</string>
   <string name="check_for_updates_long">Periksa pembaruan sistem</string>
-  <string name="all_up_to_date">Anda memiliki sistem terbaru!</string>
+  <string name="all_up_to_date">Anda memiliki sistem yang paling baru!</string>
   <string name="rom_scanning">Memeriksa pembaruan sistem...</string>
   <string name="rom_gapps_new_version">Terdapat pembaruan sistem!</string>
   <string name="rom_new_version">Terdapat pembaruan ROM!</string>
@@ -40,7 +40,7 @@
   <string name="updates_checking">Memeriksa...</string>
   <string name="updates_error">Eror</string>
   <string name="updates_found">Terdapat pembaruan sistem</string>
-  <string name="updates_uptodate">Anda memiliki sistem terbaru</string>
+  <string name="updates_uptodate">Anda memiliki sistem yang terbaru</string>
   <string name="no_updates_found">Tidak ada pembaruan ditemukan</string>
   <string name="check_rom_updates_error">Eror saat memeriksa pembaruan ROM</string>
   <string name="check_gapps_updates_error">Eror saat memeriksa pembaruan Google apps</string>
@@ -49,7 +49,7 @@
   <string name="update_host">Host di %1$s</string>
   <string name="install">Instal</string>
   <string name="install_title">Siap untuk menginstal</string>
-  <string name="install_info">Pembaruan berikut siap untuk diinstal.\n\nAnda dapat menambahkan file .zip lain dengan mengklik tombol \"Tambah file\".</string>
+  <string name="install_info">Pembaruan berikut siap untuk diinstal.\n\nAnda dapat menambahkan zips lain dengan mengklik tombol \"Tambah file\".</string>
   <string name="add_file">Tambah file</string>
   <string name="install_now">Instal sekarang</string>
   <string name="calculating_md5">Menghitung MD5 sum...</string>
@@ -111,7 +111,7 @@
   <string name="settings_checktime_summary">Menentukan selang waktu antara setiap pemeriksaan pembaruan</string>
   <string name="settings_checkgapps_title">Memeriksa Google apps</string>
   <string name="settings_checkgapps_summary">Periksa juga Google apps spesifik PA</string>
-  <string name="settings_gappstype_title">Jenis Google apps</string>
+  <string name="settings_gappstype_title">Tipe Google apps</string>
   <string name="settings_gappstype_summary">Pilih antara paket gapps full, mini, micro, dan stock</string>
   <string name="gapps_type_full">Paket full</string>
   <string name="gapps_type_mini">Paket mini</string>

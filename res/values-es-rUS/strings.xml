@@ -66,4 +66,9 @@
   <string name="alert_backup_space_title">Espacio restante</string>
   <string name="alert_backup_space_message">Hay menos de %1$sGB en la tarjeta SD interna. ¿Desea continuar con la copia de seguridad?</string>
   <string name="alert_backup_title">Copia de seguridad</string>
+  <string name="alert_backup_message">Especifique el nombre de la copia de seguridad (los caracteres no válidos se borrarán).\n\nLas siguientes opciones solo funcionarán con TWRP.</string>
+  <string name="system">Sistema</string>
+  <string name="data">Datos</string>
+  <string name="cache">Caché</string>
+  <string name="recovery">Recovery</string>
 </resources>

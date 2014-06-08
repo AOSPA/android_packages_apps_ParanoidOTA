@@ -64,7 +64,7 @@
   <string name="remove_file_summary">Czy chcesz usunąć następujący plik z listy?\n\n%1$s</string>
   <string name="file_manager_error">Nie znaleziono aplikacji do wyboru pliku zip. Zainstaluj menadżer plików.</string>
   <string name="alert_backup_space_title">Pozostało miejsca</string>
-  <string name="alert_backup_space_message">W pamięci wewnętrznej pozostało mniej niż %1$sGB. Czy na pewno chcesz kontynuować towrzenie kopii zapasowej?</string>
+  <string name="alert_backup_space_message">W pamięci wewnętrznej pozostało mniej niż %1$sGB. Czy na pewno chcesz kontynuować tworzenie kopii zapasowej?</string>
   <string name="alert_backup_title">Kopia zapasowa</string>
   <string name="alert_backup_message">Podaj nazwę kopii zapasowej (nieprawidłowe znaki zostaną usunięte).\n\nTa opcja zadziała tylko przez TWRP.</string>
   <string name="system">System</string>
@@ -72,7 +72,7 @@
   <string name="cache">Cache</string>
   <string name="recovery">Recovery</string>
   <string name="boot">Boot</string>
-  <string name="androidsecure">Bezpieczny Android</string>
+  <string name="androidsecure">Bezpieczna partycja</string>
   <string name="sdext">Zewnętrzna karta</string>
   <string name="alert_reboot_install_title">Zainstaluj aktualizacje</string>
   <string name="alert_reboot_one_message">Twoje urządzenie uruchomi się ponownie i zainstaluje aktualizacje.</string>
@@ -83,7 +83,7 @@
   <string name="download_card_title">Pobieranie aktualizacji systemu</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Anuluj pobieranie</string>
-  <string name="cancel_rom_download_alert_summary">Czy chcesz anulować aktualne pobieranie ROMu?</string>
+  <string name="cancel_rom_download_alert_summary">Czy chcesz anulować pobieranie ROMu?</string>
   <string name="cancel_gapps_download_alert_summary">Czy chcesz anulować aktualne pobieranie Google Apps?</string>
   <string name="cancel_download_alert_yes">Tak</string>
   <string name="cancel_download_alert_no">Nie</string>

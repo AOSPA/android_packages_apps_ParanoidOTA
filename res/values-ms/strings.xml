@@ -107,7 +107,7 @@
   <string name="error_device_not_found_summary">ROM untuk peranti anda tidak dijumpai. Sila semak secara manual.</string>
   <string name="error_device_not_found_server">ROM untuk peranti anda tidak dijumpai.</string>
   <string name="settings">Tetapan</string>
-  <string name="settings_checktime_title">Kekerapan kemaskini dicek</string>
+  <string name="settings_checktime_title">Kekerapan kemaskini disemak</string>
   <string name="settings_checktime_summary">Tentukan masa antara setiap kemaskini untuk disemak</string>
   <string name="settings_checkgapps_title">Semak untuk aplikasi Google</string>
   <string name="settings_checkgapps_summary">Semak juga untuk aplikasi Google yang dikhaskan untuk PA</string>

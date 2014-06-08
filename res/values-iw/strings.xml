@@ -44,7 +44,7 @@
   <string name="no_updates_found">לא נמצאו עדכונים</string>
   <string name="check_rom_updates_error">שגיאה בחיפוש עדכוני ROM</string>
   <string name="check_gapps_updates_error">שגיאה בחיפוש עדכון לאפליקציות Google</string>
-  <string name="system_update">נמצא עדכון מערכת.\nבחר/י את העדכון/ים שאת/ה מעוניינ/ת להוריד.\n\nעדכון/ים שנמצא/ו:</string>
+  <string name="system_update">נמצא עדכון מערכת.\nבחר את העדכון(ים) שאתה מעוניין להוריד.\n\nעדכון(ים) שנמצאו:</string>
   <string name="download_and_install">הורד והתקן</string>
   <string name="update_host">מאוכסן ב-%1$s</string>
   <string name="install">התקן</string>
