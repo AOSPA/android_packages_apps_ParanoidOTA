@@ -40,15 +40,15 @@
 
     <!-- GAPPS TYPE -->
     <string-array name="gapps_type_entries">
+        <item>@string/gapps_type_stock</item>
         <item>@string/gapps_type_full</item>
         <item>@string/gapps_type_mini</item>
         <item>@string/gapps_type_micro</item>
-        <item>@string/gapps_type_stock</item>
     </string-array>
     <string-array name="gapps_type_values" translatable="false">
+        <item>2</item>
         <item>0</item>
         <item>1</item>
         <item>3</item>
-        <item>2</item>
     </string-array>
 </resources>
