@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   Copyright 2014 ParanoidAndroid Project
 
@@ -18,18 +18,15 @@
   along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<resources>
-    <color name="actionbar_background">#fffe4445</color>
-    <color name="app_background">#fff3f3f4</color>
-    <color name="text_light">#66000000</color>
-    <color name="card_text">#ff8d8d8d</color>
-    <color name="card_text_error">#ffff0000</color>
-    <color name="card_title_text">#ff707070</color>
-    <color name="card_light_text">#ffb5b5b5</color>
-    <color name="card_grid_text">#ff707070</color>
-    <color name="card_separator">#ffe5e5e5</color>
-    <color name="card_border">#ffdedede</color>
-    <color name="card_background">#ffffffff</color>
-    <color name="item_pressed">#f8f8f8</color>
-    <color name="item_action">#fffe4445</color>
-</resources>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/card_border" />
+        </shape>
+    </item>
+    <item android:top="1dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/app_background" />
+        </shape>
+    </item>
+</layer-list>

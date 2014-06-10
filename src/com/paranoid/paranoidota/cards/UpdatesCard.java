@@ -58,6 +58,7 @@ public class UpdatesCard extends Card implements UpdaterListener, OnCheckedChang
     private TextView mError;
     private LinearLayout mAdditional;
     private TextView mAdditionalText;
+    private Item mCheck;
     private Item mDownload;
     private ProgressBar mWaitProgressBar;
     private String mErrorRom;
@@ -83,11 +84,22 @@ public class UpdatesCard extends Card implements UpdaterListener, OnCheckedChang
         mLayout = (LinearLayout) findLayoutViewById(R.id.layout);
         mInfo = (TextView) findLayoutViewById(R.id.info);
         mError = (TextView) findLayoutViewById(R.id.error);
+        mCheck = (Item) findLayoutViewById(R.id.check);
         mDownload = (Item) findLayoutViewById(R.id.download);
         mWaitProgressBar = (ProgressBar) findLayoutViewById(R.id.wait_progressbar);
 
         mAdditional = (LinearLayout) findLayoutViewById(R.id.additional);
         mAdditionalText = (TextView) findLayoutViewById(R.id.additional_text);
+
+        mCheck.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onClick(int id) {
+                MainActivity activity = (MainActivity) getContext();
+                activity.checkUpdates();
+            }
+
+        });
 
         mDownload.setOnItemClickListener(new OnItemClickListener() {
 
@@ -141,6 +153,7 @@ public class UpdatesCard extends Card implements UpdaterListener, OnCheckedChang
 
         mNumChecked = 0;
         mDownload.setEnabled(false);
+        mCheck.setEnabled(!mRomUpdater.isScanning() && !mGappsUpdater.isScanning());
 
         for (int i = mAdditional.getChildCount() - 1; i >= 0; i--) {
             if (mAdditional.getChildAt(i) instanceof TextView) {

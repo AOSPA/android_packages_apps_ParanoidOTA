@@ -94,51 +94,57 @@ public class Version implements Serializable {
             return;
         }
 
-        String version = split[1];
-        int index = -1;
-        if ((index = version.indexOf(".")) > 0) {
-            mMajor = Integer.parseInt(version.substring(0, index));
-            version = version.substring(index + 1);
-            if (version.length() > 0) {
-                mMinor = Integer.parseInt(version.substring(0, 1));
-            }
-            if (version.length() > 1) {
-                String maintenance = version.substring(1);
-                if (maintenance.startsWith(".")) {
-                    maintenance = maintenance.substring(1);
+        try {
+            String version = split[1];
+            int index = -1;
+            if ((index = version.indexOf(".")) > 0) {
+                mMajor = Integer.parseInt(version.substring(0, index));
+                version = version.substring(index + 1);
+                if (version.length() > 0) {
+                    mMinor = Integer.parseInt(version.substring(0, 1));
                 }
-                mMaintenance = Integer.parseInt(maintenance);
+                if (version.length() > 1) {
+                    String maintenance = version.substring(1);
+                    if (maintenance.startsWith(".")) {
+                        maintenance = maintenance.substring(1);
+                    }
+                    mMaintenance = Integer.parseInt(maintenance);
+                }
+            } else {
+                mMajor = Integer.parseInt(version);
             }
-        } else {
-            mMajor = Integer.parseInt(version);
-        }
 
-        if (!Utils.isNumeric(split[2].substring(0, 1))) {
-            version = split[2];
-            if (version.startsWith("A")) {
-                mPhase = ALPHA;
-                if (version.startsWith("ALPHA")) {
-                    version = version.substring(5);
-                } else {
-                    version = version.substring(1);
+            if (!Utils.isNumeric(split[2].substring(0, 1))) {
+                version = split[2];
+                if (version.startsWith("A")) {
+                    mPhase = ALPHA;
+                    if (version.startsWith("ALPHA")) {
+                        version = version.substring(5);
+                    } else {
+                        version = version.substring(1);
+                    }
+                } else if (version.startsWith("B")) {
+                    mPhase = BETA;
+                    if (version.startsWith("BETA")) {
+                        version = version.substring(4);
+                    } else {
+                        version = version.substring(1);
+                    }
+                } else if (version.startsWith("RC")) {
+                    mPhase = RELEASE_CANDIDATE;
+                    version = version.substring(2);
                 }
-            } else if (version.startsWith("B")) {
-                mPhase = BETA;
-                if (version.startsWith("BETA")) {
-                    version = version.substring(4);
-                } else {
-                    version = version.substring(1);
+                if (!version.isEmpty()) {
+                    mPhaseNumber = Integer.parseInt(version);
                 }
-            } else if (version.startsWith("RC")) {
-                mPhase = RELEASE_CANDIDATE;
-                version = version.substring(2);
+                mDate = split[3];
+            } else {
+                mDate = split[2];
             }
-            if (!version.isEmpty()) {
-                mPhaseNumber = Integer.parseInt(version);
-            }
-            mDate = split[3];
-        } else {
-            mDate = split[2];
+        } catch (NumberFormatException ex) {
+            // malformed version, write the log and continue
+            // C derped something for sure
+            ex.printStackTrace();
         }
     }
 
