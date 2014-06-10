@@ -43,11 +43,11 @@ public class SystemCard extends Card {
 
         TextView romView = (TextView) findLayoutViewById(R.id.rom);
         romView.setText(res.getString(R.string.system_rom,
-                romUpdater.getVersion().toString(false, true)));
+                romUpdater.getVersion().toString(false)));
 
         TextView gappsView = (TextView) findLayoutViewById(R.id.gapps);
         gappsView.setText(res.getString(R.string.system_gapps, gappsUpdater.getType(), gappsUpdater
-                .getVersion().toString(false, false)));
+                .getVersion().toString(false)));
     }
 
     @Override
