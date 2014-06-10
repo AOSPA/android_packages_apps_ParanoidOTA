@@ -39,12 +39,15 @@ public class GappsUpdater extends Updater {
     private static final String PLATFORM_PROPERTY = "ro.build.version.release";
     private static final String TYPE_PROPERTY = "ro.addon.pa_type";
 
+    private Version mRomVersion;
     private String mPlatform;
-    private String mVersion = "-1";
+    private String mVersion = "0";
     private String mType;
 
     public GappsUpdater(Context context, boolean fromAlarm) {
         super(context, new Server[] { new GooServer(context, false) }, fromAlarm);
+
+        mRomVersion = new Version(RomUpdater.getVersionString(context));
 
         File file = new File(PROPERTIES_FILE);
         if (file.exists()) {
@@ -114,16 +117,19 @@ public class GappsUpdater extends Updater {
 
     @Override
     public String getDevice() {
-        switch (getSettingsHelper().getGappsType(getTypeForSettings())) {
+        final String gapps = "GApps/Android " + mRomVersion.getMajor() + "."
+                + mRomVersion.getMinor() + "/";
+        int type = getSettingsHelper().getGappsType(getTypeForSettings());
+        switch (type) {
             case SettingsHelper.GAPPS_MICRO :
-                return "gapps-micro";
+                return gapps + "Micro-Modular GApps";
             case SettingsHelper.GAPPS_MINI :
-                return "gapps-mini";
+                return gapps + "Mini-Modular GApps";
             case SettingsHelper.GAPPS_STOCK:
-                return "gapps";
+                return gapps + "Google Stock GApps";
             case SettingsHelper.GAPPS_FULL :
             default :
-                return "gapps-full";
+                return gapps + "Full-Modular GApps";
         }
     }
 
