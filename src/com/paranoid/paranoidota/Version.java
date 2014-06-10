@@ -185,18 +185,18 @@ public class Version implements Serializable {
     }
 
     public String toString() {
-        return toString(true, false);
+        return toString(true);
     }
 
-    public String toString(boolean showDevice, boolean separateMaintenance) {
-        return (showDevice ? mDevice + "-" : "")
+    public String toString(boolean showDevice) {
+        return (showDevice ? mDevice + " " : "")
                 + mMajor
                 + "."
                 + mMinor
-                + (mMaintenance > 0 ? (separateMaintenance ? "." : "")
+                + (mMaintenance > 0 ? "."
                         + mMaintenance : "")
-                + (mPhase != GOLD ? "-" + getPhaseName() + mPhaseNumber : "")
-                + "-" + mDate;
+                + (mPhase != GOLD ? " " + getPhaseName() + mPhaseNumber : "")
+                + " (" + mDate + ")";
     }
 
     public static Version fromGapps(String platform, String version) {
