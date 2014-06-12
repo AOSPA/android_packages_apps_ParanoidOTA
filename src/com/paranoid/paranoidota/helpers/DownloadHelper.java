@@ -275,6 +275,7 @@ public class DownloadHelper {
     private static void realDownloadFile(String url, String fileName, String md5, boolean isRom) {
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setVisibleInDownloadsUi(false);
         request.setTitle(sContext.getResources().getString(R.string.download_title,
                 new Object[] { fileName }));
         File file = new File(IOUtils.DOWNLOAD_PATH);
