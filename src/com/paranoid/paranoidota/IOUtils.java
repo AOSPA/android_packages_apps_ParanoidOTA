@@ -27,6 +27,9 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.List;
+import java.util.Comparator;
+import java.util.Collections;
 
 import android.content.Context;
 import android.os.Environment;
@@ -321,5 +324,40 @@ public class IOUtils {
     public static boolean folderExists(String path) {
         File f = new File(path);
         return f.exists() && f.isDirectory();
+    }
+
+    public static void cleanUpDirectory() {
+        final File[] mFiles = new File(DOWNLOAD_PATH).listFiles();
+
+        if (mFiles != null && mFiles.length > 1) {
+            List<File> mRoms = new ArrayList<File>();
+            List<File> mGapps = new ArrayList<File>();
+
+            for (File mFile : mFiles) {
+                if (mFile.getName().contains(PREFIX + "gapps")) {
+                    mGapps.add(mFile);
+                } else if (mFile.getName().contains(PREFIX)){
+                    mRoms.add(mFile);
+                }
+            }
+
+            Comparator<File> mComparator = new Comparator<File>() {
+                @Override
+                public int compare(File object1, File object2) {
+                    return ((object1.lastModified() > object2.lastModified()) ? -1 : 1);
+                }
+            };
+
+            Collections.sort(mRoms, mComparator);
+            Collections.sort(mGapps, mComparator);
+
+            for (int i = 1; i < mRoms.size(); i++) {
+                mRoms.get(i).delete();
+            }
+
+            for (int i = 1; i < mGapps.size(); i++) {
+                mGapps.get(i).delete();
+            }
+        }
     }
 }
