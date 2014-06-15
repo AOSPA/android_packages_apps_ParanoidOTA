@@ -23,6 +23,8 @@
   <string name="title_checking">Kontrolovanie...</string>
   <string name="check_for_updates">Skontrolovať</string>
   <string name="no_additional_info">Žiadne ďalšie informácie</string>
+  <string name="drawer_open">Otvoriť navigačný panel</string>
+  <string name="drawer_close">Zavrieť navigačný panel</string>
   <string name="check_for_updates_long">Skontrolovať aktualizácie</string>
   <string name="all_up_to_date">Váš systém je aktuálny!</string>
   <string name="rom_scanning">Kontrola aktualizácií systému...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Inštalovať teraz</string>
   <string name="file_not_found">Nemožno pridať súbor</string>
   <string name="changelog">Zoznam zmien</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Sťahovanie aktualizácie systému</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Zrušiť preberanie</string>
@@ -94,7 +97,7 @@
   <string name="already_downloading_gapps">Už prebieha sťahovanie aktualizácie Google apps.</string>
   <string name="cancel_download">Prerušiť sťahovanie</string>
   <string name="downloading_info">Sťahovanie aktualizácie(í):\n%1$s</string>
-  <string name="error_cannot_resume">Chybe: Sťahovanie nemohlo byť obnovené</string>
+  <string name="error_cannot_resume">Chyba: Sťahovanie nemohlo byť obnovené</string>
   <string name="error_device_not_found">Chyba: SD karta nie je pripojená</string>
   <string name="error_file_already_exists">Chyba: Súbor už existuje</string>
   <string name="error_file_error">Chyba: Chyba úložiska</string>

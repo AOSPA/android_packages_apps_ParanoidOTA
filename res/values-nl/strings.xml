@@ -23,6 +23,8 @@
   <string name="title_checking">Controleren...</string>
   <string name="check_for_updates">Controleer</string>
   <string name="no_additional_info">Geen aanvullende informatie</string>
+  <string name="drawer_open">Navigatiemenu openen</string>
+  <string name="drawer_close">Navigatiemenu sluiten </string>
   <string name="check_for_updates_long">Controleer op updates</string>
   <string name="all_up_to_date">U bent up to date!</string>
   <string name="rom_scanning">Controleren op systeemupdates...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Nu installeren</string>
   <string name="file_not_found">Kan bestand niet toevoegen</string>
   <string name="changelog">Wijzigingen</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Downloaden van systeemupdate</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Download annuleren</string>

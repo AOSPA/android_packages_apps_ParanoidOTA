@@ -23,6 +23,8 @@
   <string name="title_checking">Verificare în curs...</string>
   <string name="check_for_updates">Verificare</string>
   <string name="no_additional_info">Nu există informaţii suplimentare</string>
+  <string name="drawer_open">Deschide meniul de navigare</string>
+  <string name="drawer_close">Inchide meniul de navigare</string>
   <string name="check_for_updates_long">Caută actualizări</string>
   <string name="all_up_to_date">Eşti la zi!</string>
   <string name="rom_scanning">Verificare actualizări de sistem...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Instalați acum</string>
   <string name="file_not_found">Imposibil de adăugat fișierul</string>
   <string name="changelog">Istoric modificări</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Descărcare actualizare sistem</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Anulare descărcare</string>

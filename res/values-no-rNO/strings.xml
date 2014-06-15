@@ -23,6 +23,8 @@
   <string name="title_checking">Sjekker...</string>
   <string name="check_for_updates">Sjekk</string>
   <string name="no_additional_info">Ingen ekstra informasjon</string>
+  <string name="drawer_open">Åpne navigasjonsskuff</string>
+  <string name="drawer_close">Lukk navigasjonsskuff</string>
   <string name="check_for_updates_long">Se etter oppdateringer</string>
   <string name="all_up_to_date">Du er oppdatert!</string>
   <string name="rom_scanning">Ser etter system oppdateringer...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Installér nå</string>
   <string name="file_not_found">Kan ikke legge til fil</string>
   <string name="changelog">Endringslogg</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Laster ned systemoppdatering</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Avbryt nedlasting</string>

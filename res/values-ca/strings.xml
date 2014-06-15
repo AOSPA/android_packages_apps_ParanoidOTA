@@ -23,6 +23,8 @@
   <string name="title_checking">Comprovant...</string>
   <string name="check_for_updates">Comprovar</string>
   <string name="no_additional_info">No hi ha informació addicional</string>
+  <string name="drawer_open">Obre el calaix de navegació</string>
+  <string name="drawer_close">Tanca el calaix de navegació</string>
   <string name="check_for_updates_long">Comprovar actualitzacions</string>
   <string name="all_up_to_date">Estàs actualitzat!</string>
   <string name="rom_scanning">Comprovant actualitzacions del sistema...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Instal·lar ara</string>
   <string name="file_not_found">No s\'ha pogut afegir l\'arxiu</string>
   <string name="changelog">Canvis</string>
+  <string name="google_plus">Google +</string>
   <string name="download_card_title">Descarregant actualització del sistema</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Cancel·lar descàrrega</string>

@@ -23,6 +23,8 @@
   <string name="title_checking">Kontrollerar...</string>
   <string name="check_for_updates">Kontrollera</string>
   <string name="no_additional_info">Ingen ytterligare information</string>
+  <string name="drawer_open">Öppna navigeringsmeny</string>
+  <string name="drawer_close">Stäng navigeringsmeny</string>
   <string name="check_for_updates_long">Sök efter uppdateringar</string>
   <string name="all_up_to_date">Du är uppdaterad!</string>
   <string name="rom_scanning">Söker efter systemuppdateringar...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Installera nu</string>
   <string name="file_not_found">De går inte att lägga till filen</string>
   <string name="changelog">Versionshistorik</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Ladda ner systemuppdateringar</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Avbryt nedladdning</string>

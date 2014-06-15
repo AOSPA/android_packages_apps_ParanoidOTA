@@ -23,6 +23,8 @@
   <string name="title_checking">Kontrolování...</string>
   <string name="check_for_updates">Zkontrolovat</string>
   <string name="no_additional_info">Žádné další informace</string>
+  <string name="drawer_open">Otevřít navigační panel</string>
+  <string name="drawer_close">Zavřít navigační panel</string>
   <string name="check_for_updates_long">Zkontrolovat aktualizace</string>
   <string name="all_up_to_date">Váš systém je aktuální!</string>
   <string name="rom_scanning">Kotrolování systémových aktualizací...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Nainstalovat nyní</string>
   <string name="file_not_found">Nelze přidat soubor</string>
   <string name="changelog">Seznam změn</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Stahování aktualizace systému</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Zrušit stahování</string>

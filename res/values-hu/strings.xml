@@ -23,6 +23,8 @@
   <string name="title_checking">Ellenőrzés folyamatban...</string>
   <string name="check_for_updates">Ellenőrzés</string>
   <string name="no_additional_info">Nincs további információ</string>
+  <string name="drawer_open">Navigációs sáv megnyitása</string>
+  <string name="drawer_close">Navigációs sáv bezárása</string>
   <string name="check_for_updates_long">Frissítések keresése</string>
   <string name="all_up_to_date">Nincsenek elérhető frissítések!</string>
   <string name="rom_scanning">Rendszer frissítések keresése...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Telepítés most</string>
   <string name="file_not_found">Nem sikerült hozzáadni a fájlt</string>
   <string name="changelog">Változások</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Rendszer frissítés letöltése</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Letöltés megszakítása</string>
@@ -110,7 +113,7 @@
   <string name="settings_checktime_title">Frissítés ellenőrzés gyakorisága</string>
   <string name="settings_checktime_summary">Adja meg a az ellenőrzések gyakoriságát</string>
   <string name="settings_checkgapps_title">Google Apps frissítés ellenőrzése</string>
-  <string name="settings_checkgapps_summary">PA specifikus Google Apps frissítés ellenőrzése is</string>
+  <string name="settings_checkgapps_summary">Ellenőrizze a ParanoidAndroid-hoz tartozó Google Apps frissítéseket is</string>
   <string name="settings_gappstype_title">Google Apps típus</string>
   <string name="settings_gappstype_summary">Válasszon teljes, mini, mikro és gyári Google Apps csomag között</string>
   <string name="gapps_type_full">Teljes csomag</string>

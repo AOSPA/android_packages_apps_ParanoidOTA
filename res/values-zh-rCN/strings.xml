@@ -23,6 +23,8 @@
   <string name="title_checking">正在检查...</string>
   <string name="check_for_updates">检查更新</string>
   <string name="no_additional_info">无附加信息</string>
+  <string name="drawer_open">打开导航抽屉</string>
+  <string name="drawer_close">关闭导航抽屉</string>
   <string name="check_for_updates_long">检查更新</string>
   <string name="all_up_to_date">当前系统已是最新版本!</string>
   <string name="rom_scanning">正在检查系统更新...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">立即安装</string>
   <string name="file_not_found">无法添加文件</string>
   <string name="changelog">更新日志​​​​​</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">正在下载系统更新</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">取消下载</string>

@@ -23,6 +23,8 @@
   <string name="title_checking">Comprobando...</string>
   <string name="check_for_updates">Comprobar</string>
   <string name="no_additional_info">No hay información adicional</string>
+  <string name="drawer_open">Abrir panel de navegación</string>
+  <string name="drawer_close">Cerrar panel de navegación</string>
   <string name="check_for_updates_long">Comprobar actualizaciones</string>
   <string name="all_up_to_date">¡Estás actualizado!</string>
   <string name="rom_scanning">Comprobando actualizaciones del sistema...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Instalar ahora</string>
   <string name="file_not_found">No se pudo agregar el archivo</string>
   <string name="changelog">Registro de cambios</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Descargando actualización del sistema</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Cancelar descarga</string>
@@ -102,7 +105,7 @@
   <string name="error_insufficient_space">Error: No hay espacio disponible</string>
   <string name="error_too_many_redirects">Error: Demasiados redireccionamientos</string>
   <string name="error_unhandled_http_code">Error: código Http no soportado</string>
-  <string name="error_unknown">Error: desconocido</string>
+  <string name="error_unknown">Error: Desconocido</string>
   <string name="error_device_not_found_title">Dispositivo no encontrado</string>
   <string name="error_device_not_found_summary">No se pudo encontrar una ROM para su dispositivo. Por favor, verifique manualmente.</string>
   <string name="error_device_not_found_server">No se ha encontrado una ROM para su dispositivo.</string>

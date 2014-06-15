@@ -23,6 +23,8 @@
   <string name="title_checking">Überprüfen...</string>
   <string name="check_for_updates">Überprüfen</string>
   <string name="no_additional_info">Keine weiteren Informationen</string>
+  <string name="drawer_open">Navigationsleiste öffnen</string>
+  <string name="drawer_close">Navigationsleiste schließen</string>
   <string name="check_for_updates_long">Auf Updates überprüfen</string>
   <string name="all_up_to_date">Sie sind auf dem neusten Stand!</string>
   <string name="rom_scanning">Auf Systemaktualisierungen überprüfen...</string>
@@ -53,7 +55,7 @@
   <string name="add_file">Datei hinzufügen</string>
   <string name="install_now">Jetzt installieren</string>
   <string name="calculating_md5">MD5 Summe berechnen...</string>
-  <string name="md5_mismatch">MD5 Summen stimmen nicht überein</string>
+  <string name="md5_mismatch">MD5 Prüfsumme stimmt nicht überein</string>
   <string name="md5_mismatch_summary">Erhalten:\n%1$s\n\nBerechnet:\n%2$s</string>
   <string name="md5_install_anyway">Trotzdem fortfahren</string>
   <string name="select_actions">Wählen Sie die Aktionen aus, die Sie ausführen möchten</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Jetzt installieren</string>
   <string name="file_not_found">Fehler beim Hinzufügen der Datei</string>
   <string name="changelog">Changelog</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Systemupdate wird heruntergeladen</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Download abbrechen</string>

@@ -23,6 +23,8 @@
   <string name="title_checking">Перевірка...</string>
   <string name="check_for_updates">Перевірити</string>
   <string name="no_additional_info">Немає додаткової інформації</string>
+  <string name="drawer_open">Відкрити панель навігації</string>
+  <string name="drawer_close">Закрити панель навігації</string>
   <string name="check_for_updates_long">Перевірити оновлення</string>
   <string name="all_up_to_date">Ви вже оновлені!</string>
   <string name="rom_scanning">Перевірка оновлень системи...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Встановити зараз</string>
   <string name="file_not_found">Не вдалося додати файл</string>
   <string name="changelog">Журнал змін</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Завантаження оновлення програмного забезпечення</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Скасувати завантаження</string>

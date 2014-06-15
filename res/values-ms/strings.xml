@@ -23,6 +23,8 @@
   <string name="title_checking">Menyemak...</string>
   <string name="check_for_updates">Semak</string>
   <string name="no_additional_info">Tiada maklumat tambahan</string>
+  <string name="drawer_open">Buka laci navigasi</string>
+  <string name="drawer_close">Tutup laci navigasi</string>
   <string name="check_for_updates_long">Semak kemaskini</string>
   <string name="all_up_to_date">Anda menggunakan versi terbaru!</string>
   <string name="rom_scanning">Menyemak pengemaskinian terhadap sistem...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Install sekarang</string>
   <string name="file_not_found">Tidak dapat menambah fail</string>
   <string name="changelog">Log perubahan</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Sedang memuat turun kemas kini terhadap sistem</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Batal muat turun</string>

@@ -23,6 +23,8 @@
   <string name="title_checking">Denetleniyor...</string>
   <string name="check_for_updates">Denetle</string>
   <string name="no_additional_info">Ek bilgi yok</string>
+  <string name="drawer_open">Gezinti çekmecesini aç</string>
+  <string name="drawer_close">Gezinti çekmecesini kapa</string>
   <string name="check_for_updates_long">Güncellemeleri denetle</string>
   <string name="all_up_to_date">Sisteminiz güncel!</string>
   <string name="rom_scanning">Sistem güncellemeleri denetleniyor...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Şimdi yükle</string>
   <string name="file_not_found">Dosya eklenemiyor</string>
   <string name="changelog">Değişiklikler</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Sistem güncellemesi indiriliyor</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">İndirmeyi iptal et</string>

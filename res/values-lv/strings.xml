@@ -23,6 +23,8 @@
   <string name="title_checking">Tiek veikta pārbauda...</string>
   <string name="check_for_updates">Pārbaudīt</string>
   <string name="no_additional_info">Nav pieejama papildus informācija</string>
+  <string name="drawer_open">Atvērt navigācijas izvēlni</string>
+  <string name="drawer_close">Aizvērt navigācijas izvēlni</string>
   <string name="check_for_updates_long">Pārbaudīt pēc atjauninājumiem</string>
   <string name="all_up_to_date">Jūs lietojat jaunāko versiju!</string>
   <string name="rom_scanning">Pārbauda sistēmas atjauninājumus...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Instalēt tagad</string>
   <string name="file_not_found">Nevar pievienot failu</string>
   <string name="changelog">Izmaiņas</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Lejupielādē sistēmas atjauninājumu</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Atcelt lejupielādi</string>
@@ -112,7 +115,7 @@
   <string name="settings_checkgapps_title">Pārbaudīt pēc Google aplikācijām</string>
   <string name="settings_checkgapps_summary">Pārbaudīt arī pēc PA specifiskām Google aplikācijām</string>
   <string name="settings_gappstype_title">Google aplikāciju veids</string>
-  <string name="settings_gappstype_summary">Izvēlieties starp pilnajā, mini, micro un standarta gapps pakām</string>
+  <string name="settings_gappstype_summary">Izvēlieties starp pilnajām, mini, micro un standarta gapps pakām</string>
   <string name="gapps_type_full">Pilnā paka</string>
   <string name="gapps_type_mini">Mini paka</string>
   <string name="gapps_type_stock">Standarta paka</string>

@@ -23,6 +23,8 @@
   <string name="title_checking">Besig om na te gaan...</string>
   <string name="check_for_updates">Gaan na</string>
   <string name="no_additional_info">Geen verdere informasie beskikbaar</string>
+  <string name="drawer_open">Maak navigasie laai oop</string>
+  <string name="drawer_close">Sluit navigasie laai</string>
   <string name="check_for_updates_long">Soek vir opgraderings</string>
   <string name="all_up_to_date">U is op die nuutste weergawe!</string>
   <string name="rom_scanning">Besig om te soek vir stelsel opgraderings...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Installeer nou</string>
   <string name="file_not_found">Kan nie die lêer byvoeg nie</string>
   <string name="changelog">Verandering-log</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Besig om stelsel opdatering af te laai</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Kanselleer aflaai</string>

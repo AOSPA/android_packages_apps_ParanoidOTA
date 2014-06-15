@@ -23,6 +23,8 @@
   <string name="title_checking">جاري البحث...</string>
   <string name="check_for_updates">ابحث</string>
   <string name="no_additional_info">لا توجد معلومات إضافية</string>
+  <string name="drawer_open">فتح لوحة التحكم</string>
+  <string name="drawer_close">إغلاق لوحة التحكم</string>
   <string name="check_for_updates_long">التحقق من وجود تحديثات</string>
   <string name="all_up_to_date">لديك اخر تحديث!</string>
   <string name="rom_scanning">التحقق من وجود تحديثات النظام...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">تثبيت الآن</string>
   <string name="file_not_found">غير قادر على إضافة ملف</string>
   <string name="changelog">سجل التغييرات</string>
+  <string name="google_plus">جوجل +</string>
   <string name="download_card_title">تحميل تحديث النظام</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">إلغاء التحميل</string>

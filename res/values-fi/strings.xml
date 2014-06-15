@@ -23,6 +23,8 @@
   <string name="title_checking">Tarkistetaan...</string>
   <string name="check_for_updates">Tarkista</string>
   <string name="no_additional_info">Ei lisätietoja</string>
+  <string name="drawer_open">Avaa navigointivalikko</string>
+  <string name="drawer_close">Sulje navigointivalikko</string>
   <string name="check_for_updates_long">Hae päivityksiä</string>
   <string name="all_up_to_date">Laitteesi on ajantasalla!</string>
   <string name="rom_scanning">Etsitään järjestelmäpäivityksiä...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Asenna nyt</string>
   <string name="file_not_found">Tiedostoa ei pystytty lisäämään</string>
   <string name="changelog">Muutosloki</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Ladataan järjestelmäpäivitystä</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Peruuta lataus</string>

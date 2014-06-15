@@ -23,6 +23,8 @@
   <string name="title_checking">Tikrinama...</string>
   <string name="check_for_updates">Tikrinti</string>
   <string name="no_additional_info">Nėra papildomos informacijos</string>
+  <string name="drawer_open">Atidaryti naršymo stalčių</string>
+  <string name="drawer_close">Uždaryti naršymo stalčių</string>
   <string name="check_for_updates_long">Tikrinti, ar yra atnaujinimų</string>
   <string name="all_up_to_date">Atnaujinimų nėra!</string>
   <string name="rom_scanning">Tikrinama, ar yra sistemos atnaujinimų...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Įrašyk dabar</string>
   <string name="file_not_found">Neįmanoma pridėti failo</string>
   <string name="changelog">Pakeitimų sąrašas</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Parsiunčiamas sistemos atnaujinimas</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Sustabdyti atsiuntimą</string>

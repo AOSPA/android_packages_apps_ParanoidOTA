@@ -23,6 +23,8 @@
   <string name="title_checking">Đang kiểm tra...</string>
   <string name="check_for_updates">Kiểm tra</string>
   <string name="no_additional_info">Không có thông tin bổ sung</string>
+  <string name="drawer_open">Mở bảng điều hướng</string>
+  <string name="drawer_close">Đóng bảng điều hướng</string>
   <string name="check_for_updates_long">Kiểm tra bản cập nhật</string>
   <string name="all_up_to_date">Bạn hiện đang ở phiên bản mới nhất!</string>
   <string name="rom_scanning">Kiểm tra cho bản cập nhật hệ thống...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Cài đặt ngay</string>
   <string name="file_not_found">Không thể thêm tệp tin</string>
   <string name="changelog">Các thay đổi</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Đang tải về bản cập nhật hệ thống</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Hủy bỏ tải xuống</string>

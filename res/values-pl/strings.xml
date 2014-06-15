@@ -23,6 +23,8 @@
   <string name="title_checking">Sprawdzam...</string>
   <string name="check_for_updates">Sprawdź</string>
   <string name="no_additional_info">Brak dodatkowych informacji</string>
+  <string name="drawer_open">Otwórz panel nawigacyjny</string>
+  <string name="drawer_close">Zamknij panel nawigacyjny</string>
   <string name="check_for_updates_long">Sprawdź aktualizacje</string>
   <string name="all_up_to_date">Masz najnowszą wersję!</string>
   <string name="rom_scanning">Sprawdzanie aktualizacji systemu...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Zainstaluj teraz</string>
   <string name="file_not_found">Nie można dodać pliku</string>
   <string name="changelog">Zmiany w tej wersji</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Pobieranie aktualizacji systemu</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Anuluj pobieranie</string>

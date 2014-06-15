@@ -23,7 +23,9 @@
   <string name="title_checking">確認しています...</string>
   <string name="check_for_updates">確認</string>
   <string name="no_additional_info">追加情報はありません</string>
-  <string name="check_for_updates_long">アップデートの確認</string>
+  <string name="drawer_open">ナビゲーションドロワーを開く</string>
+  <string name="drawer_close">ナビゲーションドロワーを閉じる</string>
+  <string name="check_for_updates_long">今すぐ確認</string>
   <string name="all_up_to_date">お使いのシステムは最新の状態です！</string>
   <string name="rom_scanning">システムアップデートを確認しています...</string>
   <string name="rom_gapps_new_version">システムアップデートが見つかりました！</string>
@@ -40,7 +42,7 @@
   <string name="updates_checking">確認しています...</string>
   <string name="updates_error">エラー</string>
   <string name="updates_found">システムアップデートが見つかりました</string>
-  <string name="updates_uptodate">お使いのシステムは最新の状態です</string>
+  <string name="updates_uptodate">お使いのシステムは最新の状態です。</string>
   <string name="no_updates_found">アップデートは見つかりませんでした</string>
   <string name="check_rom_updates_error">ROMのアップデートの確認でエラーが発生しました</string>
   <string name="check_gapps_updates_error">Google Appsのアップデートの確認でエラーが発生しました</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">今すぐインストール</string>
   <string name="file_not_found">ファイルを追加できません</string>
   <string name="changelog">更新履歴</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">システムアップデートをダウンロードしています</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">ダウンロードをキャンセル</string>

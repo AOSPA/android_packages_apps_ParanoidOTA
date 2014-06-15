@@ -23,6 +23,8 @@
   <string name="title_checking">जाँच हो रही है...</string>
   <string name="check_for_updates">जाँच करें</string>
   <string name="no_additional_info">कोई अतिरिक्त जानकारी उपलब्ध नहीं</string>
+  <string name="drawer_open">नेविगेशन ड्रावर खोले</string>
+  <string name="drawer_close">नेविगेशन ड्रावर बंद करें</string>
   <string name="check_for_updates_long">नई सूचनाओं के लिए देखें</string>
   <string name="all_up_to_date">आपके लिए कोई अपडेट नही है! </string>
   <string name="rom_scanning">सिस्टम अद्यतन के लिए जाँच कर रहा...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">अभी ईंस्टाल करें</string>
   <string name="file_not_found">फ़ाइल आड करने में असमर्थ</string>
   <string name="changelog">परिवर्तन लॉग</string>
+  <string name="google_plus">गूगल +</string>
   <string name="download_card_title">सिस्टम अपडेट डाउनलोड हो रहा है</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">डाउनलोड रोक दें</string>

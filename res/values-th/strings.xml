@@ -23,6 +23,8 @@
   <string name="title_checking">ตรวจสอบ...</string>
   <string name="check_for_updates">ตรวจ</string>
   <string name="no_additional_info">ไม่มีข้อมูลเพิ่มเติม</string>
+  <string name="drawer_open">เปิดตัวช่วยนำทาง</string>
+  <string name="drawer_close">ปิดตัวช่วยนำทาง</string>
   <string name="check_for_updates_long">ตรวจสอบการอัพเดท</string>
   <string name="all_up_to_date">เป็นรุ่นล่าสุดแล้ว!</string>
   <string name="rom_scanning">ตรวจสอบการปรับปรุงระบบ...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">ติดตั้งเดี๋ยวนี้</string>
   <string name="file_not_found">ไม่สามารถเพิ่มไฟล์</string>
   <string name="changelog">บันทึกการเปลี่ยนแปลง</string>
+  <string name="google_plus">Google +</string>
   <string name="download_card_title">ดาวน์โหลดการปรับปรุงระบบ</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">ยกเลิกการดาวน์โหลด</string>

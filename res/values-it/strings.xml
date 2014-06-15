@@ -23,6 +23,8 @@
   <string name="title_checking">Controllo in corso...</string>
   <string name="check_for_updates">Controlla</string>
   <string name="no_additional_info">Nessuna informazione aggiuntiva</string>
+  <string name="drawer_open">Apri il pannello di navigazione</string>
+  <string name="drawer_close">Chiudi il pannello di navigazione</string>
   <string name="check_for_updates_long">Controlla aggiornamenti</string>
   <string name="all_up_to_date">Sei aggiornato!</string>
   <string name="rom_scanning">Controllo aggiornamenti di sistema...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Installa adesso</string>
   <string name="file_not_found">Impossibile aggiungere il file</string>
   <string name="changelog">Changelog</string>
+  <string name="google_plus">Google+</string>
   <string name="download_card_title">Download aggiornamento di sistema in corso</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Annulla download</string>
