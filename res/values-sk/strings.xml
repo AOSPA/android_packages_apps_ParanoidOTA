@@ -133,7 +133,7 @@
   <string name="logged_out">Odhlásený z goo.im</string>
   <string name="logged_in">Prihlásený ako %1$s</string>
   <string name="logging_in">Prihlasovanie sa do goo.im...</string>
-  <string name="error_logging_invalid">Nesprávne meno alebo heslo</string>
+  <string name="error_logging_invalid">Neplatné meno alebo heslo</string>
   <string name="error_logging_down">Nepodarilo sa nájsť server</string>
   <string name="error_logging_in">Neznáma chyba pri prihlasovaní</string>
 </resources>

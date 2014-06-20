@@ -36,7 +36,7 @@
   <string name="system_title">系統資訊</string>
   <string name="system_rom">ROM 版本：%1$s</string>
   <string name="system_gapps">Google 應用程式版本：%1$s %2$s</string>
-  <string name="system_recovery">系統還原程式版本：%1$s</string>
+  <string name="system_recovery">修復模式版本：%1$s</string>
   <string name="system_recovery_unknown">未知</string>
   <string name="updates">更新</string>
   <string name="updates_checking">檢查中...</string>
@@ -71,7 +71,7 @@
   <string name="alert_backup_message">指定的備份名稱 (非法字元將被刪除)。\n\n以下選項將只適用於TWRP。</string>
   <string name="system">系統</string>
   <string name="data">應用程式資料</string>
-  <string name="cache">緩存</string>
+  <string name="cache">快取</string>
   <string name="recovery">修復模式</string>
   <string name="boot">Boot</string>
   <string name="androidsecure">Android 系統安全</string>

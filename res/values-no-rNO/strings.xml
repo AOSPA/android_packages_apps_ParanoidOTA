@@ -79,7 +79,7 @@
   <string name="alert_reboot_install_title">Installer oppdatering(er)</string>
   <string name="alert_reboot_one_message">Din enhet vil starte på nytt og installere oppdateringen.</string>
   <string name="alert_reboot_more_message">Din enhet vil starte på nytt og installere oppdateringene.</string>
-  <string name="alert_reboot_now">Installér nå</string>
+  <string name="alert_reboot_now">Installer nå</string>
   <string name="file_not_found">Kan ikke legge til fil</string>
   <string name="changelog">Endringslogg</string>
   <string name="google_plus">Google+</string>
@@ -111,10 +111,10 @@
   <string name="error_device_not_found_server">Det ble ikke funnet noen ROM for din enhet.</string>
   <string name="settings">Innstillinger</string>
   <string name="settings_checktime_title">Frekvens av sjekk etter oppdateringer</string>
-  <string name="settings_checktime_summary">Spesifisér tid mellom hver sjekk etter oppdatering</string>
+  <string name="settings_checktime_summary">Spesifiser tid mellom hver sjekk etter oppdatering</string>
   <string name="settings_checkgapps_title">Se etter Google apps</string>
   <string name="settings_checkgapps_summary">Se også etter PA-spesifikke Google apps</string>
-  <string name="settings_gappstype_title">Google apps-versjon</string>
+  <string name="settings_gappstype_title">Google apps type</string>
   <string name="settings_gappstype_summary">Velg mellom full, mini, mikro eller standard gapps-pakke</string>
   <string name="gapps_type_full">Full pakke</string>
   <string name="gapps_type_mini">Mini pakke</string>
