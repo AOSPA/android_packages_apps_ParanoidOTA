@@ -23,6 +23,8 @@
   <string name="title_checking">Проверавам...</string>
   <string name="check_for_updates">Провери</string>
   <string name="no_additional_info">Нема додатних информација</string>
+  <string name="drawer_open">Отвори панел за навигацију</string>
+  <string name="drawer_close">Затвори панел за навигацију</string>
   <string name="check_for_updates_long">Провери ажурирања</string>
   <string name="all_up_to_date">Користите последњу верзију софтвера!</string>
   <string name="rom_scanning">Провера системских ажурирања...</string>
@@ -80,6 +82,7 @@
   <string name="alert_reboot_now">Инсталирај сада</string>
   <string name="file_not_found">Немогуће додати фајл</string>
   <string name="changelog">Дневник измена</string>
+  <string name="google_plus">Гоогле+</string>
   <string name="download_card_title">Преузимам системско ажурирање</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Прекини преузимање</string>

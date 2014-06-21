@@ -76,14 +76,14 @@
   <string name="boot">Boot</string>
   <string name="androidsecure">Android seguro</string>
   <string name="sdext">SD-Ext</string>
-  <string name="alert_reboot_install_title">Instalar atualizações</string>
+  <string name="alert_reboot_install_title">Instalar atualização(ões)</string>
   <string name="alert_reboot_one_message">Seu dispositivo irá reiniciar e instalar a atualização.</string>
   <string name="alert_reboot_more_message">Seu dispositivo irá reiniciar e instalar as atualizações.</string>
   <string name="alert_reboot_now">Instalar agora</string>
   <string name="file_not_found">Não foi possível adicionar o arquivo</string>
   <string name="changelog">Relatório de alterações</string>
   <string name="google_plus">Google+</string>
-  <string name="download_card_title">Baixando atualização de sistema</string>
+  <string name="download_card_title">Baixando atualização do sistema</string>
   <string name="download_title">%1$s</string>
   <string name="cancel_download_alert_title">Cancelar download</string>
   <string name="cancel_rom_download_alert_summary">Você quer cancelar o download atual da ROM?</string>
@@ -102,7 +102,7 @@
   <string name="error_file_already_exists">Erro: Arquivo já existe</string>
   <string name="error_file_error">Erro: Erro de armazenamento</string>
   <string name="error_http_data_error">Erro: Erro de Http</string>
-  <string name="error_insufficient_space">Erro: Não há espaço suficiente</string>
+  <string name="error_insufficient_space">Erro: Nenhum espaço restante</string>
   <string name="error_too_many_redirects">Erro: Muitos redirecionamentos</string>
   <string name="error_unhandled_http_code">Erro: Código http não tratado</string>
   <string name="error_unknown">Erro: desconhecido</string>
@@ -115,7 +115,7 @@
   <string name="settings_checkgapps_title">Buscar por Google apps</string>
   <string name="settings_checkgapps_summary">Buscar também por aplicativos do Google específicos da PA</string>
   <string name="settings_gappstype_title">Tipo de Google apps</string>
-  <string name="settings_gappstype_summary">Escolha entre os pacotes: completo, mini, micro e stock de gapps</string>
+  <string name="settings_gappstype_summary">Escolha entre os pacotes completo, mini, micro e stock de aplicativos do Google</string>
   <string name="gapps_type_full">Pacote completo</string>
   <string name="gapps_type_mini">Pacote mini</string>
   <string name="gapps_type_stock">Pacote stock</string>
@@ -133,7 +133,7 @@
   <string name="logged_out">Desconectado de goo.im</string>
   <string name="logged_in">Logado como %1$s</string>
   <string name="logging_in">Fazendo login em goo.im...</string>
-  <string name="error_logging_invalid">Nome de usuário/senha inválida</string>
+  <string name="error_logging_invalid">Nome de usuário/senha inválidos</string>
   <string name="error_logging_down">Incapaz de alcançar o servidor</string>
   <string name="error_logging_in">Erro desconhecido ao fazer login</string>
 </resources>
