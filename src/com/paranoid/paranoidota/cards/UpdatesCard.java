@@ -20,6 +20,7 @@
 package com.paranoid.paranoidota.cards;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
@@ -75,8 +76,11 @@ public class UpdatesCard extends Card implements UpdaterListener, OnCheckedChang
         mGappsUpdater.addUpdaterListener(this);
 
         if (savedInstanceState != null) {
-            mRomUpdater.setLastUpdates((PackageInfo[]) savedInstanceState.getSerializable(ROMS));
-            mGappsUpdater.setLastUpdates((PackageInfo[]) savedInstanceState.getSerializable(GAPPS));
+            List<PackageInfo> mRoms = (List) savedInstanceState.getSerializable(ROMS);
+            List<PackageInfo> mGapps = (List) savedInstanceState.getSerializable(GAPPS);
+
+            mRomUpdater.setLastUpdates(mRoms.toArray(new PackageInfo[mRoms.size()]));
+            mGappsUpdater.setLastUpdates(mGapps.toArray(new PackageInfo[mGapps.size()]));
         }
 
         setLayoutId(R.layout.card_updates);
@@ -143,8 +147,14 @@ public class UpdatesCard extends Card implements UpdaterListener, OnCheckedChang
     @Override
     public void saveState(Bundle outState) {
         super.saveState(outState);
-        outState.putSerializable(ROMS, mRomUpdater.getLastUpdates());
-        outState.putSerializable(GAPPS, mGappsUpdater.getLastUpdates());
+        ArrayList<PackageInfo> mRoms = new ArrayList<PackageInfo>();
+        ArrayList<PackageInfo> mGapps = new ArrayList<PackageInfo>();
+
+        mRoms.addAll(Arrays.asList(mRomUpdater.getLastUpdates()));
+        mGapps.addAll(Arrays.asList(mGappsUpdater.getLastUpdates()));
+
+        outState.putSerializable(ROMS, mRoms);
+        outState.putSerializable(GAPPS, mGapps);
     }
 
     private void updateText() {
