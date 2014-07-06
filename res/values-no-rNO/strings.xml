@@ -28,7 +28,7 @@
   <string name="check_for_updates_long">Se etter oppdateringer</string>
   <string name="all_up_to_date">Du er oppdatert!</string>
   <string name="rom_scanning">Ser etter system oppdateringer...</string>
-  <string name="rom_gapps_new_version">Systemoppdatering tilgjengelig!</string>
+  <string name="rom_gapps_new_version">Systemoppdateringer tilgjengelig!</string>
   <string name="rom_new_version">Ny ROM oppdatering tilgjengelig!</string>
   <string name="gapps_new_version">Ny Google apps oppdatering tilgjengelig!</string>
   <string name="no_updates">Ingen systemoppdateringer tilgjengelig</string>
@@ -39,7 +39,7 @@
   <string name="system_recovery">Recovery versjon: %1$s</string>
   <string name="system_recovery_unknown">Ukjent</string>
   <string name="updates">Oppdateringer</string>
-  <string name="updates_checking">Søker...</string>
+  <string name="updates_checking">Sjekker...</string>
   <string name="updates_error">Feil</string>
   <string name="updates_found">Systemoppdatering tilgjengelig</string>
   <string name="updates_uptodate">Alt er oppdatert</string>

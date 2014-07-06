@@ -24,7 +24,7 @@
   <string name="check_for_updates">Denetle</string>
   <string name="no_additional_info">Ek bilgi yok</string>
   <string name="drawer_open">Gezinti çekmecesini aç</string>
-  <string name="drawer_close">Gezinti çekmecesini kapa</string>
+  <string name="drawer_close">Gezinti çekmecesini kapat</string>
   <string name="check_for_updates_long">Güncellemeleri denetle</string>
   <string name="all_up_to_date">Sisteminiz güncel!</string>
   <string name="rom_scanning">Sistem güncellemeleri denetleniyor...</string>
