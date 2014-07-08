@@ -19,9 +19,6 @@
 
 package com.paranoid.paranoidota.helpers;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -37,6 +34,9 @@ import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 public class RebootHelper {
 
     private RecoveryHelper mRecoveryHelper;
@@ -46,7 +46,7 @@ public class RebootHelper {
     }
 
     private void showBackupDialog(final Context context, final String[] items,
-            final boolean wipeData, final boolean wipeCaches) {
+                                  final boolean wipeData, final boolean wipeCaches) {
 
         double spaceLeft = IOUtils.getSpaceLeft();
         if (spaceLeft < 1.0) {
@@ -70,7 +70,8 @@ public class RebootHelper {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
-                    });
+                    }
+            );
             alert.show();
         } else {
             reallyShowBackupDialog(context, items, wipeData, wipeCaches);
@@ -78,7 +79,7 @@ public class RebootHelper {
     }
 
     private void reallyShowBackupDialog(final Context context, final String[] items,
-            final boolean wipeData, final boolean wipeCaches) {
+                                        final boolean wipeData, final boolean wipeCaches) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle(R.string.alert_backup_title);
@@ -150,7 +151,7 @@ public class RebootHelper {
     }
 
     public void showRebootDialog(final Context context, final String[] items, final boolean backup,
-            final boolean wipeData, final boolean wipeCaches) {
+                                 final boolean wipeData, final boolean wipeCaches) {
 
         if (items == null || items.length == 0) {
             return;
@@ -190,14 +191,14 @@ public class RebootHelper {
     }
 
     private void reboot(final Context context, final String[] items, final boolean wipeData,
-            final boolean wipeCaches, final String backupFolder, final String backupOptions) {
+                        final boolean wipeCaches, final String backupFolder, final String backupOptions) {
 
         try {
 
             File f = new File("/cache/recovery/command");
             f.delete();
 
-            int[] recoveries = new int[] { Utils.TWRP, Utils.CWM_BASED };
+            int[] recoveries = new int[]{Utils.TWRP, Utils.CWM_BASED};
 
             for (int i = 0; i < recoveries.length; i++) {
                 String file = mRecoveryHelper.getCommandsFile(recoveries[i]);

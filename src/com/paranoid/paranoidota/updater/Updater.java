@@ -19,12 +19,6 @@
 
 package com.paranoid.paranoidota.updater;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Context;
 
@@ -37,6 +31,12 @@ import com.android.volley.toolbox.Volley;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
+
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Updater implements Response.Listener<JSONObject>, Response.ErrorListener {
 

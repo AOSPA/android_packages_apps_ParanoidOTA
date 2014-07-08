@@ -19,6 +19,10 @@
 
 package com.paranoid.paranoidota;
 
+import android.content.Context;
+import android.os.Environment;
+import android.os.StatFs;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -27,10 +31,6 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
-
-import android.content.Context;
-import android.os.Environment;
-import android.os.StatFs;
 
 public class IOUtils {
 
@@ -59,11 +59,11 @@ public class IOUtils {
         File downloads = initSettingsHelper(context);
         ArrayList<String> list = new ArrayList<String>();
         try {
-        for(File f : downloads.listFiles()) {
-            if(isRom(f.getName())) {
-                list.add(f.getName());
+            for (File f : downloads.listFiles()) {
+                if (isRom(f.getName())) {
+                    list.add(f.getName());
+                }
             }
-        }
         } catch (NullPointerException e) {
             //blah
         }
@@ -73,8 +73,8 @@ public class IOUtils {
     public static String[] getDownloadSizes(Context context) {
         File downloads = initSettingsHelper(context);
         ArrayList<String> list = new ArrayList<String>();
-        for(File f : downloads.listFiles()) {
-            if(isRom(f.getName())) {
+        for (File f : downloads.listFiles()) {
+            if (isRom(f.getName())) {
                 list.add(humanReadableByteCount(f.length(), false));
             }
         }
@@ -83,8 +83,8 @@ public class IOUtils {
 
     public static String getDownloadSize(Context context, String fileName) {
         File downloads = initSettingsHelper(context);
-        for(String file : getDownloadList(context)) {
-            if(fileName.equals(file)) {
+        for (String file : getDownloadList(context)) {
+            if (fileName.equals(file)) {
                 File f = new File(downloads, fileName);
                 return humanReadableByteCount(f.length(), false);
             }
@@ -93,8 +93,8 @@ public class IOUtils {
     }
 
     public static boolean isOnDownloadList(Context context, String fileName) {
-        for(String file : getDownloadList(context)) {
-            if(fileName.equals(file)) return true;
+        for (String file : getDownloadList(context)) {
+            if (fileName.equals(file)) return true;
         }
         return false;
     }
@@ -125,7 +125,7 @@ public class IOUtils {
     }
 
     private static void readMounts(Context context) {
-        if(sSdcardsChecked) {
+        if (sSdcardsChecked) {
             return;
         }
 
@@ -261,7 +261,7 @@ public class IOUtils {
         int unit = si ? 1000 : 1024;
         if (bytes < unit) return bytes + " B";
         int exp = (int) (Math.log(bytes) / Math.log(unit));
-        String pre = (si ? "kMG" : "KMG").charAt(exp-1) + (si ? "" : "i");
+        String pre = (si ? "kMG" : "KMG").charAt(exp - 1) + (si ? "" : "i");
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre).replace(",", ".");
     }
 

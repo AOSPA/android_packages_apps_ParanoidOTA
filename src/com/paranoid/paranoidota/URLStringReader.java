@@ -19,18 +19,19 @@
 
 package com.paranoid.paranoidota;
 
+import android.os.AsyncTask;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-
-import android.os.AsyncTask;
 
 public class URLStringReader extends AsyncTask<String, Void, Void> {
 
     public static interface URLStringReaderListener {
 
         public void onReadEnd(String buffer);
+
         public void onReadError(Exception ex);
     }
 

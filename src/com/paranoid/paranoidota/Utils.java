@@ -19,19 +19,6 @@
 
 package com.paranoid.paranoidota;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Properties;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -54,6 +41,19 @@ import android.widget.Toast;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.updater.Updater;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
 
 public class Utils {
 
@@ -105,18 +105,19 @@ public class Utils {
     public static boolean setPermissions(String path, int mode, int uid, int gid) {
         try {
             Class<?> FileUtils = Utils.class.getClassLoader().loadClass("android.os.FileUtils");
-            Method setPermissions = FileUtils.getDeclaredMethod("setPermissions", new Class[] {
+            Method setPermissions = FileUtils.getDeclaredMethod("setPermissions", new Class[]{
                     String.class,
                     int.class,
                     int.class,
-                    int.class });
+                    int.class});
             return ((Integer) setPermissions.invoke(
                     null,
-                    new Object[] {
+                    new Object[]{
                             path,
                             Integer.valueOf(mode),
                             Integer.valueOf(uid),
-                            Integer.valueOf(gid) }) == 0);
+                            Integer.valueOf(gid)}
+            ) == 0);
         } catch (Exception e) {
             // A lot of voodoo could go wrong here, return failure instead of
             // crash
@@ -144,7 +145,7 @@ public class Utils {
                 return number;
             }
             String newDateStr = postFormater.format(dateObj);
-    
+
             StringBuilder b = new StringBuilder(newDateStr);
             int i = 0;
             do {
@@ -210,8 +211,9 @@ public class Utils {
 
     public static boolean alarmExists(Context context, boolean isRom) {
         return (PendingIntent.getBroadcast(context, isRom ? ROM_ALARM_ID
-                : GAPPS_ALARM_ID, new Intent(context, NotificationAlarm.class),
-                PendingIntent.FLAG_NO_CREATE) != null);
+                        : GAPPS_ALARM_ID, new Intent(context, NotificationAlarm.class),
+                PendingIntent.FLAG_NO_CREATE
+        ) != null);
     }
 
     public static void showToastOnUiThread(final Context context, final int resourceId) {
@@ -233,7 +235,7 @@ public class Utils {
     }
 
     public static void showNotification(Context context, Updater.PackageInfo[] infosRom,
-            Updater.PackageInfo[] infosGapps) {
+                                        Updater.PackageInfo[] infosGapps) {
         Resources resources = context.getResources();
 
         if (infosRom != null) {
@@ -266,10 +268,10 @@ public class Utils {
         if (infosRom.length + infosGapps.length == 1) {
             String filename = infosRom.length == 1 ? infosRom[0].getFilename() : infosGapps[0]
                     .getFilename();
-            contextText = resources.getString(R.string.new_package_name, new Object[] { filename });
+            contextText = resources.getString(R.string.new_package_name, new Object[]{filename});
         } else {
-            contextText = resources.getString(R.string.new_packages, new Object[] { infosRom.length
-                    + infosGapps.length });
+            contextText = resources.getString(R.string.new_packages, new Object[]{infosRom.length
+                    + infosGapps.length});
         }
         builder.setContentText(contextText);
 

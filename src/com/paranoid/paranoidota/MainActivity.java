@@ -19,9 +19,6 @@
 
 package com.paranoid.paranoidota;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
@@ -66,6 +63,9 @@ import com.paranoid.paranoidota.updater.Updater;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 import com.paranoid.paranoidota.updater.Updater.UpdaterListener;
 import com.paranoid.paranoidota.widget.Card;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends Activity implements UpdaterListener, DownloadCallback, OnItemClickListener {
 
@@ -123,7 +123,7 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
         itemText.add(res.getString(R.string.changelog));
         itemText.add(res.getString(R.string.settings));
 
-        final Drawable[] icons = new Drawable[] {null, null, null, null, res.getDrawable(R.drawable.ic_settings)};
+        final Drawable[] icons = new Drawable[]{null, null, null, null, res.getDrawable(R.drawable.ic_settings)};
 
         mCardsLayout = (LinearLayout) findViewById(R.id.cards_layout);
         mTitle = (TextView) findViewById(R.id.header);
@@ -246,14 +246,14 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
         super.onSaveInstanceState(outState);
         outState.putInt(STATE, mState);
         switch (mState) {
-            case STATE_UPDATES :
+            case STATE_UPDATES:
                 mSystemCard.saveState(outState);
                 mUpdatesCard.saveState(outState);
                 break;
-            case STATE_DOWNLOAD :
+            case STATE_DOWNLOAD:
                 mDownloadCard.saveState(outState);
                 break;
-            case STATE_INSTALL :
+            case STATE_INSTALL:
                 mInstallCard.saveState(outState);
                 break;
         }
@@ -279,27 +279,27 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
-            case 0 :
+            case 0:
                 if (mState == STATE_UPDATES || mState == STATE_DOWNLOAD) {
                     break;
                 }
                 setState(STATE_UPDATES, true, false);
                 break;
-            case 1 :
+            case 1:
                 if (mState == STATE_INSTALL) {
                     break;
                 }
                 setState(STATE_INSTALL, true, false);
                 break;
-            case 2 :
+            case 2:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLEPLUS));
                 startActivity(browserIntent);
                 break;
-            case 3 :
+            case 3:
                 browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(CHANGELOG));
                 startActivity(browserIntent);
                 break;
-            case 4 :
+            case 4:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -363,10 +363,10 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
     }
 
     public void setState(int state, boolean animate, PackageInfo[] infos,
-            Uri uri, String md5, boolean isRom, boolean fromRotation) {
+                         Uri uri, String md5, boolean isRom, boolean fromRotation) {
         mState = state;
         switch (state) {
-            case STATE_UPDATES :
+            case STATE_UPDATES:
                 if (mSystemCard == null) {
                     mSystemCard = new SystemCard(mContext, null, mRomUpdater, mGappsUpdater,
                             mSavedInstanceState);
@@ -375,25 +375,25 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
                     mUpdatesCard = new UpdatesCard(mContext, null, mRomUpdater, mGappsUpdater,
                             mSavedInstanceState);
                 }
-                addCards(new Card[] { mSystemCard,  mUpdatesCard }, animate, true);
+                addCards(new Card[]{mSystemCard, mUpdatesCard}, animate, true);
                 break;
-            case STATE_DOWNLOAD :
+            case STATE_DOWNLOAD:
                 if (mDownloadCard == null) {
                     mDownloadCard = new DownloadCard(mContext, null, infos, mSavedInstanceState);
                 } else {
                     mDownloadCard.setInitialInfos(infos);
                 }
-                addCards(new Card[] { mDownloadCard }, animate, true);
+                addCards(new Card[]{mDownloadCard}, animate, true);
                 break;
-            case STATE_INSTALL :
+            case STATE_INSTALL:
                 if (mInstallCard == null) {
                     mInstallCard = new InstallCard(mContext, null, mRebootHelper,
                             mSavedInstanceState);
                 }
                 if (!DownloadHelper.isDownloading(!isRom)) {
-                    addCards(new Card[] {mInstallCard}, !fromRotation, true);
+                    addCards(new Card[]{mInstallCard}, !fromRotation, true);
                 } else {
-                    addCards(new Card[] {mInstallCard}, true, false);
+                    addCards(new Card[]{mInstallCard}, true, false);
                 }
                 if (uri != null) {
                     mInstallCard.addFile(uri, md5);
@@ -412,7 +412,7 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
         if (animate) {
             mCardsLayout.setAnimation(AnimationUtils.loadAnimation(this, R.anim.up_from_bottom));
         }
-        for (Card card: cards){
+        for (Card card : cards) {
             mCardsLayout.addView(card);
         }
     }
@@ -454,10 +454,10 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
 
     private void updateTitle() {
         switch (mState) {
-            case STATE_UPDATES :
+            case STATE_UPDATES:
                 mTitle.setText(R.string.updates);
                 break;
-            case STATE_INSTALL :
+            case STATE_INSTALL:
                 mTitle.setText(R.string.install);
                 break;
         }

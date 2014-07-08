@@ -19,10 +19,6 @@
 
 package com.paranoid.paranoidota.cards;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -31,9 +27,9 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ProgressBar;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.paranoid.paranoidota.MainActivity;
@@ -46,6 +42,10 @@ import com.paranoid.paranoidota.updater.Updater.UpdaterListener;
 import com.paranoid.paranoidota.widget.Card;
 import com.paranoid.paranoidota.widget.Item;
 import com.paranoid.paranoidota.widget.Item.OnItemClickListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class UpdatesCard extends Card implements UpdaterListener, OnCheckedChangeListener {
 
@@ -67,7 +67,7 @@ public class UpdatesCard extends Card implements UpdaterListener, OnCheckedChang
     private int mNumChecked = 0;
 
     public UpdatesCard(Context context, AttributeSet attrs, RomUpdater romUpdater,
-            GappsUpdater gappsUpdater, Bundle savedInstanceState) {
+                       GappsUpdater gappsUpdater, Bundle savedInstanceState) {
         super(context, attrs, savedInstanceState);
 
         mRomUpdater = romUpdater;

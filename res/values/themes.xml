@@ -25,14 +25,12 @@
         <item name="android:checkboxStyle">@style/Checkbox</item>
     </style>
 
-    <style name="ActionBar" 
-            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+    <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/actionbar_background</item>
         <item name="android:icon">@drawable/ic_launcher_plain</item>
     </style>
 
-    <style name="Checkbox"
-            parent="@android:style/Widget.Holo.Light.CompoundButton.CheckBox">
+    <style name="Checkbox" parent="@android:style/Widget.Holo.Light.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox</item>
     </style>
 

@@ -19,15 +19,6 @@
 
 package com.paranoid.paranoidota.updater.server;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 
 import com.paranoid.paranoidota.R;
@@ -37,9 +28,18 @@ import com.paranoid.paranoidota.updater.Server;
 import com.paranoid.paranoidota.updater.UpdatePackage;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class GooServer implements Server {
 
-    private static final String URL = "http://goo.im/json2&path=/devs/paranoidandroid/roms/%s&ro_board=%s";
+    private static final String URL = "https://goo.im/json2&path=/devs/paranoidandroid/roms/%s&ro_board=%s";
     private static final String GAPPS_RESERVED_WORDS = "-signed|-modular|-full|-mini|-micro|-stock";
 
     private Context mContext;
@@ -57,7 +57,7 @@ public class GooServer implements Server {
     public String getUrl(String device, Version version) {
         mDevice = device;
         mVersion = version;
-        return String.format(URL, new Object[] { device, device });
+        return String.format(URL, new Object[]{device, device});
     }
 
     @Override
@@ -89,7 +89,7 @@ public class GooServer implements Server {
                         String part = parts[parts.length - 1];
                         isNew = Utils.isNumeric(part)
                                 || Utils.isNumeric(part.substring(0,
-                                        part.length() - 1));
+                                part.length() - 1));
                         if (!isNew) {
                             continue;
                         }
@@ -100,9 +100,10 @@ public class GooServer implements Server {
                 Version version = new Version(filename);
                 if (Version.compare(mVersion, version) < 0) {
                     list.add(new UpdatePackage(mDevice, filename, version, file
-                            .getLong("filesize"), "http://goo.im"
+                            .getLong("filesize"), "https://goo.im"
                             + file.getString("path"), file.getString("md5"),
-                            !mIsRom));
+                            !mIsRom
+                    ));
                 }
             }
         }

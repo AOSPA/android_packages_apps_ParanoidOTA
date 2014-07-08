@@ -20,10 +20,9 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
 
-    <com.paranoid.paranoidota.widget.PreferenceCategory
-        android:title="@string/settings" >
+    <com.paranoid.paranoidota.widget.PreferenceCategory android:title="@string/settings">
 
         <com.paranoid.paranoidota.widget.ListPreference
             android:key="checktime"

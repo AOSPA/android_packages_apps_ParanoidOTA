@@ -19,9 +19,6 @@
 
 package com.paranoid.paranoidota.activities;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -44,6 +41,9 @@ import com.paranoid.paranoidota.URLStringReader.URLStringReaderListener;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.widget.Preference;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class SettingsActivity extends PreferenceActivity implements
         OnSharedPreferenceChangeListener {
@@ -85,7 +85,7 @@ public class SettingsActivity extends PreferenceActivity implements
     @Override
     @Deprecated
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-            android.preference.Preference preference) {
+                                         android.preference.Preference preference) {
         if (preference.getKey().equals("goo")) {
             if (mSettingsHelper.isLogged()) {
                 mSettingsHelper.logout();
@@ -178,7 +178,8 @@ public class SettingsActivity extends PreferenceActivity implements
                                         Utils.showToastOnUiThread(
                                                 SettingsActivity.this,
                                                 getResources().getString(R.string.logged_in,
-                                                        mSettingsHelper.getLoginUserName()));
+                                                        mSettingsHelper.getLoginUserName())
+                                        );
                                         updateSummaries();
                                     } else if (buffer != null) {
                                         Utils.showToastOnUiThread(SettingsActivity.this,

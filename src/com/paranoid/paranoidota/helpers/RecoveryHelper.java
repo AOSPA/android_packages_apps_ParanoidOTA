@@ -19,11 +19,7 @@
 
 package com.paranoid.paranoidota.helpers;
 
-import java.io.File;
-import java.util.Scanner;
-
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.util.SparseArray;
 
 import com.paranoid.paranoidota.IOUtils;
@@ -73,20 +69,20 @@ public class RecoveryHelper {
         String primarySdcard = IOUtils.getPrimarySdCard();
         String secondarySdcard = IOUtils.getSecondarySdCard();
 
-        String[] internalNames = new String[] {
+        String[] internalNames = new String[]{
                 primarySdcard,
                 "/mnt/sdcard",
                 "/storage/sdcard/",
                 "/sdcard",
                 "/storage/sdcard0",
-                "/storage/emulated/0" };
-        String[] externalNames = new String[] {
+                "/storage/emulated/0"};
+        String[] externalNames = new String[]{
                 secondarySdcard == null ? " " : secondarySdcard,
                 "/mnt/extSdCard",
                 "/storage/extSdCard/",
                 "/extSdCard",
                 "/storage/sdcard1",
-                "/storage/emulated/1" };
+                "/storage/emulated/1"};
         for (int i = 0; i < internalNames.length; i++) {
             String internalName = internalNames[i];
             String externalName = externalNames[i];
@@ -107,7 +103,7 @@ public class RecoveryHelper {
     }
 
     public String[] getCommands(int id, String[] items, String[] originalItems, boolean wipeData,
-            boolean wipeCaches, String backupFolder, String backupOptions) throws Exception {
+                                boolean wipeCaches, String backupFolder, String backupOptions) throws Exception {
 
         RecoveryInfo info = getRecovery(id);
 

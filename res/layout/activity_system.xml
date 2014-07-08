@@ -24,7 +24,7 @@
     android:layout_height="match_parent"
     android:background="?android:attr/windowBackground"
     android:orientation="vertical"
-    android:padding="40dp" >
+    android:padding="40dp">
 
     <TextView
         android:id="@+id/title"

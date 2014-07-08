@@ -33,7 +33,7 @@ import com.paranoid.paranoidota.widget.Card;
 public class SystemCard extends Card {
 
     public SystemCard(Context context, AttributeSet attrs, RomUpdater romUpdater,
-            GappsUpdater gappsUpdater, Bundle savedInstanceState) {
+                      GappsUpdater gappsUpdater, Bundle savedInstanceState) {
         super(context, attrs, savedInstanceState);
 
         setTitle(R.string.system_title);

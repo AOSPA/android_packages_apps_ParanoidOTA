@@ -19,12 +19,6 @@
 
 package com.paranoid.paranoidota.helpers;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.app.DownloadManager.Request;
@@ -38,6 +32,12 @@ import android.os.Handler;
 
 import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class DownloadHelper {
 
@@ -72,13 +72,13 @@ public class DownloadHelper {
             long idRom = sSettingsHelper.getDownloadRomId();
             long idGapps = sSettingsHelper.getDownloadGappsId();
 
-            long[] statusRom = sDownloadingRom ? getDownloadProgress(idRom, true) : new long[] {
+            long[] statusRom = sDownloadingRom ? getDownloadProgress(idRom, true) : new long[]{
                     DownloadManager.STATUS_SUCCESSFUL,
                     0,
                     0,
-                    -1 };
+                    -1};
             long[] statusGapps = sDownloadingGapps ? getDownloadProgress(idGapps, false)
-                    : new long[] { DownloadManager.STATUS_SUCCESSFUL, 0, 0, -1 };
+                    : new long[]{DownloadManager.STATUS_SUCCESSFUL, 0, 0, -1};
 
             int status = DownloadManager.STATUS_SUCCESSFUL;
             if (statusRom[0] == DownloadManager.STATUS_FAILED
@@ -159,7 +159,7 @@ public class DownloadHelper {
     }
 
     private static void checkDownloadFinished(long downloadId, boolean isRom,
-            boolean installIfFinished) {
+                                              boolean installIfFinished) {
         long id = isRom ? sSettingsHelper.getDownloadRomId() : sSettingsHelper.getDownloadGappsId();
         if (id == -1L || (downloadId != 0 && downloadId != id)) {
             return;
@@ -215,7 +215,7 @@ public class DownloadHelper {
     }
 
     public static void downloadFile(final String url, final String fileName, final String md5,
-            final boolean isRom) {
+                                    final boolean isRom) {
 
         sUpdateHandler.post(sUpdateProgress);
         sCallback.onDownloadStarted();
@@ -263,7 +263,7 @@ public class DownloadHelper {
                         return null;
                     }
 
-                }.execute((Void)null);
+                }.execute((Void) null);
             }
 
         } else {
@@ -277,7 +277,7 @@ public class DownloadHelper {
         request.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setVisibleInDownloadsUi(false);
         request.setTitle(sContext.getResources().getString(R.string.download_title,
-                new Object[] { fileName }));
+                new Object[]{fileName}));
         File file = new File(IOUtils.DOWNLOAD_PATH);
         if (!file.exists()) {
             file.mkdirs();
@@ -325,7 +325,8 @@ public class DownloadHelper {
                 .setTitle(R.string.cancel_download_alert_title)
                 .setMessage(
                         isRom ? R.string.cancel_rom_download_alert_summary
-                                : R.string.cancel_gapps_download_alert_summary)
+                                : R.string.cancel_gapps_download_alert_summary
+                )
                 .setPositiveButton(R.string.cancel_download_alert_yes,
                         new DialogInterface.OnClickListener() {
 
@@ -333,14 +334,16 @@ public class DownloadHelper {
                                 removeDownload(id, isRom, true);
                                 dialog.dismiss();
                             }
-                        })
+                        }
+                )
                 .setNegativeButton(R.string.cancel_download_alert_no,
                         new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.dismiss();
                             }
-                        }).show();
+                        }
+                ).show();
     }
 
     private static long[] getDownloadProgress(long id, boolean isRom) {
@@ -382,7 +385,7 @@ public class DownloadHelper {
             cursor.close();
         }
 
-        return new long[] { status, totalBytes, downloadedBytes, error };
+        return new long[]{status, totalBytes, downloadedBytes, error};
     }
 
     private static void checkIfDownloading() {
