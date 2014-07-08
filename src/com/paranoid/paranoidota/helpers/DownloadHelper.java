@@ -19,12 +19,6 @@
 
 package com.paranoid.paranoidota.helpers;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.app.DownloadManager.Request;
@@ -38,6 +32,12 @@ import android.os.Handler;
 
 import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class DownloadHelper {
 
@@ -76,9 +76,12 @@ public class DownloadHelper {
                     DownloadManager.STATUS_SUCCESSFUL,
                     0,
                     0,
-                    -1 };
+                    -1
+            };
             long[] statusGapps = sDownloadingGapps ? getDownloadProgress(idGapps, false)
-                    : new long[] { DownloadManager.STATUS_SUCCESSFUL, 0, 0, -1 };
+                    : new long[] {
+                            DownloadManager.STATUS_SUCCESSFUL, 0, 0, -1
+                    };
 
             int status = DownloadManager.STATUS_SUCCESSFUL;
             if (statusRom[0] == DownloadManager.STATUS_FAILED
@@ -263,7 +266,7 @@ public class DownloadHelper {
                         return null;
                     }
 
-                }.execute((Void)null);
+                }.execute((Void) null);
             }
 
         } else {
@@ -277,7 +280,9 @@ public class DownloadHelper {
         request.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setVisibleInDownloadsUi(false);
         request.setTitle(sContext.getResources().getString(R.string.download_title,
-                new Object[] { fileName }));
+                new Object[] {
+                    fileName
+                }));
         File file = new File(IOUtils.DOWNLOAD_PATH);
         if (!file.exists()) {
             file.mkdirs();
@@ -382,7 +387,9 @@ public class DownloadHelper {
             cursor.close();
         }
 
-        return new long[] { status, totalBytes, downloadedBytes, error };
+        return new long[] {
+                status, totalBytes, downloadedBytes, error
+        };
     }
 
     private static void checkIfDownloading() {

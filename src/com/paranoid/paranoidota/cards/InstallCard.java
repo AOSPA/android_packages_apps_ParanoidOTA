@@ -19,11 +19,6 @@
 
 package com.paranoid.paranoidota.cards;
 
-import java.io.File;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -39,13 +34,18 @@ import android.widget.LinearLayout;
 
 import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.R;
+import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.activities.RequestFileActivity;
 import com.paranoid.paranoidota.activities.RequestFileActivity.RequestFileCallback;
 import com.paranoid.paranoidota.helpers.RebootHelper;
-import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.widget.Card;
 import com.paranoid.paranoidota.widget.Item;
 import com.paranoid.paranoidota.widget.Item.OnItemClickListener;
+
+import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InstallCard extends Card implements RequestFileCallback {
 
@@ -215,7 +215,9 @@ public class InstallCard extends Card implements RequestFileCallback {
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
         alert.setTitle(R.string.md5_mismatch);
         alert.setMessage(getResources().getString(R.string.md5_mismatch_summary,
-                new Object[] { md5, calculated }));
+                new Object[] {
+                        md5, calculated
+                }));
         alert.setPositiveButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int whichButton) {

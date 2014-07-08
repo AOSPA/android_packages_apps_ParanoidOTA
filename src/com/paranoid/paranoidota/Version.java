@@ -45,8 +45,12 @@ import java.io.Serializable;
  */
 public class Version implements Serializable {
 
-    private final String[] STATIC_REMOVE = { ".zip", "pa_" };
-    private final String[] PHASES = { "ALPHA", "BETA", "RC", "" };
+    private final String[] STATIC_REMOVE = {
+            ".zip", "pa_"
+    };
+    private final String[] PHASES = {
+            "ALPHA", "BETA", "RC", ""
+    };
 
     private static final String SEPARATOR = "-";
 
@@ -68,7 +72,7 @@ public class Version implements Serializable {
 
     public Version(String fileName) {
 
-        for (String remove : STATIC_REMOVE){
+        for (String remove : STATIC_REMOVE) {
             fileName = fileName.replace(remove, "");
         }
 
@@ -77,7 +81,7 @@ public class Version implements Serializable {
         mDevice = split[0];
 
         // remove gapps extra names (modular, full, mini, etc)
-        while (split[1].matches ("\\w+\\.?")) {
+        while (split[1].matches("\\w+\\.?")) {
             String[] newSplit = new String[split.length - 1];
             newSplit[0] = split[0];
             for (int i = 2; i < split.length; i++) {

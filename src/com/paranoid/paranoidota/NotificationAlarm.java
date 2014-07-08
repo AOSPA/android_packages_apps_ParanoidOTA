@@ -19,12 +19,12 @@
 
 package com.paranoid.paranoidota;
 
-import com.paranoid.paranoidota.updater.GappsUpdater;
-import com.paranoid.paranoidota.updater.RomUpdater;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import com.paranoid.paranoidota.updater.GappsUpdater;
+import com.paranoid.paranoidota.updater.RomUpdater;
 
 public class NotificationAlarm extends BroadcastReceiver {
 

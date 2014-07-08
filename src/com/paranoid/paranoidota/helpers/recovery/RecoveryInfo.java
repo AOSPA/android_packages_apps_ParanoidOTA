@@ -66,5 +66,6 @@ public abstract class RecoveryInfo {
     public abstract String getCommandsFile();
 
     public abstract String[] getCommands(Context context, String[] items, String[] originalItems,
-            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions) throws Exception;
+            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions)
+            throws Exception;
 }

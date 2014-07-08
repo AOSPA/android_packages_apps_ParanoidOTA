@@ -19,12 +19,10 @@
 
 package com.paranoid.paranoidota.widget;
 
-import android.graphics.PorterDuff;
-import com.paranoid.paranoidota.R;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -34,6 +32,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.paranoid.paranoidota.R;
 
 public class Item extends LinearLayout {
 
@@ -90,8 +90,10 @@ public class Item extends LinearLayout {
                     return true;
                 }
 
-                Rect mViewRect = new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
-                boolean mTouchCancelled = !mViewRect.contains(view.getLeft() + (int) event.getX(), view.getTop() + (int) event.getY());
+                Rect mViewRect = new Rect(view.getLeft(), view.getTop(), view.getRight(),
+                        view.getBottom());
+                boolean mTouchCancelled = !mViewRect.contains(view.getLeft() + (int) event.getX(),
+                        view.getTop() + (int) event.getY());
 
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
