@@ -19,19 +19,6 @@
 
 package com.paranoid.paranoidota;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Properties;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -54,6 +41,19 @@ import android.widget.Toast;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
 import com.paranoid.paranoidota.updater.Updater;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
 
 public class Utils {
 
@@ -109,14 +109,16 @@ public class Utils {
                     String.class,
                     int.class,
                     int.class,
-                    int.class });
+                    int.class
+            });
             return ((Integer) setPermissions.invoke(
                     null,
                     new Object[] {
                             path,
                             Integer.valueOf(mode),
                             Integer.valueOf(uid),
-                            Integer.valueOf(gid) }) == 0);
+                            Integer.valueOf(gid)
+                    }) == 0);
         } catch (Exception e) {
             // A lot of voodoo could go wrong here, return failure instead of
             // crash
@@ -144,7 +146,7 @@ public class Utils {
                 return number;
             }
             String newDateStr = postFormater.format(dateObj);
-    
+
             StringBuilder b = new StringBuilder(newDateStr);
             int i = 0;
             do {
@@ -266,10 +268,14 @@ public class Utils {
         if (infosRom.length + infosGapps.length == 1) {
             String filename = infosRom.length == 1 ? infosRom[0].getFilename() : infosGapps[0]
                     .getFilename();
-            contextText = resources.getString(R.string.new_package_name, new Object[] { filename });
+            contextText = resources.getString(R.string.new_package_name, new Object[] {
+                filename
+            });
         } else {
-            contextText = resources.getString(R.string.new_packages, new Object[] { infosRom.length
-                    + infosGapps.length });
+            contextText = resources.getString(R.string.new_packages, new Object[] {
+                infosRom.length
+                        + infosGapps.length
+            });
         }
         builder.setContentText(contextText);
 

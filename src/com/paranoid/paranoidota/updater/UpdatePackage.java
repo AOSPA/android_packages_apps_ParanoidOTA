@@ -19,11 +19,11 @@
 
 package com.paranoid.paranoidota.updater;
 
-import java.io.Serializable;
-
 import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
+
+import java.io.Serializable;
 
 public class UpdatePackage implements PackageInfo, Serializable {
 

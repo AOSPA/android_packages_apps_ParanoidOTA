@@ -50,7 +50,8 @@ public class DownloadCard extends Card implements DownloadCallback {
     private PackageInfo[] mDownloading;
     private int mDownloadProgress = -1;
 
-    public DownloadCard(Context context, AttributeSet attrs, PackageInfo[] infos, Bundle savedInstanceState) {
+    public DownloadCard(Context context, AttributeSet attrs, PackageInfo[] infos,
+            Bundle savedInstanceState) {
         super(context, attrs, savedInstanceState);
 
         mActivity = (MainActivity) context;

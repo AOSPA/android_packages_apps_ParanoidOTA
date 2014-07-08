@@ -19,13 +19,6 @@
 
 package com.paranoid.paranoidota.activities;
 
-import java.io.File;
-import java.io.Serializable;
-import java.util.List;
-
-import com.paranoid.paranoidota.IOUtils;
-import com.paranoid.paranoidota.R;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -37,6 +30,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Toast;
+
+import com.paranoid.paranoidota.IOUtils;
+import com.paranoid.paranoidota.R;
+
+import java.io.File;
+import java.io.Serializable;
+import java.util.List;
 
 public class RequestFileActivity extends Activity {
 
