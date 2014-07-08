@@ -19,10 +19,6 @@
 
 package com.paranoid.paranoidota.cards;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -31,9 +27,9 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ProgressBar;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.paranoid.paranoidota.MainActivity;
@@ -46,6 +42,10 @@ import com.paranoid.paranoidota.updater.Updater.UpdaterListener;
 import com.paranoid.paranoidota.widget.Card;
 import com.paranoid.paranoidota.widget.Item;
 import com.paranoid.paranoidota.widget.Item.OnItemClickListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class UpdatesCard extends Card implements UpdaterListener, OnCheckedChangeListener {
 
@@ -293,21 +293,24 @@ public class UpdatesCard extends Card implements UpdaterListener, OnCheckedChang
             mLayout.addView(check);
             TextView text = new TextView(context);
             text.setText(packages[i].getFilename());
-            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.card_medium_text_size));
+            text.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    res.getDimension(R.dimen.card_medium_text_size));
             text.setTextColor(R.color.card_text);
             text.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT));
             mAdditional.addView(text);
             text = new TextView(context);
             text.setText(packages[i].getSize());
-            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.card_small_text_size));
+            text.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    res.getDimension(R.dimen.card_small_text_size));
             text.setTextColor(R.color.card_text);
             text.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT));
             mAdditional.addView(text);
             text = new TextView(context);
             text.setText(res.getString(R.string.update_host, packages[i].getHost()));
-            text.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.card_small_text_size));
+            text.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    res.getDimension(R.dimen.card_small_text_size));
             text.setTextColor(R.color.card_text);
             text.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT));

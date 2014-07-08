@@ -19,12 +19,12 @@
 
 package com.paranoid.paranoidota.updater;
 
-import java.util.List;
+import com.paranoid.paranoidota.Version;
+import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 
 import org.json.JSONObject;
 
-import com.paranoid.paranoidota.Version;
-import com.paranoid.paranoidota.updater.Updater.PackageInfo;
+import java.util.List;
 
 public interface Server {
 

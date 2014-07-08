@@ -19,13 +19,6 @@
 
 package com.paranoid.paranoidota.activities;
 
-import com.paranoid.paranoidota.R;
-import com.paranoid.paranoidota.Utils;
-import com.paranoid.paranoidota.updater.GappsUpdater;
-import com.paranoid.paranoidota.updater.RomUpdater;
-import com.paranoid.paranoidota.updater.Updater.PackageInfo;
-import com.paranoid.paranoidota.updater.Updater.UpdaterListener;
-
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -33,6 +26,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.paranoid.paranoidota.R;
+import com.paranoid.paranoidota.Utils;
+import com.paranoid.paranoidota.updater.GappsUpdater;
+import com.paranoid.paranoidota.updater.RomUpdater;
+import com.paranoid.paranoidota.updater.Updater.PackageInfo;
+import com.paranoid.paranoidota.updater.Updater.UpdaterListener;
 
 public class SystemActivity extends Activity implements UpdaterListener {
 
@@ -114,15 +114,21 @@ public class SystemActivity extends Activity implements UpdaterListener {
             if (mRom != null && mGapps != null) {
                 mTitle.setText(R.string.rom_gapps_new_version);
                 mMessage.setText(res.getString(R.string.system_update_found,
-                        new Object[] { mRom.getFilename() + "\n" + mGapps.getFilename() }));
+                        new Object[] {
+                            mRom.getFilename() + "\n" + mGapps.getFilename()
+                        }));
             } else if (mRom != null) {
                 mTitle.setText(R.string.rom_new_version);
                 mMessage.setText(res.getString(R.string.system_update_found,
-                        new Object[] { mRom.getFilename() }));
+                        new Object[] {
+                            mRom.getFilename()
+                        }));
             } else if (mGapps != null) {
                 mTitle.setText(R.string.gapps_new_version);
                 mMessage.setText(res.getString(R.string.system_update_found,
-                        new Object[] { mGapps.getFilename() }));
+                        new Object[] {
+                            mGapps.getFilename()
+                        }));
             } else {
                 mTitle.setText(R.string.all_up_to_date);
                 mMessage.setText(R.string.no_updates);

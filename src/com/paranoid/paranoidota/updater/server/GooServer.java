@@ -19,15 +19,6 @@
 
 package com.paranoid.paranoidota.updater.server;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 
 import com.paranoid.paranoidota.R;
@@ -36,6 +27,15 @@ import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.updater.Server;
 import com.paranoid.paranoidota.updater.UpdatePackage;
 import com.paranoid.paranoidota.updater.Updater.PackageInfo;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class GooServer implements Server {
 
@@ -57,7 +57,9 @@ public class GooServer implements Server {
     public String getUrl(String device, Version version) {
         mDevice = device;
         mVersion = version;
-        return String.format(URL, new Object[] { device, device });
+        return String.format(URL, new Object[] {
+                device, device
+        });
     }
 
     @Override

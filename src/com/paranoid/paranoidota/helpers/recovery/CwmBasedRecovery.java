@@ -19,9 +19,6 @@
 
 package com.paranoid.paranoidota.helpers.recovery;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
@@ -29,6 +26,9 @@ import android.os.storage.StorageManager;
 
 import com.paranoid.paranoidota.IOUtils;
 import com.paranoid.paranoidota.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CwmBasedRecovery extends RecoveryInfo {
 
@@ -48,7 +48,8 @@ public class CwmBasedRecovery extends RecoveryInfo {
 
     @Override
     public String[] getCommands(Context context, String[] items, String[] originalItems,
-            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions) throws Exception {
+            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions)
+            throws Exception {
 
         List<String> commands = new ArrayList<String>();
 

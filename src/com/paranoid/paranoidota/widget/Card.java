@@ -31,7 +31,6 @@ import android.widget.TextView;
 
 import com.paranoid.paranoidota.R;
 
-
 public abstract class Card extends LinearLayout {
 
     private Context mContext;
