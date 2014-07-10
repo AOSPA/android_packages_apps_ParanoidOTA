@@ -81,7 +81,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
 
     private Context mContext;
     private Server[] mServers;
-    private PackageInfo[] mLastUpdates;
+    private PackageInfo[] mLastUpdates = new PackageInfo[0];
     private List<UpdaterListener> mListeners = new ArrayList<UpdaterListener>();
     private RequestQueue mQueue;
     private SettingsHelper mSettingsHelper;
@@ -119,6 +119,9 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
     }
 
     public void setLastUpdates(PackageInfo[] infos) {
+        if (infos == null) {
+            infos = new PackageInfo[0];
+        }
         mLastUpdates = infos;
     }
 
