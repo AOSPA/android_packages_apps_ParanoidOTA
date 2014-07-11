@@ -269,12 +269,12 @@ public class Utils {
             String filename = infosRom.length == 1 ? infosRom[0].getFilename() : infosGapps[0]
                     .getFilename();
             contextText = resources.getString(R.string.new_package_name, new Object[] {
-                filename
+                    filename
             });
         } else {
             contextText = resources.getString(R.string.new_packages, new Object[] {
-                infosRom.length
-                        + infosGapps.length
+                    infosRom.length
+                            + infosGapps.length
             });
         }
         builder.setContentText(contextText);

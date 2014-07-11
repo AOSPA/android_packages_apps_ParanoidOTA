@@ -390,7 +390,7 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
                     mDownloadCard.setInitialInfos(infos);
                 }
                 addCards(new Card[] {
-                    mDownloadCard
+                        mDownloadCard
                 }, animate, true);
                 break;
             case STATE_INSTALL:
@@ -400,11 +400,11 @@ public class MainActivity extends Activity implements UpdaterListener, DownloadC
                 }
                 if (!DownloadHelper.isDownloading(!isRom)) {
                     addCards(new Card[] {
-                        mInstallCard
+                            mInstallCard
                     }, !fromRotation, true);
                 } else {
                     addCards(new Card[] {
-                        mInstallCard
+                            mInstallCard
                     }, true, false);
                 }
                 if (uri != null) {

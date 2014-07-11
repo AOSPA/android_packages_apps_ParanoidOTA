@@ -45,7 +45,7 @@ public class PaServer implements Server {
         mDevice = device;
         mVersion = version;
         return String.format(URL, new Object[] {
-            device
+                device
         });
     }
 

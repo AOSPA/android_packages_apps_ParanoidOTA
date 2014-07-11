@@ -46,7 +46,7 @@ public class GappsUpdater extends Updater {
 
     public GappsUpdater(Context context, boolean fromAlarm) {
         super(context, new Server[] {
-            new GooServer(context, false)
+                new GooServer(context, false)
         }, fromAlarm);
 
         mRomVersion = new Version(RomUpdater.getVersionString(context));
@@ -71,7 +71,7 @@ public class GappsUpdater extends Updater {
                     for (int i = 0; i < version.length; i++) {
                         try {
                             Integer.parseInt(new String(new char[] {
-                                version[i].charAt(0)
+                                    version[i].charAt(0)
                             }));
                             mVersion = version[i];
                             break;
