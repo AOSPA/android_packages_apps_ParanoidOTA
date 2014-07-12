@@ -97,10 +97,11 @@ public class Utils {
     }
 
     /**
-     * Method borrowed from OpenDelta
-     * Credits to Jorrit "Chainfire" Jongma and The OmniROM Project
-     * Using reflection voodoo instead calling the hidden class directly, to
-     * dev/test outside of AOSP tree
+     * Method borrowed from OpenDelta. Using reflection voodoo instead calling
+     * the hidden class directly, to dev/test outside of AOSP tree.
+     * 
+     * @author Jorrit "Chainfire" Jongma
+     * @author The OmniROM Project
      */
     public static boolean setPermissions(String path, int mode, int uid, int gid) {
         try {

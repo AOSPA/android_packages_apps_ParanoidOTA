@@ -23,25 +23,26 @@ import java.io.Serializable;
 
 /**
  * Class to manage different versions in the zip name.
- *
- * Format
- * pa_A-B-C.DE-FG-H.zip
- * where
- * A = device name, required
- * B = extra information, not required (for gapps)
- * C = major, integer from 0 to n, required
- * D = minor, integer from 0 to 9, required
- * E = maintenance, integer from 0 to n, not required
- * F = phase, possible values are A, B or RC, not required, default is gold/production
- * G = phase number, integer from 0 to n, not required
- * H = date, YYYYMMDD, not required, the format can be YYYYMMDDx where x is a letter (for gapps)
- *
+ * <p>
+ * Format<br>
+ * pa_A-B-C.DE-FG-H.zip<br>
+ * where<br>
+ * A = device name, required<br>
+ * B = extra information, not required (for gapps)<br>
+ * C = major, integer from 0 to n, required<br>
+ * D = minor, integer from 0 to 9, required<br>
+ * E = maintenance, integer from 0 to n, not required<br>
+ * F = phase, possible values are A, B or RC, not required, default is
+ * gold/production<br>
+ * G = phase number, integer from 0 to n, not required<br>
+ * H = date, YYYYMMDD, not required, the format can be YYYYMMDDx where x is a
+ * letter (for gapps)
+ * <p>
  * All the default values not specified above are 0
- *
- * Examples
- * pa_find5-3.99-RC2-20140212.zip
+ * <p>
+ * Examples<br>
+ * pa_find5-3.99-RC2-20140212.zip<br>
  * pa_gapps-modular-mini-4.3-20141010-signed.zip
- *
  */
 public class Version implements Serializable {
 
