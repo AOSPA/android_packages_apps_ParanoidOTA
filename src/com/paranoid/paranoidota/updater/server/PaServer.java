@@ -34,59 +34,60 @@ import java.util.List;
 
 public class PaServer implements Server {
 
-    private static final String URL = "http://api.paranoidandroid.co/updates/%s";
+	private static final String URL = "http://api.paranoidandroid.co/updates/%s";
 
-    private String mDevice = null;
-    private String mError = null;
-    private Version mVersion;
+	private String mDevice = null;
+	private String mError = null;
+	private Version mVersion;
 
-    @Override
-    public String getUrl(String device, Version version) {
-        mDevice = device;
-        mVersion = version;
-        return String.format(URL, new Object[] {
-                device
-        });
-    }
+	@Override
+	public String getUrl(String device, Version version) {
+		mDevice = device;
+		mVersion = version;
+		return String.format(URL, new Object[] { device });
+	}
 
-    @Override
-    public List<PackageInfo> createPackageInfoList(JSONObject response) throws Exception {
-        mError = null;
-        List<PackageInfo> list = new ArrayList<PackageInfo>();
-        mError = response.optString("error");
-        if (mError == null || mError.isEmpty()) {
-            JSONArray updates = response.getJSONArray("updates");
-            for (int i = updates.length() - 1; i >= 0; i--) {
-                JSONObject file = updates.getJSONObject(i);
-                String filename = file.optString("name");
-                String stripped = filename.replace(".zip", "");
-                String[] parts = stripped.split("-");
-                boolean isNew = parts[parts.length - 1].matches("[-+]?\\d*\\.?\\d+");
-                if (!isNew) {
-                    continue;
-                }
-                Version version = new Version(filename);
-                if (Version.compare(mVersion, version) < 0) {
-                    list.add(new UpdatePackage(mDevice, filename, version, file.getString("size"),
-                            file.getString("url"), file.getString("md5"), false));
-                }
-            }
-        }
-        Collections.sort(list, new Comparator<PackageInfo>() {
+	@Override
+	public List<PackageInfo> createPackageInfoList(JSONObject response)
+			throws Exception {
+		mError = null;
+		List<PackageInfo> list = new ArrayList<PackageInfo>();
+		mError = response.optString("error");
+		if (mError == null || mError.isEmpty()) {
+			JSONArray updates = response.getJSONArray("updates");
+			for (int i = updates.length() - 1; i >= 0; i--) {
+				JSONObject file = updates.getJSONObject(i);
+				String filename = file.optString("name");
+				String stripped = filename.replace(".zip", "");
+				String[] parts = stripped.split("-");
+				boolean isNew = parts[parts.length - 1]
+						.matches("[-+]?\\d*\\.?\\d+");
+				if (!isNew) {
+					continue;
+				}
+				Version version = new Version(filename);
+				if (Version.compare(mVersion, version) < 0) {
+					list.add(new UpdatePackage(mDevice, filename, version, file
+							.getString("size"), file.getString("url"), file
+							.getString("md5"), false));
+				}
+			}
+		}
+		Collections.sort(list, new Comparator<PackageInfo>() {
 
-            @Override
-            public int compare(PackageInfo lhs, PackageInfo rhs) {
-                return Version.compare(lhs.getVersion(), rhs.getVersion());
-            }
+			@Override
+			public int compare(PackageInfo lhs, PackageInfo rhs) {
+				return Version.compare(lhs.getVersion(), rhs.getVersion());
+			}
 
-        });
-        Collections.reverse(list);
-        return list;
-    }
+		});
+		Collections.reverse(list);
+		return list;
+	}
 
-    @Override
-    public String getError() {
-        return mError;
-    }
+	@Override
+	public String getError() {
+		return mError;
+	}
 
 }

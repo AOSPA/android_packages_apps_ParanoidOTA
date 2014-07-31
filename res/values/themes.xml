@@ -18,22 +18,92 @@
   along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/ActionBar</item>
         <item name="android:checkboxStyle">@style/Checkbox</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:actionBarWidgetTheme">@style/PA.OTA.DropDown</item>
     </style>
 
-    <style name="ActionBar" 
-            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+    <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/actionbar_background</item>
-        <item name="android:icon">@drawable/ic_launcher_plain</item>
+        <item name="android:icon">@android:color/transparent</item>
+        <item name="android:titleTextStyle">@style/TitleTextStyle</item>
     </style>
 
-    <style name="Checkbox"
-            parent="@android:style/Widget.Holo.Light.CompoundButton.CheckBox">
+    <style name="TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget">
+        <item name="android:textColorHint">@android:color/transparent</item>
+        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+
+    <style name="Checkbox" parent="@android:style/Widget.Holo.Light.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox</item>
+    </style>
+
+    <style name="PA.OTA.DropDown" parent="@android:style/Theme.Holo.Light">
+        <item name="android:textColorHint">#101010</item>
+        <item name="android:textColor">#101010</item>
+        <item name="android:cacheColorHint">@color/actionbar_background</item>
+    </style>
+
+    <style name="PA.OTA.Preferences.Theme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/PA.OTA.Preferences.ActionBar</item>
+        <item name="android:windowBackground">@color/preferences_background</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_action_back</item>
+    </style>
+
+    <style name="PA.OTA.Preferences.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#d3d3d3</item>
+        <item name="android:icon">@android:color/transparent</item>
+        <item name="android:titleTextStyle">@style/PA.OTA.Preferences.TitleTextStyle</item>
+    </style>
+
+    <style name="PA.OTA.Changelog.Theme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/PA.OTA.Changelog.ActionBar</item>
+        <item name="android:checkboxStyle">@style/Checkbox</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:actionBarWidgetTheme">@style/PA.OTA.DropDown</item>
+    </style>
+
+    <style name="PA.OTA.Changelog.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#101010</item>
+        <item name="android:icon">@android:color/transparent</item>
+        <item name="android:height">58.0dip</item>
+        <item name="android:titleTextStyle">@style/TitleTextStyle</item>
+    </style>
+
+    <style name="PA.OTA.GooglePlus.Theme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/PA.OTA.GooglePlus.ActionBar</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+
+    <style name="PA.OTA.GooglePlus.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#dd4b39</item>
+        <item name="android:icon">@android:color/transparent</item>
+        <item name="android:height">58.0dip</item>
+        <item name="android:titleTextStyle">@style/TitleTextStyle</item>
+    </style>
+
+    <style name="PA.OTA.Preferences.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget">
+        <item name="android:textColorHint">#101010</item>
+        <item name="android:textColor">#101010</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:text">@string/pa_ota_preferences</item>
     </style>
 
 </resources>

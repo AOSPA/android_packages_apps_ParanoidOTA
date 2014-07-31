@@ -29,43 +29,42 @@ import com.paranoid.paranoidota.updater.server.PaServer;
 
 public class RomUpdater extends Updater {
 
-    public static String getVersionString(Context context) {
-        return getDevice(context) + "-" + Utils.getProp(Utils.MOD_VERSION);
-    }
+	public static String getVersionString(Context context) {
+		return getDevice(context) + "-" + Utils.getProp(Utils.MOD_VERSION);
+	}
 
-    private static String getDevice(Context context) {
-        String device = Utils.getProp(PROPERTY_DEVICE);
-        if (device == null || device.isEmpty()) {
-            device = Utils.getProp(PROPERTY_DEVICE_EXT);
-            device = Utils.translateDeviceName(context, device);
-        }
-        return device == null ? "" : device.toLowerCase();
-    }
+	private static String getDevice(Context context) {
+		String device = Utils.getProp(PROPERTY_DEVICE);
+		if (device == null || device.isEmpty()) {
+			device = Utils.getProp(PROPERTY_DEVICE_EXT);
+			device = Utils.translateDeviceName(context, device);
+		}
+		return device == null ? "" : device.toLowerCase();
+	}
 
-    public RomUpdater(Context context, boolean fromAlarm) {
-        super(context, new Server[] {
-                new PaServer(), new GooServer(context, true)
-        }, fromAlarm);
-    }
+	public RomUpdater(Context context, boolean fromAlarm) {
+		super(context, new Server[] { new PaServer(),
+				new GooServer(context, true) }, fromAlarm);
+	}
 
-    @Override
-    public Version getVersion() {
-        return new Version(getVersionString(getContext()));
-    }
+	@Override
+	public Version getVersion() {
+		return new Version(getVersionString(getContext()));
+	}
 
-    @Override
-    public boolean isRom() {
-        return true;
-    }
+	@Override
+	public boolean isRom() {
+		return true;
+	}
 
-    @Override
-    public String getDevice() {
-        return getDevice(getContext());
-    }
+	@Override
+	public String getDevice() {
+		return getDevice(getContext());
+	}
 
-    @Override
-    public int getErrorStringId() {
-        return R.string.check_rom_updates_error;
-    }
+	@Override
+	public int getErrorStringId() {
+		return R.string.check_rom_updates_error;
+	}
 
 }

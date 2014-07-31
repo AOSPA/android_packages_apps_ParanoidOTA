@@ -21,8 +21,8 @@
     xmlns:app="http://schemas.android.com/apk/res/com.paranoid.paranoidota"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/layout"
@@ -30,16 +30,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingLeft="@dimen/card_horizontal_margin"
-        android:paddingRight="@dimen/card_horizontal_margin">
+        android:paddingRight="@dimen/card_horizontal_margin" >
 
         <TextView
-            android:text="@string/install_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/card_separator_padding"
+            android:text="@string/install_info"
             android:textColor="@color/card_text"
-            android:textSize="@dimen/card_small_text_size"
-            android:paddingBottom="@dimen/card_separator_padding" />
-
+            android:textSize="@dimen/card_small_text_size" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,10 +46,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="@dimen/card_separator_padding"
-        android:visibility="gone"
         android:paddingLeft="@dimen/card_horizontal_margin"
-        android:paddingRight="@dimen/card_horizontal_margin">
+        android:paddingRight="@dimen/card_horizontal_margin"
+        android:paddingTop="@dimen/card_separator_padding"
+        android:visibility="gone" >
 
         <View
             android:layout_width="match_parent"
@@ -60,9 +59,9 @@
             android:background="@color/card_border" />
 
         <TextView
-            android:text="@string/select_actions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/select_actions"
             android:textColor="@color/card_text"
             android:textSize="@dimen/card_small_text_size" />
 
@@ -86,7 +85,6 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/wipe_caches" />
-
     </LinearLayout>
 
     <View
@@ -100,8 +98,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingTop="@dimen/card_separator_padding"
         android:paddingBottom="@dimen/card_separator_padding"
+        android:paddingTop="@dimen/card_separator_padding"
         app:itemIcon="@drawable/ic_add"
         app:itemTitle="@string/add_file" />
 
@@ -115,8 +113,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingTop="@dimen/card_separator_padding"
         android:paddingBottom="@dimen/card_separator_padding"
+        android:paddingTop="@dimen/card_separator_padding"
         app:itemIcon="@drawable/ic_flash"
         app:itemTitle="@string/install_now" />
 

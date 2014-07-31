@@ -156,5 +156,6 @@
     <string name="error_logging_invalid">Invalid username/password</string>
     <string name="error_logging_down">Unable to reach server</string>
     <string name="error_logging_in">Unknown error logging in</string>
+    <string name="pa_ota_preferences">Preferences</string>
 
 </resources>

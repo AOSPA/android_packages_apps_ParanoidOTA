@@ -21,6 +21,8 @@ package com.paranoid.paranoidota;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -53,6 +55,8 @@ import com.paranoid.paranoidota.cards.DownloadCard;
 import com.paranoid.paranoidota.cards.InstallCard;
 import com.paranoid.paranoidota.cards.SystemCard;
 import com.paranoid.paranoidota.cards.UpdatesCard;
+import com.paranoid.paranoidota.fragments.PAChangelog;
+import com.paranoid.paranoidota.fragments.PAGooglePlus;
 import com.paranoid.paranoidota.helpers.DownloadHelper;
 import com.paranoid.paranoidota.helpers.DownloadHelper.DownloadCallback;
 import com.paranoid.paranoidota.helpers.RebootHelper;
@@ -67,411 +71,443 @@ import com.paranoid.paranoidota.widget.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity implements UpdaterListener, DownloadCallback,
-        OnItemClickListener {
+public class MainActivity extends Activity implements UpdaterListener,
+		DownloadCallback, OnItemClickListener {
 
-    private static final String CHANGELOG = "https://plus.google.com/app/basic/+ParanoidAndroidCorner/posts";
-    private static final String GOOGLEPLUS = "https://plus.google.com/communities/112514149478109338346";
-    private static final String STATE = "STATE";
+	// private static final String CHANGELOG =
+	// "https://plus.google.com/app/basic/+ParanoidAndroidCorner/posts";
+	// private static final String GOOGLEPLUS =
+	// "https://plus.google.com/communities/112514149478109338346";
+	private static final String STATE = "STATE";
 
-    public static final int STATE_UPDATES = 0;
-    public static final int STATE_DOWNLOAD = 1;
-    public static final int STATE_INSTALL = 2;
+	public static final int STATE_UPDATES = 0;
+	public static final int STATE_DOWNLOAD = 1;
+	public static final int STATE_INSTALL = 2;
 
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
+	private DrawerLayout mDrawerLayout;
+	private ListView mDrawerList;
+	private ActionBarDrawerToggle mDrawerToggle;
 
-    private RecoveryHelper mRecoveryHelper;
-    private RebootHelper mRebootHelper;
-    private DownloadCallback mDownloadCallback;
+	private RecoveryHelper mRecoveryHelper;
+	private RebootHelper mRebootHelper;
+	private DownloadCallback mDownloadCallback;
 
-    private SystemCard mSystemCard;
-    private UpdatesCard mUpdatesCard;
-    private DownloadCard mDownloadCard;
-    private InstallCard mInstallCard;
+	private SystemCard mSystemCard;
+	private UpdatesCard mUpdatesCard;
+	private DownloadCard mDownloadCard;
+	private InstallCard mInstallCard;
 
-    private RomUpdater mRomUpdater;
-    private GappsUpdater mGappsUpdater;
-    private NotificationInfo mNotificationInfo;
+	private RomUpdater mRomUpdater;
+	private GappsUpdater mGappsUpdater;
+	private NotificationInfo mNotificationInfo;
 
-    private LinearLayout mCardsLayout;
-    private TextView mTitle;
+	private LinearLayout mCardsLayout;
+	private TextView mTitle;
 
-    private Context mContext;
-    private Bundle mSavedInstanceState;
+	private Context mContext;
+	private Bundle mSavedInstanceState;
 
-    private int mState = STATE_UPDATES;
+	private int mState = STATE_UPDATES;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	Fragment pa_gplus = new PAGooglePlus();
+	Fragment pa_changelog = new PAChangelog();
 
-        mContext = this;
-        mSavedInstanceState = savedInstanceState;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+		mContext = this;
+		mSavedInstanceState = savedInstanceState;
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
+		ImageView view = (ImageView) findViewById(android.R.id.home);
+		view.setPadding(40, 0, 0, 0);
 
-        Resources res = getResources();
-        List<String> itemText = new ArrayList<String>();
-        itemText.add(res.getString(R.string.updates));
-        itemText.add(res.getString(R.string.install));
-        itemText.add(res.getString(R.string.google_plus));
-        itemText.add(res.getString(R.string.changelog));
-        itemText.add(res.getString(R.string.settings));
+		getActionBar().setIcon(R.drawable.ic_drawer);
 
-        final Drawable[] icons = new Drawable[] {
-                null, null, null, null, res.getDrawable(R.drawable.ic_settings)
-        };
+		setContentView(R.layout.activity_main);
 
-        mCardsLayout = (LinearLayout) findViewById(R.id.cards_layout);
-        mTitle = (TextView) findViewById(R.id.header);
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setHomeButtonEnabled(true);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		Resources res = getResources();
+		List<String> itemText = new ArrayList<String>();
+		itemText.add(res.getString(R.string.updates));
+		itemText.add(res.getString(R.string.install));
+		itemText.add(res.getString(R.string.google_plus));
+		itemText.add(res.getString(R.string.changelog));
+		itemText.add(res.getString(R.string.settings));
 
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
-                GravityCompat.START);
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, itemText) {
+		final Drawable[] icons = new Drawable[] { null, null, null, null,
+				res.getDrawable(R.drawable.ic_settings) };
 
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                LinearLayout itemView;
-                String item = getItem(position);
+		mCardsLayout = (LinearLayout) findViewById(R.id.cards_layout);
+		mTitle = (TextView) findViewById(R.id.header);
 
-                if (convertView == null) {
-                    itemView = new LinearLayout(getContext());
-                    LayoutInflater vi = (LayoutInflater) getContext().getSystemService(
-                            Context.LAYOUT_INFLATER_SERVICE);
-                    vi.inflate(R.layout.drawer_list_item, itemView, true);
-                } else {
-                    itemView = (LinearLayout) convertView;
-                }
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-                View itemSmall = itemView.findViewById(R.id.item_small);
-                TextView text = (TextView) itemView.findViewById(R.id.text);
-                TextView textSmall = (TextView) itemView.findViewById(R.id.text_small);
-                ImageView icon = (ImageView) itemView.findViewById(R.id.icon);
-                if ((position == 0 && mState == STATE_UPDATES)
-                        || (position == 1 && mState == STATE_INSTALL)) {
-                    SpannableString spanString = new SpannableString(item);
-                    spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
-                    text.setText(spanString);
-                    textSmall.setText(spanString);
-                } else {
-                    text.setText(item);
-                    textSmall.setText(item);
-                }
-                if (icons[position] != null) {
-                    icon.setImageDrawable(icons[position]);
-                    text.setVisibility(View.GONE);
-                    itemSmall.setVisibility(View.VISIBLE);
-                } else {
-                    text.setVisibility(View.VISIBLE);
-                    itemSmall.setVisibility(View.GONE);
-                }
-                return itemView;
-            }
-        });
-        mDrawerList.setOnItemClickListener(this);
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+				GravityCompat.START);
+		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+				R.layout.drawer_list_item, itemText) {
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_drawer, R.string.drawer_open,
-                R.string.drawer_close) {
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				LinearLayout itemView;
+				String item = getItem(position);
 
-            @Override
-            public void onDrawerStateChanged(int newState) {
-                Utils.setRobotoThin(mContext, mDrawerLayout);
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+				if (convertView == null) {
+					itemView = new LinearLayout(getContext());
+					LayoutInflater vi = (LayoutInflater) getContext()
+							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+					vi.inflate(R.layout.drawer_list_item, itemView, true);
+				} else {
+					itemView = (LinearLayout) convertView;
+				}
 
-        Utils.setRobotoThin(mContext, findViewById(R.id.mainlayout));
+				View itemSmall = itemView.findViewById(R.id.item_small);
+				TextView text = (TextView) itemView.findViewById(R.id.text);
+				TextView textSmall = (TextView) itemView
+						.findViewById(R.id.text_small);
+				ImageView icon = (ImageView) itemView.findViewById(R.id.icon);
+				if ((position == 0 && mState == STATE_UPDATES)
+						|| (position == 1 && mState == STATE_INSTALL)) {
+					SpannableString spanString = new SpannableString(item);
+					spanString.setSpan(new StyleSpan(Typeface.BOLD), 0,
+							spanString.length(), 0);
+					text.setText(spanString);
+					textSmall.setText(spanString);
+				} else {
+					text.setText(item);
+					textSmall.setText(item);
+				}
+				if (icons[position] != null) {
+					icon.setImageDrawable(icons[position]);
+					text.setVisibility(View.GONE);
+					itemSmall.setVisibility(View.VISIBLE);
+				} else {
+					text.setVisibility(View.VISIBLE);
+					itemSmall.setVisibility(View.GONE);
+				}
+				return itemView;
+			}
+		});
+		mDrawerList.setOnItemClickListener(this);
 
-        mRecoveryHelper = new RecoveryHelper(this);
-        mRebootHelper = new RebootHelper(mRecoveryHelper);
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+				R.drawable.invisible, R.string.drawer_open,
+				R.string.drawer_close) {
 
-        mRomUpdater = new RomUpdater(this, false);
-        mRomUpdater.addUpdaterListener(this);
-        mGappsUpdater = new GappsUpdater(this, false);
-        mGappsUpdater.addUpdaterListener(this);
+			public void onDrawerClosed(View view) {
+				getActionBar().setIcon(R.drawable.ic_drawer);
 
-        DownloadHelper.init(this, this);
+				invalidateOptionsMenu();
 
-        Intent intent = getIntent();
-        onNewIntent(intent);
+			}
 
-        if (mSavedInstanceState == null) {
+			public void onDrawerOpened(View drawerView) {
+				getActionBar().setIcon(R.drawable.ic_drawer);
 
-            IOUtils.init(this);
+				invalidateOptionsMenu();
 
-            mCardsLayout.setAnimation(AnimationUtils.loadAnimation(this, R.anim.up_from_bottom));
+			}
 
-            if (mNotificationInfo != null) {
-                if (mNotificationInfo.mNotificationId != Updater.NOTIFICATION_ID) {
-                    checkUpdates();
-                } else {
-                    mRomUpdater.setLastUpdates(mNotificationInfo.mPackageInfosRom);
-                    mGappsUpdater.setLastUpdates(mNotificationInfo.mPackageInfosGapps);
-                }
-            } else {
-                checkUpdates();
-            }
-            if (DownloadHelper.isDownloading(true) || DownloadHelper.isDownloading(false)) {
-                setState(STATE_DOWNLOAD, true, false);
-            } else {
-                if (mState != STATE_INSTALL) {
-                    setState(STATE_UPDATES, true, false);
-                }
-            }
-        } else {
-            setState(mSavedInstanceState.getInt(STATE), false, true);
-        }
+			@Override
+			public void onDrawerStateChanged(int newState) {
+				// Utils.setRobotoThin(mContext, mDrawerLayout);
+			}
+		};
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        if (!Utils.alarmExists(this, true)) {
-            Utils.setAlarm(this, true, true);
-        }
+		Utils.setRobotoThin(mContext, findViewById(R.id.mainlayout));
 
-        if (!Utils.alarmExists(this, false)) {
-            Utils.setAlarm(this, true, false);
-        }
-    }
+		mRecoveryHelper = new RecoveryHelper(this);
+		mRebootHelper = new RebootHelper(mRecoveryHelper);
 
-    public void setDownloadCallback(DownloadCallback downloadCallback) {
-        mDownloadCallback = downloadCallback;
-    }
+		mRomUpdater = new RomUpdater(this, false);
+		mRomUpdater.addUpdaterListener(this);
+		mGappsUpdater = new GappsUpdater(this, false);
+		mGappsUpdater.addUpdaterListener(this);
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(STATE, mState);
-        switch (mState) {
-            case STATE_UPDATES:
-                mSystemCard.saveState(outState);
-                mUpdatesCard.saveState(outState);
-                break;
-            case STATE_DOWNLOAD:
-                mDownloadCard.saveState(outState);
-                break;
-            case STATE_INSTALL:
-                mInstallCard.saveState(outState);
-                break;
-        }
-    }
+		DownloadHelper.init(this, this);
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
+		Intent intent = getIntent();
+		onNewIntent(intent);
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
+		if (mSavedInstanceState == null) {
 
-    public void checkUpdates() {
-        mRomUpdater.check();
-        mGappsUpdater.check();
-    }
+			IOUtils.init(this);
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 0:
-                if (mState == STATE_UPDATES || mState == STATE_DOWNLOAD) {
-                    break;
-                }
-                setState(STATE_UPDATES, true, false);
-                break;
-            case 1:
-                if (mState == STATE_INSTALL) {
-                    break;
-                }
-                setState(STATE_INSTALL, true, false);
-                break;
-            case 2:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLEPLUS));
-                startActivity(browserIntent);
-                break;
-            case 3:
-                browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(CHANGELOG));
-                startActivity(browserIntent);
-                break;
-            case 4:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                break;
-        }
-        mDrawerLayout.closeDrawer(mDrawerList);
-    }
+			mCardsLayout.setAnimation(AnimationUtils.loadAnimation(this,
+					R.anim.up_from_bottom));
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        mNotificationInfo = null;
-        if (intent != null && intent.getExtras() != null) {
-            mNotificationInfo = (NotificationInfo) intent.getSerializableExtra(Utils.FILES_INFO);
-            if (intent.getBooleanExtra(Utils.CHECK_DOWNLOADS_FINISHED, false)) {
-                DownloadHelper.checkDownloadFinished(this,
-                        intent.getLongExtra(Utils.CHECK_DOWNLOADS_ID, -1L));
-            }
-        }
-    }
+			if (mNotificationInfo != null) {
+				if (mNotificationInfo.mNotificationId != Updater.NOTIFICATION_ID) {
+					checkUpdates();
+				} else {
+					mRomUpdater
+							.setLastUpdates(mNotificationInfo.mPackageInfosRom);
+					mGappsUpdater
+							.setLastUpdates(mNotificationInfo.mPackageInfosGapps);
+				}
+			} else {
+				checkUpdates();
+			}
+			if (DownloadHelper.isDownloading(true)
+					|| DownloadHelper.isDownloading(false)) {
+				setState(STATE_DOWNLOAD, true, false);
+			} else {
+				if (mState != STATE_INSTALL) {
+					setState(STATE_UPDATES, true, false);
+				}
+			}
+		} else {
+			setState(mSavedInstanceState.getInt(STATE), false, true);
+		}
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        DownloadHelper.registerCallback(this);
-    }
+		if (!Utils.alarmExists(this, true)) {
+			Utils.setAlarm(this, true, true);
+		}
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        DownloadHelper.unregisterCallback();
-    }
+		if (!Utils.alarmExists(this, false)) {
+			Utils.setAlarm(this, true, false);
+		}
+	}
 
-    @Override
-    public void versionFound(PackageInfo[] info, boolean isRom) {
-    }
+	public void setDownloadCallback(DownloadCallback downloadCallback) {
+		mDownloadCallback = downloadCallback;
+	}
 
-    @Override
-    public void startChecking(boolean isRom) {
-        setProgressBarIndeterminate(true);
-        setProgressBarVisibility(true);
-    }
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putInt(STATE, mState);
+		switch (mState) {
+		case STATE_UPDATES:
+			mSystemCard.saveState(outState);
+			mUpdatesCard.saveState(outState);
+			break;
+		case STATE_DOWNLOAD:
+			mDownloadCard.saveState(outState);
+			break;
+		case STATE_INSTALL:
+			mInstallCard.saveState(outState);
+			break;
+		}
+	}
 
-    @Override
-    public void checkError(String cause, boolean isRom) {
-    }
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
 
-    public void setState(int state) {
-        setState(state, false, false);
-    }
+	public void checkUpdates() {
+		mRomUpdater.check();
+		mGappsUpdater.check();
+	}
 
-    public void setState(int state, boolean animate, boolean fromRotation) {
-        setState(state, animate, null, null, null, false, fromRotation);
-    }
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		switch (position) {
+		case 0:
+			if (mState == STATE_UPDATES || mState == STATE_DOWNLOAD) {
+				break;
+			}
+			setState(STATE_UPDATES, true, false);
+			break;
+		case 1:
+			if (mState == STATE_INSTALL) {
+				break;
+			}
+			setState(STATE_INSTALL, true, false);
+			break;
+		case 2:
+			ft.replace(R.id.content_frame, pa_gplus);
+			break;
+		case 3:
+			ft.replace(R.id.content_frame, pa_changelog);
+			break;
+		case 4:
+			Intent intent = new Intent(this, SettingsActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			overridePendingTransition(R.anim.activity_open_enter,
+					R.anim.activity_open_exit);
+			break;
+		}
+		ft.commit();
 
-    public void setState(int state, boolean animate, PackageInfo[] infos,
-            Uri uri, String md5, boolean isRom, boolean fromRotation) {
-        mState = state;
-        switch (state) {
-            case STATE_UPDATES:
-                if (mSystemCard == null) {
-                    mSystemCard = new SystemCard(mContext, null, mRomUpdater, mGappsUpdater,
-                            mSavedInstanceState);
-                }
-                if (mUpdatesCard == null) {
-                    mUpdatesCard = new UpdatesCard(mContext, null, mRomUpdater, mGappsUpdater,
-                            mSavedInstanceState);
-                }
-                addCards(new Card[] {
-                        mSystemCard, mUpdatesCard
-                }, animate, true);
-                break;
-            case STATE_DOWNLOAD:
-                if (mDownloadCard == null) {
-                    mDownloadCard = new DownloadCard(mContext, null, infos, mSavedInstanceState);
-                } else {
-                    mDownloadCard.setInitialInfos(infos);
-                }
-                addCards(new Card[] {
-                        mDownloadCard
-                }, animate, true);
-                break;
-            case STATE_INSTALL:
-                if (mInstallCard == null) {
-                    mInstallCard = new InstallCard(mContext, null, mRebootHelper,
-                            mSavedInstanceState);
-                }
-                if (!DownloadHelper.isDownloading(!isRom)) {
-                    addCards(new Card[] {
-                            mInstallCard
-                    }, !fromRotation, true);
-                } else {
-                    addCards(new Card[] {
-                            mInstallCard
-                    }, true, false);
-                }
-                if (uri != null) {
-                    mInstallCard.addFile(uri, md5);
-                }
-                break;
-        }
-        ((ArrayAdapter<String>) mDrawerList.getAdapter()).notifyDataSetChanged();
-        updateTitle();
-    }
+		mDrawerList.setItemChecked(position, true);
+		mDrawerLayout.closeDrawer(mDrawerList);
+	}
 
-    public void addCards(Card[] cards, boolean animate, boolean remove) {
-        mCardsLayout.clearAnimation();
-        if (remove) {
-            mCardsLayout.removeAllViews();
-        }
-        if (animate) {
-            mCardsLayout.setAnimation(AnimationUtils.loadAnimation(this, R.anim.up_from_bottom));
-        }
-        for (Card card : cards) {
-            mCardsLayout.addView(card);
-        }
-    }
+	@Override
+	protected void onNewIntent(Intent intent) {
+		mNotificationInfo = null;
+		if (intent != null && intent.getExtras() != null) {
+			mNotificationInfo = (NotificationInfo) intent
+					.getSerializableExtra(Utils.FILES_INFO);
+			if (intent.getBooleanExtra(Utils.CHECK_DOWNLOADS_FINISHED, false)) {
+				DownloadHelper.checkDownloadFinished(this,
+						intent.getLongExtra(Utils.CHECK_DOWNLOADS_ID, -1L));
+			}
+		}
+	}
 
-    @Override
-    public void onDownloadStarted() {
-        if (mDownloadCallback != null) {
-            mDownloadCallback.onDownloadStarted();
-        }
-    }
+	@Override
+	protected void onResume() {
+		super.onResume();
+		DownloadHelper.registerCallback(this);
+	}
 
-    @Override
-    public void onDownloadError(String reason) {
-        if (mDownloadCallback != null) {
-            mDownloadCallback.onDownloadError(reason);
-        }
-    }
+	@Override
+	protected void onPause() {
+		super.onPause();
+		DownloadHelper.unregisterCallback();
+	}
 
-    @Override
-    public void onDownloadProgress(int progress) {
-        if (mDownloadCallback != null) {
-            mDownloadCallback.onDownloadProgress(progress);
-        }
-    }
+	@Override
+	public void versionFound(PackageInfo[] info, boolean isRom) {
+	}
 
-    @Override
-    public void onDownloadFinished(Uri uri, final String md5, boolean isRom) {
-        if (mDownloadCallback != null) {
-            mDownloadCallback.onDownloadFinished(uri, md5, isRom);
-        }
-        if (uri == null) {
-            if (!DownloadHelper.isDownloading(!isRom)) {
-                setState(STATE_UPDATES, true, false);
-            }
-        } else {
-            setState(STATE_INSTALL, true, null, uri, md5, isRom, false);
-        }
-    }
+	@Override
+	public void startChecking(boolean isRom) {
+		setProgressBarIndeterminate(true);
+		setProgressBarVisibility(true);
+	}
 
-    private void updateTitle() {
-        switch (mState) {
-            case STATE_UPDATES:
-                mTitle.setText(R.string.updates);
-                break;
-            case STATE_INSTALL:
-                mTitle.setText(R.string.install);
-                break;
-        }
-    }
+	@Override
+	public void checkError(String cause, boolean isRom) {
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	public void setState(int state) {
+		setState(state, false, false);
+	}
+
+	public void setState(int state, boolean animate, boolean fromRotation) {
+		setState(state, animate, null, null, null, false, fromRotation);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setState(int state, boolean animate, PackageInfo[] infos,
+			Uri uri, String md5, boolean isRom, boolean fromRotation) {
+		mState = state;
+		switch (state) {
+		case STATE_UPDATES:
+			if (mSystemCard == null) {
+				mSystemCard = new SystemCard(mContext, null, mRomUpdater,
+						mGappsUpdater, mSavedInstanceState);
+			}
+			if (mUpdatesCard == null) {
+				mUpdatesCard = new UpdatesCard(mContext, null, mRomUpdater,
+						mGappsUpdater, mSavedInstanceState);
+			}
+			addCards(new Card[] { mSystemCard, mUpdatesCard }, animate, true);
+			break;
+		case STATE_DOWNLOAD:
+			if (mDownloadCard == null) {
+				mDownloadCard = new DownloadCard(mContext, null, infos,
+						mSavedInstanceState);
+			} else {
+				mDownloadCard.setInitialInfos(infos);
+			}
+			addCards(new Card[] { mDownloadCard }, animate, true);
+			break;
+		case STATE_INSTALL:
+			if (mInstallCard == null) {
+				mInstallCard = new InstallCard(mContext, null, mRebootHelper,
+						mSavedInstanceState);
+			}
+			if (!DownloadHelper.isDownloading(!isRom)) {
+				addCards(new Card[] { mInstallCard }, !fromRotation, true);
+			} else {
+				addCards(new Card[] { mInstallCard }, true, false);
+			}
+			if (uri != null) {
+				mInstallCard.addFile(uri, md5);
+			}
+			break;
+		}
+		((ArrayAdapter<String>) mDrawerList.getAdapter())
+				.notifyDataSetChanged();
+		updateTitle();
+	}
+
+	public void addCards(Card[] cards, boolean animate, boolean remove) {
+		mCardsLayout.clearAnimation();
+		if (remove) {
+			mCardsLayout.removeAllViews();
+		}
+		if (animate) {
+			mCardsLayout.setAnimation(AnimationUtils.loadAnimation(this,
+					R.anim.up_from_bottom));
+		}
+		for (Card card : cards) {
+			mCardsLayout.addView(card);
+		}
+	}
+
+	@Override
+	public void onDownloadStarted() {
+		if (mDownloadCallback != null) {
+			mDownloadCallback.onDownloadStarted();
+		}
+	}
+
+	@Override
+	public void onDownloadError(String reason) {
+		if (mDownloadCallback != null) {
+			mDownloadCallback.onDownloadError(reason);
+		}
+	}
+
+	@Override
+	public void onDownloadProgress(int progress) {
+		if (mDownloadCallback != null) {
+			mDownloadCallback.onDownloadProgress(progress);
+		}
+	}
+
+	@Override
+	public void onDownloadFinished(Uri uri, final String md5, boolean isRom) {
+		if (mDownloadCallback != null) {
+			mDownloadCallback.onDownloadFinished(uri, md5, isRom);
+		}
+		if (uri == null) {
+			if (!DownloadHelper.isDownloading(!isRom)) {
+				setState(STATE_UPDATES, true, false);
+			}
+		} else {
+			setState(STATE_INSTALL, true, null, uri, md5, isRom, false);
+		}
+	}
+
+	private void updateTitle() {
+		switch (mState) {
+		case STATE_UPDATES:
+			mTitle.setText(R.string.updates);
+			break;
+		case STATE_INSTALL:
+			mTitle.setText(R.string.install);
+			break;
+		}
+	}
 }

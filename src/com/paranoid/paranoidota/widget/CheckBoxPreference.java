@@ -27,21 +27,21 @@ import com.paranoid.paranoidota.Utils;
 
 public class CheckBoxPreference extends android.preference.CheckBoxPreference {
 
-    public CheckBoxPreference(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
+	public CheckBoxPreference(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+	}
 
-    public CheckBoxPreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+	public CheckBoxPreference(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
 
-    public CheckBoxPreference(Context context) {
-        super(context);
-    }
+	public CheckBoxPreference(Context context) {
+		super(context);
+	}
 
-    @Override
-    protected void onBindView(View view) {
-        super.onBindView(view);
-        Utils.setRobotoThin(getContext(), view);
-    }
+	@Override
+	protected void onBindView(View view) {
+		super.onBindView(view);
+		Utils.setRobotoThin(getContext(), view);
+	}
 }

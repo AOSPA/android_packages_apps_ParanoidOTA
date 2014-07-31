@@ -39,263 +39,265 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Updater implements Response.Listener<JSONObject>, Response.ErrorListener {
+public abstract class Updater implements Response.Listener<JSONObject>,
+		Response.ErrorListener {
 
-    public interface PackageInfo extends Serializable {
+	public interface PackageInfo extends Serializable {
 
-        public String getMd5();
+		public String getMd5();
 
-        public String getFilename();
+		public String getFilename();
 
-        public String getPath();
+		public String getPath();
 
-        public String getHost();
+		public String getHost();
 
-        public String getSize();
+		public String getSize();
 
-        public Version getVersion();
+		public Version getVersion();
 
-        public boolean isDelta();
+		public boolean isDelta();
 
-        public String getDeltaFilename();
+		public String getDeltaFilename();
 
-        public String getDeltaPath();
+		public String getDeltaPath();
 
-        public String getDeltaMd5();
+		public String getDeltaMd5();
 
-        public boolean isGapps();
-    }
+		public boolean isGapps();
+	}
 
-    public static final String PROPERTY_DEVICE = "ro.pa.device";
-    public static final String PROPERTY_DEVICE_EXT = "ro.product.device";
+	public static final String PROPERTY_DEVICE = "ro.pa.device";
+	public static final String PROPERTY_DEVICE_EXT = "ro.product.device";
 
-    public static final int NOTIFICATION_ID = 122303225;
+	public static final int NOTIFICATION_ID = 122303225;
 
-    public static interface UpdaterListener {
+	public static interface UpdaterListener {
 
-        public void startChecking(boolean isRom);
+		public void startChecking(boolean isRom);
 
-        public void versionFound(PackageInfo[] info, boolean isRom);
+		public void versionFound(PackageInfo[] info, boolean isRom);
 
-        public void checkError(String cause, boolean isRom);
-    }
+		public void checkError(String cause, boolean isRom);
+	}
 
-    private Context mContext;
-    private Server[] mServers;
-    private PackageInfo[] mLastUpdates = new PackageInfo[0];
-    private List<UpdaterListener> mListeners = new ArrayList<UpdaterListener>();
-    private RequestQueue mQueue;
-    private SettingsHelper mSettingsHelper;
-    private Server mServer;
-    private boolean mScanning = false;
-    private boolean mFromAlarm;
-    private boolean mServerWorks = false;
-    private int mCurrentServer = -1;
+	private Context mContext;
+	private Server[] mServers;
+	private PackageInfo[] mLastUpdates = new PackageInfo[0];
+	private List<UpdaterListener> mListeners = new ArrayList<UpdaterListener>();
+	private RequestQueue mQueue;
+	private SettingsHelper mSettingsHelper;
+	private Server mServer;
+	private boolean mScanning = false;
+	private boolean mFromAlarm;
+	private boolean mServerWorks = false;
+	private int mCurrentServer = -1;
 
-    public Updater(Context context, Server[] servers, boolean fromAlarm) {
-        mContext = context;
-        mServers = servers;
-        mFromAlarm = fromAlarm;
-        mQueue = Volley.newRequestQueue(context);
-    }
+	public Updater(Context context, Server[] servers, boolean fromAlarm) {
+		mContext = context;
+		mServers = servers;
+		mFromAlarm = fromAlarm;
+		mQueue = Volley.newRequestQueue(context);
+	}
 
-    public abstract Version getVersion();
+	public abstract Version getVersion();
 
-    public abstract String getDevice();
+	public abstract String getDevice();
 
-    public abstract boolean isRom();
+	public abstract boolean isRom();
 
-    public abstract int getErrorStringId();
+	public abstract int getErrorStringId();
 
-    protected Context getContext() {
-        return mContext;
-    }
+	protected Context getContext() {
+		return mContext;
+	}
 
-    public SettingsHelper getSettingsHelper() {
-        return mSettingsHelper;
-    }
+	public SettingsHelper getSettingsHelper() {
+		return mSettingsHelper;
+	}
 
-    public PackageInfo[] getLastUpdates() {
-        return mLastUpdates;
-    }
+	public PackageInfo[] getLastUpdates() {
+		return mLastUpdates;
+	}
 
-    public void setLastUpdates(PackageInfo[] infos) {
-        if (infos == null) {
-            infos = new PackageInfo[0];
-        }
-        mLastUpdates = infos;
-    }
+	public void setLastUpdates(PackageInfo[] infos) {
+		if (infos == null) {
+			infos = new PackageInfo[0];
+		}
+		mLastUpdates = infos;
+	}
 
-    public void addUpdaterListener(UpdaterListener listener) {
-        mListeners.add(listener);
-    }
+	public void addUpdaterListener(UpdaterListener listener) {
+		mListeners.add(listener);
+	}
 
-    public void check() {
-        check(false);
-    }
+	public void check() {
+		check(false);
+	}
 
-    public void check(boolean force) {
-        if (mScanning) {
-            return;
-        }
-        if (mSettingsHelper == null) {
-            mSettingsHelper = new SettingsHelper(getContext());
-        }
-        if (mFromAlarm) {
-            if (!force && (mSettingsHelper.getCheckTime() < 0
-                    || (!isRom() && !mSettingsHelper.getCheckGapps()))) {
-                return;
-            }
-        }
-        mServerWorks = false;
-        mScanning = true;
-        fireStartChecking();
-        nextServerCheck();
-    }
+	public void check(boolean force) {
+		if (mScanning) {
+			return;
+		}
+		if (mSettingsHelper == null) {
+			mSettingsHelper = new SettingsHelper(getContext());
+		}
+		if (mFromAlarm) {
+			if (!force
+					&& (mSettingsHelper.getCheckTime() < 0 || (!isRom() && !mSettingsHelper
+							.getCheckGapps()))) {
+				return;
+			}
+		}
+		mServerWorks = false;
+		mScanning = true;
+		fireStartChecking();
+		nextServerCheck();
+	}
 
-    protected void nextServerCheck() {
-        mScanning = true;
-        mCurrentServer++;
-        mServer = mServers[mCurrentServer];
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, mServer.getUrl(
-                getDevice(), getVersion()), null, this, this);
-        mQueue.add(jsObjRequest);
-    }
+	protected void nextServerCheck() {
+		mScanning = true;
+		mCurrentServer++;
+		mServer = mServers[mCurrentServer];
+		JsonObjectRequest jsObjRequest = new JsonObjectRequest(
+				Request.Method.GET, mServer.getUrl(getDevice(), getVersion()),
+				null, this, this);
+		mQueue.add(jsObjRequest);
+	}
 
-    @Override
-    public void onResponse(JSONObject response) {
-        mScanning = false;
-        try {
-            PackageInfo[] lastUpdates = null;
-            setLastUpdates(null);
-            List<PackageInfo> list = mServer.createPackageInfoList(response);
-            String error = mServer.getError();
-            if (!isRom()) {
-                int gappsType = mSettingsHelper.getGappsType();
-                PackageInfo info = null;
-                for (int i = 0; i < list.size(); i++) {
-                    info = list.get(i);
-                    String fileName = info.getFilename();
-                    if ((gappsType == SettingsHelper.GAPPS_MINI && !fileName.contains("-mini"))
-                            ||
-                            (gappsType == SettingsHelper.GAPPS_STOCK && !fileName
-                                    .contains("-stock"))
-                            ||
-                            (gappsType == SettingsHelper.GAPPS_FULL && !fileName.contains("-full"))
-                            ||
-                            (gappsType == SettingsHelper.GAPPS_MICRO && !fileName
-                                    .contains("-micro"))) {
-                        list.remove(i);
-                        i--;
-                        continue;
-                    }
-                }
-            }
-            lastUpdates = list.toArray(new PackageInfo[list.size()]);
-            if (lastUpdates.length > 0) {
-                mServerWorks = true;
-                if (mFromAlarm) {
-                    if (!isRom()) {
-                        Utils.showNotification(getContext(), null, lastUpdates);
-                    } else {
-                        Utils.showNotification(getContext(), lastUpdates, null);
-                    }
-                }
-            } else {
-                if (error != null && !error.isEmpty()) {
-                    if (versionError(error)) {
-                        return;
-                    }
-                } else {
-                    mServerWorks = true;
-                    if (mCurrentServer < mServers.length - 1) {
-                        nextServerCheck();
-                        return;
-                    }
-                }
-            }
-            mCurrentServer = -1;
-            setLastUpdates(lastUpdates);
-            fireCheckCompleted(lastUpdates);
-        } catch (Exception ex) {
-            System.out.println(response.toString());
-            ex.printStackTrace();
-            versionError(null);
-        }
-    }
+	@Override
+	public void onResponse(JSONObject response) {
+		mScanning = false;
+		try {
+			PackageInfo[] lastUpdates = null;
+			setLastUpdates(null);
+			List<PackageInfo> list = mServer.createPackageInfoList(response);
+			String error = mServer.getError();
+			if (!isRom()) {
+				int gappsType = mSettingsHelper.getGappsType();
+				PackageInfo info = null;
+				for (int i = 0; i < list.size(); i++) {
+					info = list.get(i);
+					String fileName = info.getFilename();
+					if ((gappsType == SettingsHelper.GAPPS_MINI && !fileName
+							.contains("-mini"))
+							|| (gappsType == SettingsHelper.GAPPS_STOCK && !fileName
+									.contains("-stock"))
+							|| (gappsType == SettingsHelper.GAPPS_FULL && !fileName
+									.contains("-full"))
+							|| (gappsType == SettingsHelper.GAPPS_MICRO && !fileName
+									.contains("-micro"))) {
+						list.remove(i);
+						i--;
+						continue;
+					}
+				}
+			}
+			lastUpdates = list.toArray(new PackageInfo[list.size()]);
+			if (lastUpdates.length > 0) {
+				mServerWorks = true;
+				if (mFromAlarm) {
+					if (!isRom()) {
+						Utils.showNotification(getContext(), null, lastUpdates);
+					} else {
+						Utils.showNotification(getContext(), lastUpdates, null);
+					}
+				}
+			} else {
+				if (error != null && !error.isEmpty()) {
+					if (versionError(error)) {
+						return;
+					}
+				} else {
+					mServerWorks = true;
+					if (mCurrentServer < mServers.length - 1) {
+						nextServerCheck();
+						return;
+					}
+				}
+			}
+			mCurrentServer = -1;
+			setLastUpdates(lastUpdates);
+			fireCheckCompleted(lastUpdates);
+		} catch (Exception ex) {
+			System.out.println(response.toString());
+			ex.printStackTrace();
+			versionError(null);
+		}
+	}
 
-    @Override
-    public void onErrorResponse(VolleyError ex) {
-        mScanning = false;
-        versionError(null);
-    }
+	@Override
+	public void onErrorResponse(VolleyError ex) {
+		mScanning = false;
+		versionError(null);
+	}
 
-    private boolean versionError(String error) {
-        if (mCurrentServer < mServers.length - 1) {
-            nextServerCheck();
-            return true;
-        }
-        if (!mFromAlarm && !mServerWorks) {
-            int id = getErrorStringId();
-            if (error != null) {
-                Utils.showToastOnUiThread(getContext(), getContext().getResources().getString(id)
-                        + ": " + error);
-            } else {
-                if (id != R.string.check_gapps_updates_error) {
-                    Utils.showToastOnUiThread(getContext(), id);
-                }
-            }
-        }
-        mCurrentServer = -1;
-        fireCheckCompleted(null);
-        fireCheckError(error);
-        return false;
-    }
+	private boolean versionError(String error) {
+		if (mCurrentServer < mServers.length - 1) {
+			nextServerCheck();
+			return true;
+		}
+		if (!mFromAlarm && !mServerWorks) {
+			int id = getErrorStringId();
+			if (error != null) {
+				Utils.showToastOnUiThread(getContext(), getContext()
+						.getResources().getString(id) + ": " + error);
+			} else {
+				if (id != R.string.check_gapps_updates_error) {
+					Utils.showToastOnUiThread(getContext(), id);
+				}
+			}
+		}
+		mCurrentServer = -1;
+		fireCheckCompleted(null);
+		fireCheckError(error);
+		return false;
+	}
 
-    public boolean isScanning() {
-        return mScanning;
-    }
+	public boolean isScanning() {
+		return mScanning;
+	}
 
-    public void removeUpdaterListener(UpdaterListener listener) {
-        mListeners.remove(listener);
-    }
+	public void removeUpdaterListener(UpdaterListener listener) {
+		mListeners.remove(listener);
+	}
 
-    protected void fireStartChecking() {
-        if (mContext instanceof Activity) {
-            ((Activity) mContext).runOnUiThread(new Runnable() {
+	protected void fireStartChecking() {
+		if (mContext instanceof Activity) {
+			((Activity) mContext).runOnUiThread(new Runnable() {
 
-                public void run() {
-                    for (UpdaterListener listener : mListeners) {
-                        listener.startChecking(isRom());
-                    }
-                }
-            });
-        }
-    }
+				public void run() {
+					for (UpdaterListener listener : mListeners) {
+						listener.startChecking(isRom());
+					}
+				}
+			});
+		}
+	}
 
-    protected void fireCheckCompleted(final PackageInfo[] info) {
-        if (mContext instanceof Activity) {
-            ((Activity) mContext).runOnUiThread(new Runnable() {
+	protected void fireCheckCompleted(final PackageInfo[] info) {
+		if (mContext instanceof Activity) {
+			((Activity) mContext).runOnUiThread(new Runnable() {
 
-                public void run() {
-                    for (UpdaterListener listener : mListeners) {
-                        listener.versionFound(info, isRom());
-                    }
-                }
-            });
-        }
-    }
+				public void run() {
+					for (UpdaterListener listener : mListeners) {
+						listener.versionFound(info, isRom());
+					}
+				}
+			});
+		}
+	}
 
-    protected void fireCheckError(final String cause) {
-        if (mContext instanceof Activity) {
-            ((Activity) mContext).runOnUiThread(new Runnable() {
+	protected void fireCheckError(final String cause) {
+		if (mContext instanceof Activity) {
+			((Activity) mContext).runOnUiThread(new Runnable() {
 
-                public void run() {
-                    for (UpdaterListener listener : mListeners) {
-                        listener.checkError(cause, isRom());
-                    }
-                }
-            });
-        }
-    }
+				public void run() {
+					for (UpdaterListener listener : mListeners) {
+						listener.checkError(cause, isRom());
+					}
+				}
+			});
+		}
+	}
 }

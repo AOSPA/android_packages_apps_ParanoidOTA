@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="DefaultLocale" severity="ignore" />
+    <issue id="ObsoleteLayoutParam" severity="ignore" />
+    <issue id="OldTargetApi" severity="ignore" />
+    <issue id="ProtectedPermissions" severity="ignore" />
+    <issue id="SimpleDateFormat" severity="ignore" />
+    <issue id="UselessParent" severity="ignore" />
+    <issue id="WebViewLayout" severity="ignore" />
+</lint>

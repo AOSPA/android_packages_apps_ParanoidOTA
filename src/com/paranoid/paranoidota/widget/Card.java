@@ -33,105 +33,107 @@ import com.paranoid.paranoidota.R;
 
 public abstract class Card extends LinearLayout {
 
-    private Context mContext;
-    private View mView;
-    private LinearLayout mCardLayout;
-    private TextView mTitleView;
-    private View mLayoutView;
-    private ImageView mButton;
-    private String mExpandedProperty;
-    private boolean mExpanded = false;
+	private Context mContext;
+	private View mView;
+	private LinearLayout mCardLayout;
+	private TextView mTitleView;
+	private View mLayoutView;
+	private ImageView mButton;
+	private String mExpandedProperty;
+	private boolean mExpanded = false;
 
-    public Card(Context context, AttributeSet attrs, Bundle savedInstanceState) {
-        super(context, attrs);
+	public Card(Context context, AttributeSet attrs, Bundle savedInstanceState) {
+		super(context, attrs);
 
-        mContext = context;
+		mContext = context;
 
-        mExpandedProperty = getClass().getName() + ".expanded";
+		mExpandedProperty = getClass().getName() + ".expanded";
 
-        String title = null;
+		String title = null;
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Card);
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Card);
 
-        CharSequence s = a.getString(R.styleable.Card_title);
-        if (s != null) {
-            title = s.toString();
-        }
+		CharSequence s = a.getString(R.styleable.Card_title);
+		if (s != null) {
+			title = s.toString();
+		}
 
-        a.recycle();
+		a.recycle();
 
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mView = inflater.inflate(R.layout.card, this, true);
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		mView = inflater.inflate(R.layout.card, this, true);
 
-        mCardLayout = (LinearLayout) mView.findViewById(R.id.card_layout);
-        mButton = (ImageView) mView.findViewById(R.id.headerbutton);
+		mCardLayout = (LinearLayout) mView.findViewById(R.id.card_layout);
+		mButton = (ImageView) mView.findViewById(R.id.headerbutton);
 
-        if (canExpand()) {
-            mButton.setOnClickListener(new OnClickListener() {
+		if (canExpand()) {
+			mButton.setOnClickListener(new OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    if (mExpanded) {
-                        collapse();
-                    } else {
-                        expand();
-                    }
-                }
+				@Override
+				public void onClick(View v) {
+					if (mExpanded) {
+						collapse();
+					} else {
+						expand();
+					}
+				}
 
-            });
-        } else {
-            mButton.setVisibility(View.GONE);
-        }
+			});
+		} else {
+			mButton.setVisibility(View.GONE);
+		}
 
-        mTitleView = (TextView) mView.findViewById(R.id.title);
-        mTitleView.setText(title);
+		mTitleView = (TextView) mView.findViewById(R.id.title);
+		mTitleView.setText(title);
 
-        if (savedInstanceState != null) {
-            mExpanded = savedInstanceState.getBoolean(mExpandedProperty, false);
-            if (mExpanded) {
-                expand();
-            }
-        }
-    }
+		if (savedInstanceState != null) {
+			mExpanded = savedInstanceState.getBoolean(mExpandedProperty, false);
+			if (mExpanded) {
+				expand();
+			}
+		}
+	}
 
-    public void expand() {
-        mExpanded = true;
-        mButton.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_collapse));
-    }
+	public void expand() {
+		mExpanded = true;
+		mButton.setImageDrawable(mContext.getResources().getDrawable(
+				R.drawable.ic_collapse));
+	}
 
-    public void collapse() {
-        mExpanded = false;
-        mButton.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_expand));
-    }
+	public void collapse() {
+		mExpanded = false;
+		mButton.setImageDrawable(mContext.getResources().getDrawable(
+				R.drawable.ic_expand));
+	}
 
-    protected boolean canExpand() {
-        return true;
-    }
+	protected boolean canExpand() {
+		return true;
+	}
 
-    protected boolean isExpanded() {
-        return mExpanded;
-    }
+	protected boolean isExpanded() {
+		return mExpanded;
+	}
 
-    public void saveState(Bundle outState) {
-        outState.putBoolean(mExpandedProperty, mExpanded);
-    }
+	public void saveState(Bundle outState) {
+		outState.putBoolean(mExpandedProperty, mExpanded);
+	}
 
-    public void setTitle(int resourceId) {
-        mTitleView.setText(resourceId);
-    }
+	public void setTitle(int resourceId) {
+		mTitleView.setText(resourceId);
+	}
 
-    public void setTitle(String text) {
-        mTitleView.setText(text);
-    }
+	public void setTitle(String text) {
+		mTitleView.setText(text);
+	}
 
-    protected void setLayoutId(int id) {
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mLayoutView = inflater.inflate(id, mCardLayout, true);
-    }
+	protected void setLayoutId(int id) {
+		LayoutInflater inflater = (LayoutInflater) mContext
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		mLayoutView = inflater.inflate(id, mCardLayout, true);
+	}
 
-    protected View findLayoutViewById(int id) {
-        return mLayoutView.findViewById(id);
-    }
+	protected View findLayoutViewById(int id) {
+		return mLayoutView.findViewById(id);
+	}
 }

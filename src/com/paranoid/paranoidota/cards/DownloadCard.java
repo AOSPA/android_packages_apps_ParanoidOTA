@@ -39,158 +39,161 @@ import com.paranoid.paranoidota.widget.Item.OnItemClickListener;
 
 public class DownloadCard extends Card implements DownloadCallback {
 
-    private static final String DOWNLOADING = "DOWNLOADING";
-    private static final String DOWNLOAD_PROGRESS = "DOWNLOAD_PROGRESS";
+	private static final String DOWNLOADING = "DOWNLOADING";
+	private static final String DOWNLOAD_PROGRESS = "DOWNLOAD_PROGRESS";
 
-    private MainActivity mActivity;
-    private ProgressBar mWaitProgressBar;
-    private ProgressBar mProgressBar;
-    private TextView mProgress;
-    private Item mCancel;
-    private PackageInfo[] mDownloading;
-    private int mDownloadProgress = -1;
+	private MainActivity mActivity;
+	private ProgressBar mWaitProgressBar;
+	private ProgressBar mProgressBar;
+	private TextView mProgress;
+	private Item mCancel;
+	private PackageInfo[] mDownloading;
+	private int mDownloadProgress = -1;
 
-    public DownloadCard(Context context, AttributeSet attrs, PackageInfo[] infos,
-            Bundle savedInstanceState) {
-        super(context, attrs, savedInstanceState);
+	public DownloadCard(Context context, AttributeSet attrs,
+			PackageInfo[] infos, Bundle savedInstanceState) {
+		super(context, attrs, savedInstanceState);
 
-        mActivity = (MainActivity) context;
-        mActivity.setDownloadCallback(this);
+		mActivity = (MainActivity) context;
+		mActivity.setDownloadCallback(this);
 
-        setTitle(R.string.download_card_title);
-        setLayoutId(R.layout.card_download);
+		setTitle(R.string.download_card_title);
+		setLayoutId(R.layout.card_download);
 
-        mWaitProgressBar = (ProgressBar) findLayoutViewById(R.id.wait_progressbar);
-        mProgressBar = (ProgressBar) findLayoutViewById(R.id.progressbar);
-        mProgress = (TextView) findLayoutViewById(R.id.progress);
-        mCancel = (Item) findLayoutViewById(R.id.cancel);
+		mWaitProgressBar = (ProgressBar) findLayoutViewById(R.id.wait_progressbar);
+		mProgressBar = (ProgressBar) findLayoutViewById(R.id.progressbar);
+		mProgress = (TextView) findLayoutViewById(R.id.progress);
+		mCancel = (Item) findLayoutViewById(R.id.cancel);
 
-        mWaitProgressBar.setVisibility(View.GONE);
-        mProgressBar.setVisibility(View.GONE);
-        mProgress.setVisibility(View.GONE);
+		mWaitProgressBar.setVisibility(View.GONE);
+		mProgressBar.setVisibility(View.GONE);
+		mProgress.setVisibility(View.GONE);
 
-        mCancel.setEnabled(false);
-        mCancel.setOnItemClickListener(new OnItemClickListener() {
+		mCancel.setEnabled(false);
+		mCancel.setOnItemClickListener(new OnItemClickListener() {
 
-            @Override
-            public void onClick(int id) {
-                DownloadHelper.clearDownloads();
-            }
+			@Override
+			public void onClick(int id) {
+				DownloadHelper.clearDownloads();
+			}
 
-        });
+		});
 
-        setInitialInfos(infos);
+		setInitialInfos(infos);
 
-        if (infos == null && savedInstanceState != null) {
-            infos = (PackageInfo[]) savedInstanceState.getSerializable(DOWNLOADING);
-            mDownloadProgress = savedInstanceState.getInt(DOWNLOAD_PROGRESS);
-            setInfos(infos, mDownloadProgress);
-        } else {
-            mDownloading = infos;
-            if (infos == null) {
-                mDownloadProgress = -1;
-                setInfos(infos, mDownloadProgress);
-                mCancel.setEnabled(true);
-            }
-        }
-    }
+		if (infos == null && savedInstanceState != null) {
+			infos = (PackageInfo[]) savedInstanceState
+					.getSerializable(DOWNLOADING);
+			mDownloadProgress = savedInstanceState.getInt(DOWNLOAD_PROGRESS);
+			setInfos(infos, mDownloadProgress);
+		} else {
+			mDownloading = infos;
+			if (infos == null) {
+				mDownloadProgress = -1;
+				setInfos(infos, mDownloadProgress);
+				mCancel.setEnabled(true);
+			}
+		}
+	}
 
-    public void setInitialInfos(PackageInfo[] infos) {
-        Context context = getContext();
+	public void setInitialInfos(PackageInfo[] infos) {
+		Context context = getContext();
 
-        String names = "";
-        for (int i = 0; infos != null && i < infos.length; i++) {
-            boolean isRom = !infos[i].isGapps();
-            names += infos[i].getFilename() + "\n";
-            if (DownloadHelper.isDownloading(isRom)) {
-                int resId = isRom ? R.string.already_downloading_rom
-                        : R.string.already_downloading_gapps;
-                Toast.makeText(context, resId, Toast.LENGTH_LONG).show();
-                ((MainActivity) context).setState(MainActivity.STATE_UPDATES,
-                        true, null, null, null, false, false);
-                return;
-            }
-        }
+		String names = "";
+		for (int i = 0; infos != null && i < infos.length; i++) {
+			boolean isRom = !infos[i].isGapps();
+			names += infos[i].getFilename() + "\n";
+			if (DownloadHelper.isDownloading(isRom)) {
+				int resId = isRom ? R.string.already_downloading_rom
+						: R.string.already_downloading_gapps;
+				Toast.makeText(context, resId, Toast.LENGTH_LONG).show();
+				((MainActivity) context).setState(MainActivity.STATE_UPDATES,
+						true, null, null, null, false, false);
+				return;
+			}
+		}
 
-        TextView infoView = (TextView) findViewById(R.id.info);
-        infoView.setText(context.getResources().getString(R.string.downloading_info, names));
+		TextView infoView = (TextView) findViewById(R.id.info);
+		infoView.setText(context.getResources().getString(
+				R.string.downloading_info, names));
 
-        for (int i = 0; infos != null && i < infos.length; i++) {
-            DownloadHelper.registerCallback(mActivity);
-            DownloadHelper.downloadFile(infos[i].getPath(),
-                    infos[i].getFilename(), infos[i].getMd5(),
-                    !infos[i].isGapps());
-        }
-    }
+		for (int i = 0; infos != null && i < infos.length; i++) {
+			DownloadHelper.registerCallback(mActivity);
+			DownloadHelper.downloadFile(infos[i].getPath(),
+					infos[i].getFilename(), infos[i].getMd5(),
+					!infos[i].isGapps());
+		}
+	}
 
-    @Override
-    public void saveState(Bundle outState) {
-        super.saveState(outState);
-        outState.putSerializable(DOWNLOADING, mDownloading);
-        outState.putInt(DOWNLOAD_PROGRESS, mDownloadProgress);
-    }
+	@Override
+	public void saveState(Bundle outState) {
+		super.saveState(outState);
+		outState.putSerializable(DOWNLOADING, mDownloading);
+		outState.putInt(DOWNLOAD_PROGRESS, mDownloadProgress);
+	}
 
-    private void setInfos(PackageInfo[] infos, int progress) {
-        Context context = getContext();
-        String names = "";
-        for (int i = 0; infos != null && i < infos.length; i++) {
-            names += infos[i].getFilename() + "\n";
-        }
+	private void setInfos(PackageInfo[] infos, int progress) {
+		Context context = getContext();
+		String names = "";
+		for (int i = 0; infos != null && i < infos.length; i++) {
+			names += infos[i].getFilename() + "\n";
+		}
 
-        TextView infoView = (TextView) findViewById(R.id.info);
-        infoView.setText(context.getResources().getString(R.string.downloading_info, names));
+		TextView infoView = (TextView) findViewById(R.id.info);
+		infoView.setText(context.getResources().getString(
+				R.string.downloading_info, names));
 
-        DownloadHelper.registerCallback(mActivity);
+		DownloadHelper.registerCallback(mActivity);
 
-        onDownloadProgress(progress);
-    }
+		onDownloadProgress(progress);
+	}
 
-    @Override
-    protected boolean canExpand() {
-        return false;
-    }
+	@Override
+	protected boolean canExpand() {
+		return false;
+	}
 
-    @Override
-    public void onDownloadStarted() {
-        onDownloadProgress(-1);
-    }
+	@Override
+	public void onDownloadStarted() {
+		onDownloadProgress(-1);
+	}
 
-    @Override
-    public void onDownloadError(String reason) {
-        mCancel.setEnabled(false);
-        mDownloadProgress = -1;
-        mWaitProgressBar.setVisibility(View.GONE);
-        mProgressBar.setVisibility(View.GONE);
-        mProgress.setVisibility(View.GONE);
-    }
+	@Override
+	public void onDownloadError(String reason) {
+		mCancel.setEnabled(false);
+		mDownloadProgress = -1;
+		mWaitProgressBar.setVisibility(View.GONE);
+		mProgressBar.setVisibility(View.GONE);
+		mProgress.setVisibility(View.GONE);
+	}
 
-    @Override
-    public void onDownloadProgress(int progress) {
-        mCancel.setEnabled(progress >= 0);
-        mDownloadProgress = progress;
-        if (progress < 0) {
-            mWaitProgressBar.setVisibility(View.VISIBLE);
-            mProgressBar.setVisibility(View.GONE);
-            mProgress.setVisibility(View.GONE);
-        } else if (progress > 100) {
-            mWaitProgressBar.setVisibility(View.GONE);
-            mProgressBar.setVisibility(View.GONE);
-            mProgress.setVisibility(View.GONE);
-        } else {
-            mWaitProgressBar.setVisibility(View.GONE);
-            mProgressBar.setVisibility(View.VISIBLE);
-            mProgress.setVisibility(View.VISIBLE);
-            mProgressBar.setProgress(progress);
-            mProgress.setText(progress + "%");
-        }
-    }
+	@Override
+	public void onDownloadProgress(int progress) {
+		mCancel.setEnabled(progress >= 0);
+		mDownloadProgress = progress;
+		if (progress < 0) {
+			mWaitProgressBar.setVisibility(View.VISIBLE);
+			mProgressBar.setVisibility(View.GONE);
+			mProgress.setVisibility(View.GONE);
+		} else if (progress > 100) {
+			mWaitProgressBar.setVisibility(View.GONE);
+			mProgressBar.setVisibility(View.GONE);
+			mProgress.setVisibility(View.GONE);
+		} else {
+			mWaitProgressBar.setVisibility(View.GONE);
+			mProgressBar.setVisibility(View.VISIBLE);
+			mProgress.setVisibility(View.VISIBLE);
+			mProgressBar.setProgress(progress);
+			mProgress.setText(progress + "%");
+		}
+	}
 
-    @Override
-    public void onDownloadFinished(Uri uri, final String md5, boolean isRom) {
-        mCancel.setEnabled(false);
-        mDownloadProgress = -1;
-        mWaitProgressBar.setVisibility(View.GONE);
-        mProgressBar.setVisibility(View.GONE);
-    }
+	@Override
+	public void onDownloadFinished(Uri uri, final String md5, boolean isRom) {
+		mCancel.setEnabled(false);
+		mDownloadProgress = -1;
+		mWaitProgressBar.setVisibility(View.GONE);
+		mProgressBar.setVisibility(View.GONE);
+	}
 
 }

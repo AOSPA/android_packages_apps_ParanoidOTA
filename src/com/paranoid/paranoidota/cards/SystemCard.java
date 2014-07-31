@@ -32,27 +32,29 @@ import com.paranoid.paranoidota.widget.Card;
 
 public class SystemCard extends Card {
 
-    public SystemCard(Context context, AttributeSet attrs, RomUpdater romUpdater,
-            GappsUpdater gappsUpdater, Bundle savedInstanceState) {
-        super(context, attrs, savedInstanceState);
+	public SystemCard(Context context, AttributeSet attrs,
+			RomUpdater romUpdater, GappsUpdater gappsUpdater,
+			Bundle savedInstanceState) {
+		super(context, attrs, savedInstanceState);
 
-        setTitle(R.string.system_title);
-        setLayoutId(R.layout.card_system);
+		setTitle(R.string.system_title);
+		setLayoutId(R.layout.card_system);
 
-        Resources res = context.getResources();
+		Resources res = context.getResources();
 
-        TextView romView = (TextView) findLayoutViewById(R.id.rom);
-        romView.setText(res.getString(R.string.system_rom,
-                romUpdater.getVersion().toString(false)));
+		TextView romView = (TextView) findLayoutViewById(R.id.rom);
+		romView.setText(res.getString(R.string.system_rom, romUpdater
+				.getVersion().toString(false)));
 
-        TextView gappsView = (TextView) findLayoutViewById(R.id.gapps);
-        gappsView.setText(res.getString(R.string.system_gapps, gappsUpdater.getType(), gappsUpdater
-                .getVersion().toString(false)));
-    }
+		TextView gappsView = (TextView) findLayoutViewById(R.id.gapps);
+		gappsView.setText(res.getString(R.string.system_gapps,
+				gappsUpdater.getType(),
+				gappsUpdater.getVersion().toString(false)));
+	}
 
-    @Override
-    public boolean canExpand() {
-        return false;
-    }
+	@Override
+	public boolean canExpand() {
+		return false;
+	}
 
 }

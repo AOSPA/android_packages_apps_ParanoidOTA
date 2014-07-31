@@ -25,14 +25,14 @@
     android:gravity="center"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/card_horizontal_margin"
-    android:paddingRight="@dimen/card_horizontal_margin">
+    android:paddingRight="@dimen/card_horizontal_margin" >
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="@dimen/item_padding"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:paddingRight="@dimen/item_padding" />
 
     <TextView
         android:id="@+id/title"

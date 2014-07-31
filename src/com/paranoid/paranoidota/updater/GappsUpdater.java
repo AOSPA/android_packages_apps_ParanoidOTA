@@ -33,113 +33,113 @@ import java.util.Properties;
 
 public class GappsUpdater extends Updater {
 
-    private static final String PROPERTIES_FILE = "/system/etc/g.prop";
-    private static final String VERSION_PROPERTY = "ro.addon.pa_version";
-    private static final String VERSION_PROPERTY_EXT = "ro.addon.version";
-    private static final String PLATFORM_PROPERTY = "ro.build.version.release";
-    private static final String TYPE_PROPERTY = "ro.addon.pa_type";
+	private static final String PROPERTIES_FILE = "/system/etc/g.prop";
+	private static final String VERSION_PROPERTY = "ro.addon.pa_version";
+	private static final String VERSION_PROPERTY_EXT = "ro.addon.version";
+	private static final String PLATFORM_PROPERTY = "ro.build.version.release";
+	private static final String TYPE_PROPERTY = "ro.addon.pa_type";
 
-    private Version mRomVersion;
-    private String mPlatform;
-    private String mVersion = "0";
-    private String mType;
+	private Version mRomVersion;
+	private String mPlatform;
+	private String mVersion = "0";
+	private String mType;
 
-    public GappsUpdater(Context context, boolean fromAlarm) {
-        super(context, new Server[] {
-                new GooServer(context, false)
-        }, fromAlarm);
+	public GappsUpdater(Context context, boolean fromAlarm) {
+		super(context, new Server[] { new GooServer(context, false) },
+				fromAlarm);
 
-        mRomVersion = new Version(RomUpdater.getVersionString(context));
+		mRomVersion = new Version(RomUpdater.getVersionString(context));
 
-        File file = new File(PROPERTIES_FILE);
-        if (file.exists()) {
-            Properties properties = new Properties();
-            try {
-                properties.load(new FileInputStream(file));
-                String versionString = properties.getProperty(VERSION_PROPERTY);
-                if (versionString == null || "".equals(versionString)) {
-                    versionString = properties.getProperty(VERSION_PROPERTY_EXT);
-                }
-                mType = properties.getProperty(TYPE_PROPERTY);
-                mPlatform = Utils.getProp(PLATFORM_PROPERTY);
-                mPlatform = mPlatform.replace(".", "");
-                while (mPlatform.length() < 3) {
-                    mPlatform = mPlatform + "0";
-                }
-                if (versionString != null && !"".equals(versionString)) {
-                    String[] version = versionString.split("-");
-                    for (int i = 0; i < version.length; i++) {
-                        try {
-                            Integer.parseInt(new String(new char[] {
-                                    version[i].charAt(0)
-                            }));
-                            mVersion = version[i];
-                            break;
-                        } catch (NumberFormatException ex) {
-                            // ignore
-                        }
-                    }
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
+		File file = new File(PROPERTIES_FILE);
+		if (file.exists()) {
+			Properties properties = new Properties();
+			try {
+				properties.load(new FileInputStream(file));
+				String versionString = properties.getProperty(VERSION_PROPERTY);
+				if (versionString == null || "".equals(versionString)) {
+					versionString = properties
+							.getProperty(VERSION_PROPERTY_EXT);
+				}
+				mType = properties.getProperty(TYPE_PROPERTY);
+				mPlatform = Utils.getProp(PLATFORM_PROPERTY);
+				mPlatform = mPlatform.replace(".", "");
+				while (mPlatform.length() < 3) {
+					mPlatform = mPlatform + "0";
+				}
+				if (versionString != null && !"".equals(versionString)) {
+					String[] version = versionString.split("-");
+					for (int i = 0; i < version.length; i++) {
+						try {
+							Integer.parseInt(new String(new char[] { version[i]
+									.charAt(0) }));
+							mVersion = version[i];
+							break;
+						} catch (NumberFormatException ex) {
+							// ignore
+						}
+					}
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 
-    public String getType() {
-        return mType == null ? "" : mType;
-    }
+	public String getType() {
+		return mType == null ? "" : mType;
+	}
 
-    private int getTypeForSettings() {
-        int type = SettingsHelper.GAPPS_FULL;
-        if ("micro".equals(mType)) {
-            type = SettingsHelper.GAPPS_MICRO;
-        } else if ("mini".equals(mType)) {
-            type = SettingsHelper.GAPPS_MINI;
-        } else if ("stock".equals(mType)) {
-            type = SettingsHelper.GAPPS_STOCK;
-        }
-        return type;
-    }
+	private int getTypeForSettings() {
+		int type = SettingsHelper.GAPPS_FULL;
+		if ("micro".equals(mType)) {
+			type = SettingsHelper.GAPPS_MICRO;
+		} else if ("mini".equals(mType)) {
+			type = SettingsHelper.GAPPS_MINI;
+		} else if ("stock".equals(mType)) {
+			type = SettingsHelper.GAPPS_STOCK;
+		}
+		return type;
+	}
 
-    public String getPlatform() {
-        return mPlatform == null ? "0" : mPlatform;
-    }
+	public String getPlatform() {
+		return mPlatform == null ? "0" : mPlatform;
+	}
 
-    @Override
-    public Version getVersion() {
-        if (mPlatform == null || mPlatform.isEmpty() || mVersion == null || mVersion.isEmpty()) {
-            return new Version();
-        }
-        return Version.fromGapps(getPlatform(), mVersion);
-    }
+	@Override
+	public Version getVersion() {
+		if (mPlatform == null || mPlatform.isEmpty() || mVersion == null
+				|| mVersion.isEmpty()) {
+			return new Version();
+		}
+		return Version.fromGapps(getPlatform(), mVersion);
+	}
 
-    @Override
-    public boolean isRom() {
-        return false;
-    }
+	@Override
+	public boolean isRom() {
+		return false;
+	}
 
-    @Override
-    public String getDevice() {
-        final String gapps = "GApps/Android " + mRomVersion.getMajor() + "."
-                + mRomVersion.getMinor() + "/";
-        int type = getSettingsHelper().getGappsType(getTypeForSettings());
-        switch (type) {
-            case SettingsHelper.GAPPS_MICRO:
-                return gapps + "Micro-Modular GApps";
-            case SettingsHelper.GAPPS_MINI:
-                return gapps + "Mini-Modular GApps";
-            case SettingsHelper.GAPPS_STOCK:
-                return gapps + "Google Stock GApps";
-            case SettingsHelper.GAPPS_FULL:
-            default:
-                return gapps + "Full-Modular GApps";
-        }
-    }
+	@Override
+	public String getDevice() {
+		final String gapps = "GApps/Android " + mRomVersion.getMajor() + "."
+				+ mRomVersion.getMinor() + "/";
+		int type = getSettingsHelper().getGappsType(getTypeForSettings());
+		switch (type) {
+		case SettingsHelper.GAPPS_MICRO:
+			return gapps + "Micro-Modular GApps";
+		case SettingsHelper.GAPPS_MINI:
+			return gapps + "Mini-Modular GApps";
+		case SettingsHelper.GAPPS_STOCK:
+			return gapps + "Google Stock GApps";
+		case SettingsHelper.GAPPS_FULL:
+		default:
+			return gapps + "Full-Modular GApps";
+		}
+	}
 
-    @Override
-    public int getErrorStringId() {
-        return R.string.check_gapps_updates_error;
-    }
+	@Override
+	public int getErrorStringId() {
+		return R.string.check_gapps_updates_error;
+	}
 
 }

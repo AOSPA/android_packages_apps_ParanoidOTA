@@ -28,21 +28,21 @@ import com.paranoid.paranoidota.updater.RomUpdater;
 
 public class NotificationAlarm extends BroadcastReceiver {
 
-    private RomUpdater mRomUpdater;
-    private GappsUpdater mGappsUpdater;
+	private RomUpdater mRomUpdater;
+	private GappsUpdater mGappsUpdater;
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
+	@Override
+	public void onReceive(Context context, Intent intent) {
 
-        if (mRomUpdater == null) {
-            mRomUpdater = new RomUpdater(context, true);
-        }
-        if (mGappsUpdater == null) {
-            mGappsUpdater = new GappsUpdater(context, true);
-        }
-        if (Utils.isNetworkAvailable(context)) {
-            mRomUpdater.check();
-            mGappsUpdater.check();
-        }
-    }
+		if (mRomUpdater == null) {
+			mRomUpdater = new RomUpdater(context, true);
+		}
+		if (mGappsUpdater == null) {
+			mGappsUpdater = new GappsUpdater(context, true);
+		}
+		if (Utils.isNetworkAvailable(context)) {
+			mRomUpdater.check();
+			mGappsUpdater.check();
+		}
+	}
 }

@@ -23,49 +23,49 @@ import android.content.Context;
 
 public abstract class RecoveryInfo {
 
-    private int id;
-    private String name = null;
-    private String internalSdcard = null;
-    private String externalSdcard = null;
+	private int id;
+	private String name = null;
+	private String internalSdcard = null;
+	private String externalSdcard = null;
 
-    public RecoveryInfo() {
-    }
+	public RecoveryInfo() {
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getInternalSdcard() {
-        return internalSdcard;
-    }
+	public String getInternalSdcard() {
+		return internalSdcard;
+	}
 
-    public void setInternalSdcard(String sdcard) {
-        this.internalSdcard = sdcard;
-    }
+	public void setInternalSdcard(String sdcard) {
+		this.internalSdcard = sdcard;
+	}
 
-    public String getExternalSdcard() {
-        return externalSdcard;
-    }
+	public String getExternalSdcard() {
+		return externalSdcard;
+	}
 
-    public void setExternalSdcard(String sdcard) {
-        this.externalSdcard = sdcard;
-    }
+	public void setExternalSdcard(String sdcard) {
+		this.externalSdcard = sdcard;
+	}
 
-    public abstract String getCommandsFile();
+	public abstract String getCommandsFile();
 
-    public abstract String[] getCommands(Context context, String[] items, String[] originalItems,
-            boolean wipeData, boolean wipeCaches, String backupFolder, String backupOptions)
-            throws Exception;
+	public abstract String[] getCommands(Context context, String[] items,
+			String[] originalItems, boolean wipeData, boolean wipeCaches,
+			String backupFolder, String backupOptions) throws Exception;
 }

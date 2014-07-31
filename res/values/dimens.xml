@@ -23,17 +23,14 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_divider_padding">16dip</dimen>
-
-    <dimen name="drawer_width">240dp</dimen>
+    <dimen name="drawer_width">280dp</dimen>
     <dimen name="drawer_item_padding_left">20dp</dimen>
     <dimen name="drawer_item_padding_top">25dp</dimen>
     <dimen name="drawer_item_padding_top_small">15dp</dimen>
-
     <dimen name="header_text_size">32sp</dimen>
     <dimen name="header_underline_size">2dp</dimen>
     <dimen name="header_underline_top_margin">3dp</dimen>
     <dimen name="header_underline_bottom_margin">15dp</dimen>
-
     <dimen name="card_horizontal_margin">16dp</dimen>
     <dimen name="card_vertical_margin">16dp</dimen>
     <dimen name="card_vertical_bottom_margin">6dp</dimen>
@@ -44,9 +41,8 @@
     <dimen name="card_header_padding">10dp</dimen>
     <dimen name="card_separator_height">1dp</dimen>
     <dimen name="card_separator_padding">10dp</dimen>
-
     <dimen name="item_padding">10dp</dimen>
 
-    <integer name="anim_duration">400</integer>
+    <integer name="anim_duration">430</integer>
 
 </resources>

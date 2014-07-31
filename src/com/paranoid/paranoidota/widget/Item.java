@@ -37,106 +37,107 @@ import com.paranoid.paranoidota.R;
 
 public class Item extends LinearLayout {
 
-    public static interface OnItemClickListener {
-        public void onClick(int id);
-    }
+	public static interface OnItemClickListener {
+		public void onClick(int id);
+	}
 
-    private ImageView mIconView;
-    private TextView mTitleView;
-    private OnItemClickListener mItemClickListener;
-    private ColorStateList mDefaultColors;
-    private int mPressedColor;
-    private int mIconActiveColor;
+	private ImageView mIconView;
+	private TextView mTitleView;
+	private OnItemClickListener mItemClickListener;
+	private ColorStateList mDefaultColors;
+	private int mPressedColor;
+	private int mIconActiveColor;
 
-    public Item(final Context context, AttributeSet attrs) {
-        super(context, attrs);
+	public Item(final Context context, AttributeSet attrs) {
+		super(context, attrs);
 
-        String title = null;
-        Drawable icon = null;
+		String title = null;
+		Drawable icon = null;
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Item);
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Item);
 
-        CharSequence s = a.getString(R.styleable.Item_itemTitle);
-        if (s != null) {
-            title = s.toString();
-        }
-        Drawable d = a.getDrawable(R.styleable.Item_itemIcon);
-        if (d != null) {
-            icon = d;
-        }
+		CharSequence s = a.getString(R.styleable.Item_itemTitle);
+		if (s != null) {
+			title = s.toString();
+		}
+		Drawable d = a.getDrawable(R.styleable.Item_itemIcon);
+		if (d != null) {
+			icon = d;
+		}
 
-        a.recycle();
+		a.recycle();
 
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item, this, true);
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View view = inflater.inflate(R.layout.item, this, true);
 
-        mTitleView = (TextView) view.findViewById(R.id.title);
-        mTitleView.setText(title);
-        mDefaultColors = mTitleView.getTextColors();
-        mPressedColor = context.getResources().getColor(R.color.item_pressed);
-        mIconActiveColor = context.getResources().getColor(R.color.item_action);
-        if (icon != null) {
-            icon.setColorFilter(mIconActiveColor, PorterDuff.Mode.SRC_ATOP);
-        }
+		mTitleView = (TextView) view.findViewById(R.id.title);
+		mTitleView.setText(title);
+		mDefaultColors = mTitleView.getTextColors();
+		mPressedColor = context.getResources().getColor(R.color.item_pressed);
+		mIconActiveColor = context.getResources().getColor(R.color.item_action);
+		if (icon != null) {
+			icon.setColorFilter(mIconActiveColor, PorterDuff.Mode.SRC_ATOP);
+		}
 
-        mIconView = (ImageView) view.findViewById(R.id.icon);
-        mIconView.setImageDrawable(icon);
+		mIconView = (ImageView) view.findViewById(R.id.icon);
+		mIconView.setImageDrawable(icon);
 
-        setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                if (!isEnabled()) {
-                    return true;
-                }
+		setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent event) {
+				if (!isEnabled()) {
+					return true;
+				}
 
-                Rect mViewRect = new Rect(view.getLeft(), view.getTop(), view.getRight(),
-                        view.getBottom());
-                boolean mTouchCancelled = !mViewRect.contains(view.getLeft() + (int) event.getX(),
-                        view.getTop() + (int) event.getY());
+				Rect mViewRect = new Rect(view.getLeft(), view.getTop(),
+						view.getRight(), view.getBottom());
+				boolean mTouchCancelled = !mViewRect.contains(view.getLeft()
+						+ (int) event.getX(),
+						view.getTop() + (int) event.getY());
 
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        setBackgroundColor(mPressedColor);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        setBackgroundColor(context.getResources().getColor(
-                                android.R.color.transparent));
-                        mTitleView.setTextColor(mDefaultColors);
-                        if (mItemClickListener != null && !mTouchCancelled) {
-                            mItemClickListener.onClick(Item.this.getId());
-                        }
-                        break;
-                }
-                return true;
-            }
-        });
-    }
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					setBackgroundColor(mPressedColor);
+					break;
+				case MotionEvent.ACTION_UP:
+					setBackgroundColor(context.getResources().getColor(
+							android.R.color.transparent));
+					mTitleView.setTextColor(mDefaultColors);
+					if (mItemClickListener != null && !mTouchCancelled) {
+						mItemClickListener.onClick(Item.this.getId());
+					}
+					break;
+				}
+				return true;
+			}
+		});
+	}
 
-    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-        mItemClickListener = itemClickListener;
-    }
+	public void setOnItemClickListener(OnItemClickListener itemClickListener) {
+		mItemClickListener = itemClickListener;
+	}
 
-    public void setTitle(int resourceId) {
-        mTitleView.setText(resourceId);
-    }
+	public void setTitle(int resourceId) {
+		mTitleView.setText(resourceId);
+	}
 
-    public void setTitle(String text) {
-        mTitleView.setText(text);
-    }
+	public void setTitle(String text) {
+		mTitleView.setText(text);
+	}
 
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        if (mIconView != null && mTitleView != null) {
-            Drawable icon = mIconView.getDrawable();
-            if (enabled) {
-                icon.setColorFilter(mIconActiveColor, PorterDuff.Mode.SRC_ATOP);
-                mTitleView.setTextColor(mDefaultColors);
-            } else {
-                icon.clearColorFilter();
-                mTitleView.setTextColor(R.color.card_text);
-            }
-        }
-    }
+	@Override
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
+		if (mIconView != null && mTitleView != null) {
+			Drawable icon = mIconView.getDrawable();
+			if (enabled) {
+				icon.setColorFilter(mIconActiveColor, PorterDuff.Mode.SRC_ATOP);
+				mTitleView.setTextColor(mDefaultColors);
+			} else {
+				icon.clearColorFilter();
+				mTitleView.setTextColor(R.color.card_text);
+			}
+		}
+	}
 }

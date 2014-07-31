@@ -25,91 +25,92 @@ import com.paranoid.paranoidota.updater.Updater.PackageInfo;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class UpdatePackage implements PackageInfo, Serializable {
 
-    private String mMd5 = null;
-    private String mIncrementalMd5 = null;
-    private String mFilename = null;
-    private String mIncrementalFilename = null;
-    private String mPath = null;
-    private String mHost = null;
-    private String mSize = null;
-    private String mIncrementalPath = null;
-    private Version mVersion;
-    private boolean mIsDelta = false;
-    private boolean mIsGapps = false;
+	private String mMd5 = null;
+	private String mIncrementalMd5 = null;
+	private String mFilename = null;
+	private String mIncrementalFilename = null;
+	private String mPath = null;
+	private String mHost = null;
+	private String mSize = null;
+	private String mIncrementalPath = null;
+	private Version mVersion;
+	private boolean mIsDelta = false;
+	private boolean mIsGapps = false;
 
-    public UpdatePackage(String device, String name, Version version, long size, String url,
-            String md5, boolean gapps) {
-        this(device, name, version,
-                IOUtils.humanReadableByteCount(size, false), url, md5, gapps);
-    }
+	public UpdatePackage(String device, String name, Version version,
+			long size, String url, String md5, boolean gapps) {
+		this(device, name, version,
+				IOUtils.humanReadableByteCount(size, false), url, md5, gapps);
+	}
 
-    public UpdatePackage(String device, String name, Version version, String size, String url,
-            String md5, boolean gapps) {
-        this.mFilename = name;
-        this.mVersion = version;
-        this.mSize = size;
-        this.mPath = url;
-        this.mMd5 = md5;
-        this.mIsGapps = gapps;
-        mHost = mPath.replace("http://", "");
-        mHost = mHost.replace("https://", "");
-        mHost = mHost.substring(0, mHost.indexOf("/"));
-    }
+	public UpdatePackage(String device, String name, Version version,
+			String size, String url, String md5, boolean gapps) {
+		this.mFilename = name;
+		this.mVersion = version;
+		this.mSize = size;
+		this.mPath = url;
+		this.mMd5 = md5;
+		this.mIsGapps = gapps;
+		mHost = mPath.replace("http://", "");
+		mHost = mHost.replace("https://", "");
+		mHost = mHost.substring(0, mHost.indexOf("/"));
+	}
 
-    @Override
-    public boolean isDelta() {
-        return mIsDelta;
-    }
+	@Override
+	public boolean isDelta() {
+		return mIsDelta;
+	}
 
-    @Override
-    public String getDeltaFilename() {
-        return mIncrementalFilename;
-    }
+	@Override
+	public String getDeltaFilename() {
+		return mIncrementalFilename;
+	}
 
-    @Override
-    public String getDeltaPath() {
-        return mIncrementalPath;
-    }
+	@Override
+	public String getDeltaPath() {
+		return mIncrementalPath;
+	}
 
-    @Override
-    public String getDeltaMd5() {
-        return mIncrementalMd5;
-    }
+	@Override
+	public String getDeltaMd5() {
+		return mIncrementalMd5;
+	}
 
-    @Override
-    public String getMd5() {
-        return mMd5;
-    }
+	@Override
+	public String getMd5() {
+		return mMd5;
+	}
 
-    @Override
-    public String getFilename() {
-        return mFilename;
-    }
+	@Override
+	public String getFilename() {
+		return mFilename;
+	}
 
-    @Override
-    public String getPath() {
-        return mPath;
-    }
+	@Override
+	public String getPath() {
+		return mPath;
+	}
 
-    @Override
-    public String getHost() {
-        return mHost;
-    }
+	@Override
+	public String getHost() {
+		return mHost;
+	}
 
-    @Override
-    public Version getVersion() {
-        return mVersion;
-    }
+	@Override
+	public Version getVersion() {
+		return mVersion;
+	}
 
-    @Override
-    public String getSize() {
-        return mSize;
-    }
+	@Override
+	public String getSize() {
+		return mSize;
+	}
 
-    @Override
-    public boolean isGapps() {
-        return mIsGapps;
-    }
+	@Override
+	public boolean isGapps() {
+		return mIsGapps;
+	}
 }

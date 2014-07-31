@@ -27,21 +27,21 @@ import com.paranoid.paranoidota.Utils;
 
 public class PreferenceCategory extends android.preference.PreferenceCategory {
 
-    public PreferenceCategory(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
+	public PreferenceCategory(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+	}
 
-    public PreferenceCategory(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+	public PreferenceCategory(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
 
-    public PreferenceCategory(Context context) {
-        super(context);
-    }
+	public PreferenceCategory(Context context) {
+		super(context);
+	}
 
-    @Override
-    protected void onBindView(View view) {
-        super.onBindView(view);
-        Utils.setRobotoThin(getContext(), view);
-    }
+	@Override
+	protected void onBindView(View view) {
+		super.onBindView(view);
+		Utils.setRobotoThin(getContext(), view);
+	}
 }

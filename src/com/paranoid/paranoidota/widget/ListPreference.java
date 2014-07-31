@@ -27,17 +27,17 @@ import com.paranoid.paranoidota.Utils;
 
 public class ListPreference extends android.preference.ListPreference {
 
-    public ListPreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+	public ListPreference(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
 
-    public ListPreference(Context context) {
-        super(context);
-    }
+	public ListPreference(Context context) {
+		super(context);
+	}
 
-    @Override
-    protected void onBindView(View view) {
-        super.onBindView(view);
-        Utils.setRobotoThin(getContext(), view);
-    }
+	@Override
+	protected void onBindView(View view) {
+		super.onBindView(view);
+		Utils.setRobotoThin(getContext(), view);
+	}
 }

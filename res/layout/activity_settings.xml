@@ -22,35 +22,33 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
-    <com.paranoid.paranoidota.widget.PreferenceCategory
-        android:title="@string/settings" >
+    <com.paranoid.paranoidota.widget.PreferenceCategory android:title="@string/settings" >
 
         <com.paranoid.paranoidota.widget.ListPreference
-            android:key="checktime"
-            android:title="@string/settings_checktime_title"
-            android:summary="@string/settings_checktime_summary"
             android:dialogTitle="@string/settings_checktime_title"
             android:entries="@array/time_notifications_entries"
-            android:entryValues="@array/time_notifications_values" />
+            android:entryValues="@array/time_notifications_values"
+            android:key="checktime"
+            android:summary="@string/settings_checktime_summary"
+            android:title="@string/settings_checktime_title" />
 
         <com.paranoid.paranoidota.widget.CheckBoxPreference
             android:key="checkgapps"
-            android:title="@string/settings_checkgapps_title"
-            android:summary="@string/settings_checkgapps_summary" />
+            android:summary="@string/settings_checkgapps_summary"
+            android:title="@string/settings_checkgapps_title" />
 
         <com.paranoid.paranoidota.widget.ListPreference
-            android:key="gappstype"
             android:dependency="checkgapps"
-            android:title="@string/settings_gappstype_title"
-            android:summary="@string/settings_gappstype_summary"
             android:entries="@array/gapps_type_entries"
-            android:entryValues="@array/gapps_type_values" />
+            android:entryValues="@array/gapps_type_values"
+            android:key="gappstype"
+            android:summary="@string/settings_gappstype_summary"
+            android:title="@string/settings_gappstype_title" />
 
         <com.paranoid.paranoidota.widget.Preference
             android:key="goo"
-            android:title="@string/settings_goo"
-            android:summary="@string/settings_login_goo" />
-
+            android:summary="@string/settings_login_goo"
+            android:title="@string/settings_goo" />
     </com.paranoid.paranoidota.widget.PreferenceCategory>
 
 </PreferenceScreen>

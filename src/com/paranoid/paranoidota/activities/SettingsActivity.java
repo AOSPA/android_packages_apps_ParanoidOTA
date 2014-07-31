@@ -46,172 +46,191 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class SettingsActivity extends PreferenceActivity implements
-        OnSharedPreferenceChangeListener {
+		OnSharedPreferenceChangeListener {
 
-    public static final String LOGIN_URL = "http://goo-inside.me/salt";
+	public static final String LOGIN_URL = "http://goo-inside.me/salt";
 
-    private SettingsHelper mSettingsHelper;
-    private ListPreference mCheckTime;
-    private CheckBoxPreference mCheckGapps;
-    private ListPreference mGappsType;
-    private Preference mGoo;
+	private SettingsHelper mSettingsHelper;
+	private ListPreference mCheckTime;
+	private CheckBoxPreference mCheckGapps;
+	private ListPreference mGappsType;
+	private Preference mGoo;
 
-    @Override
-    @SuppressWarnings("deprecation")
-    protected void onCreate(Bundle savedInstanceState) {
+	@Override
+	@SuppressWarnings("deprecation")
+	protected void onCreate(Bundle savedInstanceState) {
 
-        mSettingsHelper = new SettingsHelper(this);
+		mSettingsHelper = new SettingsHelper(this);
 
-        super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        addPreferencesFromResource(R.layout.activity_settings);
+		addPreferencesFromResource(R.layout.activity_settings);
 
-        mCheckTime = (ListPreference) findPreference(SettingsHelper.PROPERTY_CHECK_TIME);
-        mCheckGapps = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_CHECK_GAPPS);
-        mGappsType = (ListPreference) findPreference(SettingsHelper.PROPERTY_GAPPS_TYPE);
-        mGoo = (Preference) findPreference("goo");
+		mCheckTime = (ListPreference) findPreference(SettingsHelper.PROPERTY_CHECK_TIME);
+		mCheckGapps = (CheckBoxPreference) findPreference(SettingsHelper.PROPERTY_CHECK_GAPPS);
+		mGappsType = (ListPreference) findPreference(SettingsHelper.PROPERTY_GAPPS_TYPE);
+		mGoo = (Preference) findPreference("goo");
 
-        mCheckTime.setValue(String.valueOf(mSettingsHelper.getCheckTime()));
-        mCheckGapps.setChecked(mSettingsHelper.getCheckGapps());
-        mGappsType.setValue(String.valueOf(mSettingsHelper.getGappsType()));
+		mCheckTime.setValue(String.valueOf(mSettingsHelper.getCheckTime()));
+		mCheckGapps.setChecked(mSettingsHelper.getCheckGapps());
+		mGappsType.setValue(String.valueOf(mSettingsHelper.getGappsType()));
 
-        updateSummaries();
+		updateSummaries();
 
-        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-    }
+		getPreferenceScreen().getSharedPreferences()
+				.registerOnSharedPreferenceChangeListener(this);
+	}
 
-    @Override
-    @Deprecated
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-            android.preference.Preference preference) {
-        if (preference.getKey().equals("goo")) {
-            if (mSettingsHelper.isLogged()) {
-                mSettingsHelper.logout();
-                updateSummaries();
-                Utils.showToastOnUiThread(this, R.string.logged_out);
-            } else {
-                showLoginDialog();
-            }
-        }
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
-    }
+	@Override
+	@Deprecated
+	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
+			android.preference.Preference preference) {
+		if (preference.getKey().equals("goo")) {
+			if (mSettingsHelper.isLogged()) {
+				mSettingsHelper.logout();
+				updateSummaries();
+				Utils.showToastOnUiThread(this, R.string.logged_out);
+			} else {
+				showLoginDialog();
+			}
+		}
+		return super.onPreferenceTreeClick(preferenceScreen, preference);
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (SettingsHelper.PROPERTY_CHECK_TIME.equals(key)) {
-            Utils.setAlarm(this, mSettingsHelper.getCheckTime(), false, true);
-        }
-        if (SettingsHelper.PROPERTY_GAPPS_TYPE.equals(key)) {
-            updateSummaries();
-        }
-    }
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+			String key) {
+		if (SettingsHelper.PROPERTY_CHECK_TIME.equals(key)) {
+			Utils.setAlarm(this, mSettingsHelper.getCheckTime(), false, true);
+		}
+		if (SettingsHelper.PROPERTY_GAPPS_TYPE.equals(key)) {
+			updateSummaries();
+		}
+	}
 
-    private void updateSummaries() {
-        final CharSequence gappsType = mGappsType.getEntry();
-        if (gappsType != null) {
-            mGappsType.setSummary(gappsType);
-        } else {
-            mGappsType.setSummary(R.string.settings_gappstype_summary);
-        }
+	private void updateSummaries() {
+		final CharSequence gappsType = mGappsType.getEntry();
+		if (gappsType != null) {
+			mGappsType.setSummary(gappsType);
+		} else {
+			mGappsType.setSummary(R.string.settings_gappstype_summary);
+		}
 
-        if (mSettingsHelper.isLogged()) {
-            mGoo.setSummary(getResources().getString(R.string.logged_in,
-                    mSettingsHelper.getLoginUserName()));
-        } else {
-            mGoo.setSummary(R.string.settings_login_goo);
-        }
-    }
+		if (mSettingsHelper.isLogged()) {
+			mGoo.setSummary(getResources().getString(R.string.logged_in,
+					mSettingsHelper.getLoginUserName()));
+		} else {
+			mGoo.setSummary(R.string.settings_login_goo);
+		}
+	}
 
-    public void showLoginDialog() {
+	public void showLoginDialog() {
 
-        LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_login, null);
-        final EditText username = (EditText) view.findViewById(R.id.username);
-        final EditText password = (EditText) view.findViewById(R.id.password);
+		LayoutInflater inflater = getLayoutInflater();
+		View view = inflater.inflate(R.layout.dialog_login, null);
+		final EditText username = (EditText) view.findViewById(R.id.username);
+		final EditText password = (EditText) view.findViewById(R.id.password);
 
-        username.setText(mSettingsHelper.getLoginUserName());
+		username.setText(mSettingsHelper.getLoginUserName());
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(R.string.settings_login_goo)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this)
+				.setTitle(R.string.settings_login_goo)
+				.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
 
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.dismiss();
 
-                        final ProgressDialog progressDialog = new ProgressDialog(
-                                SettingsActivity.this);
-                        progressDialog.setIndeterminate(true);
-                        progressDialog.setMessage(getResources().getString(R.string.logging_in));
-                        progressDialog.setCancelable(false);
-                        progressDialog.setCanceledOnTouchOutside(false);
-                        progressDialog.show();
+								final ProgressDialog progressDialog = new ProgressDialog(
+										SettingsActivity.this);
+								progressDialog.setIndeterminate(true);
+								progressDialog.setMessage(getResources()
+										.getString(R.string.logging_in));
+								progressDialog.setCancelable(false);
+								progressDialog.setCanceledOnTouchOutside(false);
+								progressDialog.show();
 
-                        String user = username.getText() == null ? "" : username.getText()
-                                .toString();
-                        String pass = password.getText() == null ? "" : password.getText()
-                                .toString();
+								String user = username.getText() == null ? ""
+										: username.getText().toString();
+								String pass = password.getText() == null ? ""
+										: password.getText().toString();
 
-                        mSettingsHelper.setLoginUserName(user);
+								mSettingsHelper.setLoginUserName(user);
 
-                        try {
-                            String url = LOGIN_URL + "&username="
-                                    + URLEncoder.encode(user, "UTF-8") + "&password="
-                                    + URLEncoder.encode(pass, "UTF-8");
-                            new URLStringReader(new URLStringReaderListener() {
+								try {
+									String url = LOGIN_URL + "&username="
+											+ URLEncoder.encode(user, "UTF-8")
+											+ "&password="
+											+ URLEncoder.encode(pass, "UTF-8");
+									new URLStringReader(
+											new URLStringReaderListener() {
 
-                                @Override
-                                public void onReadEnd(String buffer) {
-                                    progressDialog.dismiss();
-                                    if (buffer != null && buffer.length() == 32) {
-                                        mSettingsHelper.login(buffer);
-                                        Utils.showToastOnUiThread(
-                                                SettingsActivity.this,
-                                                getResources().getString(R.string.logged_in,
-                                                        mSettingsHelper.getLoginUserName()));
-                                        updateSummaries();
-                                    } else if (buffer != null) {
-                                        Utils.showToastOnUiThread(SettingsActivity.this,
-                                                R.string.error_logging_invalid);
-                                    } else {
-                                        Utils.showToastOnUiThread(SettingsActivity.this,
-                                                R.string.error_logging_down);
-                                    }
-                                }
+												@Override
+												public void onReadEnd(
+														String buffer) {
+													progressDialog.dismiss();
+													if (buffer != null
+															&& buffer.length() == 32) {
+														mSettingsHelper
+																.login(buffer);
+														Utils.showToastOnUiThread(
+																SettingsActivity.this,
+																getResources()
+																		.getString(
+																				R.string.logged_in,
+																				mSettingsHelper
+																						.getLoginUserName()));
+														updateSummaries();
+													} else if (buffer != null) {
+														Utils.showToastOnUiThread(
+																SettingsActivity.this,
+																R.string.error_logging_invalid);
+													} else {
+														Utils.showToastOnUiThread(
+																SettingsActivity.this,
+																R.string.error_logging_down);
+													}
+												}
 
-                                @Override
-                                public void onReadError(Exception ex) {
-                                    progressDialog.dismiss();
-                                    ex.printStackTrace();
-                                    Utils.showToastOnUiThread(SettingsActivity.this,
-                                            R.string.error_logging_in);
-                                }
+												@Override
+												public void onReadError(
+														Exception ex) {
+													progressDialog.dismiss();
+													ex.printStackTrace();
+													Utils.showToastOnUiThread(
+															SettingsActivity.this,
+															R.string.error_logging_in);
+												}
 
-                            }).execute(url);
-                        } catch (UnsupportedEncodingException ex) {
-                            // should never get here
-                        }
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+											}).execute(url);
+								} catch (UnsupportedEncodingException ex) {
+									// should never get here
+								}
+							}
+						})
+				.setNegativeButton(android.R.string.cancel,
+						new DialogInterface.OnClickListener() {
 
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
-                    }
-                });
-        builder.setView(view);
-        builder.create().show();
-    }
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.dismiss();
+							}
+						});
+		builder.setView(view);
+		builder.create().show();
+	}
 }

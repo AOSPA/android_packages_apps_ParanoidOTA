@@ -27,21 +27,21 @@ import com.paranoid.paranoidota.Utils;
 
 public class Preference extends android.preference.Preference {
 
-    public Preference(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
+	public Preference(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+	}
 
-    public Preference(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+	public Preference(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
 
-    public Preference(Context context) {
-        super(context);
-    }
+	public Preference(Context context) {
+		super(context);
+	}
 
-    @Override
-    protected void onBindView(View view) {
-        super.onBindView(view);
-        Utils.setRobotoThin(getContext(), view);
-    }
+	@Override
+	protected void onBindView(View view) {
+		super.onBindView(view);
+		Utils.setRobotoThin(getContext(), view);
+	}
 }

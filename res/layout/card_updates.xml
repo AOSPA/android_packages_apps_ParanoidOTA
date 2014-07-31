@@ -21,8 +21,8 @@
     xmlns:app="http://schemas.android.com/apk/res/com.paranoid.paranoidota"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/layout"
@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingLeft="@dimen/card_horizontal_margin"
-        android:paddingRight="@dimen/card_horizontal_margin">
+        android:paddingRight="@dimen/card_horizontal_margin" >
 
         <TextView
             android:id="@+id/info"
@@ -49,10 +49,9 @@
             android:id="@+id/error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/card_header_padding"
             android:textColor="@color/card_text_error"
-            android:textSize="@dimen/card_small_text_size"
-            android:paddingTop="@dimen/card_header_padding" />
-
+            android:textSize="@dimen/card_small_text_size" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,7 +61,7 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/card_horizontal_margin"
         android:paddingRight="@dimen/card_horizontal_margin"
-        android:visibility="gone">
+        android:visibility="gone" >
 
         <View
             android:layout_width="match_parent"
@@ -78,7 +77,6 @@
             android:text="@string/no_additional_info"
             android:textColor="@color/card_text"
             android:textSize="@dimen/card_small_text_size" />
-
     </LinearLayout>
 
     <View
@@ -92,8 +90,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingTop="@dimen/card_separator_padding"
         android:paddingBottom="@dimen/card_separator_padding"
+        android:paddingTop="@dimen/card_separator_padding"
         app:itemIcon="@drawable/ic_check"
         app:itemTitle="@string/check_for_updates" />
 

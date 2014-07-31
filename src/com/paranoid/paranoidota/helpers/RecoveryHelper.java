@@ -30,86 +30,80 @@ import com.paranoid.paranoidota.helpers.recovery.TwrpRecovery;
 
 public class RecoveryHelper {
 
-    private SparseArray<RecoveryInfo> mRecoveries = new SparseArray<RecoveryInfo>();
-    private Context mContext;
+	private SparseArray<RecoveryInfo> mRecoveries = new SparseArray<RecoveryInfo>();
+	private Context mContext;
 
-    public RecoveryHelper(Context context) {
+	public RecoveryHelper(Context context) {
 
-        mContext = context;
+		mContext = context;
 
-        mRecoveries.put(Utils.CWM_BASED, new CwmBasedRecovery(context));
-        mRecoveries.put(Utils.TWRP, new TwrpRecovery());
-    }
+		mRecoveries.put(Utils.CWM_BASED, new CwmBasedRecovery(context));
+		mRecoveries.put(Utils.TWRP, new TwrpRecovery());
+	}
 
-    public RecoveryInfo getRecovery(int id) {
-        for (int i = 0; i < mRecoveries.size(); i++) {
-            int key = mRecoveries.keyAt(i);
-            RecoveryInfo info = mRecoveries.get(key);
-            if (info.getId() == id) {
-                return info;
-            }
-        }
-        return null;
-    }
+	public RecoveryInfo getRecovery(int id) {
+		for (int i = 0; i < mRecoveries.size(); i++) {
+			int key = mRecoveries.keyAt(i);
+			RecoveryInfo info = mRecoveries.get(key);
+			if (info.getId() == id) {
+				return info;
+			}
+		}
+		return null;
+	}
 
-    public String getCommandsFile(int id) {
+	public String getCommandsFile(int id) {
 
-        RecoveryInfo info = getRecovery(id);
+		RecoveryInfo info = getRecovery(id);
 
-        return info.getCommandsFile();
-    }
+		return info.getCommandsFile();
+	}
 
-    public String getRecoveryFilePath(int id, String filePath) {
+	public String getRecoveryFilePath(int id, String filePath) {
 
-        RecoveryInfo info = getRecovery(id);
+		RecoveryInfo info = getRecovery(id);
 
-        String internalStorage = info.getInternalSdcard();
-        String externalStorage = info.getExternalSdcard();
+		String internalStorage = info.getInternalSdcard();
+		String externalStorage = info.getExternalSdcard();
 
-        String primarySdcard = IOUtils.getPrimarySdCard();
-        String secondarySdcard = IOUtils.getSecondarySdCard();
+		String primarySdcard = IOUtils.getPrimarySdCard();
+		String secondarySdcard = IOUtils.getSecondarySdCard();
 
-        String[] internalNames = new String[] {
-                primarySdcard,
-                "/mnt/sdcard",
-                "/storage/sdcard/",
-                "/sdcard",
-                "/storage/sdcard0",
-                "/storage/emulated/0"
-        };
-        String[] externalNames = new String[] {
-                secondarySdcard == null ? " " : secondarySdcard,
-                "/mnt/extSdCard",
-                "/storage/extSdCard/",
-                "/extSdCard",
-                "/storage/sdcard1",
-                "/storage/emulated/1"
-        };
-        for (int i = 0; i < internalNames.length; i++) {
-            String internalName = internalNames[i];
-            String externalName = externalNames[i];
-            if (filePath.startsWith(externalName)) {
-                filePath = filePath.replace(externalName, "/" + externalStorage);
-                break;
-            } else if (filePath.startsWith(internalName)) {
-                filePath = filePath.replace(internalName, "/" + internalStorage);
-                break;
-            }
-        }
+		String[] internalNames = new String[] { primarySdcard, "/mnt/sdcard",
+				"/storage/sdcard/", "/sdcard", "/storage/sdcard0",
+				"/storage/emulated/0" };
+		String[] externalNames = new String[] {
+				secondarySdcard == null ? " " : secondarySdcard,
+				"/mnt/extSdCard", "/storage/extSdCard/", "/extSdCard",
+				"/storage/sdcard1", "/storage/emulated/1" };
+		for (int i = 0; i < internalNames.length; i++) {
+			String internalName = internalNames[i];
+			String externalName = externalNames[i];
+			if (filePath.startsWith(externalName)) {
+				filePath = filePath
+						.replace(externalName, "/" + externalStorage);
+				break;
+			} else if (filePath.startsWith(internalName)) {
+				filePath = filePath
+						.replace(internalName, "/" + internalStorage);
+				break;
+			}
+		}
 
-        while (filePath.startsWith("//")) {
-            filePath = filePath.substring(1);
-        }
+		while (filePath.startsWith("//")) {
+			filePath = filePath.substring(1);
+		}
 
-        return filePath;
-    }
+		return filePath;
+	}
 
-    public String[] getCommands(int id, String[] items, String[] originalItems, boolean wipeData,
-            boolean wipeCaches, String backupFolder, String backupOptions) throws Exception {
+	public String[] getCommands(int id, String[] items, String[] originalItems,
+			boolean wipeData, boolean wipeCaches, String backupFolder,
+			String backupOptions) throws Exception {
 
-        RecoveryInfo info = getRecovery(id);
+		RecoveryInfo info = getRecovery(id);
 
-        return info.getCommands(mContext, items, originalItems, wipeData, wipeCaches, backupFolder,
-                backupOptions);
-    }
+		return info.getCommands(mContext, items, originalItems, wipeData,
+				wipeCaches, backupFolder, backupOptions);
+	}
 }

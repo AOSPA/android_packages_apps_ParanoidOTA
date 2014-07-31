@@ -36,103 +36,100 @@ import com.paranoid.paranoidota.updater.Updater.UpdaterListener;
 
 public class SystemActivity extends Activity implements UpdaterListener {
 
-    private RomUpdater mRomUpdater;
-    private GappsUpdater mGappsUpdater;
+	private RomUpdater mRomUpdater;
+	private GappsUpdater mGappsUpdater;
 
-    private PackageInfo mRom;
-    private PackageInfo mGapps;
+	private PackageInfo mRom;
+	private PackageInfo mGapps;
 
-    private TextView mTitle;
-    private TextView mMessage;
-    private Button mButton;
+	private TextView mTitle;
+	private TextView mMessage;
+	private Button mButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_system);
+		setContentView(R.layout.activity_system);
 
-        Utils.setRobotoThin(this, findViewById(R.id.mainlayout));
+		Utils.setRobotoThin(this, findViewById(R.id.mainlayout));
 
-        mTitle = (TextView) findViewById(R.id.title);
-        mMessage = (TextView) findViewById(R.id.message);
-        mButton = (Button) findViewById(R.id.button);
-        mButton.setVisibility(View.GONE);
+		mTitle = (TextView) findViewById(R.id.title);
+		mMessage = (TextView) findViewById(R.id.message);
+		mButton = (Button) findViewById(R.id.button);
+		mButton.setVisibility(View.GONE);
 
-        mButton.setOnClickListener(new OnClickListener() {
+		mButton.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                mRomUpdater.check(true);
-                mGappsUpdater.check(true);
-            }
+			@Override
+			public void onClick(View v) {
+				mRomUpdater.check(true);
+				mGappsUpdater.check(true);
+			}
 
-        });
+		});
 
-        mRom = null;
-        mGapps = null;
+		mRom = null;
+		mGapps = null;
 
-        mRomUpdater = new RomUpdater(this, true);
-        mRomUpdater.addUpdaterListener(this);
-        mGappsUpdater = new GappsUpdater(this, true);
-        mGappsUpdater.addUpdaterListener(this);
+		mRomUpdater = new RomUpdater(this, true);
+		mRomUpdater.addUpdaterListener(this);
+		mGappsUpdater = new GappsUpdater(this, true);
+		mGappsUpdater.addUpdaterListener(this);
 
-        mRomUpdater.check(true);
-        mGappsUpdater.check(true);
-    }
+		mRomUpdater.check(true);
+		mGappsUpdater.check(true);
+	}
 
-    @Override
-    public void startChecking(boolean isRom) {
-        setMessages(null, isRom);
-    }
+	@Override
+	public void startChecking(boolean isRom) {
+		setMessages(null, isRom);
+	}
 
-    @Override
-    public void versionFound(PackageInfo[] info, boolean isRom) {
-        setMessages(info, isRom);
-    }
+	@Override
+	public void versionFound(PackageInfo[] info, boolean isRom) {
+		setMessages(info, isRom);
+	}
 
-    @Override
-    public void checkError(String cause, boolean isRom) {
-    }
+	@Override
+	public void checkError(String cause, boolean isRom) {
+	}
 
-    private void setMessages(PackageInfo[] info, boolean isRom) {
-        if (info != null && info.length > 0) {
-            if (isRom) {
-                mRom = info.length > 0 ? info[0] : null;
-            } else {
-                mGapps = info.length > 0 ? info[0] : null;
-            }
-        }
-        Resources res = getResources();
-        boolean checking = mRomUpdater.isScanning() || mGappsUpdater.isScanning();
-        if (checking) {
-            mTitle.setText(R.string.all_up_to_date);
-            mMessage.setText(R.string.rom_scanning);
-            mButton.setVisibility(View.GONE);
-        } else {
-            mButton.setVisibility(View.VISIBLE);
-            if (mRom != null && mGapps != null) {
-                mTitle.setText(R.string.rom_gapps_new_version);
-                mMessage.setText(res.getString(R.string.system_update_found,
-                        new Object[] {
-                            mRom.getFilename() + "\n" + mGapps.getFilename()
-                        }));
-            } else if (mRom != null) {
-                mTitle.setText(R.string.rom_new_version);
-                mMessage.setText(res.getString(R.string.system_update_found,
-                        new Object[] {
-                            mRom.getFilename()
-                        }));
-            } else if (mGapps != null) {
-                mTitle.setText(R.string.gapps_new_version);
-                mMessage.setText(res.getString(R.string.system_update_found,
-                        new Object[] {
-                            mGapps.getFilename()
-                        }));
-            } else {
-                mTitle.setText(R.string.all_up_to_date);
-                mMessage.setText(R.string.no_updates);
-            }
-        }
-    }
+	private void setMessages(PackageInfo[] info, boolean isRom) {
+		if (info != null && info.length > 0) {
+			if (isRom) {
+				mRom = info.length > 0 ? info[0] : null;
+			} else {
+				mGapps = info.length > 0 ? info[0] : null;
+			}
+		}
+		Resources res = getResources();
+		boolean checking = mRomUpdater.isScanning()
+				|| mGappsUpdater.isScanning();
+		if (checking) {
+			mTitle.setText(R.string.all_up_to_date);
+			mMessage.setText(R.string.rom_scanning);
+			mButton.setVisibility(View.GONE);
+		} else {
+			mButton.setVisibility(View.VISIBLE);
+			if (mRom != null && mGapps != null) {
+				mTitle.setText(R.string.rom_gapps_new_version);
+				mMessage.setText(res.getString(
+						R.string.system_update_found,
+						new Object[] { mRom.getFilename() + "\n"
+								+ mGapps.getFilename() }));
+			} else if (mRom != null) {
+				mTitle.setText(R.string.rom_new_version);
+				mMessage.setText(res.getString(R.string.system_update_found,
+						new Object[] { mRom.getFilename() }));
+			} else if (mGapps != null) {
+				mTitle.setText(R.string.gapps_new_version);
+				mMessage.setText(res.getString(R.string.system_update_found,
+						new Object[] { mGapps.getFilename() }));
+			} else {
+				mTitle.setText(R.string.all_up_to_date);
+				mMessage.setText(R.string.no_updates);
+			}
+		}
+	}
 }
