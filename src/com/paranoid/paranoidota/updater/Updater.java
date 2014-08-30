@@ -28,7 +28,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
@@ -241,9 +240,7 @@ public abstract class Updater implements Response.Listener<JSONObject>, Response
                 Utils.showToastOnUiThread(getContext(), getContext().getResources().getString(id)
                         + ": " + error);
             } else {
-                if (id != R.string.check_gapps_updates_error) {
-                    Utils.showToastOnUiThread(getContext(), id);
-                }
+                Utils.showToastOnUiThread(getContext(), id);
             }
         }
         mCurrentServer = -1;
