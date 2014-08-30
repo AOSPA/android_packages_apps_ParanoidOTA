@@ -25,10 +25,12 @@ import com.paranoid.paranoidota.R;
 import com.paranoid.paranoidota.Utils;
 import com.paranoid.paranoidota.Version;
 import com.paranoid.paranoidota.helpers.SettingsHelper;
+import com.paranoid.paranoidota.updater.server.BbServer;
 import com.paranoid.paranoidota.updater.server.GooServer;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.URLEncoder;
 import java.util.Properties;
 
 public class GappsUpdater extends Updater {
@@ -46,7 +48,7 @@ public class GappsUpdater extends Updater {
 
     public GappsUpdater(Context context, boolean fromAlarm) {
         super(context, new Server[] {
-                new GooServer(context, false)
+                new BbServer(), new GooServer(context, false)
         }, fromAlarm);
 
         mRomVersion = new Version(RomUpdater.getVersionString(context));
@@ -121,20 +123,23 @@ public class GappsUpdater extends Updater {
 
     @Override
     public String getDevice() {
-        final String gapps = "GApps/Android " + mRomVersion.getMajor() + "."
-                + mRomVersion.getMinor() + "/";
+        String gapps = "GApps/Android " + Utils.getProp(PLATFORM_PROPERTY) + " GApps/";
         int type = getSettingsHelper().getGappsType(getTypeForSettings());
         switch (type) {
             case SettingsHelper.GAPPS_MICRO:
-                return gapps + "Micro-Modular GApps";
+                gapps += "Micro-Modular GApps";
+                break;
             case SettingsHelper.GAPPS_MINI:
-                return gapps + "Mini-Modular GApps";
+                gapps += "Mini-Modular GApps";
+                break;
             case SettingsHelper.GAPPS_STOCK:
-                return gapps + "Google Stock GApps";
+                gapps += "Google Stock GApps";
+                break;
             case SettingsHelper.GAPPS_FULL:
             default:
-                return gapps + "Full-Modular GApps";
+                gapps += "Full-Modular GApps";
         }
+        return URLEncoder.encode(gapps);
     }
 
     @Override
