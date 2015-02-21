@@ -34,7 +34,7 @@ import java.util.List;
 
 public class PaServer implements Server {
 
-    private static final String URL = "http://api.paranoidandroid.co/updates/%s";
+    private static final String URL = "http://api.aospa.co/updates/%s";
 
     private String mDevice = null;
     private String mError = null;
