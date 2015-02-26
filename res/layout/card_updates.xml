@@ -49,7 +49,7 @@
             android:id="@+id/error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/card_text_error"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/card_small_text_size"
             android:paddingTop="@dimen/card_header_padding" />
 
