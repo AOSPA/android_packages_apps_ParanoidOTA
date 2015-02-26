@@ -75,7 +75,7 @@ public class Item extends LinearLayout {
         mTitleView.setText(title);
         mDefaultColors = mTitleView.getTextColors();
         mPressedColor = context.getResources().getColor(R.color.item_pressed);
-        mIconActiveColor = context.getResources().getColor(R.color.item_action);
+        mIconActiveColor = context.getResources().getColor(R.color.colorPrimary);
         if (icon != null) {
             icon.setColorFilter(mIconActiveColor, PorterDuff.Mode.SRC_ATOP);
         }

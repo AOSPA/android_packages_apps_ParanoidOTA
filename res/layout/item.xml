@@ -43,7 +43,7 @@
         android:fadingEdge="horizontal"
         android:paddingRight="@dimen/item_padding"
         android:singleLine="true"
-        android:textColor="@color/actionbar_background"
+        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/card_medium_text_size" />
 
 </LinearLayout>
