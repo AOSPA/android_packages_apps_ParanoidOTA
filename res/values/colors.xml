@@ -19,11 +19,11 @@
 -->
 
 <resources>
-    <color name="actionbar_background">#fffe4445</color>
+    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryDark">#D32F2F</color>
     <color name="app_background">#fff3f3f4</color>
     <color name="text_light">#66000000</color>
     <color name="card_text">#ff8d8d8d</color>
-    <color name="card_text_error">#ffff0000</color>
     <color name="card_title_text">#ff707070</color>
     <color name="card_light_text">#ffb5b5b5</color>
     <color name="card_grid_text">#ff707070</color>
@@ -31,5 +31,4 @@
     <color name="card_border">#ffdedede</color>
     <color name="card_background">#ffffffff</color>
     <color name="item_pressed">#f8f8f8</color>
-    <color name="item_action">#fffe4445</color>
 </resources>
