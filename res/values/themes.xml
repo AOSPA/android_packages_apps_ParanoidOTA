@@ -20,19 +20,22 @@
 
 <resources>
 
-    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
-        <item name="android:actionBarStyle">@style/ActionBar</item>
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
+        <!-- customize the color palette -->
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+
         <item name="android:checkboxStyle">@style/Checkbox</item>
     </style>
 
-    <style name="ActionBar" 
-            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@color/actionbar_background</item>
-        <item name="android:icon">@drawable/ic_launcher_plain</item>
+    <style name="SystemActivityTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <!-- customize the color palette -->
+        <item name="android:colorPrimary">#B0BEC5</item>
+        <item name="android:colorPrimaryDark">#37474F</item>
     </style>
 
     <style name="Checkbox"
-            parent="@android:style/Widget.Holo.Light.CompoundButton.CheckBox">
+            parent="@android:style/Widget.Material.Light.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox</item>
     </style>
 
